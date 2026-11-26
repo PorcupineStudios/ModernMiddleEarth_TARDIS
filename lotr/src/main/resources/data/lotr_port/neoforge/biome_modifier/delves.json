@@ -1,0 +1,11 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#lotr_port:middle_earth",
+  "features": [
+    "lotr_port:moria",
+    "lotr_port:goblin_town",
+    "lotr_port:goblin_towns",
+    "lotr_port:goblin_porches"
+  ],
+  "step": "underground_structures"
+}

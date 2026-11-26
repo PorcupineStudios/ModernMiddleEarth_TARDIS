@@ -42,9 +42,16 @@ public final class FactionTests {
 
     private FactionTests() {}
 
+    /** Factions written by hand in src/main/resources (the goblins, 2026-11-26), not by converter/factions.py. */
+    private static final java.util.List<String> HAND_MADE = java.util.List.of("goblins");
+
     @GameTest(template = EMPTY)
     public static void everyFactionLoadsFromData(GameTestHelper helper) {
-        int expected = ContentData.read("summary.json").get(0).get("factions").getAsInt();
+        int expected = ContentData.read("summary.json").get(0).get("factions").getAsInt() + HAND_MADE.size();
+        for (String id : HAND_MADE) {
+            helper.assertTrue(Factions.definitions().containsKey(LotrPort.id(id)), "hand-made faction " + id
+                    + " didn't load");
+        }
         int loaded = Factions.definitions().size();
         helper.assertTrue(Factions.loadProblems().isEmpty(), "faction data problems: " + Factions.loadProblems());
         helper.assertTrue(loaded == expected, "loaded " + loaded + " of " + expected + " factions");

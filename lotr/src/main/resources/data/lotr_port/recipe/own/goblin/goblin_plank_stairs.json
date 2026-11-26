@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "lotr_port:goblin_planks"
+    }
+  },
+  "result": {
+    "id": "lotr_port:goblin_plank_stairs",
+    "count": 4
+  }
+}

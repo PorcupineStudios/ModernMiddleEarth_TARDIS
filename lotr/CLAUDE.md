@@ -326,6 +326,47 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - CI "Middle-earth world" step makes a new Middle-earth world on a dedicated server (`WorldCheck`): spawn, crash
   site, one chunk in every biome on the map, road blocks on a road.
 
+## Delves: Moria (2026-11-25, `world/delve/`)
+- Aaron: procedural caves, tunnels, great halls, mines, forges, stairs and bridges for Moria (later Goblin Town);
+  Moria at full map scale from the West-gate (Eregion) to Dimrill Dale, a grand Third Age ruin, coded set pieces plus
+  .nbt rooms, a hidden route through a maze. Feature `lotr_port:delve`; Moria's whole spec is
+  `worldgen/configured_feature/moria.json`. A plan per world seed (`DelvePlanner`: grid of 48-block cells, cover rule
+  under the mountain, set pieces, hidden route, Kruskal maze, prune, loops), built per chunk from a cell index.
+  Planner and builders are plain Java (`Ground` = `MiddleEarthMap.heightAt`). `/lotr_delve info|goto|preview`.
+  GameTests `DelveTests`; world check `WorldCheck.moriaIsBuilt`. **Read `lotr/docs/delves.md`** (tuning, template
+  room contract with jigsaw doorways, numbers). Inhabitants by depth: `delve_spawns/moria.json` (`DelveSpawns`;
+  orcs above, trolls below, the Balrog very rare under y -30, one at a time). Not checked in game yet.
+- Goblin Town (2026-11-26, layout `goblin`: `GoblinPlanner`, `GoblinPieces`, `RiftShape`; blocks and the trap in
+  `content/goblin/`, drawn by `converter/goblin_blocks.py`): THE town (`goblin_town.json`), generic copies
+  (`goblin_towns.json`) and decoy porches (`goblin_porches.json`) scattered per region over the northern mountains.
+  The Front Porch's floor swings open (`GoblinTraps`, block displays; armed = open drop under it, no block state, so
+  decoys are indistinguishable; redstone springs it). Spawns by zone (Great Goblin at the throne, Gollum by his lake).
+  GameTests `GoblinTests`; world check `goblinTownIsBuilt`; seen in the screenshot workflow's client
+  (`devscripts/goblin_town.txt`, whose world step needs 10 GB like build.yml's), not played yet. Read the Goblin
+  Town section of `lotr/docs/delves.md`.
+
+## Goblins (2026-11-26, Aaron: a new faction with its own model, which players can be too)
+- Faction `lotr_port:goblins` (`faction/goblins.json`, hand-written; lang keys in `converter/colonies.py UI_EN`):
+  the Misty Mountains' goblins, friends of Gundabad, Angmar, Mordor and Dol Guldur, at war with the free peoples
+  (Gundabad's list); control zones down the range from Goblin Town; pledge at Cutthroat (100). Counted in
+  `FactionTests.HAND_MADE`.
+- Body `goblin` (`client/ShapedModel` shape `GOBLIN`, an `NpcModels` kind): the humanoid boxes and 64x64 skin layout
+  drawn at goblin proportions (head x1.2, narrow hunched torso, long thin arms x1.15, short legs x0.75; part scales
+  and posture offsets added after vanilla's animation, so walk, swing, crouch and ride stay vanilla's; held items keep
+  their shape), plus bat ears and a hooked nose in the rows under y 32 (layout in `NpcModels`). Vanilla's `setupAnim`
+  never resets `head.z`/`body.z`: set them, don't add to them.
+- NPCs `goblin`, `goblin_archer`, `great_goblin` (hand-written, `NpcTests.HAND_MADE`): skins painted by
+  `converter/goblin_skins.py` (`textures/entity/goblin/`: 8 warriors, 4 hooded archers, the crowned Great Goblin;
+  colours matched to Goblin Town's blocks), orc name bank and speech. Goblin Town's spawns and the Front Porch's
+  ambush are goblins. `converter/body_preview.py` draws a skin on the goblin body (or the humanoid) outside the game.
+- Player race `goblin` (`player_race/goblin.json`: scale 0.8, a little faster, 2 less health, home Goblin Town,
+  `own_skin`): the player's own skin is converted to the goblin body (`RaceSkinRemap` goblin rules: head, body, limbs
+  as they are, flattened second layers, the vanilla hat kept, ears and nose painted in the face's median-brightness
+  colour with a darker ear hollow). `/lotr_race set <player> <race>` (op 2) sets a race without the picker.
+- GameTests `GoblinFactionTests`; JUnit `RaceSkinRemapTest`; screenshot script `lotr/devscripts/goblins.txt`
+  (`view front|back` turns the camera). Not yet: goblin traders, captains or quests; surface spawns (goblins live in
+  the goblin towns); a goblin colony race.
+
 ## Factions and realms (phase 4)
 - Great powers are data: `data/<ns>/faction/*.json` (`FactionDef`, reloads), generated from LOTR by
   `converter/factions.py`; names and ranks are lang keys `faction.<ns>.<id>[.rank.<rank>]`.
@@ -372,11 +413,23 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 ## Player races
 - Races are `data/<ns>/player_race/<id>.json` (`player/Races.Def`: scale, attributes, `model` = an `NpcModels` body,
   `skin`, `own_skin`...), picked on first entering Middle-earth; admins tune them (`RaceTunes`). `client/RacePlayers`
-  draws race players on the LOTR body. With `own_skin` (default true; orcs and Uruks false) the player's own skin is
-  converted to that body by `client/RaceSkins` (read back from the GPU, cached per skin and body) using
+  draws race players on the LOTR body. With `own_skin` (default true; every race since 2026-11-26) the player's own
+  skin is converted to that body by `client/RaceSkins` (read back from the GPU, cached per skin and body) using
   `client/RaceSkinRemap` (pure Java, unit tested): trouser/jacket/sleeve layers flattened, hair from the hat (hangs
-  down the sides and back), hobbit feet from the leg bottom, elf ears from the head side. Per-body rules:
-  `assets/<ns>/race_skin/<kind>.json` (`hang`, `ear_y`). The race `skin` is the fallback (skin not loaded, not 64x64).
+  down the sides and back), hobbit feet from the leg bottom, elf ears from the head side, goblin ears and nose in the
+  face's colour (see Goblins). Per-body rules:
+  `assets/<ns>/race_skin/<kind>.json` (`hang`, `ear_y`, `ears`, `orcish`). The race `skin` is the fallback (skin not
+  loaded, not 64x64), so it must be in the body's 64x64 layout.
+- Orcs and Uruks (2026-11-26, Aaron: a skin converter that still makes a player look orcish): bodies `orc` (a stoop,
+  arms a little long, legs a little short) and `uruk` (broad, thick-limbed, upright) are `client/ShapedModel` shapes
+  with pointed ears swept back (the elves' box at (0, 0)). Their `race_skin` `orcish` block: every pixel coloured like
+  the face (chromaticity within `tolerance`, half to 1.7 times as bright) takes the `skin` tone [h, s, v] at its own
+  relative brightness, so shading, mouth and features stay; clothes and hair get `grime`; eye whites (nearly
+  colourless and brighter than the face) glow in `eyes` with the iris beside them turned to a dark pupil; lower
+  `tusks` at the mouth corners; `scars`; Uruks carry the White Hand (`hand`). Orcs: LOTR's grey-green, red eyes.
+  Uruks: dark brown, amber eyes, the hand. Pixels are ABGR (NativeImage's order). Fallback skins: LOTR's orc and Uruk
+  skins padded to 64x64 by `converter/orc_player_skins.py` (`textures/entity/orc/player/`). `converter/body_preview.py`
+  draws any of these bodies; JUnit `RaceSkinRemapTest`, GameTest `RaceTests.ownSkinIsSyncedPerRace`.
   Armour: feet hide under boots and ears under helmets (`NpcModels.fitArmor`, NPCs too). Client config
   `race.ownSkins` turns the conversion off.
 

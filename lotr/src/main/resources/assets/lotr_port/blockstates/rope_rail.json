@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=z": {
+      "model": "lotr_port:block/rope_rail"
+    },
+    "axis=x": {
+      "model": "lotr_port:block/rope_rail",
+      "y": 90
+    }
+  }
+}

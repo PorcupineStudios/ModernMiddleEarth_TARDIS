@@ -1,0 +1,181 @@
+{
+  "delve": "lotr_port:moria",
+  "interval": 200,
+  "chance": 0.35,
+  "cap": 10,
+  "radius": 40,
+  "min_distance": 16,
+  "max_distance": 40,
+  "height_range": 8,
+  "tries": 6,
+  "entries": [
+    {
+      "npc": "lotr_port:gundabad_orc",
+      "weight": 40,
+      "min": 2,
+      "max": 4,
+      "min_y": 64,
+      "max_y": 260,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ]
+    },
+    {
+      "npc": "lotr_port:gundabad_orc_archer",
+      "weight": 20,
+      "min": 1,
+      "max": 3,
+      "min_y": 64,
+      "max_y": 260,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ]
+    },
+    {
+      "npc": "lotr_port:gundabad_warg",
+      "weight": 6,
+      "min": 1,
+      "max": 2,
+      "min_y": 64,
+      "max_y": 260,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        2,
+        2
+      ]
+    },
+    {
+      "npc": "lotr_port:gundabad_uruk",
+      "weight": 4,
+      "min": 1,
+      "max": 2,
+      "min_y": 64,
+      "max_y": 260,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ]
+    },
+    {
+      "npc": "lotr_port:gundabad_orc",
+      "weight": 20,
+      "min": 1,
+      "max": 3,
+      "min_y": 15,
+      "max_y": 63,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ]
+    },
+    {
+      "npc": "lotr_port:gundabad_uruk",
+      "weight": 20,
+      "min": 1,
+      "max": 3,
+      "min_y": 15,
+      "max_y": 63,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ]
+    },
+    {
+      "npc": "lotr_port:gundabad_uruk_archer",
+      "weight": 8,
+      "min": 1,
+      "max": 2,
+      "min_y": 15,
+      "max_y": 63,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ]
+    },
+    {
+      "npc": "lotr_port:troll",
+      "weight": 12,
+      "min": 1,
+      "max": 1,
+      "min_y": 15,
+      "max_y": 63,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        2,
+        4
+      ]
+    },
+    {
+      "npc": "lotr_port:gundabad_uruk",
+      "weight": 10,
+      "min": 1,
+      "max": 2,
+      "min_y": -64,
+      "max_y": 14,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ]
+    },
+    {
+      "npc": "lotr_port:troll",
+      "weight": 20,
+      "min": 1,
+      "max": 2,
+      "min_y": -64,
+      "max_y": 14,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        2,
+        4
+      ]
+    },
+    {
+      "npc": "lotr_port:mountain_troll",
+      "weight": 6,
+      "min": 1,
+      "max": 1,
+      "min_y": -64,
+      "max_y": 14,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        3,
+        6
+      ]
+    },
+    {
+      "npc": "lotr_port:balrog",
+      "weight": 1,
+      "min": 1,
+      "max": 1,
+      "min_y": -64,
+      "max_y": -30,
+      "chance": 0.004,
+      "max_alive": 1,
+      "space": [
+        3,
+        6
+      ]
+    }
+  ]
+}

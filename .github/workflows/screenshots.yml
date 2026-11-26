@@ -49,13 +49,18 @@ jobs:
           sudo apt-get update -q && sudo apt-get install -y -q xvfb x11-xserver-utils libgl1-mesa-dri libglu1-mesa
           pip install -q nbtlib
       - name: A Middle-earth world
-        # the CI world check's server: it makes the world, checks it and stops
+        # the CI world check's server: it makes the world, checks it and stops. 10 GB heap as in build.yml (the client
+        # starts only after it stops): at 6 GB the run of 2026-11-26 never finished. Its log is kept and its tail printed,
+        # so a slow or stuck world can be read (the step used to show only its last 5 lines, and nothing on a timeout).
         timeout-minutes: 45
         run: |
           mkdir -p lotr/run
           echo "eula=true" > lotr/run/eula.txt
           printf 'level-type=lotr_port\\:middle_earth\nonline-mode=false\nlevel-name=middle-earth-check\nmax-tick-time=-1\n' > lotr/run/server.properties
-          JAVA_TOOL_OPTIONS="-Dlotr_port.worldcheck=true -Xmx6g" ./gradlew :lotr:runServer --stacktrace 2>&1 | tail -5
+          JAVA_TOOL_OPTIONS="-Dlotr_port.worldcheck=true -Xmx10g" timeout 40m ./gradlew :lotr:runServer --stacktrace \
+            > worldcheck.log 2>&1 || echo "world server ended with $?"
+          grep -E "\\[worldcheck\\]|WORLDCHECK" worldcheck.log || true
+          tail -40 worldcheck.log
       - name: Make it a save the client opens with cheats
         run: |
           mkdir -p lotr/run/saves lotr/run/config
@@ -91,6 +96,7 @@ jobs:
           path: |
             lotr/run/screenshots/
             client.log
+            worldcheck.log
       - name: Publish to the ci-screenshots branch
         if: always()
         run: |

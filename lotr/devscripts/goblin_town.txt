@@ -1,0 +1,93 @@
+# Goblin Town (the lotr_port:goblin_town delve) for the "UI screenshots" workflow: the Front Porch from outside and
+# inside, its floor swinging open (a redstone block set beside it), the landing at the chute's foot, the town from
+# the throne both ways along the cavern and from a low platform (goto town faces across the cavern), Gollum's lake,
+# the back door, then the nearest generic goblin town and decoy porch. /lotr_delve goto finds each place in this
+# world's plan (scattered copies: the one nearest the player), so the script works on any seed. Night vision inside.
+# The race picker opens on first entering Middle-earth, so the screen is closed before every shot.
+wait 200
+/gamerule doMobSpawning false
+/gamerule doDaylightCycle false
+/time set 5000
+/weather clear
+hud off
+/lotr_delve goto lotr_port:goblin_town front_porch
+wait 900
+close
+wait 10
+shot goblin_porch
+/effect give @p minecraft:night_vision infinite 0 true
+/tp @p ^ ^ ^6
+wait 60
+/setblock ^ ^-1 ^1 minecraft:redstone_block
+/tp @p ~ ~ ~ ~ 35
+wait 4
+close
+shot goblin_trap_opening
+wait 6
+shot goblin_trap_swinging
+wait 20
+close
+wait 2
+shot goblin_trap_open
+/lotr_delve goto lotr_port:goblin_town landing
+wait 400
+close
+wait 10
+shot goblin_landing
+/lotr_delve goto lotr_port:goblin_town throne
+wait 900
+/tp @p ~ ~4 ~ 90 15
+wait 60
+close
+wait 10
+shot goblin_town_from_throne_west
+/tp @p ~ ~ ~ -90 15
+wait 60
+close
+wait 10
+shot goblin_town_from_throne_east
+/lotr_delve goto lotr_port:goblin_town lake
+wait 600
+/tp @p ~ ~2 ~ -90 10
+wait 40
+close
+wait 10
+shot goblin_gollum_lake
+/lotr_delve goto lotr_port:goblin_town town
+wait 900
+/tp @p ~ ~ ~ ~ -30
+wait 60
+close
+wait 10
+shot goblin_town_across
+/tp @p ~ ~ ~ ~50 -10
+wait 60
+close
+wait 10
+shot goblin_town_along
+/lotr_delve goto lotr_port:goblin_town back_door
+wait 600
+close
+wait 10
+shot goblin_back_door
+/effect clear @p
+/lotr_delve goto lotr_port:goblin_towns front_porch
+wait 900
+close
+wait 10
+shot goblin_generic_porch
+/effect give @p minecraft:night_vision infinite 0 true
+/lotr_delve goto lotr_port:goblin_towns town
+wait 900
+/tp @p ~ ~ ~ ~ -25
+wait 60
+close
+wait 10
+shot goblin_generic_town
+/effect clear @p
+/lotr_delve goto lotr_port:goblin_porches front_porch
+wait 900
+close
+wait 10
+shot goblin_decoy_porch
+quit

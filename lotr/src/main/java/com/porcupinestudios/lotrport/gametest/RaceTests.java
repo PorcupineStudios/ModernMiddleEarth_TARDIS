@@ -54,11 +54,14 @@ public final class RaceTests {
         helper.succeed();
     }
 
-    /** Hobbits, Men, Dwarves and Elves wear the player's own skin converted to their body; Orcs keep orc skins. */
+    /**
+     * Every race wears the player's own skin converted to its body: hobbits, Men, Dwarves and Elves as they are, Orcs,
+     * Uruks and Goblins made orcish or goblin-like (2026-11-26; Orcs used to keep LOTR's orc skins).
+     */
     @GameTest(template = "empty")
     public static void ownSkinIsSyncedPerRace(GameTestHelper helper) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
-        for (String race : java.util.List.of("hobbit", "man", "dwarf", "elf")) {
+        for (String race : java.util.List.of("hobbit", "man", "dwarf", "elf", "orc", "uruk", "goblin")) {
             player.setData(LotrRegistries.RACE, "lotr_port:" + race);
             Races.Skin skin = Races.skinOf(player);
             helper.assertTrue(skin.ownSkin(), race + " doesn't draw the player's own skin");
@@ -66,7 +69,9 @@ public final class RaceTests {
             helper.assertTrue(!skin.model().isEmpty(), race + " has no body");
         }
         player.setData(LotrRegistries.RACE, "lotr_port:orc");
-        helper.assertTrue(!Races.skinOf(player).ownSkin(), "orcs draw the player's own skin");
+        helper.assertTrue(Races.skinOf(player).model().equals("orc"), "orcs aren't on the orc body");
+        player.setData(LotrRegistries.RACE, "lotr_port:uruk");
+        helper.assertTrue(Races.skinOf(player).model().equals("uruk"), "Uruks aren't on the Uruk body");
         helper.succeed();
     }
 }

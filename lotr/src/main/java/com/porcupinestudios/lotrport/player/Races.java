@@ -24,7 +24,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -80,8 +82,8 @@ public final class Races {
      * @param hunger how fast hunger drains (multiplies the player's exhaustion), 1 = vanilla
      * @param ownSkin draw the player's own skin, converted to the race body's layout (client.RaceSkins), in place of
      *     {@code skin}; {@code skin} is then only the fallback while their skin loads or can't be converted
-     * @param model LOTR body the player is drawn on (an NPC model kind: human, hobbit, dwarf, elf, orc; "classic" for
-     *     64x32 skins); empty: the vanilla player model
+     * @param model LOTR body the player is drawn on (an NPC model kind: human, hobbit, dwarf, elf, orc, uruk, goblin;
+     *     "classic" for 64x32 skins); empty: the vanilla player model
      */
     public record Def(String name, String description, double scale, Map<ResourceLocation, Double> attributes,
             Optional<ResourceLocation> skin, List<ResourceLocation> factions, int order,
@@ -286,6 +288,24 @@ public final class Races {
                     Views.open(c.getSource().getPlayerOrException(), new View.Target(ADMIN_VIEW, "", ""), true);
                     return 1;
                 }))
+                .then(Commands.literal("set").requires(s -> s.hasPermission(2))
+                        .then(Commands.argument("player", EntityArgument.player())
+                                .then(Commands.argument("race", ResourceLocationArgument.id())
+                                        .suggests((c, sb) -> SharedSuggestionProvider.suggestResource(all().keySet(),
+                                                sb))
+                                        .executes(c -> {
+                                            ServerPlayer target = EntityArgument.getPlayer(c, "player");
+                                            ResourceLocation race = ResourceLocationArgument.getId(c, "race");
+                                            if (!all().containsKey(race)) {
+                                                c.getSource().sendFailure(Component.literal("No race " + race));
+                                                return 0;
+                                            }
+                                            // an operator's change: no starting alignment or trip to the race's home
+                                            set(target, race);
+                                            c.getSource().sendSuccess(() -> Component.literal("Race of ")
+                                                    .append(target.getDisplayName()).append(" set to " + race), true);
+                                            return 1;
+                                        }))))
                 .then(Commands.literal("reset").requires(s -> s.hasPermission(2))
                         .then(Commands.argument("player", EntityArgument.player()).executes(c -> {
                             ServerPlayer target = EntityArgument.getPlayer(c, "player");

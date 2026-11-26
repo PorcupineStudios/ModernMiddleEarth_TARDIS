@@ -64,6 +64,10 @@ final class WorldCheck {
             }
             if (problem == null) {
                 problem = spiderNestIsBuilt(overworld);
+                problem = moriaIsBuilt(overworld);
+            }
+            if (problem == null) {
+                problem = goblinTownIsBuilt(overworld);
             }
             if (problem == null) {
                 problem = TreeCheck.start(overworld);
@@ -88,6 +92,85 @@ final class WorldCheck {
         // memory, so flush the log and stop the JVM without saving.
         org.apache.logging.log4j.LogManager.shutdown();
         Runtime.getRuntime().halt(0);
+    }
+
+    /**
+     * Moria (the {@code lotr_port:moria} delve): its plan joins the gates, and the real chunk at the West-gate holds
+     * the ithildin doors in their doorway with the passage open behind them.
+     */
+    private static String moriaIsBuilt(ServerLevel level) {
+        var config = com.porcupinestudios.lotrport.world.delve.DelveFeature.config(level.getServer(),
+                LotrPort.id("moria"));
+        if (config.isEmpty()) {
+            return "no configured feature lotr_port:moria";
+        }
+        var plan = com.porcupinestudios.lotrport.world.delve.DelveFeature.plan(level.getServer(), config.get(),
+                level.getSeed());
+        if (!plan.routeComplete()) {
+            return "Moria's route from gate to gate is broken";
+        }
+        int[] door = plan.doorway("west_gate");
+        level.getChunk(door[0] >> 4, door[2] >> 4);
+        BlockPos at = new BlockPos(door[0], door[1] + 1, door[2]);
+        String block = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(level.getBlockState(at).getBlock())
+                .toString();
+        int in = (door[3] + 2) % 4;
+        // head height three blocks in (rubble may lie on the floor)
+        BlockPos behind = at.offset(com.porcupinestudios.lotrport.world.delve.DelveSpec.DX[in] * 3, 2,
+                com.porcupinestudios.lotrport.world.delve.DelveSpec.DZ[in] * 3);
+        level.getChunk(behind.getX() >> 4, behind.getZ() >> 4);
+        boolean open = level.getBlockState(behind).isAir();
+        LotrPort.LOG.info("[worldcheck] Moria: {} nodes, West-gate doorway {} holds {}, passage behind open: {}",
+                plan.nodeCount(), at.toShortString(), block, open);
+        if (!block.equals("lotr_port:ithildin_dwarven_door")) {
+            return "the West-gate's doorway " + at.toShortString() + " holds " + block;
+        }
+        return open ? null : "the West-gate's passage is blocked at " + behind.toShortString();
+    }
+
+    /**
+     * Goblin Town (the {@code lotr_port:goblin_town} delve): the real chunk at the Front Porch holds porch floor over
+     * the open chute, and the landing at the chute's foot has its straw.
+     */
+    private static String goblinTownIsBuilt(ServerLevel level) {
+        var config = com.porcupinestudios.lotrport.world.delve.DelveFeature.config(level.getServer(),
+                LotrPort.id("goblin_town"));
+        if (config.isEmpty()) {
+            return "no configured feature lotr_port:goblin_town";
+        }
+        var plan = com.porcupinestudios.lotrport.world.delve.DelveFeature.plan(level.getServer(), config.get(),
+                level.getSeed());
+        int[] porch = plan.doorway("front_porch");
+        int[] landing = plan.doorway("landing");
+        if (porch == null || landing == null) {
+            return "Goblin Town has no Front Porch or landing:\n" + plan.summary;
+        }
+        // the landing sits under the trap floor's middle; the floor is one block under the porch's floor level
+        level.getChunk(landing[0] >> 4, landing[2] >> 4);
+        BlockPos floor = new BlockPos(landing[0], porch[1] - 1, landing[2]);
+        String block = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(level.getBlockState(floor).getBlock())
+                .toString();
+        boolean armed = com.porcupinestudios.lotrport.content.goblin.GoblinTraps.armed(level, floor, 4);
+        int straw = 0;
+        for (int dx = -3; dx <= 3; dx++) {
+            for (int dz = -3; dz <= 3; dz++) {
+                for (int y = landing[1]; y <= landing[1] + 3; y++) {
+                    if (level.getBlockState(new BlockPos(landing[0] + dx, y, landing[2] + dz)).getBlock()
+                            == com.porcupinestudios.lotrport.content.goblin.GoblinBlocks.GOBLIN_STRAW.get()) {
+                        straw++;
+                    }
+                }
+            }
+        }
+        LotrPort.LOG.info("[worldcheck] Goblin Town: porch floor {} holds {} (armed {}), {} straw at the landing y {}",
+                floor.toShortString(), block, armed, straw, landing[1]);
+        if (!block.equals("lotr_port:porch_floor")) {
+            return "the Front Porch's trap floor " + floor.toShortString() + " holds " + block;
+        }
+        if (!armed) {
+            return "the Front Porch's floor at " + floor.toShortString() + " isn't over the chute";
+        }
+        return straw > 0 ? null : "no straw at the chute's foot " + landing[0] + " " + landing[1] + " " + landing[2];
     }
 
     /** Generates one chunk inside every biome on the map and checks the biome is there. */

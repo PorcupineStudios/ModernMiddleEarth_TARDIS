@@ -260,8 +260,19 @@ def c_by_name(e, is_block):
 # Blocks registered by hand in Java (not in blocks.json): their tags live here so all mining tags come from one place
 HAND = {
     "minecraft:block/mineable/axe": ["building_plaque", "treasury_ledger", "town_hall_ledger", "customs_counter",
-                                     "diplomacy_table"],
-    "minecraft:block/mineable/hoe": ["spider_egg_sac"],  # lair/EggSacBlock: soft silk, a hoe is quickest
+                                     "diplomacy_table",
+                                     # content/goblin/GoblinBlocks (converter/goblin_blocks.py)
+                                     "goblin_planks", "goblin_plank_slab", "goblin_plank_stairs", "lashed_post",
+                                     "goblin_scaffold", "rope_bridge"],
+    "minecraft:block/mineable/pickaxe": ["goblin_cage", "goblin_brazier"],
+    "minecraft:block/mineable/hoe": ["spider_egg_sac", "goblin_straw", "rope_rail"],  # spider_egg_sac: lair/EggSacBlock
+    "minecraft:block/mineable/shovel": ["porch_floor"],
+    "minecraft:block/planks": ["goblin_planks"],
+    "minecraft:item/planks": ["goblin_planks"],
+    "minecraft:block/wooden_slabs": ["goblin_plank_slab"],
+    "minecraft:item/wooden_slabs": ["goblin_plank_slab"],
+    "minecraft:block/wooden_stairs": ["goblin_plank_stairs"],
+    "minecraft:item/wooden_stairs": ["goblin_plank_stairs"],
 }
 
 

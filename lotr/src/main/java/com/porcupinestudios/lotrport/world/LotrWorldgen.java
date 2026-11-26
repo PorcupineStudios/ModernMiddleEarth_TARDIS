@@ -82,6 +82,7 @@ public final class LotrWorldgen {
         FEATURES.register("spider_nest", com.porcupinestudios.lotrport.world.feature.SpiderNestFeature::new);
         FEATURES.register("ground_cover", com.porcupinestudios.lotrport.world.feature.GroundCoverFeature::new);
         FEATURES.register("boulders", com.porcupinestudios.lotrport.world.feature.BoulderFeature::new);
+        FEATURES.register("delve", com.porcupinestudios.lotrport.world.delve.DelveFeature::new);
         BIOME_SOURCES.register("middle_earth", () -> MapBiomeSource.CODEC);
         DENSITY_FUNCTIONS.register("map_terrain", () -> MapTerrain.MAP_CODEC);
         DENSITY_FUNCTIONS.register("cave_setting", () -> CaveSetting.MAP_CODEC);
@@ -107,6 +108,9 @@ public final class LotrWorldgen {
                 com.porcupinestudios.lotrport.world.map.MiddleEarthMap.setSeed(
                         event.getServer().getWorldData().worldGenOptions().seed()));
         NeoForge.EVENT_BUS.addListener(LotrWorldgen::onCreateSpawn);
+        // delve plans are per world seed and datapack set: a new world plans afresh
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.server.ServerStoppedEvent event) ->
+                com.porcupinestudios.lotrport.world.delve.DelveFeature.clear());
     }
 
     /**
