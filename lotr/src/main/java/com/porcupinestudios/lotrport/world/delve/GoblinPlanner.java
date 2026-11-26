@@ -152,8 +152,6 @@ public final class GoblinPlanner {
                 poolTop + 20 + rnd.nextInt(Math.max(1, top - poolTop - 35))};
         }
         pieces.add(new GoblinPieces.RiftPiece(rift, poolTop, fall, pal).zone("town"));
-        // the middle of the cavern at the pool (to look up the scaffolding from)
-        doorways.put("town", new int[] {rift.x(length / 2, 0), poolTop - 1, rift.z(length / 2, 0), -1});
         log.append(String.format("  rift along %s, %d long, half %.0f, y %d..%d (ground %.0f), pool to %d, %d levels%n",
                 alongX ? "x" : "z", length, hw, bottom, top, groundMin, poolTop, levels.length));
         // platforms on both walls of every level
@@ -171,7 +169,30 @@ public final class GoblinPlanner {
                 }
             }
         }
+        townView(length);
         return true;
+    }
+
+    /**
+     * Doorway "town" for {@code /lotr_delve goto}: on the lowest level's platform nearest the cavern's middle, a step
+     * in from its rail, looking across the cavern (its 5th value is the side to face).
+     */
+    private void townView(int length) {
+        Plat best = null;
+        for (Plat pl : plats) {
+            if (pl.level() == 0 && (best == null
+                    || Math.abs((pl.u0() + pl.u1()) / 2 - length / 2) < Math.abs((best.u0() + best.u1()) / 2 - length / 2))) {
+                best = pl;
+            }
+        }
+        if (best == null) {
+            return;
+        }
+        int u = (best.u0() + best.u1()) / 2 + 1;
+        int v = best.sign() * (best.inner() + 2);
+        // v runs along z when the rift runs along x, else along x; face back towards v = 0
+        int look = rift.alongX ? (best.sign() > 0 ? DelveSpec.N : DelveSpec.S) : (best.sign() > 0 ? DelveSpec.W : DelveSpec.E);
+        doorways.put("town", new int[] {rift.x(u, v), best.y(), rift.z(u, v), -1, look});
     }
 
     /** A platform if the wall there leaves room for it; its inner edge where the rock would leave {@code depth}. */
