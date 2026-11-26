@@ -131,14 +131,17 @@ public final class DelveCommand {
                     && level.getBlockState(new net.minecraft.core.BlockPos(door[0], y + 1, door[2])).isAir())) {
                 y++;
             }
-            player.teleportTo(level, door[0] + 0.5, y, door[2] + 0.5, player.getYRot(), 0f);
+            player.teleportTo(level, door[0] + 0.5, y, door[2] + 0.5, door.length > 4 ? YAW[door[4]] : player.getYRot(),
+                    0f);
             return 1;
         }
         if (door != null) {
-            // on the gate's landing (cleared, in front of the doors), looking at them
+            // on the landing (cleared, in front of the doors) looking at them: Moria's gates 5 out, a goblin door's
+            // ledge only 3
             int s = door[3];
-            player.teleportTo(level, door[0] + DelveSpec.DX[s] * 5 + 0.5, door[1], door[2] + DelveSpec.DZ[s] * 5 + 0.5,
-                    YAW[(s + 2) % 4], 0f);
+            int out = plan.spec.layout.equals("goblin") ? 3 : 5;
+            player.teleportTo(level, door[0] + DelveSpec.DX[s] * out + 0.5, door[1],
+                    door[2] + DelveSpec.DZ[s] * out + 0.5, YAW[(s + 2) % 4], 0f);
             return 1;
         }
         int[] box = plan.setPiece(place);
