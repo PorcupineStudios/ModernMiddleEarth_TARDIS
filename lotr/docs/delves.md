@@ -104,7 +104,7 @@ Build a room in game, save it with a structure block, and drop the `.nbt` in
 
 ## Commands and tools
 - `/lotr_delve info lotr_port:moria`: the plan's summary (where each set piece went, node counts).
-- `/lotr_delve goto lotr_port:moria <set piece>`: stand outside a gate or at the west end of a set piece.
+- `/lotr_delve goto lotr_port:moria <set piece>`: stand on a gate's landing facing its doors, or at the west end of a set piece.
 - `/lotr_delve preview lotr_port:moria` (op 3): writes `delve_preview/moria/level_NN_<name>.png` (what each level
   builds at foot height, every 2nd block, over the ground) and `summary.txt`. Takes a few minutes; no world needed.
 

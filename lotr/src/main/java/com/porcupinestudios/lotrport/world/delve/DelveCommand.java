@@ -90,9 +90,9 @@ public final class DelveCommand {
         ServerLevel level = LotrDimensions.middleEarth(ctx.getSource().getServer());
         int[] door = plan.doorway(place);
         if (door != null) {
-            // outside the gate, looking at its doors
+            // on the gate's landing (cleared, in front of the doors), looking at them
             int s = door[3];
-            player.teleportTo(level, door[0] + DelveSpec.DX[s] * 10 + 0.5, door[1], door[2] + DelveSpec.DZ[s] * 10 + 0.5,
+            player.teleportTo(level, door[0] + DelveSpec.DX[s] * 5 + 0.5, door[1], door[2] + DelveSpec.DZ[s] * 5 + 0.5,
                     YAW[(s + 2) % 4], 0f);
             return 1;
         }
