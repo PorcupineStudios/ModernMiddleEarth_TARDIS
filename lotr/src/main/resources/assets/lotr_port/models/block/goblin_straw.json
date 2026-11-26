@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "lotr_port:block/goblin_straw",
+    "end": "lotr_port:block/goblin_straw_top"
+  }
+}

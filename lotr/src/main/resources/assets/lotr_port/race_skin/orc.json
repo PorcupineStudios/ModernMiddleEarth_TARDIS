@@ -1,1 +1,12 @@
-{"hang": false}
+{
+  "hang": false,
+  "ears": true,
+  "orcish": {
+    "skin": [0.24, 0.18, 0.5],
+    "eyes": "#e0301c",
+    "tusks": "#ddd3b4",
+    "grime": 0.3,
+    "tolerance": 0.06,
+    "scars": 2
+  }
+}

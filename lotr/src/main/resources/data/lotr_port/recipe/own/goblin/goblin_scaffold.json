@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "/ /",
+    " s ",
+    "/ /"
+  ],
+  "key": {
+    "/": {
+      "tag": "c:rods/wooden"
+    },
+    "s": {
+      "tag": "c:strings"
+    }
+  },
+  "result": {
+    "id": "lotr_port:goblin_scaffold",
+    "count": 4
+  }
+}

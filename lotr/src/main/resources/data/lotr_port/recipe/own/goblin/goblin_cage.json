@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "pattern": [
+    "c",
+    "#",
+    "#"
+  ],
+  "key": {
+    "c": {
+      "item": "minecraft:chain"
+    },
+    "#": {
+      "item": "minecraft:iron_bars"
+    }
+  },
+  "result": {
+    "id": "lotr_port:goblin_cage",
+    "count": 1
+  }
+}

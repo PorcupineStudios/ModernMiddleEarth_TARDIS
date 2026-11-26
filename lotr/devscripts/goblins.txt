@@ -1,0 +1,75 @@
+# The goblins (lotr_port:goblins) for the "UI screenshots" workflow: goblin warriors, archers and the Great Goblin on
+# the goblin body (rolled gear, standing still), then the player made a goblin (/lotr_race set) in their own skin
+# converted to the goblin body, seen from the front and from behind, then made an orc and an Uruk (their own skin made
+# orcish: race_skin/orc.json, uruk.json). On a stone platform high over the Shire spawn, at noon. The race picker
+# opens on first entering Middle-earth, so the screen is closed before every shot.
+wait 200
+/gamerule doMobSpawning false
+/gamerule doDaylightCycle false
+/time set 6000
+/weather clear
+hud off
+/fill -9 220 -6 9 220 16 minecraft:smooth_stone
+/fill -9 221 -6 9 232 16 minecraft:air
+/tp @p 0.5 221 12.5 180 5
+wait 100
+/summon lotr_port:npc -3.5 221 2.5 {NpcType:"lotr_port:goblin",Fresh:1b,NoAI:1b,PersistenceRequired:1b,Rotation:[0f,0f]}
+/summon lotr_port:npc -1.5 221 3.5 {NpcType:"lotr_port:goblin_archer",Fresh:1b,NoAI:1b,PersistenceRequired:1b,Rotation:[0f,0f]}
+/summon lotr_port:npc 2.5 221 3.5 {NpcType:"lotr_port:goblin",Fresh:1b,NoAI:1b,PersistenceRequired:1b,Rotation:[0f,0f]}
+/summon lotr_port:npc 4.5 221 2.5 {NpcType:"lotr_port:goblin_archer",Fresh:1b,NoAI:1b,PersistenceRequired:1b,Rotation:[0f,0f]}
+/summon lotr_port:npc 0.5 221 1.5 {NpcType:"lotr_port:great_goblin",Fresh:1b,NoAI:1b,PersistenceRequired:1b,Rotation:[0f,0f]}
+/summon lotr_port:npc -5.5 221 5.5 {NpcType:"lotr_port:gundabad_orc",Fresh:1b,NoAI:1b,PersistenceRequired:1b,Rotation:[0f,0f]}
+wait 60
+close
+wait 10
+shot goblins_lineup
+/tp @p 6.5 221 9.5 145 12
+wait 40
+close
+wait 10
+shot goblins_angle
+/tp @p 1.5 221 5.5 160 25
+wait 40
+close
+wait 10
+shot goblins_close
+/lotr_race set @p lotr_port:goblin
+/tp @p 0.5 221 9.5 0 0
+view front
+wait 60
+close
+wait 10
+shot goblin_player_front
+view back
+/tp @p 0.5 221 9.5 180 10
+wait 40
+close
+wait 10
+shot goblin_player_back
+/lotr_race set @p lotr_port:orc
+view front
+/tp @p 0.5 221 9.5 0 0
+wait 60
+close
+wait 10
+shot orc_player_front
+view back
+/tp @p 0.5 221 9.5 180 10
+wait 40
+close
+wait 10
+shot orc_player_back
+/lotr_race set @p lotr_port:uruk
+view front
+/tp @p 0.5 221 9.5 0 0
+wait 60
+close
+wait 10
+shot uruk_player_front
+view back
+/tp @p 0.5 221 9.5 180 10
+wait 40
+close
+wait 10
+shot uruk_player_back
+quit

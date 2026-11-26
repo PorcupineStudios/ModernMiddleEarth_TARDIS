@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "s s",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "lotr_port:goblin_plank_slab"
+    },
+    "s": {
+      "tag": "c:strings"
+    }
+  },
+  "result": {
+    "id": "lotr_port:rope_bridge",
+    "count": 6
+  }
+}

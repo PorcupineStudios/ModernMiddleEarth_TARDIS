@@ -1,0 +1,93 @@
+{
+  "delve": "lotr_port:goblin_towns",
+  "interval": 200,
+  "chance": 0.35,
+  "cap": 10,
+  "radius": 40,
+  "min_distance": 12,
+  "max_distance": 32,
+  "height_range": 10,
+  "tries": 6,
+  "entries": [
+    {
+      "npc": "lotr_port:goblin",
+      "weight": 40,
+      "min": 2,
+      "max": 4,
+      "min_y": -64,
+      "max_y": 640,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ],
+      "zone": "town",
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:goblin_archer",
+      "weight": 15,
+      "min": 1,
+      "max": 2,
+      "min_y": -64,
+      "max_y": 640,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ],
+      "zone": "town",
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:goblin",
+      "weight": 20,
+      "min": 2,
+      "max": 3,
+      "min_y": -64,
+      "max_y": 640,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ],
+      "zone": "landing",
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:goblin",
+      "weight": 20,
+      "min": 1,
+      "max": 2,
+      "min_y": -64,
+      "max_y": 640,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ],
+      "zone": "tunnels",
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:goblin",
+      "weight": 20,
+      "min": 1,
+      "max": 2,
+      "min_y": -64,
+      "max_y": 640,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ],
+      "zone": "back_door",
+      "dark": false
+    }
+  ]
+}

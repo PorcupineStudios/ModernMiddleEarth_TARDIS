@@ -6,8 +6,8 @@ What LOTR 1.7.10 had that the port still lacks, biggest first. (The original num
 done apart from these and was removed; what vanilla gained since 1.7.10 is in `modernize.md`.)
 
 - **World:** Utumno (dimension, layers, caves, return portal) and the ring/elven/Morgul portals; fixed builds at map
-  coordinates (Minas Tirith, Isengard walls, Rammas Echor, other waypoint settlements); dwarven mines and Taurëdain
-  pyramids; villages are one fixed layout per seed; sky (sun/moon/stars, northern lights), sandstorms, Mordor ash,
+  coordinates (Minas Tirith, Isengard walls, Rammas Echor, other waypoint settlements); LOTR's small dwarven mines (Moria is a delve now, `docs/delves.md`; the
+  mines could be small delves) and Taurëdain pyramids; villages are one fixed layout per seed; sky (sun/moon/stars, northern lights), sandstorms, Mordor ash,
   seasonal grass, holidays.
 - **NPCs:** families (hobbit/dwarf/man marriage, rings, children); travelling traders and scrap traders; Sauron;
   skeletal wraith; Gollum's fishing and inventory; troll chieftain boss fight; spider webs

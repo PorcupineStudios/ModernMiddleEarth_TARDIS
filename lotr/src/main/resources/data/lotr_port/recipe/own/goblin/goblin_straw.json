@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "minecraft:hay_block"
+    },
+    {
+      "item": "minecraft:coarse_dirt"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:goblin_straw",
+    "count": 2
+  }
+}

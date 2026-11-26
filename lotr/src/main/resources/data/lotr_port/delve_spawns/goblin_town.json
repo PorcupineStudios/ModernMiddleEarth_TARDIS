@@ -1,0 +1,141 @@
+{
+  "delve": "lotr_port:goblin_town",
+  "interval": 160,
+  "chance": 0.4,
+  "cap": 14,
+  "radius": 40,
+  "min_distance": 12,
+  "max_distance": 36,
+  "height_range": 12,
+  "tries": 8,
+  "entries": [
+    {
+      "npc": "lotr_port:goblin",
+      "weight": 40,
+      "min": 2,
+      "max": 4,
+      "min_y": -64,
+      "max_y": 640,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ],
+      "zone": "town",
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:goblin_archer",
+      "weight": 15,
+      "min": 1,
+      "max": 2,
+      "min_y": -64,
+      "max_y": 640,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ],
+      "zone": "town",
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:goblin",
+      "weight": 20,
+      "min": 2,
+      "max": 3,
+      "min_y": -64,
+      "max_y": 640,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ],
+      "zone": "landing",
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:goblin",
+      "weight": 20,
+      "min": 1,
+      "max": 2,
+      "min_y": -64,
+      "max_y": 640,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ],
+      "zone": "tunnels",
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:goblin",
+      "weight": 20,
+      "min": 1,
+      "max": 2,
+      "min_y": -64,
+      "max_y": 640,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ],
+      "zone": "back_door",
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:great_goblin",
+      "weight": 1,
+      "min": 1,
+      "max": 1,
+      "min_y": -64,
+      "max_y": 640,
+      "chance": 0.25,
+      "max_alive": 1,
+      "space": [
+        2,
+        3
+      ],
+      "zone": "throne",
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:goblin",
+      "weight": 15,
+      "min": 2,
+      "max": 3,
+      "min_y": -64,
+      "max_y": 640,
+      "chance": 1.0,
+      "max_alive": 0,
+      "space": [
+        1,
+        2
+      ],
+      "zone": "throne",
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:gollum",
+      "weight": 1,
+      "min": 1,
+      "max": 1,
+      "min_y": -64,
+      "max_y": 640,
+      "chance": 0.2,
+      "max_alive": 1,
+      "space": [
+        1,
+        2
+      ],
+      "zone": "gollum_lake",
+      "dark": true
+    }
+  ]
+}
