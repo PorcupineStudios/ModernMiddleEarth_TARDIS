@@ -20,7 +20,8 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
  * Moria (the {@code lotr_port:moria} delve, 2026-11-25, Aaron: a maze of caves, tunnels, great halls, mines, forges,
  * stairs and bridges right through the Misty Mountains). Done when: the hidden route runs from the West-gate to the
  * East-gate, the maze stays under the mountain, the plan is the same every time, its blocks and loot tables exist,
- * and the gate and the great hall build where they should.
+ * and the gate and the great hall build where they should. Their own batch: planning Moria takes about a second on
+ * the server thread, which threw the colony timing test off when they ran alongside it.
  */
 @GameTestHolder(LotrPort.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -39,7 +40,7 @@ public final class DelveTests {
         return DelveFeature.plan(server, moria(helper), helper.getLevel().getSeed());
     }
 
-    @GameTest(template = EMPTY, timeoutTicks = 400)
+    @GameTest(template = EMPTY, batch = "delves", timeoutTicks = 400)
     public static void moriaJoinsTheGatesUnderTheMountain(GameTestHelper helper) {
         DelvePlan plan = plan(helper);
         if (!plan.routeComplete()) {
@@ -64,7 +65,7 @@ public final class DelveTests {
         helper.succeed();
     }
 
-    @GameTest(template = EMPTY, timeoutTicks = 400)
+    @GameTest(template = EMPTY, batch = "delves", timeoutTicks = 400)
     public static void moriaStaysUnderTheMountain(GameTestHelper helper) {
         DelvePlan plan = plan(helper);
         MiddleEarthMap map = MiddleEarthMap.get();
@@ -88,7 +89,7 @@ public final class DelveTests {
         helper.succeed();
     }
 
-    @GameTest(template = EMPTY, timeoutTicks = 600)
+    @GameTest(template = EMPTY, batch = "delves", timeoutTicks = 600)
     public static void moriaPlansTheSameEveryTime(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         long seed = helper.getLevel().getSeed();
@@ -107,7 +108,7 @@ public final class DelveTests {
         helper.succeed();
     }
 
-    @GameTest(template = EMPTY)
+    @GameTest(template = EMPTY, batch = "delves")
     public static void moriaBlocksAndLootExist(GameTestHelper helper) {
         DelveSpec spec = DelveFeature.spec(moria(helper));
         MinecraftServer server = helper.getLevel().getServer();
@@ -124,7 +125,7 @@ public final class DelveTests {
         helper.succeed();
     }
 
-    @GameTest(template = EMPTY, timeoutTicks = 400)
+    @GameTest(template = EMPTY, batch = "delves", timeoutTicks = 400)
     public static void moriaBuildsItsGateAndGreatHall(GameTestHelper helper) {
         DelvePlan plan = plan(helper);
         MiddleEarthMap map = MiddleEarthMap.get();
@@ -153,7 +154,7 @@ public final class DelveTests {
      * Moria's people by depth (Aaron 2026-11-25): orcs above, trolls below, never a troll on the upper levels, the
      * Balrog only under y -30 and at most one at a time.
      */
-    @GameTest(template = EMPTY)
+    @GameTest(template = EMPTY, batch = "delves")
     public static void moriaSpawnsByDepth(GameTestHelper helper) {
         DelveSpawns.Table table = DelveSpawns.tables().get(LotrPort.id("moria"));
         if (table == null) {
