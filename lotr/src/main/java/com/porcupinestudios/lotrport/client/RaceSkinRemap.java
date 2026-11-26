@@ -13,9 +13,15 @@ package com.porcupinestudios.lotrport.client;
  *     ({@link Rules#earY});</li>
  * <li>goblin ears and nose ({@link NpcModels} layout, under y 32) are painted in the face's own skin colour (the face
  *     pixel of median brightness, so eyes and mouth don't count), the ears with a darker hollow, the nose shaded; the
- *     vanilla hat stays (goblins have no hair box).</li>
+ *     vanilla hat stays (goblins have no hair box);</li>
+ * <li>orcs and Uruks ({@link Orcish}, 2026-11-26, Aaron: the player still looks like themselves, but orcish): every
+ *     pixel coloured like the face's skin (same hue and saturation within {@link Orcish#tolerance}, half to 1.7 times
+ *     as bright) takes the orc skin tone at its own relative brightness, so shading and features stay; everything
+ *     else (clothes, hair) is made grimier; eye whites glow in the orc eye colour, lower tusks stand at the corners of
+ *     the mouth, scars cross the skin, and Uruks can carry the White Hand on their face.</li>
  * </ul>
- * Pixels are 64 x 64 ints, row by row; only the top byte (alpha) is read, so ARGB and ABGR both work. Pure Java
+ * Pixels are 64 x 64 ints, row by row, in NativeImage's order: alpha in the top byte, then blue, green, red in the
+ * low byte (ABGR). Only the orc colouring reads the colour bytes by name; the rest works on either order. Pure Java
  * (unit tested) so no client classes are needed to run it.
  */
 public final class RaceSkinRemap {
@@ -30,8 +36,26 @@ public final class RaceSkinRemap {
      * @param hang let hair hang below the head where the hat's lowest row is opaque
      * @param earY first row of the head's side face (0-7) the ears are taken from
      * @param goblin paint goblin ears and nose
+     * @param orcish orc colouring, or null
      */
-    public record Rules(int hairRows, boolean feet, boolean ears, boolean hang, int earY, boolean goblin) {}
+    public record Rules(int hairRows, boolean feet, boolean ears, boolean hang, int earY, boolean goblin,
+                        Orcish orcish) {}
+
+    /**
+     * How a skin is made orcish (from {@code race_skin/<kind>.json}, block {@code orcish}).
+     *
+     * @param hue skin tone hue (0-1)
+     * @param saturation skin tone saturation
+     * @param value skin tone brightness at the face's own brightness
+     * @param eyes eye colour for eye whites (ABGR), 0 = keep
+     * @param tusk tusk colour (ABGR), 0 = none
+     * @param hand White Hand colour (ABGR), 0 = none
+     * @param grime how much greyer and darker clothes and hair get (0-1)
+     * @param tolerance how far from the face's hue and saturation a pixel still counts as skin (chromaticity)
+     * @param scars how many scars cross the skin
+     */
+    public record Orcish(float hue, float saturation, float value, int eyes, int tusk, int hand, float grime,
+                         float tolerance, int scars) {}
 
     private RaceSkinRemap() {}
 
@@ -61,7 +85,155 @@ public final class RaceSkinRemap {
         if (rules.goblin()) {
             goblin(out);
         }
+        if (rules.orcish() != null) {
+            orcish(out, rules.orcish());
+        }
         return out;
+    }
+
+    /** The orc colouring ({@link Orcish}); the ear corner (0, 0) filled from the head side is coloured too. */
+    private static void orcish(int[] out, Orcish o) {
+        int ref = faceColour(out);
+        if (alpha(ref) < 128) {
+            return;
+        }
+        float refBright = Math.max(1, brightness(ref));
+        float refValue = hsv(ref)[2];
+        // eye whites: nearly colourless and brighter than the face (a pale face's lit cheek is neither), rows 1-5
+        boolean[] eye = new boolean[SIZE * SIZE];
+        for (int y = 9; y <= 13; y++) {
+            for (int x = 8; x < 16; x++) {
+                int p = out[y * SIZE + x];
+                float[] hsv = hsv(p);
+                eye[y * SIZE + x] = alpha(p) >= 128 && hsv[1] < 0.2f && hsv[2] > Math.max(0.72f, refValue * 1.05f);
+            }
+        }
+        boolean[] skin = new boolean[SIZE * SIZE];
+        for (int i = 0; i < SIZE * SIZE; i++) {
+            int p = out[i];
+            if (alpha(p) < 128) {
+                continue;
+            }
+            float ratio = brightness(p) / refBright;
+            if (!eye[i] && chromaDistance(p, ref) <= o.tolerance() && ratio >= 0.5f && ratio <= 1.7f) {
+                skin[i] = true;
+                float jitter = ((hash(i, ref) & 0xFF) / 255f - 0.5f) * 0.06f;
+                out[i] = fromHsv(p, o.hue(), o.saturation(), clamp01(o.value() * ratio + jitter));
+            } else {
+                float[] hsv = hsv(p);
+                out[i] = fromHsv(p, hsv[0], hsv[1] * (1 - o.grime()), hsv[2] * (1 - o.grime() / 2));
+            }
+        }
+        scars(out, skin, o, ref);
+        int face = 8 * SIZE + 8;
+        if (o.hand() != 0) {
+            // the White Hand: the palm over the nose, three fingers up across the brow, the thumb out to the side
+            int[][] hand = {{1, 1}, {1, 2}, {1, 3}, {3, 0}, {3, 1}, {3, 2}, {3, 3}, {5, 1}, {5, 2}, {5, 3},
+                {1, 4}, {2, 4}, {3, 4}, {4, 4}, {5, 4}, {2, 5}, {3, 5}, {4, 5}, {6, 5}, {7, 4}};
+            for (int[] h : hand) {
+                out[face + h[1] * SIZE + h[0]] = o.hand();
+            }
+        }
+        if (o.tusk() != 0) {
+            out[face + 6 * SIZE + 2] = o.tusk();
+            out[face + 6 * SIZE + 5] = o.tusk();
+        }
+        if (o.eyes() != 0) {
+            int pupil = fromHsv(0xFF000000, 0f, 0f, 0.08f);
+            for (int i = 0; i < SIZE * SIZE; i++) {
+                if (eye[i]) {
+                    out[i] = o.eyes();
+                    // the iris beside an eye white turns to a dark pupil in a glowing eye
+                    for (int n : new int[] {i - 1, i + 1}) {
+                        if (!eye[n] && !skin[n] && alpha(out[n]) >= 128 && n / SIZE == i / SIZE
+                                && n % SIZE >= 8 && n % SIZE < 16) {
+                            out[n] = pupil;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /** Short dark-red diagonal scars on skin, placed from the skin's own colour so a skin always gets the same. */
+    private static void scars(int[] out, boolean[] skin, Orcish o, int ref) {
+        // where a scar may start: a cheek, the chest, the front of the right arm, the head's right side
+        int[][] spots = {{9, 12}, {13, 11}, {21, 21}, {24, 23}, {44, 22}, {2, 10}};
+        int scar = fromHsv(0xFF000000, 0.98f, 0.5f, clamp01(o.value() * 0.55f));
+        for (int k = 0; k < o.scars(); k++) {
+            int[] s = spots[Math.floorMod(hash(k, ref), spots.length)];
+            for (int t = 0; t < 3; t++) {
+                int i = (s[1] + t) * SIZE + s[0] + t;
+                if (skin[i]) {
+                    out[i] = scar;
+                }
+            }
+        }
+    }
+
+    private static int hash(int a, int b) {
+        int h = a * 0x9E3779B1 ^ b * 0x85EBCA6B;
+        h ^= h >>> 15;
+        h *= 0x2C1B3C6D;
+        return h ^ h >>> 13;
+    }
+
+    /** Distance between two colours' chromaticity (each byte over their sum), ignoring brightness. */
+    private static float chromaDistance(int a, int b) {
+        float sa = Math.max(1, brightness(a));
+        float sb = Math.max(1, brightness(b));
+        float dr = (a & 0xFF) / sa - (b & 0xFF) / sb;
+        float dg = (a >> 8 & 0xFF) / sa - (b >> 8 & 0xFF) / sb;
+        return (float) Math.sqrt(dr * dr + dg * dg);
+    }
+
+    /** Hue, saturation, value (0-1) of an ABGR pixel. */
+    static float[] hsv(int p) {
+        float r = (p & 0xFF) / 255f;
+        float g = (p >> 8 & 0xFF) / 255f;
+        float b = (p >> 16 & 0xFF) / 255f;
+        float max = Math.max(r, Math.max(g, b));
+        float min = Math.min(r, Math.min(g, b));
+        float d = max - min;
+        float h = 0;
+        if (d > 0) {
+            if (max == r) {
+                h = ((g - b) / d) / 6f;
+            } else if (max == g) {
+                h = ((b - r) / d + 2) / 6f;
+            } else {
+                h = ((r - g) / d + 4) / 6f;
+            }
+            h = h < 0 ? h + 1 : h;
+        }
+        return new float[] {h, max == 0 ? 0 : d / max, max};
+    }
+
+    /** An ABGR pixel of the given hue, saturation and value, keeping {@code p}'s alpha. */
+    static int fromHsv(int p, float h, float s, float v) {
+        float hh = (h - (float) Math.floor(h)) * 6f;
+        int sector = (int) hh % 6;
+        float f = hh - (int) hh;
+        float a = v * (1 - s);
+        float b = v * (1 - s * f);
+        float c = v * (1 - s * (1 - f));
+        float r;
+        float g;
+        float bl;
+        switch (sector) {
+            case 0 -> { r = v; g = c; bl = a; }
+            case 1 -> { r = b; g = v; bl = a; }
+            case 2 -> { r = a; g = v; bl = c; }
+            case 3 -> { r = a; g = b; bl = v; }
+            case 4 -> { r = c; g = a; bl = v; }
+            default -> { r = v; g = a; bl = b; }
+        }
+        return (p & 0xFF000000) | Math.round(clamp01(bl) * 255) << 16 | Math.round(clamp01(g) * 255) << 8
+                | Math.round(clamp01(r) * 255);
+    }
+
+    private static float clamp01(float v) {
+        return Math.max(0f, Math.min(1f, v));
     }
 
     /**

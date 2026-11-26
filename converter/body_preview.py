@@ -1,7 +1,7 @@
-"""Draws a 64x64 skin on the goblin body or the plain humanoid outside the game (2026-11-26), to check a skin and the
-body's shape without starting Minecraft. The boxes, pivots, turns and scales copy lotr client/NpcModels and
-client/GoblinModel (standing pose); textures are mapped as Minecraft maps a box (top, bottom, right, front, left,
-back). Usage: python body_preview.py out.png goblin skin1.png [skin2.png ...]   (or humanoid)
+"""Draws a 64x64 skin on a race body outside the game (2026-11-26), to check a skin and the body's shape without
+starting Minecraft. The boxes, pivots, turns and scales copy lotr client/NpcModels and client/ShapedModel (standing
+pose); textures are mapped as Minecraft maps a box (top, bottom, right, front, left, back).
+Usage: python body_preview.py out.png <goblin|orc|uruk|humanoid> skin1.png [skin2.png ...]
 Each skin gets a front three-quarter, a side and a back three-quarter view, side by side.
 """
 import math
@@ -9,18 +9,12 @@ import sys
 
 from PIL import Image, ImageDraw
 
-# GoblinModel's numbers
-HEAD, BODY_XY, BODY_Z, ARM_XZ, ARM_Y, LEG_XZ, LEG_Y, HUNCH = 1.2, 0.85, 0.9, 0.75, 1.15, 0.8, 0.75, 0.35
-LEGS_DOWN = 12 * (1 - LEG_Y)
-BODY_LEN = 12 * BODY_XY
-BODY_DOWN = LEGS_DOWN + 12 * (1 - BODY_XY) + BODY_LEN * (1 - math.cos(HUNCH))
-BODY_FORWARD = -BODY_LEN * math.sin(HUNCH)
-SHOULDER = 2 * ARM_Y
-ARM_DOWN = BODY_DOWN + SHOULDER * math.cos(HUNCH) - 2
-ARM_FORWARD = BODY_FORWARD + SHOULDER * math.sin(HUNCH)
-ARM_IN = 5 - (4 * BODY_XY + 1 * ARM_XZ)
-HEAD_DOWN = BODY_DOWN + 0.8
-HEAD_FORWARD = BODY_FORWARD - 0.5
+# ShapedModel's shapes: head, body x y z, arm xz y, leg xz y, hunch, head sink, head forward
+SHAPES = {
+    "goblin": (1.2, 0.85, 0.85, 0.9, 0.75, 1.15, 0.8, 0.75, 0.35, 0.8, 0.5),
+    "orc": (1.0, 1.0, 0.97, 1.0, 1.0, 1.08, 1.0, 0.92, 0.2, 0.6, 0.3),
+    "uruk": (0.95, 1.12, 1.0, 1.15, 1.15, 1.05, 1.1, 1.02, 0.06, 0.3, 0.0),
+}
 
 
 class Part:
@@ -32,15 +26,21 @@ def box(u, v, x, y, z, w, h, d, mirror=False, grow=0.0):
     return (u, v, x, y, z, w, h, d, mirror, grow)
 
 
-def humanoid(goblin):
+def humanoid(kind):
     head_children = []
-    if goblin:
+    if kind == "goblin":
         back, up = 0.6, 0.18
         head_children = [
             Part((-4, -5, 0), [box(0, 32, -4, -2, -0.5, 4, 4, 1), box(0, 37, -7, -2, -0.5, 3, 2, 1)], (0, back, up)),
             Part((4, -5, 0), [box(0, 32, 0, -2, -0.5, 4, 4, 1, True), box(0, 37, 4, -2, -0.5, 3, 2, 1, True)],
                  (0, -back, -up)),
             Part((0, -3, -4), [box(16, 32, -1, -2, -2, 2, 3, 2), box(16, 37, -1, 1, -2, 2, 1, 1)], (0.15, 0, 0)),
+        ]
+    elif kind in ("orc", "uruk"):
+        back, up = 0.5, 0.25
+        head_children = [
+            Part((-4, -4.5, 0.5), [box(0, 0, -1, -2, -1, 1, 4, 2)], (0, -back, -up)),
+            Part((4, -4.5, 0.5), [box(0, 0, 0, -2, -1, 1, 4, 2, True)], (0, back, up)),
         ]
     head = Part((0, 0, 0), [box(0, 0, -4, -8, -4, 8, 8, 8)], children=head_children)
     hat = Part((0, 0, 0), [box(32, 0, -4, -8, -4, 8, 8, 8, grow=0.5)])
@@ -49,25 +49,34 @@ def humanoid(goblin):
     larm = Part((5, 2, 0), [box(40, 16, -1, -2, -2, 4, 12, 4, True)], (0, 0, -0.06))
     rleg = Part((-1.9, 12, 0), [box(0, 16, -2, 0, -2, 4, 12, 4)])
     lleg = Part((1.9, 12, 0), [box(0, 16, -2, 0, -2, 4, 12, 4, True)])
-    if goblin:  # GoblinModel.posture()
-        head.scale = [HEAD] * 3
-        hat.scale = [HEAD] * 3
-        body.scale = [BODY_XY, BODY_XY, BODY_Z]
+    if kind in SHAPES:  # ShapedModel.posture()
+        hd, bx, by, bz, axz, ay, lxz, ly, hunch, sink, fwd = SHAPES[kind]
+        body_len = 12 * by
+        legs_down = 12 * (1 - ly)
+        body_down = legs_down + 12 * (1 - by) + body_len * (1 - math.cos(hunch))
+        body_forward = -body_len * math.sin(hunch)
+        shoulder = 2 * ay
+        arm_down = body_down + shoulder * math.cos(hunch) - 2
+        arm_forward = body_forward + shoulder * math.sin(hunch)
+        arm_in = 5 - (4 * bx + axz)
+        head.scale = [hd] * 3
+        hat.scale = [hd] * 3
+        body.scale = [bx, by, bz]
         for a in (rarm, larm):
-            a.scale = [ARM_XZ, ARM_Y, ARM_XZ]
-            a.pivot[1] += ARM_DOWN
-            a.pivot[2] += ARM_FORWARD
-        rarm.pivot[0] += ARM_IN
-        larm.pivot[0] -= ARM_IN
+            a.scale = [axz, ay, axz]
+            a.pivot[1] += arm_down
+            a.pivot[2] += arm_forward
+        rarm.pivot[0] += arm_in
+        larm.pivot[0] -= arm_in
         for leg in (rleg, lleg):
-            leg.scale = [LEG_XZ, LEG_Y, LEG_XZ]
-            leg.pivot[1] += LEGS_DOWN
-        body.pivot[1] += BODY_DOWN
-        body.pivot[2] = BODY_FORWARD
-        body.rot[0] += HUNCH
+            leg.scale = [lxz, ly, lxz]
+            leg.pivot[1] += legs_down
+        body.pivot[1] += body_down
+        body.pivot[2] = body_forward
+        body.rot[0] += hunch
         for h in (head, hat):
-            h.pivot[1] += HEAD_DOWN
-            h.pivot[2] = HEAD_FORWARD
+            h.pivot[1] += body_down + sink
+            h.pivot[2] = body_forward - fwd
     return [head, hat, body, rarm, larm, rleg, lleg]
 
 
@@ -162,7 +171,7 @@ def render(parts, skin, yaw, pitch, size=360, px=9.0):
 
 def main():
     out, kind, skins = sys.argv[1], sys.argv[2], sys.argv[3:]
-    parts = humanoid(kind == "goblin")
+    parts = humanoid(kind)
     views = [(-30, 12), (-90, 0), (150, 12)]
     sheet = Image.new("RGBA", (360 * len(views), 360 * len(skins)))
     for k, path in enumerate(skins):

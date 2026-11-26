@@ -17,8 +17,9 @@ import net.minecraft.world.entity.LivingEntity;
 /**
  * The bodies LOTR draws its people with, for 64x64 skins. LOTR keeps hair in a long layer at (0, 32) that hangs
  * below the head (16 px for men, 12 for hobbits, dwarves and elves), not in the vanilla hat at (32, 0): drawing the
- * vanilla hat left everyone bald. Hobbits add big feet, elves pointed ears. Goblins (2026-11-26, {@link GoblinModel})
- * keep the vanilla hat like orcs and add bat ears and a hooked nose in the free rows under y 32:
+ * vanilla hat left everyone bald. Hobbits add big feet, elves pointed ears; orcs and Uruks keep the vanilla hat and add
+ * pointed ears swept back (the elves' 1 x 4 x 2 box at (0, 0)) on their own {@link ShapedModel} shapes. Goblins
+ * (2026-11-26) keep the vanilla hat too and add bat ears and a hooked nose in the free rows under y 32:
  * <ul>
  * <li>ear base 4 x 4 x 1 at (0, 32), ear tip 3 x 2 x 1 at (0, 37) (the left ear mirrors the right);</li>
  * <li>nose bridge 2 x 3 x 2 at (16, 32), hooked tip 2 x 1 x 1 at (16, 37).</li>
@@ -26,7 +27,7 @@ import net.minecraft.world.entity.LivingEntity;
  * 64x32 skins keep the classic humanoid.
  */
 public final class NpcModels {
-    public static final List<String> KINDS = List.of("human", "hobbit", "dwarf", "elf", "orc", "goblin");
+    public static final List<String> KINDS = List.of("human", "hobbit", "dwarf", "elf", "orc", "uruk", "goblin");
 
     private NpcModels() {}
 
@@ -39,12 +40,17 @@ public final class NpcModels {
      * goblins (none: they keep the vanilla hat).
      */
     public static int hairRows(String kind) {
-        return "orc".equals(kind) || "goblin".equals(kind) ? 0 : "human".equals(kind) ? 16 : 12;
+        return "orc".equals(kind) || "uruk".equals(kind) || "goblin".equals(kind) ? 0 : "human".equals(kind) ? 16 : 12;
     }
 
-    /** The model a body is drawn with: goblins have their own proportions and posture, the rest are humanoid. */
+    /** The model a body is drawn with: goblins, orcs and Uruks have their own shape, the rest are humanoid. */
     public static <T extends LivingEntity> HumanoidModel<T> model(String kind, ModelPart root) {
-        return "goblin".equals(kind) ? new GoblinModel<>(root) : new HumanoidModel<>(root);
+        return switch (kind) {
+            case "goblin" -> new ShapedModel<>(root, ShapedModel.GOBLIN);
+            case "orc" -> new ShapedModel<>(root, ShapedModel.ORC);
+            case "uruk" -> new ShapedModel<>(root, ShapedModel.URUK);
+            default -> new HumanoidModel<>(root);
+        };
     }
 
     /**
@@ -91,6 +97,16 @@ public final class NpcModels {
         }
         if ("goblin".equals(kind)) {
             goblin(root.getChild("head"));
+        }
+        if ("orc".equals(kind) || "uruk".equals(kind)) {
+            // pointed ears, out from the sides of the head and swept back; the texture is the elves' corner (0, 0)
+            PartDefinition head = root.getChild("head");
+            float back = 0.5f;
+            float up = 0.25f;
+            head.addOrReplaceChild("right_ear", CubeListBuilder.create().texOffs(0, 0)
+                    .addBox(-1f, -2f, -1f, 1, 4, 2), PartPose.offsetAndRotation(-4f, -4.5f, 0.5f, 0f, -back, -up));
+            head.addOrReplaceChild("left_ear", CubeListBuilder.create().texOffs(0, 0).mirror()
+                    .addBox(0f, -2f, -1f, 1, 4, 2), PartPose.offsetAndRotation(4f, -4.5f, 0.5f, 0f, back, up));
         }
         return LayerDefinition.create(mesh, 64, 64);
     }

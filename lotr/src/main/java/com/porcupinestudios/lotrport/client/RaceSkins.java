@@ -109,10 +109,31 @@ public final class RaceSkins {
                     LOG.warn("Bad race skin rules {}: {}", file, e.toString());
                 }
             }
-            return new RaceSkinRemap.Rules(NpcModels.hairRows(k), "hobbit".equals(k), "elf".equals(k),
+            return new RaceSkinRemap.Rules(NpcModels.hairRows(k), "hobbit".equals(k),
+                    GsonHelper.getAsBoolean(json, "ears", "elf".equals(k)),
                     GsonHelper.getAsBoolean(json, "hang", true), GsonHelper.getAsInt(json, "ear_y", 2),
-                    "goblin".equals(k));
+                    "goblin".equals(k), json.has("orcish") ? orcish(json.getAsJsonObject("orcish")) : null);
         });
+    }
+
+    /**
+     * The {@code orcish} block of a body's rules: {@code skin} [hue, saturation, value], {@code eyes}, {@code tusks},
+     * {@code hand} ("#rrggbb", left out = none), {@code grime}, {@code tolerance}, {@code scars}.
+     */
+    private static RaceSkinRemap.Orcish orcish(JsonObject o) {
+        var skin = GsonHelper.getAsJsonArray(o, "skin");
+        return new RaceSkinRemap.Orcish(skin.get(0).getAsFloat(), skin.get(1).getAsFloat(), skin.get(2).getAsFloat(),
+                colour(o, "eyes"), colour(o, "tusks"), colour(o, "hand"), GsonHelper.getAsFloat(o, "grime", 0.25f),
+                GsonHelper.getAsFloat(o, "tolerance", 0.06f), GsonHelper.getAsInt(o, "scars", 2));
+    }
+
+    /** "#rrggbb" as an opaque ABGR pixel (NativeImage's order), 0 if absent. */
+    private static int colour(JsonObject o, String key) {
+        if (!o.has(key)) {
+            return 0;
+        }
+        int rgb = Integer.parseInt(GsonHelper.getAsString(o, key).replace("#", ""), 16);
+        return 0xFF000000 | (rgb & 0xFF) << 16 | (rgb & 0xFF00) | (rgb >> 16 & 0xFF);
     }
 
     /** Drops every converted texture and rule (resource reload). */

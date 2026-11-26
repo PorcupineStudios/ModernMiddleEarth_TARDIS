@@ -82,8 +82,8 @@ public final class Races {
      * @param hunger how fast hunger drains (multiplies the player's exhaustion), 1 = vanilla
      * @param ownSkin draw the player's own skin, converted to the race body's layout (client.RaceSkins), in place of
      *     {@code skin}; {@code skin} is then only the fallback while their skin loads or can't be converted
-     * @param model LOTR body the player is drawn on (an NPC model kind: human, hobbit, dwarf, elf, orc; "classic" for
-     *     64x32 skins); empty: the vanilla player model
+     * @param model LOTR body the player is drawn on (an NPC model kind: human, hobbit, dwarf, elf, orc, uruk, goblin;
+     *     "classic" for 64x32 skins); empty: the vanilla player model
      */
     public record Def(String name, String description, double scale, Map<ResourceLocation, Double> attributes,
             Optional<ResourceLocation> skin, List<ResourceLocation> factions, int order,
