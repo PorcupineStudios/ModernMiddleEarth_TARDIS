@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 class RaceSkinRemapTest {
     private static final int S = RaceSkinRemap.SIZE;
     private static final int HAT = 0xFF0000AA, LEG = 0xFF00AA00, PANTS = 0xFFAA0000, HEAD = 0xFF333333;
+    private static final int FACE = 0xFF8899AA, EYE = 0xFF101010;
 
     /** A skin with a solid hat, head, right leg and a trouser layer over the leg's lower half. */
     private static int[] skin() {
@@ -34,7 +35,7 @@ class RaceSkinRemapTest {
 
     @Test
     void hobbitGetsHairFeetAndFlattenedTrousers() {
-        int[] out = RaceSkinRemap.convert(skin(), new RaceSkinRemap.Rules(12, true, false, true, 2));
+        int[] out = RaceSkinRemap.convert(skin(), new RaceSkinRemap.Rules(12, true, false, true, 2, false));
         assertEquals(HAT, at(out, 10, 34), "hair top from the hat");
         assertEquals(HAT, at(out, 26, 45), "hair back, head height");
         assertEquals(HAT, at(out, 26, 50), "hair hangs down the back");
@@ -48,15 +49,41 @@ class RaceSkinRemapTest {
 
     @Test
     void elfEarsComeFromTheHeadSide() {
-        int[] out = RaceSkinRemap.convert(skin(), new RaceSkinRemap.Rules(12, false, true, false, 2));
+        int[] out = RaceSkinRemap.convert(skin(), new RaceSkinRemap.Rules(12, false, true, false, 2, false));
         assertEquals(HEAD, at(out, 1, 3), "ear filled");
         assertEquals(0, at(out, 26, 50), "hair doesn't hang with hang off");
         assertEquals(0, at(out, 44, 36), "no feet for elves");
     }
 
     @Test
+    void goblinGetsEarsAndNoseInTheFacesColour() {
+        int[] p = skin();
+        fill(p, 8, 8, 8, 8, FACE);
+        fill(p, 9, 12, 2, 1, EYE); // eyes and mouth are darker and don't set the colour
+        fill(p, 13, 12, 2, 1, EYE);
+        fill(p, 10, 14, 4, 1, EYE);
+        int[] out = RaceSkinRemap.convert(p, new RaceSkinRemap.Rules(0, false, false, true, 2, true));
+        assertEquals(FACE, at(out, 2, 33), "ear front in the face colour");
+        assertEquals(FACE, at(out, 7, 34), "ear back in the face colour");
+        assertEquals(RaceSkinRemap.shade(FACE, 0.6f), at(out, 2, 34), "darker hollow");
+        assertEquals(FACE, at(out, 2, 38), "ear tip");
+        assertEquals(FACE, at(out, 18, 35), "nose front");
+        assertEquals(RaceSkinRemap.shade(FACE, 0.75f), at(out, 17, 37), "nose tip");
+        assertEquals(HAT, at(out, 40, 8), "goblins keep the vanilla hat");
+        assertEquals(0, at(out, 30, 40), "nothing else under y 32");
+    }
+
+    @Test
+    void goblinWithoutAFaceGetsNoEars() {
+        int[] p = skin();
+        fill(p, 8, 8, 8, 8, 0);
+        int[] out = RaceSkinRemap.convert(p, new RaceSkinRemap.Rules(0, false, false, true, 2, true));
+        assertEquals(0, at(out, 2, 33));
+    }
+
+    @Test
     void noHairKeepsTheVanillaHat() {
-        int[] out = RaceSkinRemap.convert(skin(), new RaceSkinRemap.Rules(0, false, false, true, 2));
+        int[] out = RaceSkinRemap.convert(skin(), new RaceSkinRemap.Rules(0, false, false, true, 2, false));
         assertEquals(HAT, at(out, 40, 8));
     }
 }

@@ -10,7 +10,10 @@ package com.porcupinestudios.lotrport.client;
  *     where the hat's lowest row is opaque ({@link Rules#hang});</li>
  * <li>hobbit feet (4 x 2 x 3 box at (40, 32)) come from the bottom of the leg;</li>
  * <li>elf ears (1 x 4 x 2 box at (0, 0), unused on a player skin) come from the side of the head
- *     ({@link Rules#earY}).</li>
+ *     ({@link Rules#earY});</li>
+ * <li>goblin ears and nose ({@link NpcModels} layout, under y 32) are painted in the face's own skin colour (the face
+ *     pixel of median brightness, so eyes and mouth don't count), the ears with a darker hollow, the nose shaded; the
+ *     vanilla hat stays (goblins have no hair box).</li>
  * </ul>
  * Pixels are 64 x 64 ints, row by row; only the top byte (alpha) is read, so ARGB and ABGR both work. Pure Java
  * (unit tested) so no client classes are needed to run it.
@@ -26,8 +29,9 @@ public final class RaceSkinRemap {
      * @param ears build elf ears
      * @param hang let hair hang below the head where the hat's lowest row is opaque
      * @param earY first row of the head's side face (0-7) the ears are taken from
+     * @param goblin paint goblin ears and nose
      */
-    public record Rules(int hairRows, boolean feet, boolean ears, boolean hang, int earY) {}
+    public record Rules(int hairRows, boolean feet, boolean ears, boolean hang, int earY, boolean goblin) {}
 
     private RaceSkinRemap() {}
 
@@ -54,7 +58,73 @@ public final class RaceSkinRemap {
         if (rules.ears()) {
             ears(out, rules.earY());
         }
+        if (rules.goblin()) {
+            goblin(out);
+        }
         return out;
+    }
+
+    /**
+     * Goblin ears (base 4 x 4 x 1 at (0, 32), tip 3 x 2 x 1 at (0, 37)) and nose (bridge 2 x 3 x 2 at (16, 32), tip
+     * 2 x 1 x 1 at (16, 37)) in the face's skin colour. A box w x h x d at (u, v) has its front face at (u + d, v + d)
+     * and its back at (u + 2d + w, v + d).
+     */
+    private static void goblin(int[] out) {
+        int skin = faceColour(out);
+        if (alpha(skin) < 128) {
+            return; // no face to take a colour from: leave them clear
+        }
+        int shade = shade(skin, 0.85f);
+        fill(out, 0, 32, 10, 5, shade); // ear base, every face
+        fill(out, 1, 33, 4, 4, skin); // front (the hollow faces forward)
+        fill(out, 2, 34, 2, 2, shade(skin, 0.6f));
+        fill(out, 6, 33, 4, 4, skin); // back
+        fill(out, 0, 37, 8, 3, shade); // ear tip
+        fill(out, 1, 38, 3, 2, skin);
+        fill(out, 5, 38, 3, 2, skin);
+        fill(out, 16, 32, 8, 5, shade); // nose bridge: sides and top shaded
+        fill(out, 18, 34, 2, 3, skin); // front
+        fill(out, 16, 37, 6, 2, shade(skin, 0.75f)); // hooked tip
+    }
+
+    /** The front face's (8 x 8 at (8, 8)) opaque pixel of median brightness, or 0 if it has none. */
+    static int faceColour(int[] img) {
+        java.util.List<Integer> px = new java.util.ArrayList<>();
+        for (int y = 8; y < 16; y++) {
+            for (int x = 8; x < 16; x++) {
+                int p = img[y * SIZE + x];
+                if (alpha(p) >= 128) {
+                    px.add(p);
+                }
+            }
+        }
+        if (px.isEmpty()) {
+            return 0;
+        }
+        px.sort(java.util.Comparator.comparingInt(RaceSkinRemap::brightness));
+        return px.get(px.size() / 2);
+    }
+
+    /** Sum of the three colour bytes (the same for ARGB and ABGR). */
+    private static int brightness(int p) {
+        return (p & 0xFF) + (p >> 8 & 0xFF) + (p >> 16 & 0xFF);
+    }
+
+    /** The colour bytes scaled by {@code f}, alpha kept. */
+    static int shade(int p, float f) {
+        int a = p & 0xFF000000;
+        int c0 = Math.round((p & 0xFF) * f);
+        int c1 = Math.round((p >> 8 & 0xFF) * f);
+        int c2 = Math.round((p >> 16 & 0xFF) * f);
+        return a | c2 << 16 | c1 << 8 | c0;
+    }
+
+    private static void fill(int[] img, int x0, int y0, int w, int h, int c) {
+        for (int y = y0; y < y0 + h; y++) {
+            for (int x = x0; x < x0 + w; x++) {
+                img[y * SIZE + x] = c;
+            }
+        }
     }
 
     private static void hair(int[] src, int[] out, Rules rules) {

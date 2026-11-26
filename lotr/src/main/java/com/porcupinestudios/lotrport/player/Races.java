@@ -24,7 +24,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -286,6 +288,24 @@ public final class Races {
                     Views.open(c.getSource().getPlayerOrException(), new View.Target(ADMIN_VIEW, "", ""), true);
                     return 1;
                 }))
+                .then(Commands.literal("set").requires(s -> s.hasPermission(2))
+                        .then(Commands.argument("player", EntityArgument.player())
+                                .then(Commands.argument("race", ResourceLocationArgument.id())
+                                        .suggests((c, sb) -> SharedSuggestionProvider.suggestResource(all().keySet(),
+                                                sb))
+                                        .executes(c -> {
+                                            ServerPlayer target = EntityArgument.getPlayer(c, "player");
+                                            ResourceLocation race = ResourceLocationArgument.getId(c, "race");
+                                            if (!all().containsKey(race)) {
+                                                c.getSource().sendFailure(Component.literal("No race " + race));
+                                                return 0;
+                                            }
+                                            // an operator's change: no starting alignment or trip to the race's home
+                                            set(target, race);
+                                            c.getSource().sendSuccess(() -> Component.literal("Race of ")
+                                                    .append(target.getDisplayName()).append(" set to " + race), true);
+                                            return 1;
+                                        }))))
                 .then(Commands.literal("reset").requires(s -> s.hasPermission(2))
                         .then(Commands.argument("player", EntityArgument.player()).executes(c -> {
                             ServerPlayer target = EntityArgument.getPlayer(c, "player");

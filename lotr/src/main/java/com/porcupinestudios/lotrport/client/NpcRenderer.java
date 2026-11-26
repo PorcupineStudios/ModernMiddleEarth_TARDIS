@@ -43,7 +43,7 @@ public class NpcRenderer extends HumanoidMobRenderer<LotrNpc, HumanoidModel<Lotr
         super(context, new HumanoidModel<>(context.bakeLayer(LotrClient.NPC_LAYER)), 0.5f);
         classic = model;
         for (String kind : NpcModels.KINDS) {
-            tall.put(kind, new HumanoidModel<>(context.bakeLayer(NpcModels.layer(kind))));
+            tall.put(kind, NpcModels.<LotrNpc>model(kind, context.bakeLayer(NpcModels.layer(kind))));
         }
         addLayer(new HumanoidArmorLayer<>(this,
                 new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)),

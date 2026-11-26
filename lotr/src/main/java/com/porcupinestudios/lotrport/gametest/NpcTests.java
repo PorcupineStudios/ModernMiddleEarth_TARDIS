@@ -49,9 +49,9 @@ public final class NpcTests {
         return npc.get();
     }
 
-    /** NPC types written by hand (the rig creatures, Goblin Town's Great Goblin), not by converter/npcs.py. */
+    /** NPC types written by hand (the rig creatures, the goblins), not by converter/npcs.py. */
     private static final java.util.List<String> HAND_MADE = java.util.List.of("dragon", "mumak", "stone_giant",
-            "great_goblin");
+            "great_goblin", "goblin", "goblin_archer");
 
     @GameTest(template = EMPTY)
     public static void everyNpcTypeLoadsFromData(GameTestHelper helper) {
