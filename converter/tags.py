@@ -267,6 +267,12 @@ HAND = {
     "minecraft:block/mineable/pickaxe": ["goblin_cage", "goblin_brazier"],
     "minecraft:block/mineable/hoe": ["goblin_straw", "rope_rail"],
     "minecraft:block/mineable/shovel": ["porch_floor"],
+    "minecraft:block/planks": ["goblin_planks"],
+    "minecraft:item/planks": ["goblin_planks"],
+    "minecraft:block/wooden_slabs": ["goblin_plank_slab"],
+    "minecraft:item/wooden_slabs": ["goblin_plank_slab"],
+    "minecraft:block/wooden_stairs": ["goblin_plank_stairs"],
+    "minecraft:item/wooden_stairs": ["goblin_plank_stairs"],
 }
 
 
