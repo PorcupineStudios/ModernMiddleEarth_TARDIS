@@ -192,7 +192,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   under the mountain, set pieces, hidden route, Kruskal maze, prune, loops), built per chunk from a cell index.
   Planner and builders are plain Java (`Ground` = `MiddleEarthMap.heightAt`). `/lotr_delve info|goto|preview`.
   GameTests `DelveTests`; world check `WorldCheck.moriaIsBuilt`. **Read `lotr/docs/delves.md`** (tuning, template
-  room contract with jigsaw doorways, numbers). Not checked in game yet.
+  room contract with jigsaw doorways, numbers). Inhabitants by depth: `delve_spawns/moria.json` (`DelveSpawns`;
+  orcs above, trolls below, the Balrog very rare under y -30, one at a time). Not checked in game yet.
 
 ## Factions and realms (phase 4)
 - Great powers are data: `data/<ns>/faction/*.json` (`FactionDef`, reloads), generated from LOTR by

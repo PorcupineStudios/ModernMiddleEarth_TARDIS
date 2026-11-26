@@ -113,9 +113,24 @@ Plan 1.1-1.4 s; ~49,500 candidate cells, ~20,000 kept, ~39,000 pieces; route ~13
 every chunk of the plan's box in plain Java (no world writes) took 2.1 ms a chunk on average with the earlier,
 sparser maze. Not yet measured in game.
 
+## Who lives there (Aaron 2026-11-25: orcs and trolls by depth, the Balrog very rare in the lowest mines, capped)
+`data/lotr_port/delve_spawns/moria.json` (`DelveSpawns`, reloads with /reload; biome spawns stay on the surface).
+Every `interval` (200) ticks per player inside a Moria piece, chance `chance` (0.35): up to `tries` spots 16-40
+blocks away and 8 up or down, inside the delve, dark, on solid floor with a clear `space` [width, height]; the entry
+is picked by weight among those whose `min_y`..`max_y` holds the floor, then rolls its own `chance`; `max_alive`
+caps how many of that NPC are loaded in the world; no spawn while `cap` (10) of the table's NPCs are within
+`radius` (40).
+- Levels (y 64-260): Gundabad orcs, archers, wargs, a few uruks.
+- Upper deeps (y 15-63): orcs, uruks and their archers, trolls.
+- Lower deeps (below y 15): uruks, trolls, mountain trolls where there is room (3 x 6).
+- The Balrog: y -64..-30 only (`deep_6`, `deep_7`), weight 1 of 37 there, its own chance 0.004, `max_alive` 1, room
+  3 x 6 (caverns and mines; it can't fit the 5-high tunnels). About one attempt in 9000 in the lowest deeps, roughly
+  a 0.3% chance per player-hour spent down there.
+- `/lotr_delve spawn lotr_port:moria` forces one attempt near you. GameTest `moriaSpawnsByDepth`.
+- The West-gate's doors open like any gate (Aaron 2026-11-25: no password).
+
 ## Not yet
-- Inhabitants: orc spawning by depth, cave trolls, the Balrog at the bridge, the Watcher in the Water, Gollum.
-- "Speak, friend, and enter": the West-gate's doors open like any gate.
+- The Watcher in the Water, Gollum.
 - Windows and light shafts to the mountainside (the 21st Hall's east window), the Dimrill Stair waterfall.
 - Goblin Town (same engine, its own spec: natural caverns hung with wooden scaffolding, rope bridges, fence-post
   stilts, the Great Goblin's throne, the back door to Gollum's lake).
