@@ -164,6 +164,35 @@ public final class DelvePlan {
         return false;
     }
 
+    /**
+     * The zone of the most specific piece holding a block (later-built pieces first): {@code town}, {@code throne},
+     * {@code gollum_lake}...; "" if it is in the delve but in no zoned piece, null if not in the delve.
+     */
+    public String zoneAt(int x, int y, int z) {
+        if (!touches(x, z, x, z) || y < minY || y > maxY) {
+            return null;
+        }
+        int[] ids = index.get(key(Math.floorDiv(x - ox, cell), Math.floorDiv(z - oz, cell)));
+        if (ids == null) {
+            return null;
+        }
+        String found = null;
+        int bestOrder = Integer.MIN_VALUE;
+        for (int id : ids) {
+            Piece p = pieces.get(id);
+            if (p.contains(x, y, z)) {
+                if (found == null) {
+                    found = "";
+                }
+                if (p.zone != null && p.order >= bestOrder) {
+                    bestOrder = p.order;
+                    found = p.zone;
+                }
+            }
+        }
+        return found;
+    }
+
     /** A gate's doorway {x, y (floor), z, facing side}, or null. */
     public int[] doorway(String setPiece) {
         int[] d = doorways.get(setPiece);

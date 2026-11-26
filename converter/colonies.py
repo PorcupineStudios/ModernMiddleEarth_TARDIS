@@ -53,6 +53,18 @@ UI_EN = {
     "block.lotr_port.town_hall_ledger": "Town Hall Ledger",
     "block.lotr_port.customs_counter": "Customs Counter",
     "block.lotr_port.heart_of_the_mountain": "Heart of the Mountain",
+    "block.lotr_port.goblin_planks": "Goblin Planks",
+    "block.lotr_port.goblin_plank_slab": "Goblin Plank Slab",
+    "block.lotr_port.goblin_plank_stairs": "Goblin Plank Stairs",
+    "block.lotr_port.lashed_post": "Lashed Post",
+    "block.lotr_port.goblin_scaffold": "Goblin Scaffold",
+    "block.lotr_port.rope_bridge": "Rope Bridge",
+    "block.lotr_port.rope_rail": "Rope Rail",
+    "block.lotr_port.goblin_cage": "Goblin Cage",
+    "block.lotr_port.goblin_brazier": "Goblin Brazier",
+    "block.lotr_port.goblin_straw": "Filthy Straw",
+    "block.lotr_port.porch_floor": "Dusty Cave Floor",
+    "npc.lotr_port.great_goblin": "Great Goblin",
     "block.lotr_port.diplomacy_table": "Diplomacy Table",
 }
 

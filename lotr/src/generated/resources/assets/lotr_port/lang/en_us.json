@@ -6500,5 +6500,17 @@
   "item.lotr_port.raw_silver": "Raw Silver",
   "block.lotr_port.raw_silver_block": "Block of Raw Silver",
   "item.lotr_port.raw_tin": "Raw Tin",
-  "block.lotr_port.raw_tin_block": "Block of Raw Tin"
+  "block.lotr_port.raw_tin_block": "Block of Raw Tin",
+  "block.lotr_port.goblin_planks": "Goblin Planks",
+  "block.lotr_port.goblin_plank_slab": "Goblin Plank Slab",
+  "block.lotr_port.goblin_plank_stairs": "Goblin Plank Stairs",
+  "block.lotr_port.lashed_post": "Lashed Post",
+  "block.lotr_port.goblin_scaffold": "Goblin Scaffold",
+  "block.lotr_port.rope_bridge": "Rope Bridge",
+  "block.lotr_port.rope_rail": "Rope Rail",
+  "block.lotr_port.goblin_cage": "Goblin Cage",
+  "block.lotr_port.goblin_brazier": "Goblin Brazier",
+  "block.lotr_port.goblin_straw": "Filthy Straw",
+  "block.lotr_port.porch_floor": "Dusty Cave Floor",
+  "npc.lotr_port.great_goblin": "Great Goblin"
 }

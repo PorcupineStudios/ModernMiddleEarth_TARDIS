@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "lotr_port:block/lashed_post"
+    },
+    "axis=z": {
+      "model": "lotr_port:block/lashed_post",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "lotr_port:block/lashed_post",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

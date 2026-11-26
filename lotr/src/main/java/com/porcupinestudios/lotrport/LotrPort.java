@@ -107,6 +107,7 @@ public final class LotrPort {
         NpcSpawns.register();
         NpcSpawner.register();
         com.porcupinestudios.lotrport.world.delve.DelveSpawns.register();
+        com.porcupinestudios.lotrport.content.goblin.GoblinTraps.register();
         QuestData.register();
         com.porcupinestudios.lotrport.content.SaplingRules.register();
         com.porcupinestudios.lotrport.tree.TreeRecords.register();
@@ -135,6 +136,7 @@ public final class LotrPort {
         ColonyItems.register(modBus);
         com.porcupinestudios.lotrport.colony.ColonyBlocks.register(modBus);
         com.porcupinestudios.lotrport.content.HeartOfTheMountain.register(modBus);
+        com.porcupinestudios.lotrport.content.goblin.GoblinBlocks.register(modBus);
         ColonyData.register();
         CoreComponents.init();
         SimSettings.register();

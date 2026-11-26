@@ -73,6 +73,7 @@ public final class DelveFeature extends Feature<DelveFeature.Config> {
     /** Forgets every plan (a new world may have another seed or other datapacks). */
     public static void clear() {
         PLANS.clear();
+        SCATTERED.clear();
     }
 
     /** The plan of a delve for a world seed, made on first use. */
@@ -99,13 +100,131 @@ public final class DelveFeature extends Feature<DelveFeature.Config> {
         long t = System.nanoTime();
         DelveSpec spec = DelveSpec.parse(config.spec().getAsJsonObject());
         List<DelvePlanner.TemplateInfo> templates = templates(server, spec.templates);
-        DelvePlan plan = DelvePlanner.plan(spec, seed, MiddleEarthMap.get()::heightAt, templates);
+        DelvePlan plan;
+        if (spec.layout.equals("goblin")) {
+            int[] anchor = spec.json.has("anchor") ? J.ints(spec.json.getAsJsonArray("anchor")) : new int[2];
+            plan = spec.scatter != null ? null : GoblinPlanner.plan(spec, seed, ground(), anchor[0], anchor[1]);
+            if (plan == null) {
+                plan = empty(spec, seed);
+            }
+        } else {
+            plan = DelvePlanner.plan(spec, seed, ground(), templates);
+        }
         LotrPort.LOG.info("[delve] {} planned in {} ms with {} template rooms", spec.name,
                 (System.nanoTime() - t) / 1_000_000, templates.size());
         for (String line : plan.summary.split("\n")) {
             LotrPort.LOG.info("[delve] {}", line);
         }
         return plan;
+    }
+
+    private static DelvePlan empty(DelveSpec spec, long seed) {
+        return new DelvePlan(spec, seed, 0, 0, List.of(), List.of(), List.of(), List.of(), false,
+                "delve " + spec.name + ": nothing placed", Map.of());
+    }
+
+    /** The map's ground, and its biome ids for scattered delves. */
+    public static Ground ground() {
+        MiddleEarthMap map = MiddleEarthMap.get();
+        return new Ground() {
+            @Override
+            public double height(int x, int z) {
+                return map.heightAt(x, z);
+            }
+
+            @Override
+            public String biome(int x, int z) {
+                int i = map.biomeIndexAt(x, z);
+                return i >= 0 && i < map.biomes().size() ? map.biomes().get(i).id() : null;
+            }
+        };
+    }
+
+    // ---- scattered delves: a copy per region at most ----
+
+    private record Scattered(Config config, long seed, DelveSpec spec, Map<Long, Optional<DelvePlan>> regions) {}
+
+    private static final List<Scattered> SCATTERED = new CopyOnWriteArrayList<>();
+    private static final int REGION_CACHE = 512;
+
+    private static Scattered scattered(Config config, long seed) {
+        for (Scattered s : SCATTERED) {
+            if (s.config == config && s.seed == seed) {
+                return s;
+            }
+        }
+        synchronized (SCATTERED) {
+            for (Scattered s : SCATTERED) {
+                if (s.config == config && s.seed == seed) {
+                    return s;
+                }
+            }
+            Map<Long, Optional<DelvePlan>> cache = java.util.Collections.synchronizedMap(
+                    new java.util.LinkedHashMap<>(64, 0.75f, true) {
+                        @Override
+                        protected boolean removeEldestEntry(Map.Entry<Long, Optional<DelvePlan>> e) {
+                            return size() > REGION_CACHE;
+                        }
+                    });
+            Scattered s = new Scattered(config, seed, DelveSpec.parse(config.spec().getAsJsonObject()), cache);
+            SCATTERED.add(s);
+            return s;
+        }
+    }
+
+    /** The copy of a scattered delve in one region (planned once, kept while used), if it has one. */
+    private static Optional<DelvePlan> region(Scattered s, int rx, int rz) {
+        long key = ((long) rx << 32) ^ (rz & 0xFFFFFFFFL);
+        Optional<DelvePlan> got = s.regions.get(key);
+        if (got != null) {
+            return got;
+        }
+        DelveSpec.Scatter sc = s.spec.scatter;
+        long h = Rng.hash(s.seed ^ s.spec.salt, rx, rz, 401);
+        Optional<DelvePlan> plan = Optional.empty();
+        if (Rng.unit(h) < sc.chance()) {
+            int span = Math.max(1, sc.region() - 2 * sc.margin());
+            int x = rx * sc.region() + sc.margin() + Rng.range(Rng.mix(h), 0, span - 1);
+            int z = rz * sc.region() + sc.margin() + Rng.range(Rng.mix(h + 1), 0, span - 1);
+            Ground g = ground();
+            String biome = g.biome(x, z);
+            if (biome != null && sc.biomes().contains(biome) && !excluded(s.spec, x, z)) {
+                plan = Optional.ofNullable(GoblinPlanner.plan(s.spec, s.seed, g, x, z));
+            }
+        }
+        s.regions.put(key, plan);
+        return plan;
+    }
+
+    private static boolean excluded(DelveSpec spec, int x, int z) {
+        if (!spec.json.getAsJsonObject("scatter").has("exclude")) {
+            return false;
+        }
+        for (var e : spec.json.getAsJsonObject("scatter").getAsJsonArray("exclude")) {
+            int[] c = J.ints(e.getAsJsonArray());
+            if (Math.hypot(x - c[0], z - c[1]) < c[2]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** The plans (one, or the scattered copies) that reach into these columns. */
+    public static List<DelvePlan> plansNear(MinecraftServer server, Config config, long seed, int x0, int z0, int x1,
+                                            int z1) {
+        DelveSpec.Scatter sc = scattered(config, seed).spec.scatter;
+        if (sc == null) {
+            DelvePlan p = plan(server, config, seed);
+            return p.touches(x0, z0, x1, z1) ? List.of(p) : List.of();
+        }
+        Scattered s = scattered(config, seed);
+        List<DelvePlan> out = new ArrayList<>();
+        for (int rx = Math.floorDiv(x0 - sc.reach(), sc.region()); rx <= Math.floorDiv(x1 + sc.reach(), sc.region()); rx++) {
+            for (int rz = Math.floorDiv(z0 - sc.reach(), sc.region()); rz <= Math.floorDiv(z1 + sc.reach(), sc.region()); rz++) {
+                region(s, rx, rz).filter(p -> p.touches(x0, z0, x1, z1)).ifPresent(out::add);
+            }
+        }
+        return out;
     }
 
     /** The config of a configured delve feature by id ({@code lotr_port:moria}), if the datapacks have it. */
@@ -119,11 +238,13 @@ public final class DelveFeature extends Feature<DelveFeature.Config> {
         WorldGenLevel level = context.level();
         int x0 = context.origin().getX() & ~15;
         int z0 = context.origin().getZ() & ~15;
-        DelvePlan plan = plan(level.getServer(), context.config(), level.getSeed());
-        if (!plan.touches(x0, z0, x0 + 15, z0 + 15)) {
-            return false;
+        List<DelvePlan> plans = plansNear(level.getServer(), context.config(), level.getSeed(), x0, z0, x0 + 15,
+                z0 + 15);
+        int built = 0;
+        for (DelvePlan plan : plans) {
+            built += plan.build(new LevelCanvas(level, x0, z0, context.random()));
         }
-        return plan.build(new LevelCanvas(level, x0, z0, context.random())) > 0;
+        return built > 0;
     }
 
     // ---- template rooms ----

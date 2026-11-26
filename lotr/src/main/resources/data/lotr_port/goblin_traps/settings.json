@@ -1,0 +1,26 @@
+{
+  "trigger_ticks": [
+    100,
+    240
+  ],
+  "warn_ticks": 50,
+  "swing_steps": 6,
+  "step_ticks": 3,
+  "reset_ticks": 2400,
+  "max_blocks": 256,
+  "min_drop": 4,
+  "ambush": [
+    {
+      "npc": "lotr_port:gundabad_orc",
+      "min": 2,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:gundabad_orc_archer",
+      "min": 0,
+      "max": 2
+    }
+  ],
+  "ambush_radius": 4,
+  "dust": 8
+}

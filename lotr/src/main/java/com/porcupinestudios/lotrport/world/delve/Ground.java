@@ -7,4 +7,9 @@ package com.porcupinestudios.lotrport.world.delve;
 @FunctionalInterface
 public interface Ground {
     double height(int x, int z);
+
+    /** The map biome's id at a column ({@code lotr_port:misty_mountains}), or null if unknown (scattered delves). */
+    default String biome(int x, int z) {
+        return null;
+    }
 }

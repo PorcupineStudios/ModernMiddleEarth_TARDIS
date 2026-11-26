@@ -26,14 +26,16 @@ import net.neoforged.neoforge.event.tick.LevelTickEvent;
  * mines with a cap): {@code data/<ns>/delve_spawns/<name>.json}, reloaded with /reload. Every {@code interval} ticks
  * for each player inside the delve (in one of its pieces), with chance {@code chance}, a spot {@code min_distance} to
  * {@code max_distance} blocks away and up to {@code height_range} up or down is tried: it must be inside the delve,
- * dark, on solid ground with a clear box of the entry's {@code space} [width, height] over it. The entry is picked by
- * weight among those whose {@code min_y}..{@code max_y} holds the spot, then rolls its own {@code chance}; an entry
+ * on solid ground with a clear box of the entry's {@code space} [width, height] over it. The entry is picked by
+ * weight among those whose {@code min_y}..{@code max_y} holds the spot and whose {@code zone} (if any) is the
+ * piece's there ({@code town}, {@code throne}, {@code gollum_lake}...), then rolls its own {@code chance}, and spawns
+ * only in the dark unless {@code dark} is false (lit goblin towns); an entry
  * with {@code max_alive} never has more than that many of its NPC loaded in the world (the Balrog: one). No more
  * spawn while {@code cap} delve NPCs are within {@code radius} of the player. Biome spawns stay on the surface.
  */
 public final class DelveSpawns {
     public record Entry(ResourceLocation npc, int weight, int min, int max, int minY, int maxY, float chance,
-                        int maxAlive, List<Integer> space) {
+                        int maxAlive, List<Integer> space, String zone, boolean dark) {
         public static final Codec<Entry> CODEC = RecordCodecBuilder.create(i -> i.group(
                 ResourceLocation.CODEC.fieldOf("npc").forGetter(Entry::npc),
                 Codec.INT.fieldOf("weight").forGetter(Entry::weight),
@@ -43,7 +45,9 @@ public final class DelveSpawns {
                 Codec.INT.fieldOf("max_y").forGetter(Entry::maxY),
                 Codec.FLOAT.fieldOf("chance").forGetter(Entry::chance),
                 Codec.INT.fieldOf("max_alive").forGetter(Entry::maxAlive),
-                Codec.INT.listOf().fieldOf("space").forGetter(Entry::space)).apply(i, Entry::new));
+                Codec.INT.listOf().fieldOf("space").forGetter(Entry::space),
+                Codec.STRING.optionalFieldOf("zone", "").forGetter(Entry::zone),
+                Codec.BOOL.optionalFieldOf("dark", true).forGetter(Entry::dark)).apply(i, Entry::new));
     }
 
     public record Table(ResourceLocation delve, int interval, float chance, int cap, int radius, int minDistance,
@@ -100,9 +104,11 @@ public final class DelveSpawns {
         if (config.isEmpty()) {
             return 0;
         }
-        DelvePlan plan = DelveFeature.plan(level.getServer(), config.get(), level.getSeed());
         BlockPos at = player.blockPosition();
-        if (!plan.inside(at.getX(), at.getY(), at.getZ())) {
+        List<DelvePlan> plans = DelveFeature.plansNear(level.getServer(), config.get(), level.getSeed(),
+                at.getX() - table.maxDistance(), at.getZ() - table.maxDistance(), at.getX() + table.maxDistance(),
+                at.getZ() + table.maxDistance());
+        if (plans.stream().noneMatch(p -> p.inside(at.getX(), at.getY(), at.getZ()))) {
             return 0;
         }
         AABB near = player.getBoundingBox().inflate(table.radius());
@@ -115,7 +121,14 @@ public final class DelveSpawns {
             int x = (int) Math.floor(player.getX() + Math.cos(angle) * d);
             int z = (int) Math.floor(player.getZ() + Math.sin(angle) * d);
             int y = at.getY() + random.nextInt(2 * table.heightRange() + 1) - table.heightRange();
-            if (!level.hasChunkAt(new BlockPos(x, y, z)) || !plan.inside(x, y, z)) {
+            String zone = null;
+            for (DelvePlan p : plans) {
+                if (zone == null || zone.isEmpty()) {
+                    String z2 = p.zoneAt(x, y, z);
+                    zone = z2 == null ? zone : z2;
+                }
+            }
+            if (!level.hasChunkAt(new BlockPos(x, y, z)) || zone == null) {
                 continue;
             }
             // down to the floor
@@ -133,11 +146,11 @@ public final class DelveSpawns {
                 continue;
             }
             BlockPos ground = new BlockPos(x, floor, z);
-            if (!Monster.isDarkEnoughToSpawn(level, ground, random)) {
+            Entry entry = pick(table, floor, zone, random);
+            if (entry == null || random.nextFloat() >= entry.chance() || !clear(level, ground, entry.space())) {
                 continue;
             }
-            Entry entry = pick(table, floor, random);
-            if (entry == null || random.nextFloat() >= entry.chance() || !clear(level, ground, entry.space())) {
+            if (entry.dark() && !Monster.isDarkEnoughToSpawn(level, ground, random)) {
                 continue;
             }
             if (entry.maxAlive() > 0 && alive(level, entry.npc()) >= entry.maxAlive()) {
@@ -203,10 +216,15 @@ public final class DelveSpawns {
 
     /** An entry for a floor height, by weight among those whose depth band holds it. */
     public static Entry pick(Table table, int y, RandomSource random) {
+        return pick(table, y, "", random);
+    }
+
+    /** An entry for a floor height and zone ("" = no zone): by weight among those whose band and zone fit. */
+    public static Entry pick(Table table, int y, String zone, RandomSource random) {
         List<Entry> ok = new ArrayList<>();
         int total = 0;
         for (Entry e : table.entries()) {
-            if (y >= e.minY() && y <= e.maxY() && e.weight() > 0) {
+            if (y >= e.minY() && y <= e.maxY() && e.weight() > 0 && (e.zone().isEmpty() || e.zone().equals(zone))) {
                 ok.add(e);
                 total += e.weight();
             }

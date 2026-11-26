@@ -194,6 +194,12 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   GameTests `DelveTests`; world check `WorldCheck.moriaIsBuilt`. **Read `lotr/docs/delves.md`** (tuning, template
   room contract with jigsaw doorways, numbers). Inhabitants by depth: `delve_spawns/moria.json` (`DelveSpawns`;
   orcs above, trolls below, the Balrog very rare under y -30, one at a time). Not checked in game yet.
+- Goblin Town (2026-11-26, layout `goblin`: `GoblinPlanner`, `GoblinPieces`, `RiftShape`; blocks and the trap in
+  `content/goblin/`, drawn by `converter/goblin_blocks.py`): THE town (`goblin_town.json`), generic copies
+  (`goblin_towns.json`) and decoy porches (`goblin_porches.json`) scattered per region over the northern mountains.
+  The Front Porch's floor swings open (`GoblinTraps`, block displays; armed = open drop under it, no block state, so
+  decoys are indistinguishable; redstone springs it). Spawns by zone (Great Goblin at the throne, Gollum by his lake).
+  GameTests `GoblinTests`; world check `goblinTownIsBuilt`. Read the Goblin Town section of `lotr/docs/delves.md`.
 
 ## Factions and realms (phase 4)
 - Great powers are data: `data/<ns>/faction/*.json` (`FactionDef`, reloads), generated from LOTR by

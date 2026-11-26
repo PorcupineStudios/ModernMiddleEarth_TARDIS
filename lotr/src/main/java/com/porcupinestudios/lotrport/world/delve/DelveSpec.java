@@ -69,27 +69,59 @@ public final class DelveSpec {
     /** Folder under {@code structure/} whose templates are this delve's .nbt rooms (kind {@code template}). */
     public final String templates;
     public final JsonObject json;
+    /** How the delve is laid out: {@code maze} (Moria: levels of a grid maze) or {@code goblin} (a goblin town). */
+    public final String layout;
+    /** Many small copies over the map instead of one (generic goblin towns, decoy porches); null for one. */
+    public final Scatter scatter;
+
+    /**
+     * One copy per {@code region}-block square at most, with chance {@code chance}, at a seeded spot inside it whose
+     * map biome is one of {@code biomes}; {@code reach} is how far a copy may spread from its spot.
+     */
+    public record Scatter(int region, double chance, java.util.Set<String> biomes, int reach, int margin) {}
 
     private DelveSpec(JsonObject j) {
         this.json = j;
         name = J.s(j, "name");
         salt = j.get("salt").getAsLong();
         cell = J.i(j, "cell");
-        cover = J.i(j, "cover");
-        margin = J.i(j, "margin");
-        groundStep = J.i(j, "ground_step");
-        if (cell % groundStep != 0) {
+        decay = J.d(j, "decay");
+        layout = j.has("layout") ? j.get("layout").getAsString() : "maze";
+        boolean maze = layout.equals("maze");
+        if (j.has("scatter")) {
+            JsonObject sc = J.o(j, "scatter");
+            java.util.Set<String> biomes = new java.util.HashSet<>();
+            for (JsonElement b : J.a(sc, "biomes")) {
+                biomes.add(b.getAsString());
+            }
+            scatter = new Scatter(J.i(sc, "region"), J.d(sc, "chance"), java.util.Set.copyOf(biomes),
+                    J.i(sc, "reach"), J.i(sc, "margin"));
+        } else {
+            scatter = null;
+        }
+        cover = maze ? J.i(j, "cover") : 0;
+        margin = maze ? J.i(j, "margin") : 0;
+        groundStep = maze ? J.i(j, "ground_step") : 16;
+        if (maze && cell % groundStep != 0) {
             throw new IllegalArgumentException("delve " + name + ": ground_step must divide cell");
         }
-        JsonArray axis = J.a(j, "axis");
-        axisA = J.ints(axis.get(0).getAsJsonArray());
-        axisB = J.ints(axis.get(1).getAsJsonArray());
-        halfWidth = J.d(j, "half_width");
-        decay = J.d(j, "decay");
-        JsonObject maze = J.o(j, "maze");
-        routeWiggle = J.d(maze, "route_wiggle");
-        stairCost = J.d(maze, "stair_cost");
-        prunePasses = J.i(maze, "prune_passes");
+        if (maze) {
+            JsonArray axis = J.a(j, "axis");
+            axisA = J.ints(axis.get(0).getAsJsonArray());
+            axisB = J.ints(axis.get(1).getAsJsonArray());
+            halfWidth = J.d(j, "half_width");
+            JsonObject mz = J.o(j, "maze");
+            routeWiggle = J.d(mz, "route_wiggle");
+            stairCost = J.d(mz, "stair_cost");
+            prunePasses = J.i(mz, "prune_passes");
+        } else {
+            axisA = new int[2];
+            axisB = new int[2];
+            halfWidth = 0;
+            routeWiggle = 0;
+            stairCost = 0;
+            prunePasses = 0;
+        }
         templates = j.has("templates") ? j.get("templates").getAsString() : null;
 
         Map<String, Palette> pals = new LinkedHashMap<>();
@@ -114,7 +146,7 @@ public final class DelveSpec {
         palettes = Collections.unmodifiableMap(pals);
 
         Map<String, Style> st = new LinkedHashMap<>();
-        for (Map.Entry<String, JsonElement> e : J.o(j, "styles").entrySet()) {
+        for (Map.Entry<String, JsonElement> e : (maze ? J.o(j, "styles") : new JsonObject()).entrySet()) {
             JsonObject o = e.getValue().getAsJsonObject();
             Palette p = pals.get(J.s(o, "palette"));
             if (p == null) {
@@ -130,7 +162,7 @@ public final class DelveSpec {
         styles = Collections.unmodifiableMap(st);
 
         Map<String, RoomKind> rk = new LinkedHashMap<>();
-        for (Map.Entry<String, JsonElement> e : J.o(j, "rooms").entrySet()) {
+        for (Map.Entry<String, JsonElement> e : (maze ? J.o(j, "rooms") : new JsonObject()).entrySet()) {
             JsonObject o = e.getValue().getAsJsonObject();
             List<Variant> variants = new ArrayList<>();
             if (o.has("variants")) {
@@ -153,7 +185,7 @@ public final class DelveSpec {
         rooms = Collections.unmodifiableMap(rk);
 
         List<Level> lv = new ArrayList<>();
-        JsonArray levelJson = J.a(j, "levels");
+        JsonArray levelJson = maze ? J.a(j, "levels") : new JsonArray();
         int lastFloor = Integer.MIN_VALUE;
         for (int i = 0; i < levelJson.size(); i++) {
             JsonObject o = levelJson.get(i).getAsJsonObject();
@@ -179,12 +211,16 @@ public final class DelveSpec {
         }
         levels = List.copyOf(lv);
 
-        JsonObject sw = J.o(j, "stairwell");
-        stairwell = new Stairwell(J.i(sw, "half"), J.i(sw, "newel"), J.i(sw, "rail"), J.i(sw, "gap"),
-                J.i(sw, "max_rise"));
+        if (maze) {
+            JsonObject sw = J.o(j, "stairwell");
+            stairwell = new Stairwell(J.i(sw, "half"), J.i(sw, "newel"), J.i(sw, "rail"), J.i(sw, "gap"),
+                    J.i(sw, "max_rise"));
+        } else {
+            stairwell = null;
+        }
 
         List<SetPiece> sp = new ArrayList<>();
-        for (JsonElement e : J.a(j, "set_pieces")) {
+        for (JsonElement e : maze ? J.a(j, "set_pieces") : new JsonArray()) {
             JsonObject o = e.getAsJsonObject();
             int doors = 15;
             if (o.has("doors")) {
