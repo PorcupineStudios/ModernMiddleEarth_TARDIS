@@ -23,8 +23,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
 /**
- * {@code /lotr_delve} (operators): {@code info <delve>} prints the plan's summary; {@code spawn <delve>} forces one spawn attempt nearby; {@code goto <delve> <place>}
- * teleports to a set piece (a gate's outside, a hall's west end, the Endless Stair's lowest landing...);
+ * {@code /lotr_delve} (operators): {@code info <delve>} prints the plan's summary; {@code spawn <delve>} forces one
+ * spawn attempt nearby; {@code goto <delve> <place>} teleports to a set piece (a gate's outside, a hall's west end,
+ * the Endless Stair's lowest landing...) or a goblin town's place (front_porch, landing, town, throne, lake,
+ * back_door; for scattered copies the one nearest the player);
  * {@code preview <delve>} writes {@link DelvePreview}'s pictures to {@code delve_preview/<delve>/} in the server
  * folder. A delve is a configured feature of type {@code lotr_port:delve}, e.g. {@code lotr_port:moria}.
  */
@@ -39,7 +41,13 @@ public final class DelveCommand {
     private static final SuggestionProvider<CommandSourceStack> PLACES = (ctx, b) -> {
         List<String> places = new ArrayList<>();
         DelveFeature.config(ctx.getSource().getServer(), ResourceLocationArgument.getId(ctx, "delve"))
-                .ifPresent(c -> DelveFeature.spec(c).setPieces.forEach(sp -> places.add(sp.id())));
+                .ifPresent(c -> {
+                    DelveSpec spec = DelveFeature.spec(c);
+                    spec.setPieces.forEach(sp -> places.add(sp.id()));
+                    if (spec.layout.equals("goblin")) {
+                        places.addAll(List.of("front_porch", "landing", "town", "throne", "lake", "back_door"));
+                    }
+                });
         return SharedSuggestionProvider.suggest(places, b);
     };
 
@@ -83,12 +91,49 @@ public final class DelveCommand {
         return plan.nodeCount();
     }
 
+    /** The copy of a scattered delve (generic goblin towns, decoy porches) with that place nearest the player. */
+    private static DelvePlan nearest(CommandContext<CommandSourceStack> ctx, ServerPlayer player, String place) {
+        MinecraftServer server = ctx.getSource().getServer();
+        DelveFeature.Config config = DelveFeature.config(server, ResourceLocationArgument.getId(ctx, "delve")).orElseThrow();
+        int px = player.getBlockX();
+        int pz = player.getBlockZ();
+        int r = 8000;
+        DelvePlan best = null;
+        double bestD = Double.MAX_VALUE;
+        for (DelvePlan p : DelveFeature.plansNear(server, config, LotrDimensions.middleEarth(server).getSeed(),
+                px - r, pz - r, px + r, pz + r)) {
+            int[] d = p.doorway(place);
+            if (d != null && Math.hypot(d[0] - px, d[2] - pz) < bestD) {
+                bestD = Math.hypot(d[0] - px, d[2] - pz);
+                best = p;
+            }
+        }
+        return best;
+    }
+
     private static int go(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         ServerPlayer player = ctx.getSource().getPlayerOrException();
-        DelvePlan plan = plan(ctx);
         String place = StringArgumentType.getString(ctx, "place");
+        DelvePlan plan = DelveFeature.config(ctx.getSource().getServer(), ResourceLocationArgument.getId(ctx, "delve"))
+                .map(DelveFeature::spec).filter(s -> s.scatter != null).isPresent()
+                ? nearest(ctx, player, place) : plan(ctx);
+        if (plan == null) {
+            ctx.getSource().sendFailure(Component.literal("No copy with a " + place + " within 8000 blocks"));
+            return 0;
+        }
         ServerLevel level = LotrDimensions.middleEarth(ctx.getSource().getServer());
         int[] door = plan.doorway(place);
+        if (door != null && door[3] < 0) {
+            // a place without a front (the throne, the landing, the lake): on the first footing at or over it
+            level.getChunk(door[0] >> 4, door[2] >> 4);
+            int y = door[1];
+            while (y < door[1] + 12 && !(level.getBlockState(new net.minecraft.core.BlockPos(door[0], y, door[2])).isAir()
+                    && level.getBlockState(new net.minecraft.core.BlockPos(door[0], y + 1, door[2])).isAir())) {
+                y++;
+            }
+            player.teleportTo(level, door[0] + 0.5, y, door[2] + 0.5, player.getYRot(), 0f);
+            return 1;
+        }
         if (door != null) {
             // on the gate's landing (cleared, in front of the doors), looking at them
             int s = door[3];

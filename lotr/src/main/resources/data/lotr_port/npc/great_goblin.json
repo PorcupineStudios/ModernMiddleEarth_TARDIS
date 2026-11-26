@@ -1,0 +1,73 @@
+{
+  "faction": "lotr_port:gundabad",
+  "skins": [
+    "lotr_port:textures/entity/orc/orc/0.png",
+    "lotr_port:textures/entity/orc/orc/1.png",
+    "lotr_port:textures/entity/orc/orc/2.png",
+    "lotr_port:textures/entity/orc/orc/3.png",
+    "lotr_port:textures/entity/orc/orc/4.png",
+    "lotr_port:textures/entity/orc/orc/5.png",
+    "lotr_port:textures/entity/orc/orc/6.png",
+    "lotr_port:textures/entity/orc/orc/7.png"
+  ],
+  "model": "orc",
+  "behaviours": [
+    "orc",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "daylight_ticks": 200,
+    "avoid_range": 8,
+    "avoid_speed": 1.5,
+    "avoid_alignment": -500,
+    "burn_panic_speed": 1.5,
+    "skirmish_chance": 20000,
+    "skirmish_min": 40,
+    "skirmish_ticks": 160,
+    "weak_orc": 0,
+    "avoid_good": 0,
+    "eat_chance": 6000,
+    "drink_chance": 6000
+  },
+  "sounds": {
+    "ambient": "lotr_port:orc.say",
+    "hurt": "lotr_port:orc.hurt",
+    "death": "lotr_port:orc.death"
+  },
+  "scale": 1.55,
+  "health": 160.0,
+  "speed": 0.17,
+  "attack": 7.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:mordor_battleaxe",
+      "lotr_port:mordor_warhammer"
+    ],
+    "head": [
+      "lotr_port:bone_helmet"
+    ],
+    "chest": [
+      "lotr_port:angmar_chestplate",
+      "lotr_port:bone_chestplate",
+      "lotr_port:bronze_chestplate",
+      "lotr_port:dol_guldur_chestplate",
+      "lotr_port:gundabad_uruk_chestplate"
+    ],
+    "legs": [
+      "lotr_port:angmar_leggings",
+      "lotr_port:dol_guldur_leggings",
+      "lotr_port:mordor_leggings",
+      "minecraft:leather_leggings"
+    ],
+    "feet": [
+      "lotr_port:angmar_boots",
+      "lotr_port:bone_boots",
+      "lotr_port:dol_guldur_boots",
+      "lotr_port:fur_boots",
+      "lotr_port:gundabad_uruk_boots",
+      "minecraft:leather_boots"
+    ]
+  },
+  "names": "lotr_port:great_goblin",
+  "speech": "lotr_port:gundabad/orc"
+}

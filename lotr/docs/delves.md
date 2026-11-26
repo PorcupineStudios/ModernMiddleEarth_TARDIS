@@ -1,8 +1,8 @@
-# Delves: Moria (and later Goblin Town)
+# Delves: Moria and Goblin Town
 
-A **delve** is a procedural underground complex: a maze of levels, corridors, rooms, stairwells and hand-placed
-"set pieces", planned once per world and built chunk by chunk. Moria is the first (2026-11-25). Goblin Town will
-be a second data file with its own palette and room kinds (wooden scaffolding, fence-post stilts) on the same engine.
+A **delve** is a procedural underground complex, planned once per world and built chunk by chunk. Two layouts share
+the engine (spec `layout`): `maze` (Moria, 2026-11-25: levels, corridors, rooms, stairwells and hand-placed set
+pieces) and `goblin` (Goblin Town, 2026-11-26: one great cavern hung with wooden scaffolding; see its section below).
 
 Aaron's decisions (2026-11-25): Moria at **full map scale**, gate to gate (the map's West-gate in Eregion to Dimrill
 Dale, ~4.6 km under the Misty Mountains); a **grand Third Age ruin** (intact architecture, dark, cracked, rubble,
@@ -129,8 +129,75 @@ caps how many of that NPC are loaded in the world; no spawn while `cap` (10) of 
 - `/lotr_delve spawn lotr_port:moria` forces one attempt near you. GameTest `moriaSpawnsByDepth`.
 - The West-gate's doors open like any gate (Aaron 2026-11-25: no password).
 
+## Goblin Town (2026-11-26, `GoblinPlanner`, `GoblinPieces`, `RiftShape`, `content/goblin/`)
+Aaron: THE Goblin Town plus smaller generic ones; scrappy wooden scaffolding with new blocks that sit together in
+hue and contrast; the Front Porch's floor should literally swing open (Create may drive it); decoy caves that look
+exactly like the Front Porch but are safe; the deep falls into Gollum's watery cave; the back door.
+- Three configured features, all layout `goblin`, all on the biome modifier `delves.json`:
+  - `goblin_town`: THE town, one per world at `anchor` (52544, -4288).
+  - `goblin_towns`: generic copies, smaller (`town.length` 70-110, half width 18-26, height 60-80, random axis,
+    back door with chance 0.5, no throne or lake). `scatter`: one chance (`chance` 0.35) per `region` (2048) square,
+    at a seeded spot `margin` (300) inside it, only if that spot's map biome is in `biomes` (Misty, Grey, Angmar
+    mountains) and outside every `exclude` circle (THE town's 2600). `reach` (700): how far a copy can spread from its
+    spot (chunks look that far for copies). Copies are planned when a chunk nears them and kept (512 regions).
+  - `goblin_porches`: decoys, just the porch (`armed` false, `chute` false), region 768, chance 0.4, foothills too.
+  Seed 12345 (measured outside the game): 27 generic towns and 188 decoys between x 44000-60000, z -30000-30000.
+- **The cavern** (`town`, `RiftShape`): a tall rift along `axis`, `length` x 2 `half_width`, `height` high, its top
+  `cover` under the lowest ground over it (at most `max_top`). Across, it is narrow at the bottom (a pool
+  `pool_depth` deep), widest a little under the middle, a dome at the top; ends taper; walls are 3D noise
+  (`roughness`). Water falls (`falls`) pour from the walls into the pool.
+- **Scaffolding**: `levels` (from 0.4 to 0.86 of the height, `gap` apart). Per level: platforms against both walls
+  (`platforms`: spacing, length, depth; plank decks to the rock, rails of lashed posts, stilts of single fence posts
+  or diagonal beams to the wall below, braziers and lanterns, junk, lean-to huts of planks and straw roofs), walkways
+  along the walls between them (`walkway_*`), bridges across (`bridges`: per level, chance, share of rope bridges;
+  they sag by up to half a block per few blocks), ladders between levels (plank column + ladder, a hatch), cages
+  hung on chains. The Great Goblin's throne (`throne`) on a rock spire rising from the pool at `at` of the length,
+  on `level`: deck, dais, a dark oak throne, skulls, braziers, bridged to both walls.
+- **The Front Porch** (`porch`): a shallow dry cave in a cliff (a spot within `search` of `near` where the ground
+  rises `rise` within `look`, ground in `ground`), `width` x `height` x `depth`. Its floor from `floor_from` to
+  `floor_to` in, `floor_half` either side, is **porch floor** (Dusty Cave Floor). THE town's lies over a chute
+  (at least `min_drop` 16; 215 blocks at seed 12345) to the **landing**, a low cave on a town level below with a heap of Filthy Straw
+  (`straw`; it takes all fall damage) and a tunnel (`tunnel`: half-block steps, at most `max_slope`) into the town.
+  Decoys are built by the same code at their own spot, rock under the floor sealed 6 deep; GameTest
+  `goblinTownKeepsItsRules` builds a decoy at THE porch's spot and checks every block from the floor up is the same.
+- **The trap** (`GoblinTraps`, numbers in `data/lotr_port/goblin_traps/settings.json`, reloads): a porch floor is
+  armed when at least `min_drop` (4) blocks under it are open. There is no block state for it, so nothing on screen
+  or in F3 tells a trap from a decoy (only digging or falling does). Stand on an armed floor for `trigger_ticks`
+  (100-240) and grit falls (`dust`) with creaks for the last `warn_ticks` (50); then it springs: every porch floor
+  block joined to it (up to `max_blocks`) becomes a block display, the floor splits along its long axis and the
+  two leaves swing down on their outer edges in `swing_steps` (6) steps of `step_ticks` (3), and the `ambush`
+  (2-4 Gundabad orcs, 0-2 archers) waits within `ambush_radius` at the bottom. After `reset_ticks` (2400) with no
+  player within a few blocks it swings shut and the floor is whole again. Open traps are saved
+  (`lotr_port_goblin_traps`; a swing cut short by a restart carries on, and a trap waits while its chunks are
+  unloaded). A **redstone signal** beside an armed floor
+  springs it too: a lever, or Create (a contraption's redstone link or contact) can work one, and players can
+  build their own over a pit (the block has a recipe). GameTests `goblinTrapSwingsOpenAndShuts`,
+  `goblinTrapSpringsOnRedstone`, `goblinTrapSpringsUnderfoot`.
+- **Gollum's lake** (`lake`): past the cavern's far end at the pool's level (the falls drop into the pool),
+  reached by a flooded tunnel:
+  a round cave `radius` 28, `height` 14, still water `water_depth` deep, an island (`island_radius`), shores, glow
+  lichen. **The back door** (`back_door`): a passage `passage` long from the lake (or the cavern) up to a slope
+  within `search` of `near` (zigzag stairs when too steep), a dark oak door in a frame, a ledge outside.
+- **Who lives there** (`delve_spawns/goblin_town.json`, `goblin_towns.json`; `DelveSpawns` with zones): each piece
+  has a zone (`town`, `throne`, `porch`, `landing`, `tunnels`, `gollum_lake`, `back_door`) and an entry spawns only
+  in its `zone` (empty = anywhere in the delve). Goblin Town is lit, so its entries have `dark` false. Gundabad
+  orcs and archers in the town, at the landing, in the tunnels and at the back door; the **Great Goblin**
+  (`npc/great_goblin.json`: a big Gundabad orc, scale 1.55, health 160, battleaxe or warhammer) only at the throne,
+  chance 0.25, one at a time; **Gollum** only by his lake, in the dark, chance 0.2, one at a time. GameTest
+  `goblinSpawnsByZone`.
+- **Blocks** (`converter/goblin_blocks.py` draws every texture from one palette of warm greyed browns, rope tan,
+  rust and straw, so they sit together and against Middle-earth's stone; it also writes models, blockstates, loot,
+  recipes): Goblin Planks (+ slab, stairs), Lashed Post (thin log lashed with rope, any axis), Goblin Scaffold (open
+  frame you see through), Rope Bridge (half-height slats, top or bottom half, either axis), Rope Rail (a rope
+  handrail that stops you like a fence), Goblin Cage, Goblin Brazier (light 15, burns what steps in), Filthy Straw (no fall
+  damage), Dusty Cave Floor (the porch floor). Run `python goblin_blocks.py` in `converter/` after changing them.
+- `/lotr_delve goto <delve> front_porch|landing|town|throne|lake|back_door` (scattered delves: the copy nearest the
+  player); world check `WorldCheck.goblinTownIsBuilt` (the real porch chunk: porch floor over the chute, straw at
+  the landing); screenshot script `lotr/devscripts/goblin_town.txt`.
+
 ## Not yet
-- The Watcher in the Water, Gollum.
+- The Watcher in the Water.
 - Windows and light shafts to the mountainside (the 21st Hall's east window), the Dimrill Stair waterfall.
-- Goblin Town (same engine, its own spec: natural caverns hung with wooden scaffolding, rope bridges, fence-post
-  stilts, the Great Goblin's throne, the back door to Gollum's lake).
+- Goblin Town: none of it has been looked at in game yet. Create's own blocks aren't used (no dependency): a
+  contraption drives the trap through redstone. Goblins don't haul prisoners or work the scaffolding's lifts;
+  nothing shuts the back door.

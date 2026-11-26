@@ -1,0 +1,575 @@
+{
+  "type": "lotr_port:delve",
+  "config": {
+    "spec": {
+      "name": "goblin_towns",
+      "layout": "goblin",
+      "salt": 3019,
+      "cell": 32,
+      "decay": 0.6,
+      "scatter": {
+        "region": 2048,
+        "chance": 0.35,
+        "biomes": [
+          "lotr_port:misty_mountains",
+          "lotr_port:grey_mountains",
+          "lotr_port:angmar_mountains"
+        ],
+        "reach": 700,
+        "margin": 300,
+        "exclude": [
+          [
+            52544,
+            -4288,
+            2600
+          ]
+        ]
+      },
+      "town": {
+        "axis": "random",
+        "length": [
+          70,
+          110
+        ],
+        "half_width": [
+          18,
+          26
+        ],
+        "height": [
+          60,
+          80
+        ],
+        "cover": 22,
+        "max_top": 320,
+        "min_bottom": 20,
+        "min_height": 50,
+        "roughness": 0.3,
+        "pool_depth": 6,
+        "levels": {
+          "from": 0.4,
+          "to": 0.85,
+          "gap": 9
+        },
+        "platforms": {
+          "spacing": [
+            8,
+            14
+          ],
+          "length": [
+            5,
+            9
+          ],
+          "depth": [
+            4,
+            7
+          ],
+          "end_margin": 10
+        },
+        "walkway_chance": 0.8,
+        "walkway_max": 22,
+        "walkway_width": 3,
+        "bridges": {
+          "min_per_level": 1,
+          "chance": 0.45,
+          "sag": 0.08,
+          "max_sag": 4,
+          "rope_share": 0.75
+        },
+        "ladders_per_level": 3,
+        "max_post": 18,
+        "huts": {
+          "chance": 0.45,
+          "min_depth": 6,
+          "min_length": 8
+        },
+        "braziers": 0.6,
+        "cages": 3,
+        "max_chain": 45,
+        "falls": 2
+      },
+      "porch": {
+        "look": 12,
+        "rise": 8,
+        "width": 8,
+        "height": 6,
+        "depth": 14,
+        "floor_from": 5,
+        "floor_to": 11,
+        "floor_half": 3,
+        "min_drop": 16,
+        "landing_height": 7,
+        "landing_radius": 7,
+        "straw": 2,
+        "search": 320,
+        "min_distance": 40,
+        "ground": [
+          110,
+          600
+        ],
+        "armed": true,
+        "chute": true
+      },
+      "tunnel": {
+        "half_width": 2,
+        "height": 4,
+        "roughness": 1.0,
+        "max_slope": 0.45,
+        "wiggle": 0.15
+      },
+      "back_door": {
+        "chance": 0.5,
+        "search": 320,
+        "min_distance": 60,
+        "look": 10,
+        "rise": 7,
+        "ground_above": [
+          8,
+          120
+        ],
+        "passage": 6
+      },
+      "ruin": {
+        "rubble": 0,
+        "holes": 0.06,
+        "rough": 0,
+        "webs": 0.3,
+        "broken_pillars": 0,
+        "collapse": 0,
+        "bones": 0
+      },
+      "palettes": {
+        "goblin": {
+          "water": [
+            {
+              "block": "minecraft:water",
+              "weight": 1
+            }
+          ],
+          "falling_water": [
+            {
+              "block": "minecraft:water[level=8]",
+              "weight": 1
+            }
+          ],
+          "rock": [
+            {
+              "block": "minecraft:stone",
+              "weight": 6
+            },
+            {
+              "block": "minecraft:andesite",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:tuff",
+              "weight": 1
+            }
+          ],
+          "deck": [
+            {
+              "block": "lotr_port:goblin_planks",
+              "weight": 7
+            },
+            {
+              "block": "minecraft:spruce_planks",
+              "weight": 2
+            },
+            {
+              "block": "lotr_port:rotten_planks",
+              "weight": 1
+            }
+          ],
+          "deck_slab": [
+            {
+              "block": "lotr_port:goblin_plank_slab",
+              "weight": 5
+            },
+            {
+              "block": "minecraft:spruce_slab",
+              "weight": 1
+            }
+          ],
+          "post": [
+            {
+              "block": "lotr_port:lashed_post",
+              "weight": 1
+            }
+          ],
+          "rail": [
+            {
+              "block": "lotr_port:rope_rail",
+              "weight": 1
+            }
+          ],
+          "beam": [
+            {
+              "block": "minecraft:stripped_dark_oak_log",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:dark_oak_log",
+              "weight": 1
+            }
+          ],
+          "brazier": [
+            {
+              "block": "lotr_port:goblin_brazier",
+              "weight": 1
+            }
+          ],
+          "lantern": [
+            {
+              "block": "minecraft:lantern[hanging=true]",
+              "weight": 3
+            },
+            {
+              "block": "keep",
+              "weight": 1
+            }
+          ],
+          "junk": [
+            {
+              "block": "minecraft:barrel",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:chest",
+              "weight": 1,
+              "loot": "lotr_port:chests/goblin_hoard"
+            },
+            {
+              "block": "minecraft:bone_block",
+              "weight": 1
+            },
+            {
+              "block": "minecraft:skeleton_skull",
+              "weight": 1
+            },
+            {
+              "block": "lotr_port:goblin_straw",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:cobweb",
+              "weight": 1
+            },
+            {
+              "block": "lotr_port:skull_cup_block",
+              "weight": 1
+            }
+          ],
+          "hut_wall": [
+            {
+              "block": "lotr_port:goblin_planks",
+              "weight": 6
+            },
+            {
+              "block": "minecraft:spruce_planks",
+              "weight": 2
+            },
+            {
+              "block": "lotr_port:rotten_planks",
+              "weight": 1
+            },
+            {
+              "block": "minecraft:air",
+              "weight": 1
+            }
+          ],
+          "roof": [
+            {
+              "block": "minecraft:dark_oak_stairs",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:spruce_stairs",
+              "weight": 2
+            }
+          ],
+          "straw": [
+            {
+              "block": "lotr_port:goblin_straw",
+              "weight": 1
+            }
+          ],
+          "hut_store": [
+            {
+              "block": "minecraft:barrel",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:chest",
+              "weight": 1,
+              "loot": "lotr_port:chests/goblin_hoard"
+            }
+          ],
+          "bridge": [
+            {
+              "block": "lotr_port:rope_bridge",
+              "weight": 1
+            }
+          ],
+          "ladder_post": [
+            {
+              "block": "lotr_port:goblin_planks",
+              "weight": 1
+            }
+          ],
+          "ladder": [
+            {
+              "block": "minecraft:ladder",
+              "weight": 1
+            }
+          ],
+          "cage": [
+            {
+              "block": "lotr_port:goblin_cage",
+              "weight": 1
+            }
+          ],
+          "chain": [
+            {
+              "block": "minecraft:chain",
+              "weight": 1
+            }
+          ],
+          "spire": [
+            {
+              "block": "minecraft:stone",
+              "weight": 4
+            },
+            {
+              "block": "minecraft:andesite",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:tuff",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:cobblestone",
+              "weight": 1
+            }
+          ],
+          "throne_step": [
+            {
+              "block": "minecraft:dark_oak_stairs",
+              "weight": 1
+            }
+          ],
+          "throne_floor": [
+            {
+              "block": "lotr_port:goblin_planks",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:dark_oak_planks",
+              "weight": 1
+            }
+          ],
+          "throne_seat": [
+            {
+              "block": "minecraft:dark_oak_stairs",
+              "weight": 1
+            }
+          ],
+          "throne_back": [
+            {
+              "block": "minecraft:dark_oak_log",
+              "weight": 1
+            }
+          ],
+          "skull": [
+            {
+              "block": "minecraft:skeleton_skull",
+              "weight": 1
+            }
+          ],
+          "court_junk": [
+            {
+              "block": "minecraft:bone_block",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:skeleton_skull",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:chest",
+              "weight": 1,
+              "loot": "lotr_port:chests/goblin_hoard"
+            },
+            {
+              "block": "minecraft:barrel",
+              "weight": 1
+            },
+            {
+              "block": "lotr_port:goblin_cage",
+              "weight": 1
+            },
+            {
+              "block": "lotr_port:skull_cup_block",
+              "weight": 1
+            },
+            {
+              "block": "lotr_port:goblin_straw",
+              "weight": 1
+            }
+          ],
+          "porch_floor": [
+            {
+              "block": "lotr_port:porch_floor",
+              "weight": 1
+            }
+          ],
+          "porch_rock": [
+            {
+              "block": "minecraft:stone",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:gravel",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:andesite",
+              "weight": 1
+            }
+          ],
+          "porch_decor": [
+            {
+              "block": "minecraft:cobblestone_slab[type=bottom]",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:stone_button[face=floor]",
+              "weight": 2
+            }
+          ],
+          "web": [
+            {
+              "block": "minecraft:cobweb",
+              "weight": 1
+            }
+          ],
+          "tunnel_floor": [
+            {
+              "block": "minecraft:stone",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:gravel",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:cobblestone",
+              "weight": 1
+            },
+            {
+              "block": "minecraft:andesite",
+              "weight": 1
+            }
+          ],
+          "tunnel_slab": [
+            {
+              "block": "minecraft:cobblestone_slab",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:stone_slab",
+              "weight": 1
+            }
+          ],
+          "island": [
+            {
+              "block": "minecraft:stone",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:mossy_cobblestone",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:gravel",
+              "weight": 1
+            }
+          ],
+          "island_junk": [
+            {
+              "block": "minecraft:bone_block",
+              "weight": 1
+            },
+            {
+              "block": "minecraft:skeleton_skull",
+              "weight": 2
+            }
+          ],
+          "lake_floor": [
+            {
+              "block": "minecraft:gravel",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:clay",
+              "weight": 1
+            }
+          ],
+          "shore": [
+            {
+              "block": "minecraft:gravel",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:stone",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:mossy_cobblestone",
+              "weight": 1
+            }
+          ],
+          "glow": [
+            {
+              "block": "minecraft:glow_lichen",
+              "weight": 1
+            }
+          ],
+          "door": [
+            {
+              "block": "minecraft:dark_oak_door",
+              "weight": 1
+            }
+          ],
+          "door_frame": [
+            {
+              "block": "minecraft:stone_bricks",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:cracked_stone_bricks",
+              "weight": 1
+            }
+          ],
+          "rough": [
+            {
+              "block": "minecraft:stone",
+              "weight": 1
+            }
+          ],
+          "rubble": [
+            {
+              "block": "minecraft:cobblestone",
+              "weight": 1
+            }
+          ],
+          "rubble_top": [
+            {
+              "block": "minecraft:air",
+              "weight": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

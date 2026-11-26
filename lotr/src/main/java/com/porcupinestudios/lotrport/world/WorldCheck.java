@@ -60,6 +60,9 @@ final class WorldCheck {
                 problem = moriaIsBuilt(overworld);
             }
             if (problem == null) {
+                problem = goblinTownIsBuilt(overworld);
+            }
+            if (problem == null) {
                 problem = TreeCheck.start(overworld);
             }
             if (problem == null) {
@@ -116,6 +119,51 @@ final class WorldCheck {
             return "the West-gate's doorway " + at.toShortString() + " holds " + block;
         }
         return open ? null : "the West-gate's passage is blocked at " + behind.toShortString();
+    }
+
+    /**
+     * Goblin Town (the {@code lotr_port:goblin_town} delve): the real chunk at the Front Porch holds porch floor over
+     * the open chute, and the landing at the chute's foot has its straw.
+     */
+    private static String goblinTownIsBuilt(ServerLevel level) {
+        var config = com.porcupinestudios.lotrport.world.delve.DelveFeature.config(level.getServer(),
+                LotrPort.id("goblin_town"));
+        if (config.isEmpty()) {
+            return "no configured feature lotr_port:goblin_town";
+        }
+        var plan = com.porcupinestudios.lotrport.world.delve.DelveFeature.plan(level.getServer(), config.get(),
+                level.getSeed());
+        int[] porch = plan.doorway("front_porch");
+        int[] landing = plan.doorway("landing");
+        if (porch == null || landing == null) {
+            return "Goblin Town has no Front Porch or landing:\n" + plan.summary;
+        }
+        // the landing sits under the trap floor's middle; the floor is one block under the porch's floor level
+        level.getChunk(landing[0] >> 4, landing[2] >> 4);
+        BlockPos floor = new BlockPos(landing[0], porch[1] - 1, landing[2]);
+        String block = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(level.getBlockState(floor).getBlock())
+                .toString();
+        boolean armed = com.porcupinestudios.lotrport.content.goblin.GoblinTraps.armed(level, floor, 4);
+        int straw = 0;
+        for (int dx = -3; dx <= 3; dx++) {
+            for (int dz = -3; dz <= 3; dz++) {
+                for (int y = landing[1]; y <= landing[1] + 3; y++) {
+                    if (level.getBlockState(new BlockPos(landing[0] + dx, y, landing[2] + dz)).getBlock()
+                            == com.porcupinestudios.lotrport.content.goblin.GoblinBlocks.GOBLIN_STRAW.get()) {
+                        straw++;
+                    }
+                }
+            }
+        }
+        LotrPort.LOG.info("[worldcheck] Goblin Town: porch floor {} holds {} (armed {}), {} straw at the landing y {}",
+                floor.toShortString(), block, armed, straw, landing[1]);
+        if (!block.equals("lotr_port:porch_floor")) {
+            return "the Front Porch's trap floor " + floor.toShortString() + " holds " + block;
+        }
+        if (!armed) {
+            return "the Front Porch's floor at " + floor.toShortString() + " isn't over the chute";
+        }
+        return straw > 0 ? null : "no straw at the chute's foot " + landing[0] + " " + landing[1] + " " + landing[2];
     }
 
     /** Generates one chunk inside every biome on the map and checks the biome is there. */

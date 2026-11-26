@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "pattern": [
+    "ici",
+    "i i"
+  ],
+  "key": {
+    "i": {
+      "tag": "c:ingots/iron"
+    },
+    "c": {
+      "tag": "minecraft:coals"
+    }
+  },
+  "result": {
+    "id": "lotr_port:goblin_brazier",
+    "count": 1
+  }
+}

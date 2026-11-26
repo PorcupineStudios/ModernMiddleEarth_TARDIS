@@ -7,6 +7,8 @@ package com.porcupinestudios.lotrport.world.delve;
  */
 abstract class Piece {
     final int order;
+    /** What part of the delve this is, for spawning ({@code town}, {@code throne}, {@code gollum_lake}...), or null. */
+    String zone;
     int x0;
     int y0;
     int z0;
@@ -31,6 +33,15 @@ abstract class Piece {
         bounds(Math.min(this.x0, Math.min(x0, x1)), Math.min(this.y0, Math.min(y0, y1)),
                 Math.min(this.z0, Math.min(z0, z1)), Math.max(this.x1, Math.max(x0, x1)),
                 Math.max(this.y1, Math.max(y0, y1)), Math.max(this.z1, Math.max(z0, z1)));
+    }
+
+    Piece zone(String zone) {
+        this.zone = zone;
+        return this;
+    }
+
+    boolean contains(int x, int y, int z) {
+        return x >= x0 && x <= x1 && y >= y0 && y <= y1 && z >= z0 && z <= z1;
     }
 
     boolean touches(Canvas c) {
