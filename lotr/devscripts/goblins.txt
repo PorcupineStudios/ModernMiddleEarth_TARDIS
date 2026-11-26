@@ -9,10 +9,10 @@ wait 200
 /time set 6000
 /weather clear
 hud off
-/tp @p 0.5 221 12.5 180 5
-wait 100
 /fill -9 220 -6 9 220 16 minecraft:smooth_stone
 /fill -9 221 -6 9 232 16 minecraft:air
+/tp @p 0.5 221 12.5 180 5
+wait 100
 /summon lotr_port:npc -3.5 221 2.5 {NpcType:"lotr_port:goblin",Fresh:1b,NoAI:1b,PersistenceRequired:1b,Rotation:[0f,0f]}
 /summon lotr_port:npc -1.5 221 3.5 {NpcType:"lotr_port:goblin_archer",Fresh:1b,NoAI:1b,PersistenceRequired:1b,Rotation:[0f,0f]}
 /summon lotr_port:npc 2.5 221 3.5 {NpcType:"lotr_port:goblin",Fresh:1b,NoAI:1b,PersistenceRequired:1b,Rotation:[0f,0f]}
@@ -40,11 +40,6 @@ wait 60
 close
 wait 10
 shot goblin_player_front
-/tp @p 0.5 221 9.5 150 0
-wait 40
-close
-wait 10
-shot goblin_player_side
 view back
 /tp @p 0.5 221 9.5 180 10
 wait 40
@@ -58,20 +53,23 @@ wait 60
 close
 wait 10
 shot orc_player_front
-/tp @p 0.5 221 9.5 150 0
+view back
+/tp @p 0.5 221 9.5 180 10
 wait 40
 close
 wait 10
-shot orc_player_side
+shot orc_player_back
 /lotr_race set @p lotr_port:uruk
+view front
 /tp @p 0.5 221 9.5 0 0
 wait 60
 close
 wait 10
 shot uruk_player_front
-/tp @p 0.5 221 9.5 150 0
+view back
+/tp @p 0.5 221 9.5 180 10
 wait 40
 close
 wait 10
-shot uruk_player_side
+shot uruk_player_back
 quit
