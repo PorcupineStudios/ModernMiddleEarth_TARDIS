@@ -1,0 +1,8 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#lotr_port:middle_earth",
+  "features": [
+    "lotr_port:moria"
+  ],
+  "step": "underground_structures"
+}
