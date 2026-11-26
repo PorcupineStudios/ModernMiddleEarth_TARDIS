@@ -208,11 +208,11 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   the Misty Mountains' goblins, friends of Gundabad, Angmar, Mordor and Dol Guldur, at war with the free peoples
   (Gundabad's list); control zones down the range from Goblin Town; pledge at Cutthroat (100). Counted in
   `FactionTests.HAND_MADE`.
-- Body `goblin` (`client/GoblinModel`, an `NpcModels` kind): the humanoid boxes and 64x64 skin layout drawn at goblin
-  proportions (head x1.2, narrow hunched torso, long thin arms x1.15, short legs x0.75; part scales and posture
-  offsets added after vanilla's animation, so walk, swing, crouch and ride stay vanilla's; held items keep their
-  shape), plus bat ears and a hooked nose in the rows under y 32 (layout in `NpcModels`). Vanilla's `setupAnim` never
-  resets `head.z`/`body.z`: set them, don't add to them.
+- Body `goblin` (`client/ShapedModel` shape `GOBLIN`, an `NpcModels` kind): the humanoid boxes and 64x64 skin layout
+  drawn at goblin proportions (head x1.2, narrow hunched torso, long thin arms x1.15, short legs x0.75; part scales
+  and posture offsets added after vanilla's animation, so walk, swing, crouch and ride stay vanilla's; held items keep
+  their shape), plus bat ears and a hooked nose in the rows under y 32 (layout in `NpcModels`). Vanilla's `setupAnim`
+  never resets `head.z`/`body.z`: set them, don't add to them.
 - NPCs `goblin`, `goblin_archer`, `great_goblin` (hand-written, `NpcTests.HAND_MADE`): skins painted by
   `converter/goblin_skins.py` (`textures/entity/goblin/`: 8 warriors, 4 hooded archers, the crowned Great Goblin;
   colours matched to Goblin Town's blocks), orc name bank and speech. Goblin Town's spawns and the Front Porch's
@@ -271,12 +271,23 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 ## Player races
 - Races are `data/<ns>/player_race/<id>.json` (`player/Races.Def`: scale, attributes, `model` = an `NpcModels` body,
   `skin`, `own_skin`...), picked on first entering Middle-earth; admins tune them (`RaceTunes`). `client/RacePlayers`
-  draws race players on the LOTR body. With `own_skin` (default true; orcs and Uruks false) the player's own skin is
-  converted to that body by `client/RaceSkins` (read back from the GPU, cached per skin and body) using
+  draws race players on the LOTR body. With `own_skin` (default true; every race since 2026-11-26) the player's own
+  skin is converted to that body by `client/RaceSkins` (read back from the GPU, cached per skin and body) using
   `client/RaceSkinRemap` (pure Java, unit tested): trouser/jacket/sleeve layers flattened, hair from the hat (hangs
   down the sides and back), hobbit feet from the leg bottom, elf ears from the head side, goblin ears and nose in the
   face's colour (see Goblins). Per-body rules:
-  `assets/<ns>/race_skin/<kind>.json` (`hang`, `ear_y`). The race `skin` is the fallback (skin not loaded, not 64x64).
+  `assets/<ns>/race_skin/<kind>.json` (`hang`, `ear_y`, `ears`, `orcish`). The race `skin` is the fallback (skin not
+  loaded, not 64x64), so it must be in the body's 64x64 layout.
+- Orcs and Uruks (2026-11-26, Aaron: a skin converter that still makes a player look orcish): bodies `orc` (a stoop,
+  arms a little long, legs a little short) and `uruk` (broad, thick-limbed, upright) are `client/ShapedModel` shapes
+  with pointed ears swept back (the elves' box at (0, 0)). Their `race_skin` `orcish` block: every pixel coloured like
+  the face (chromaticity within `tolerance`, half to 1.7 times as bright) takes the `skin` tone [h, s, v] at its own
+  relative brightness, so shading, mouth and features stay; clothes and hair get `grime`; eye whites (nearly
+  colourless and brighter than the face) glow in `eyes` with the iris beside them turned to a dark pupil; lower
+  `tusks` at the mouth corners; `scars`; Uruks carry the White Hand (`hand`). Orcs: LOTR's grey-green, red eyes.
+  Uruks: dark brown, amber eyes, the hand. Pixels are ABGR (NativeImage's order). Fallback skins: LOTR's orc and Uruk
+  skins padded to 64x64 by `converter/orc_player_skins.py` (`textures/entity/orc/player/`). `converter/body_preview.py`
+  draws any of these bodies; JUnit `RaceSkinRemapTest`, GameTest `RaceTests.ownSkinIsSyncedPerRace`.
   Armour: feet hide under boots and ears under helmets (`NpcModels.fitArmor`, NPCs too). Client config
   `race.ownSkins` turns the conversion off.
 

@@ -1,7 +1,8 @@
 # The goblins (lotr_port:goblins) for the "UI screenshots" workflow: goblin warriors, archers and the Great Goblin on
 # the goblin body (rolled gear, standing still), then the player made a goblin (/lotr_race set) in their own skin
-# converted to the goblin body, seen from the front and from behind. On a stone platform high over the Shire spawn,
-# at noon. The race picker opens on first entering Middle-earth, so the screen is closed before every shot.
+# converted to the goblin body, seen from the front and from behind, then made an orc and an Uruk (their own skin made
+# orcish: race_skin/orc.json, uruk.json). On a stone platform high over the Shire spawn, at noon. The race picker
+# opens on first entering Middle-earth, so the screen is closed before every shot.
 wait 200
 /gamerule doMobSpawning false
 /gamerule doDaylightCycle false
@@ -50,4 +51,27 @@ wait 40
 close
 wait 10
 shot goblin_player_back
+/lotr_race set @p lotr_port:orc
+view front
+/tp @p 0.5 221 9.5 0 0
+wait 60
+close
+wait 10
+shot orc_player_front
+/tp @p 0.5 221 9.5 150 0
+wait 40
+close
+wait 10
+shot orc_player_side
+/lotr_race set @p lotr_port:uruk
+/tp @p 0.5 221 9.5 0 0
+wait 60
+close
+wait 10
+shot uruk_player_front
+/tp @p 0.5 221 9.5 150 0
+wait 40
+close
+wait 10
+shot uruk_player_side
 quit

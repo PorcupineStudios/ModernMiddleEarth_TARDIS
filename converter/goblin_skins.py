@@ -1,6 +1,6 @@
 """Goblin skins (2026-11-26, Aaron: a goblin faction with its own model, which players can be too).
 
-Paints the 64x64 skins of the goblin body (lotr client/GoblinModel, layout in client/NpcModels): the humanoid boxes
+Paints the 64x64 skins of the goblin body (lotr client/ShapedModel, layout in client/NpcModels): the humanoid boxes
 where a player skin keeps them (head, body, right arm and leg; the left limbs mirror the right), the vanilla hat for
 hoods and tufts, and the goblin parts under y 32 (bat ears, hooked nose). Colours come from one palette that sits
 with Goblin Town's blocks (goblin_blocks.py): sallow grey-olive skin, ragged greyed browns, rope tan, rust.
