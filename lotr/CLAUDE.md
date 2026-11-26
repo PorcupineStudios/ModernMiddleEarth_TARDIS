@@ -199,7 +199,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   (`goblin_towns.json`) and decoy porches (`goblin_porches.json`) scattered per region over the northern mountains.
   The Front Porch's floor swings open (`GoblinTraps`, block displays; armed = open drop under it, no block state, so
   decoys are indistinguishable; redstone springs it). Spawns by zone (Great Goblin at the throne, Gollum by his lake).
-  GameTests `GoblinTests`; world check `goblinTownIsBuilt`. Read the Goblin Town section of `lotr/docs/delves.md`.
+  GameTests `GoblinTests`; world check `goblinTownIsBuilt`; seen in the screenshot workflow's client
+  (`devscripts/goblin_town.txt`, whose world step needs 10 GB like build.yml's), not played yet. Read the Goblin
+  Town section of `lotr/docs/delves.md`.
 
 ## Factions and realms (phase 4)
 - Great powers are data: `data/<ns>/faction/*.json` (`FactionDef`, reloads), generated from LOTR by

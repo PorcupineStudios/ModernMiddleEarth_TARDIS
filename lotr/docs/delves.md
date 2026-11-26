@@ -198,6 +198,9 @@ exactly like the Front Porch but are safe; the deep falls into Gollum's watery c
 ## Not yet
 - The Watcher in the Water.
 - Windows and light shafts to the mountainside (the 21st Hall's east window), the Dimrill Stair waterfall.
-- Goblin Town: none of it has been looked at in game yet. Create's own blocks aren't used (no dependency): a
-  contraption drives the trap through redstone. Goblins don't haul prisoners or work the scaffolding's lifts;
+- Goblin Town was seen only in the screenshot workflow's client (2026-11-26, `devscripts/goblin_town.txt`: the
+  porch, the floor swinging open, the town from the throne and a low platform, Gollum's lake, the back door, a
+  generic town and a decoy), not played. In those shots the blue past the far scaffolding was chunks the client
+  hadn't drawn yet (the roof was 29 blocks under the lowest ground). Create's own blocks aren't used (no
+  dependency): a contraption drives the trap through redstone. Goblins don't haul prisoners or work the scaffolding's lifts;
   nothing shuts the back door.
