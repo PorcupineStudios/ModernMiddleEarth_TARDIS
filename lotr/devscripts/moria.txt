@@ -14,7 +14,7 @@ wait 900
 close
 wait 10
 shot moria_west_gate
-/tp @p ^ ^ ^-14
+/tp @p ^ ^10 ^-20
 wait 200
 close
 wait 10
@@ -38,7 +38,7 @@ wait 300
 close
 wait 10
 shot moria_bridge
-/tp @p ~ ~ ~ 90 50
+/tp @p ~ ~ ~ ~ 60
 wait 40
 close
 wait 10
