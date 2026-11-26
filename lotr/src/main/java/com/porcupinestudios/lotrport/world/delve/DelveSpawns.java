@@ -202,7 +202,7 @@ public final class DelveSpawns {
     }
 
     /** An entry for a floor height, by weight among those whose depth band holds it. */
-    static Entry pick(Table table, int y, RandomSource random) {
+    public static Entry pick(Table table, int y, RandomSource random) {
         List<Entry> ok = new ArrayList<>();
         int total = 0;
         for (Entry e : table.entries()) {
