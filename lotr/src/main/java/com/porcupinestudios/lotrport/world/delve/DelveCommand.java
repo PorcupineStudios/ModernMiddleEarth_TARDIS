@@ -23,7 +23,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
 /**
- * {@code /lotr_delve} (operators): {@code info <delve>} prints the plan's summary; {@code goto <delve> <place>}
+ * {@code /lotr_delve} (operators): {@code info <delve>} prints the plan's summary; {@code spawn <delve>} forces one spawn attempt nearby; {@code goto <delve> <place>}
  * teleports to a set piece (a gate's outside, a hall's west end, the Endless Stair's lowest landing...);
  * {@code preview <delve>} writes {@link DelvePreview}'s pictures to {@code delve_preview/<delve>/} in the server
  * folder. A delve is a configured feature of type {@code lotr_port:delve}, e.g. {@code lotr_port:moria}.
@@ -60,6 +60,8 @@ public final class DelveCommand {
                 .then(Commands.literal("goto").then(Commands.argument("delve", ResourceLocationArgument.id())
                         .suggests(DELVES).then(Commands.argument("place", StringArgumentType.word())
                                 .suggests(PLACES).executes(DelveCommand::go))))
+                .then(Commands.literal("spawn").then(Commands.argument("delve", ResourceLocationArgument.id())
+                        .suggests(DELVES).executes(DelveCommand::spawn)))
                 .then(Commands.literal("preview").requires(s -> s.hasPermission(3))
                         .then(Commands.argument("delve", ResourceLocationArgument.id()).suggests(DELVES)
                                 .executes(DelveCommand::preview))));
@@ -101,6 +103,20 @@ public final class DelveCommand {
         }
         player.teleportTo(level, box[0] + 1.5, box[1], (box[2] + box[5]) / 2 + 0.5, YAW[DelveSpec.E], 0f);
         return 1;
+    }
+
+    /** One forced spawn attempt of the delve's table near the player (the table's chance skipped). */
+    private static int spawn(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+        ServerPlayer player = ctx.getSource().getPlayerOrException();
+        ResourceLocation id = ResourceLocationArgument.getId(ctx, "delve");
+        DelveSpawns.Table table = DelveSpawns.tables().get(id);
+        if (table == null) {
+            ctx.getSource().sendFailure(Component.literal("No delve_spawns/" + id.getPath() + ".json"));
+            return 0;
+        }
+        int n = DelveSpawns.trySpawn(player.serverLevel(), player, table, true);
+        ctx.getSource().sendSuccess(() -> Component.literal(n + " spawned"), false);
+        return n;
     }
 
     private static int preview(CommandContext<CommandSourceStack> ctx) {

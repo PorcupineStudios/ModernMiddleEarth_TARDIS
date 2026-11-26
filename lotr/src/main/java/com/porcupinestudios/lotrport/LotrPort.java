@@ -106,6 +106,7 @@ public final class LotrPort {
         NpcData.register();
         NpcSpawns.register();
         NpcSpawner.register();
+        com.porcupinestudios.lotrport.world.delve.DelveSpawns.register();
         QuestData.register();
         com.porcupinestudios.lotrport.content.SaplingRules.register();
         com.porcupinestudios.lotrport.tree.TreeRecords.register();

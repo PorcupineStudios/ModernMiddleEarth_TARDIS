@@ -3,6 +3,7 @@ package com.porcupinestudios.lotrport.gametest;
 import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.world.delve.DelveFeature;
 import com.porcupinestudios.lotrport.world.delve.DelvePlan;
+import com.porcupinestudios.lotrport.world.delve.DelveSpawns;
 import com.porcupinestudios.lotrport.world.delve.DelveSpec;
 import com.porcupinestudios.lotrport.world.delve.Mat;
 import com.porcupinestudios.lotrport.world.delve.MemoryCanvas;
@@ -144,6 +145,41 @@ public final class DelveTests {
         plan.build(inside);
         if (inside.count("dwarven_pillar") < 100) {
             helper.fail("the Dwarrowdelf has no pillars where expected");
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Moria's people by depth (Aaron 2026-11-25): orcs above, trolls below, never a troll on the upper levels, the
+     * Balrog only under y -30 and at most one at a time.
+     */
+    @GameTest(template = EMPTY)
+    public static void moriaSpawnsByDepth(GameTestHelper helper) {
+        DelveSpawns.Table table = DelveSpawns.tables().get(LotrPort.id("moria"));
+        if (table == null) {
+            helper.fail("no delve_spawns/moria.json");
+        }
+        net.minecraft.util.RandomSource random = net.minecraft.util.RandomSource.create(7);
+        java.util.Set<String> upper = new java.util.HashSet<>();
+        java.util.Set<String> deep = new java.util.HashSet<>();
+        for (int i = 0; i < 20000; i++) {
+            upper.add(DelveSpawns.pick(table, 150, random).npc().getPath());
+            deep.add(DelveSpawns.pick(table, -50, random).npc().getPath());
+        }
+        if (upper.stream().anyMatch(n -> n.contains("troll") || n.equals("balrog"))) {
+            helper.fail("trolls or the Balrog on the upper levels: " + upper);
+        }
+        if (!deep.contains("troll") || !deep.contains("balrog")) {
+            helper.fail("no trolls or Balrog in the lowest deeps: " + deep);
+        }
+        for (DelveSpawns.Entry e : table.entries()) {
+            if (e.npc().getPath().equals("balrog") && (e.maxAlive() != 1 || e.minY() > -30 || e.maxY() > -30
+                    || e.chance() > 0.01f)) {
+                helper.fail("the Balrog must be rare, deep and alone: " + e);
+            }
+            if (!com.porcupinestudios.lotrport.npc.NpcData.type(e.npc()).isPresent()) {
+                helper.fail("no NPC type " + e.npc());
+            }
         }
         helper.succeed();
     }

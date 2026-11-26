@@ -146,6 +146,24 @@ public final class DelvePlan {
         return out;
     }
 
+    /** Whether a block lies inside one of the delve's pieces (walls included): "in the delve" for spawning. */
+    public boolean inside(int x, int y, int z) {
+        if (!touches(x, z, x, z) || y < minY || y > maxY) {
+            return false;
+        }
+        int[] ids = index.get(key(Math.floorDiv(x - ox, cell), Math.floorDiv(z - oz, cell)));
+        if (ids == null) {
+            return false;
+        }
+        for (int id : ids) {
+            Piece p = pieces.get(id);
+            if (x >= p.x0 && x <= p.x1 && y >= p.y0 && y <= p.y1 && z >= p.z0 && z <= p.z1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /** A gate's doorway {x, y (floor), z, facing side}, or null. */
     public int[] doorway(String setPiece) {
         int[] d = doorways.get(setPiece);
