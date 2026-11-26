@@ -184,6 +184,16 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - CI "Middle-earth world" step makes a new Middle-earth world on a dedicated server (`WorldCheck`): spawn, crash
   site, one chunk in every biome on the map, road blocks on a road.
 
+## Delves: Moria (2026-11-25, `world/delve/`)
+- Aaron: procedural caves, tunnels, great halls, mines, forges, stairs and bridges for Moria (later Goblin Town);
+  Moria at full map scale from the West-gate (Eregion) to Dimrill Dale, a grand Third Age ruin, coded set pieces plus
+  .nbt rooms, a hidden route through a maze. Feature `lotr_port:delve`; Moria's whole spec is
+  `worldgen/configured_feature/moria.json`. A plan per world seed (`DelvePlanner`: grid of 48-block cells, cover rule
+  under the mountain, set pieces, hidden route, Kruskal maze, prune, loops), built per chunk from a cell index.
+  Planner and builders are plain Java (`Ground` = `MiddleEarthMap.heightAt`). `/lotr_delve info|goto|preview`.
+  GameTests `DelveTests`; world check `WorldCheck.moriaIsBuilt`. **Read `lotr/docs/delves.md`** (tuning, template
+  room contract with jigsaw doorways, numbers). Not checked in game yet.
+
 ## Factions and realms (phase 4)
 - Great powers are data: `data/<ns>/faction/*.json` (`FactionDef`, reloads), generated from LOTR by
   `converter/factions.py`; names and ranks are lang keys `faction.<ns>.<id>[.rank.<rank>]`.

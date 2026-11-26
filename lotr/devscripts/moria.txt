@@ -1,0 +1,56 @@
+# Moria (the lotr_port:moria delve) for the "UI screenshots" workflow: both gates from outside, the West-gate's
+# passage, the Dwarrowdelf, the Bridge of Khazad-dum, the Twenty-first Hall, Mazarbul, the Endless Stair and the Great
+# Cavern. /lotr_delve goto finds each set piece in this world's plan, so the script works on any seed. Night vision
+# inside: Third Age Moria is dark. Runs when this file changes.
+wait 200
+/gamerule doMobSpawning false
+/gamerule doDaylightCycle false
+/time set 5000
+/weather clear
+hud off
+/lotr_delve goto lotr_port:moria west_gate
+wait 900
+shot moria_west_gate
+/tp @p ^ ^ ^-14
+wait 200
+shot moria_west_gate_far
+/effect give @p minecraft:night_vision infinite 0 true
+/lotr_delve goto lotr_port:moria west_gate
+/tp @p ^ ^1 ^14
+wait 300
+shot moria_west_passage
+/lotr_delve goto lotr_port:moria dwarrowdelf
+wait 600
+/tp @p ~ ~4 ~
+wait 60
+shot moria_dwarrowdelf
+/lotr_delve goto lotr_port:moria bridge_of_khazad_dum
+wait 300
+shot moria_bridge
+/tp @p ~ ~ ~ 90 50
+wait 40
+shot moria_chasm
+/lotr_delve goto lotr_port:moria twenty_first_hall
+wait 600
+/tp @p ~ ~3 ~
+wait 40
+shot moria_twenty_first_hall
+/lotr_delve goto lotr_port:moria mazarbul
+wait 300
+shot moria_mazarbul
+/lotr_delve goto lotr_port:moria endless_stair
+wait 600
+/tp @p ~ ~ ~ -90 -55
+wait 40
+shot moria_endless_stair
+/lotr_delve goto lotr_port:moria great_cavern
+wait 600
+shot moria_great_cavern
+/lotr_delve goto lotr_port:moria mithril_deeps
+wait 600
+shot moria_mithril_deeps
+/effect clear @p
+/lotr_delve goto lotr_port:moria east_gate
+wait 900
+shot moria_east_gate
+quit

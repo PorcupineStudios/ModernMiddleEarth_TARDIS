@@ -180,6 +180,7 @@ public final class LotrPort {
             com.porcupinestudios.lotrport.progress.Calendar.registerCommands(event.getDispatcher());
             AlignmentHud.registerCommands(event.getDispatcher());
             com.porcupinestudios.lotrport.world.Pregen.registerCommands(event.getDispatcher());
+            com.porcupinestudios.lotrport.world.delve.DelveCommand.register(event.getDispatcher());
             com.porcupinestudios.lotrport.player.Races.registerCommands(event.getDispatcher());
             com.porcupinestudios.lotrport.border.Kingdoms.registerCommands(event.getDispatcher());
         });

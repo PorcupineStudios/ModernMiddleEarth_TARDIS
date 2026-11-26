@@ -1,0 +1,1840 @@
+{
+  "type": "lotr_port:delve",
+  "config": {
+    "spec": {
+      "name": "moria",
+      "salt": 2941,
+      "cell": 48,
+      "cover": 14,
+      "margin": 4,
+      "ground_step": 16,
+      "axis": [
+        [
+          41700,
+          18368
+        ],
+        [
+          46244,
+          17200
+        ]
+      ],
+      "half_width": 800,
+      "decay": 0.7,
+      "maze": {
+        "route_wiggle": 1.2,
+        "stair_cost": 4,
+        "prune_passes": 10
+      },
+      "templates": "delve/moria",
+      "styles": {
+        "dwarven_wide": {
+          "palette": "dwarven",
+          "hewn": false,
+          "width": 7,
+          "height": 8,
+          "rib": 6,
+          "roughness": 0,
+          "lights": 0.06
+        },
+        "dwarven": {
+          "palette": "dwarven",
+          "hewn": false,
+          "width": 5,
+          "height": 6,
+          "rib": 6,
+          "roughness": 0,
+          "lights": 0.06
+        },
+        "hewn": {
+          "palette": "deeps",
+          "hewn": true,
+          "width": 5,
+          "height": 5,
+          "rib": 8,
+          "roughness": 1.0,
+          "lights": 0
+        },
+        "abyss": {
+          "palette": "abyss",
+          "hewn": true,
+          "width": 5,
+          "height": 5,
+          "rib": 10,
+          "roughness": 1.5,
+          "lights": 0
+        }
+      },
+      "levels": [
+        {
+          "name": "deep_7",
+          "floor": -52,
+          "style": "abyss",
+          "floor_jitter": 1,
+          "room_chance": 0.3,
+          "dead_end_rooms": 0.85,
+          "prune": 0.45,
+          "loops": 0.25,
+          "stairs": 0.04,
+          "rooms": {
+            "mine": 4,
+            "cavern": 3,
+            "forge": 1
+          }
+        },
+        {
+          "name": "deep_6",
+          "floor": -34,
+          "style": "abyss",
+          "floor_jitter": 1,
+          "room_chance": 0.3,
+          "dead_end_rooms": 0.85,
+          "prune": 0.45,
+          "loops": 0.25,
+          "stairs": 0.04,
+          "rooms": {
+            "mine": 4,
+            "cavern": 3,
+            "forge": 1
+          }
+        },
+        {
+          "name": "deep_5",
+          "floor": -16,
+          "style": "abyss",
+          "floor_jitter": 1,
+          "room_chance": 0.3,
+          "dead_end_rooms": 0.85,
+          "prune": 0.45,
+          "loops": 0.25,
+          "stairs": 0.04,
+          "rooms": {
+            "mine": 4,
+            "cavern": 3,
+            "forge": 1
+          }
+        },
+        {
+          "name": "deep_4",
+          "floor": 2,
+          "style": "hewn",
+          "floor_jitter": 1,
+          "room_chance": 0.3,
+          "dead_end_rooms": 0.85,
+          "prune": 0.45,
+          "loops": 0.25,
+          "stairs": 0.04,
+          "rooms": {
+            "chamber": 2,
+            "forge": 3,
+            "mine": 3,
+            "cavern": 1,
+            "template": 1
+          }
+        },
+        {
+          "name": "deep_3",
+          "floor": 20,
+          "style": "hewn",
+          "floor_jitter": 1,
+          "room_chance": 0.3,
+          "dead_end_rooms": 0.85,
+          "prune": 0.45,
+          "loops": 0.25,
+          "stairs": 0.04,
+          "rooms": {
+            "chamber": 2,
+            "forge": 3,
+            "mine": 3,
+            "cavern": 1,
+            "template": 1
+          }
+        },
+        {
+          "name": "deep_2",
+          "floor": 38,
+          "style": "hewn",
+          "floor_jitter": 1,
+          "room_chance": 0.3,
+          "dead_end_rooms": 0.85,
+          "prune": 0.45,
+          "loops": 0.25,
+          "stairs": 0.04,
+          "rooms": {
+            "chamber": 2,
+            "forge": 3,
+            "mine": 3,
+            "cavern": 1,
+            "template": 1
+          }
+        },
+        {
+          "name": "deep_1",
+          "floor": 56,
+          "style": "hewn",
+          "floor_jitter": 1,
+          "room_chance": 0.3,
+          "dead_end_rooms": 0.85,
+          "prune": 0.45,
+          "loops": 0.25,
+          "stairs": 0.04,
+          "rooms": {
+            "chamber": 2,
+            "forge": 3,
+            "mine": 3,
+            "cavern": 1,
+            "template": 1
+          }
+        },
+        {
+          "name": "level_1",
+          "floor": 74,
+          "style": "dwarven_wide",
+          "floor_jitter": 2,
+          "room_chance": 0.35,
+          "dead_end_rooms": 0.85,
+          "prune": 0.4,
+          "loops": 0.3,
+          "stairs": 0.04,
+          "rooms": {
+            "chamber": 4,
+            "pillar_room": 2,
+            "tomb": 1,
+            "guardroom": 2,
+            "forge": 1,
+            "orc_camp": 2,
+            "template": 1
+          }
+        },
+        {
+          "name": "level_2",
+          "floor": 98,
+          "style": "dwarven_wide",
+          "floor_jitter": 2,
+          "room_chance": 0.35,
+          "dead_end_rooms": 0.85,
+          "prune": 0.4,
+          "loops": 0.3,
+          "stairs": 0.04,
+          "rooms": {
+            "chamber": 4,
+            "pillar_room": 2,
+            "tomb": 1,
+            "guardroom": 2,
+            "forge": 1,
+            "orc_camp": 2,
+            "template": 1
+          }
+        },
+        {
+          "name": "level_3",
+          "floor": 122,
+          "style": "dwarven_wide",
+          "floor_jitter": 2,
+          "room_chance": 0.35,
+          "dead_end_rooms": 0.85,
+          "prune": 0.4,
+          "loops": 0.3,
+          "stairs": 0.04,
+          "rooms": {
+            "chamber": 4,
+            "pillar_room": 2,
+            "tomb": 1,
+            "guardroom": 2,
+            "forge": 1,
+            "orc_camp": 2,
+            "template": 1
+          }
+        },
+        {
+          "name": "level_4",
+          "floor": 146,
+          "style": "dwarven",
+          "floor_jitter": 2,
+          "room_chance": 0.35,
+          "dead_end_rooms": 0.85,
+          "prune": 0.4,
+          "loops": 0.3,
+          "stairs": 0.04,
+          "rooms": {
+            "chamber": 4,
+            "pillar_room": 1,
+            "tomb": 2,
+            "guardroom": 1,
+            "orc_camp": 1,
+            "template": 1
+          }
+        },
+        {
+          "name": "level_5",
+          "floor": 170,
+          "style": "dwarven",
+          "floor_jitter": 2,
+          "room_chance": 0.35,
+          "dead_end_rooms": 0.85,
+          "prune": 0.4,
+          "loops": 0.3,
+          "stairs": 0.04,
+          "rooms": {
+            "chamber": 4,
+            "pillar_room": 1,
+            "tomb": 2,
+            "guardroom": 1,
+            "orc_camp": 1,
+            "template": 1
+          }
+        },
+        {
+          "name": "level_6",
+          "floor": 194,
+          "style": "dwarven",
+          "floor_jitter": 2,
+          "room_chance": 0.35,
+          "dead_end_rooms": 0.85,
+          "prune": 0.4,
+          "loops": 0.3,
+          "stairs": 0.04,
+          "rooms": {
+            "chamber": 4,
+            "pillar_room": 1,
+            "tomb": 2,
+            "guardroom": 1,
+            "orc_camp": 1,
+            "template": 1
+          }
+        },
+        {
+          "name": "level_7",
+          "floor": 218,
+          "style": "dwarven",
+          "floor_jitter": 2,
+          "room_chance": 0.35,
+          "dead_end_rooms": 0.85,
+          "prune": 0.4,
+          "loops": 0.3,
+          "stairs": 0.04,
+          "rooms": {
+            "chamber": 4,
+            "pillar_room": 1,
+            "tomb": 2,
+            "guardroom": 1,
+            "orc_camp": 1,
+            "template": 1
+          }
+        }
+      ],
+      "rooms": {
+        "chamber": {
+          "size": [
+            9,
+            19
+          ],
+          "height": [
+            6,
+            9
+          ],
+          "band": 3,
+          "lamps": 0.3,
+          "chandelier": 0.15,
+          "variants": {
+            "living": {
+              "weight": 3,
+              "dressing": [
+                {
+                  "role": "table",
+                  "count": [
+                    1,
+                    2
+                  ],
+                  "at": "floor"
+                },
+                {
+                  "role": "barrel",
+                  "count": [
+                    0,
+                    2
+                  ],
+                  "at": "wall"
+                },
+                {
+                  "role": "chest",
+                  "count": [
+                    0,
+                    1
+                  ],
+                  "at": "corner"
+                },
+                {
+                  "role": "keg",
+                  "count": [
+                    0,
+                    1
+                  ],
+                  "at": "wall"
+                },
+                {
+                  "role": "lantern",
+                  "count": [
+                    0,
+                    1
+                  ],
+                  "at": "ceiling"
+                }
+              ]
+            },
+            "store": {
+              "weight": 3,
+              "dressing": [
+                {
+                  "role": "barrel",
+                  "count": [
+                    3,
+                    8
+                  ],
+                  "at": "wall"
+                },
+                {
+                  "role": "chest",
+                  "count": [
+                    1,
+                    2
+                  ],
+                  "at": "corner"
+                }
+              ]
+            },
+            "empty": {
+              "weight": 2,
+              "dressing": [
+                {
+                  "role": "bones",
+                  "count": [
+                    0,
+                    3
+                  ],
+                  "at": "floor"
+                }
+              ]
+            },
+            "armoury": {
+              "weight": 1,
+              "dressing": [
+                {
+                  "role": "rack",
+                  "count": [
+                    2,
+                    5
+                  ],
+                  "at": "wall"
+                },
+                {
+                  "role": "chest",
+                  "count": [
+                    0,
+                    1
+                  ],
+                  "at": "corner"
+                },
+                {
+                  "role": "anvil",
+                  "count": [
+                    0,
+                    1
+                  ],
+                  "at": "floor"
+                }
+              ]
+            }
+          }
+        },
+        "pillar_room": {
+          "size": [
+            21,
+            31
+          ],
+          "height": [
+            8,
+            12
+          ],
+          "band": 4,
+          "lamps": 0.4,
+          "chandelier": 0.3,
+          "pillars": {
+            "spacing": 6,
+            "half": 1
+          },
+          "variants": {
+            "hall": {
+              "weight": 1,
+              "dressing": [
+                {
+                  "role": "bones",
+                  "count": [
+                    0,
+                    4
+                  ],
+                  "at": "floor"
+                },
+                {
+                  "role": "chest",
+                  "count": [
+                    0,
+                    1
+                  ],
+                  "at": "corner"
+                }
+              ]
+            }
+          }
+        },
+        "tomb": {
+          "size": [
+            11,
+            15
+          ],
+          "height": [
+            6,
+            8
+          ],
+          "band": 2,
+          "lamps": 0.2,
+          "tomb": {
+            "half_x": 2,
+            "half_z": 1,
+            "height": 2
+          },
+          "variants": {
+            "tomb": {
+              "weight": 1,
+              "dressing": [
+                {
+                  "role": "bones",
+                  "count": [
+                    1,
+                    4
+                  ],
+                  "at": "corner"
+                },
+                {
+                  "role": "chest",
+                  "count": [
+                    0,
+                    1
+                  ],
+                  "at": "wall"
+                }
+              ]
+            }
+          }
+        },
+        "guardroom": {
+          "size": [
+            9,
+            13
+          ],
+          "height": [
+            6,
+            7
+          ],
+          "band": 3,
+          "lamps": 0.2,
+          "variants": {
+            "guard": {
+              "weight": 1,
+              "dressing": [
+                {
+                  "role": "rack",
+                  "count": [
+                    1,
+                    3
+                  ],
+                  "at": "wall"
+                },
+                {
+                  "role": "bones",
+                  "count": [
+                    1,
+                    3
+                  ],
+                  "at": "floor"
+                },
+                {
+                  "role": "table",
+                  "count": [
+                    0,
+                    1
+                  ],
+                  "at": "floor"
+                },
+                {
+                  "role": "barrel",
+                  "count": [
+                    0,
+                    2
+                  ],
+                  "at": "corner"
+                }
+              ]
+            }
+          }
+        },
+        "forge": {
+          "size": [
+            15,
+            23
+          ],
+          "height": [
+            7,
+            9
+          ],
+          "band": 3,
+          "lamps": 0.2,
+          "forge": {
+            "count": [
+              2,
+              4
+            ],
+            "flue": 10
+          },
+          "variants": {
+            "smithy": {
+              "weight": 1,
+              "dressing": [
+                {
+                  "role": "chest",
+                  "count": [
+                    0,
+                    1
+                  ],
+                  "at": "corner"
+                },
+                {
+                  "role": "barrel",
+                  "count": [
+                    1,
+                    3
+                  ],
+                  "at": "wall"
+                }
+              ]
+            }
+          }
+        },
+        "orc_camp": {
+          "size": [
+            13,
+            21
+          ],
+          "height": [
+            7,
+            9
+          ],
+          "band": 3,
+          "lamps": 0.6,
+          "chandelier": 0.3,
+          "palette": "orc",
+          "variants": {
+            "camp": {
+              "weight": 1,
+              "dressing": [
+                {
+                  "role": "orc_torch",
+                  "count": [
+                    2,
+                    4
+                  ],
+                  "at": "wall"
+                },
+                {
+                  "role": "orc_junk",
+                  "count": [
+                    3,
+                    7
+                  ],
+                  "at": "floor"
+                },
+                {
+                  "role": "bones",
+                  "count": [
+                    2,
+                    5
+                  ],
+                  "at": "corner"
+                },
+                {
+                  "role": "barrel",
+                  "count": [
+                    0,
+                    2
+                  ],
+                  "at": "wall"
+                }
+              ]
+            }
+          }
+        },
+        "mine": {
+          "size": [
+            15,
+            31
+          ],
+          "height": [
+            6,
+            9
+          ],
+          "shape": "mine",
+          "roughness": 2,
+          "veins": 0.25,
+          "variants": {
+            "workings": {
+              "weight": 1,
+              "dressing": [
+                {
+                  "role": "barrel",
+                  "count": [
+                    0,
+                    1
+                  ],
+                  "at": "wall"
+                }
+              ]
+            }
+          }
+        },
+        "cavern": {
+          "size": [
+            21,
+            37
+          ],
+          "height": [
+            8,
+            12
+          ],
+          "shape": "cavern",
+          "roughness": 3,
+          "veins": 0.05
+        },
+        "template": {}
+      },
+      "stairwell": {
+        "half": 8,
+        "newel": 2,
+        "rail": 6,
+        "gap": 1,
+        "max_rise": 12
+      },
+      "set_pieces": [
+        {
+          "id": "west_gate",
+          "kind": "west_gate",
+          "place": "front",
+          "x": 41700,
+          "z": 18368,
+          "level": "level_2",
+          "height": 14,
+          "search": 0,
+          "route": 0,
+          "params": {
+            "facing": "west",
+            "min_cells": 3,
+            "max_cells": 6,
+            "door_half": 2,
+            "door_height": 8,
+            "facade_half": 16,
+            "facade_height": 26,
+            "facade_depth": 6,
+            "landing": 6,
+            "passage_half": 3,
+            "passage_height": 8,
+            "entry": 10,
+            "run": 1,
+            "steps_half": 3,
+            "max_steps": 12,
+            "broken": false,
+            "palette": "west_gate",
+            "hall": {
+              "pillar_spacing": 8,
+              "pillar_half": 1,
+              "aisle": 3,
+              "plinth": 1,
+              "capital": 3,
+              "band": 5,
+              "lights": 0.3,
+              "chandeliers": 0.3
+            },
+            "foot_search": 60,
+            "look": 16,
+            "rise": 14,
+            "row_search": 1
+          }
+        },
+        {
+          "id": "east_gate",
+          "kind": "east_gate",
+          "place": "front",
+          "x": 46244,
+          "z": 17200,
+          "level": "level_2",
+          "height": 16,
+          "search": 0,
+          "route": 6,
+          "params": {
+            "facing": "east",
+            "min_cells": 2,
+            "max_cells": 6,
+            "door_half": 3,
+            "door_height": 10,
+            "facade_half": 20,
+            "facade_height": 30,
+            "facade_depth": 6,
+            "landing": 8,
+            "passage_half": 4,
+            "passage_height": 11,
+            "entry": 4,
+            "run": 1,
+            "steps_half": 5,
+            "max_steps": 30,
+            "broken": true,
+            "palette": "east_gate",
+            "hall": {
+              "pillar_spacing": 10,
+              "pillar_half": 2,
+              "aisle": 4,
+              "plinth": 2,
+              "capital": 4,
+              "band": 6,
+              "lights": 0.2,
+              "chandeliers": 0.2
+            },
+            "foot_search": 60,
+            "look": 16,
+            "rise": 14,
+            "row_search": 1
+          }
+        },
+        {
+          "id": "endless_stair",
+          "kind": "endless_stair",
+          "place": "summit",
+          "x": 44608,
+          "z": 17216,
+          "level": "deep_7",
+          "height": 0,
+          "search": 5,
+          "params": {
+            "half": 8,
+            "newel": 2,
+            "rail": 6,
+            "gap": 1,
+            "max_rise": 12,
+            "tower_depth": 10,
+            "tower_height": 9,
+            "exit_half": 1,
+            "exit_height": 4
+          }
+        },
+        {
+          "id": "dwarrowdelf",
+          "kind": "great_hall",
+          "x": 45500,
+          "z": 17450,
+          "level": "level_2",
+          "cells": [
+            4,
+            3
+          ],
+          "height": 34,
+          "search": 6,
+          "route": 4,
+          "params": {
+            "pillar_spacing": 21,
+            "pillar_half": 3,
+            "aisle": 6,
+            "plinth": 2,
+            "capital": 6,
+            "band": 6,
+            "lights": 0.15,
+            "chandeliers": 0.25
+          }
+        },
+        {
+          "id": "bridge_of_khazad_dum",
+          "kind": "chasm_bridge",
+          "x": 45950,
+          "z": 17450,
+          "level": "level_2",
+          "cells": [
+            1,
+            3
+          ],
+          "height": 30,
+          "below": 120,
+          "search": 2,
+          "route": 5,
+          "doors": [
+            "west",
+            "east"
+          ],
+          "params": {
+            "chasm_half": 6,
+            "wobble": 2,
+            "bridge_half": 1,
+            "arch": 6,
+            "lava": 3,
+            "fissure": 30,
+            "attach": {
+              "to": "dwarrowdelf",
+              "side": "east"
+            }
+          }
+        },
+        {
+          "id": "twenty_first_hall",
+          "kind": "great_hall",
+          "x": 44400,
+          "z": 17250,
+          "level": "level_7",
+          "cells": [
+            3,
+            2
+          ],
+          "height": 16,
+          "search": 6,
+          "route": 2,
+          "params": {
+            "pillar_spacing": 14,
+            "pillar_half": 2,
+            "aisle": 5,
+            "plinth": 1,
+            "capital": 4,
+            "band": 5,
+            "lights": 0.2,
+            "chandeliers": 0.2
+          }
+        },
+        {
+          "id": "mazarbul",
+          "kind": "room",
+          "x": 44600,
+          "z": 17250,
+          "level": "level_7",
+          "height": 9,
+          "search": 2,
+          "route": 3,
+          "params": {
+            "band": 3,
+            "lamps": 0.0,
+            "chandelier": 0.0,
+            "tomb": {
+              "half_x": 2,
+              "half_z": 1,
+              "height": 2
+            },
+            "attach": {
+              "to": "twenty_first_hall",
+              "side": "east"
+            }
+          }
+        },
+        {
+          "id": "guardroom_well",
+          "kind": "room",
+          "x": 42900,
+          "z": 18100,
+          "level": "level_3",
+          "height": 8,
+          "below": 22,
+          "search": 5,
+          "route": 1,
+          "params": {
+            "band": 3,
+            "lamps": 0.2,
+            "well": {
+              "radius": 2,
+              "depth": 22,
+              "water": 5
+            }
+          }
+        },
+        {
+          "id": "great_cavern",
+          "kind": "room",
+          "x": 43600,
+          "z": 17900,
+          "level": "deep_3",
+          "cells": [
+            2,
+            2
+          ],
+          "height": 12,
+          "search": 8,
+          "params": {
+            "shape": "cavern",
+            "roughness": 4,
+            "veins": 0.05,
+            "palette": "deeps"
+          }
+        },
+        {
+          "id": "mithril_deeps",
+          "kind": "room",
+          "x": 44800,
+          "z": 17600,
+          "level": "deep_6",
+          "cells": [
+            2,
+            2
+          ],
+          "height": 12,
+          "search": 8,
+          "params": {
+            "shape": "mine",
+            "roughness": 3,
+            "veins": 0.5,
+            "palette": "abyss"
+          }
+        }
+      ],
+      "ruin": {
+        "rubble": 0.35,
+        "holes": 0,
+        "rough": 0.1,
+        "webs": 0.5,
+        "broken_pillars": 0.4,
+        "collapse": 0.4,
+        "bones": 0.3
+      },
+      "palettes": {
+        "dwarven": {
+          "wall": [
+            {
+              "block": "lotr_port:dwarven_brick",
+              "weight": 10
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_brick",
+              "weight": 6,
+              "decay": 1
+            }
+          ],
+          "ceiling": [
+            {
+              "block": "lotr_port:dwarven_brick",
+              "weight": 10
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_brick",
+              "weight": 5,
+              "decay": 1
+            }
+          ],
+          "floor": [
+            {
+              "block": "minecraft:polished_deepslate",
+              "weight": 6
+            },
+            {
+              "block": "minecraft:deepslate_tiles",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:cracked_deepslate_tiles",
+              "weight": 4,
+              "decay": 1
+            },
+            {
+              "block": "minecraft:cobbled_deepslate",
+              "weight": 1,
+              "decay": 1
+            }
+          ],
+          "floor_alt": [
+            {
+              "block": "minecraft:deepslate_tiles",
+              "weight": 6
+            },
+            {
+              "block": "minecraft:cracked_deepslate_tiles",
+              "weight": 5,
+              "decay": 1
+            }
+          ],
+          "floor_trim": [
+            {
+              "block": "lotr_port:carved_dwarven_brick",
+              "weight": 6
+            },
+            {
+              "block": "lotr_port:gold_trimmed_dwarven_brick",
+              "weight": 1,
+              "decay": -1
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_brick",
+              "weight": 2,
+              "decay": 1
+            }
+          ],
+          "trim": [
+            {
+              "block": "lotr_port:carved_dwarven_brick",
+              "weight": 8
+            },
+            {
+              "block": "lotr_port:gold_trimmed_dwarven_brick",
+              "weight": 1,
+              "decay": -1
+            },
+            {
+              "block": "lotr_port:silver_trimmed_dwarven_brick",
+              "weight": 1,
+              "decay": -1
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_brick",
+              "weight": 3,
+              "decay": 1
+            }
+          ],
+          "carved": [
+            {
+              "block": "lotr_port:carved_dwarven_brick",
+              "weight": 6
+            },
+            {
+              "block": "lotr_port:mithril_trimmed_dwarven_brick",
+              "weight": 1,
+              "decay": -1
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_brick",
+              "weight": 2,
+              "decay": 1
+            }
+          ],
+          "pillar": [
+            {
+              "block": "lotr_port:dwarven_pillar",
+              "weight": 8
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_pillar",
+              "weight": 5,
+              "decay": 1
+            }
+          ],
+          "capital": [
+            {
+              "block": "lotr_port:dwarven_brick_stairs",
+              "weight": 5
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_brick_stairs",
+              "weight": 4,
+              "decay": 1
+            }
+          ],
+          "chamfer": [
+            {
+              "block": "lotr_port:dwarven_brick_stairs",
+              "weight": 5
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_brick_stairs",
+              "weight": 4,
+              "decay": 1
+            }
+          ],
+          "stairs": [
+            {
+              "block": "lotr_port:dwarven_brick_stairs",
+              "weight": 5
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_brick_stairs",
+              "weight": 3,
+              "decay": 1
+            }
+          ],
+          "slab": [
+            {
+              "block": "lotr_port:dwarven_brick_slab",
+              "weight": 5
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_brick_slab",
+              "weight": 3,
+              "decay": 1
+            }
+          ],
+          "rail": [
+            {
+              "block": "lotr_port:dwarven_brick_wall",
+              "weight": 6
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_brick_wall",
+              "weight": 3,
+              "decay": 1
+            },
+            {
+              "block": "minecraft:air",
+              "weight": 2,
+              "decay": 1
+            }
+          ],
+          "light": [
+            {
+              "block": "lotr_port:glowing_dwarven_brick",
+              "weight": 1,
+              "decay": -1
+            },
+            {
+              "block": "lotr_port:dwarven_brick",
+              "weight": 1,
+              "decay": 1
+            }
+          ],
+          "chandelier": [
+            {
+              "block": "lotr_port:dwarven_chandelier",
+              "weight": 1,
+              "decay": -1
+            },
+            {
+              "block": "keep",
+              "weight": 1,
+              "decay": 1
+            }
+          ],
+          "chain": [
+            {
+              "block": "minecraft:chain",
+              "weight": 1,
+              "decay": -1
+            },
+            {
+              "block": "keep",
+              "weight": 1,
+              "decay": 1
+            }
+          ],
+          "rough": [
+            {
+              "block": "minecraft:stone",
+              "weight": 4
+            },
+            {
+              "block": "minecraft:cobblestone",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:andesite",
+              "weight": 1
+            }
+          ],
+          "rock": [
+            {
+              "block": "minecraft:stone",
+              "weight": 1
+            }
+          ],
+          "support": [
+            {
+              "block": "lotr_port:dwarven_pillar",
+              "weight": 3
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_pillar",
+              "weight": 2,
+              "decay": 1
+            }
+          ],
+          "vein": [
+            {
+              "block": "minecraft:iron_ore",
+              "weight": 4
+            },
+            {
+              "block": "lotr_port:copper_ore",
+              "weight": 3
+            },
+            {
+              "block": "lotr_port:tin_ore",
+              "weight": 2
+            },
+            {
+              "block": "lotr_port:silver_ore",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:gold_ore",
+              "weight": 1
+            }
+          ],
+          "rubble": [
+            {
+              "block": "minecraft:cobblestone",
+              "weight": 4
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_brick",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:gravel",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:andesite",
+              "weight": 1
+            },
+            {
+              "block": "minecraft:cobbled_deepslate",
+              "weight": 1
+            }
+          ],
+          "rubble_top": [
+            {
+              "block": "minecraft:air",
+              "weight": 4
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_brick_slab",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:cobblestone_slab",
+              "weight": 2
+            },
+            {
+              "block": "lotr_port:dwarven_brick_slab",
+              "weight": 1
+            },
+            {
+              "block": "minecraft:skeleton_skull",
+              "weight": 0.4,
+              "decay": 1
+            },
+            {
+              "block": "minecraft:cobweb",
+              "weight": 0.3,
+              "decay": 1
+            }
+          ],
+          "web": [
+            {
+              "block": "minecraft:cobweb",
+              "weight": 1
+            }
+          ],
+          "tomb": [
+            {
+              "block": "minecraft:calcite",
+              "weight": 1
+            }
+          ],
+          "tomb_top": [
+            {
+              "block": "minecraft:smooth_quartz",
+              "weight": 1
+            }
+          ],
+          "water": [
+            {
+              "block": "minecraft:water",
+              "weight": 1
+            }
+          ],
+          "lava": [
+            {
+              "block": "minecraft:lava",
+              "weight": 1
+            }
+          ],
+          "forge": [
+            {
+              "block": "lotr_port:dwarven_forge",
+              "weight": 1
+            }
+          ],
+          "anvil": [
+            {
+              "block": "minecraft:anvil",
+              "weight": 2,
+              "decay": -1
+            },
+            {
+              "block": "minecraft:chipped_anvil",
+              "weight": 2,
+              "decay": 1
+            },
+            {
+              "block": "minecraft:damaged_anvil",
+              "weight": 2,
+              "decay": 1
+            }
+          ],
+          "door": [
+            {
+              "block": "lotr_port:dwarven_door",
+              "weight": 1
+            }
+          ],
+          "chasm_wall": [
+            {
+              "block": "minecraft:blackstone",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:basalt",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:deepslate",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:magma_block",
+              "weight": 1
+            }
+          ],
+          "bridge": [
+            {
+              "block": "lotr_port:dwarven_brick",
+              "weight": 4
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_brick",
+              "weight": 2,
+              "decay": 1
+            }
+          ],
+          "barrel": [
+            {
+              "block": "minecraft:barrel",
+              "weight": 1,
+              "decay": -1,
+              "loot": "lotr_port:chests/moria_store"
+            },
+            {
+              "block": "minecraft:barrel",
+              "weight": 2,
+              "decay": 1
+            }
+          ],
+          "chest": [
+            {
+              "block": "minecraft:chest",
+              "weight": 1,
+              "decay": -1,
+              "loot": "lotr_port:chests/moria_hoard"
+            },
+            {
+              "block": "minecraft:chest",
+              "weight": 1,
+              "decay": 1,
+              "loot": "lotr_port:chests/moria_looted"
+            }
+          ],
+          "table": [
+            {
+              "block": "lotr_port:dwarven_crafting_table",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:smithing_table",
+              "weight": 1
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_brick_slab",
+              "weight": 1,
+              "decay": 1
+            }
+          ],
+          "keg": [
+            {
+              "block": "lotr_port:keg",
+              "weight": 1
+            }
+          ],
+          "bones": [
+            {
+              "block": "minecraft:bone_block",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:skeleton_skull",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:cobweb",
+              "weight": 1
+            }
+          ],
+          "lantern": [
+            {
+              "block": "minecraft:lantern[hanging=true]",
+              "weight": 1,
+              "decay": -1
+            },
+            {
+              "block": "keep",
+              "weight": 1,
+              "decay": 1
+            }
+          ],
+          "rack": [
+            {
+              "block": "lotr_port:weapon_rack",
+              "weight": 2
+            },
+            {
+              "block": "lotr_port:armor_stand_block",
+              "weight": 1
+            }
+          ],
+          "orc_torch": [
+            {
+              "block": "lotr_port:orc_torch_block",
+              "weight": 1
+            }
+          ],
+          "orc_junk": [
+            {
+              "block": "lotr_port:skull_cup_block",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:bone_block",
+              "weight": 2
+            },
+            {
+              "block": "lotr_port:orc_chain",
+              "weight": 1
+            },
+            {
+              "block": "lotr_port:rusted_orc_plating",
+              "weight": 1
+            },
+            {
+              "block": "minecraft:skeleton_skull",
+              "weight": 2
+            }
+          ],
+          "statue": [
+            {
+              "block": "lotr_port:dwarven_pillar",
+              "weight": 1
+            }
+          ]
+        },
+        "deeps": {
+          "extends": "dwarven",
+          "wall": [
+            {
+              "block": "minecraft:stone_bricks",
+              "weight": 6
+            },
+            {
+              "block": "minecraft:cracked_stone_bricks",
+              "weight": 4,
+              "decay": 1
+            },
+            {
+              "block": "lotr_port:dwarven_brick",
+              "weight": 3
+            }
+          ],
+          "floor": [
+            {
+              "block": "minecraft:stone",
+              "weight": 4
+            },
+            {
+              "block": "minecraft:gravel",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:cobblestone",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:andesite",
+              "weight": 1
+            }
+          ],
+          "rough": [
+            {
+              "block": "minecraft:stone",
+              "weight": 4
+            },
+            {
+              "block": "minecraft:cobblestone",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:gravel",
+              "weight": 1
+            }
+          ],
+          "rock": [
+            {
+              "block": "minecraft:stone",
+              "weight": 1
+            }
+          ],
+          "support": [
+            {
+              "block": "minecraft:stone_bricks",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:cracked_stone_bricks",
+              "weight": 2,
+              "decay": 1
+            },
+            {
+              "block": "minecraft:cobblestone_wall",
+              "weight": 1
+            }
+          ],
+          "vein": [
+            {
+              "block": "minecraft:iron_ore",
+              "weight": 5
+            },
+            {
+              "block": "lotr_port:copper_ore",
+              "weight": 3
+            },
+            {
+              "block": "lotr_port:tin_ore",
+              "weight": 3
+            },
+            {
+              "block": "lotr_port:silver_ore",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:gold_ore",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:coal_ore",
+              "weight": 3
+            },
+            {
+              "block": "lotr_port:mithril_ore",
+              "weight": 0.6
+            }
+          ]
+        },
+        "abyss": {
+          "extends": "deeps",
+          "wall": [
+            {
+              "block": "minecraft:deepslate_bricks",
+              "weight": 6
+            },
+            {
+              "block": "minecraft:cracked_deepslate_bricks",
+              "weight": 4,
+              "decay": 1
+            },
+            {
+              "block": "lotr_port:obsidian_dwarven_brick",
+              "weight": 1
+            }
+          ],
+          "floor": [
+            {
+              "block": "minecraft:cobbled_deepslate",
+              "weight": 4
+            },
+            {
+              "block": "minecraft:deepslate",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:gravel",
+              "weight": 1
+            },
+            {
+              "block": "minecraft:tuff",
+              "weight": 1
+            }
+          ],
+          "rough": [
+            {
+              "block": "minecraft:deepslate",
+              "weight": 4
+            },
+            {
+              "block": "minecraft:cobbled_deepslate",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:tuff",
+              "weight": 1
+            }
+          ],
+          "rock": [
+            {
+              "block": "minecraft:deepslate",
+              "weight": 1
+            }
+          ],
+          "support": [
+            {
+              "block": "minecraft:deepslate_bricks",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:cracked_deepslate_bricks",
+              "weight": 2,
+              "decay": 1
+            },
+            {
+              "block": "minecraft:cobbled_deepslate_wall",
+              "weight": 1
+            }
+          ],
+          "vein": [
+            {
+              "block": "minecraft:deepslate_iron_ore",
+              "weight": 4
+            },
+            {
+              "block": "minecraft:deepslate_gold_ore",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:deepslate_redstone_ore",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:deepslate_diamond_ore",
+              "weight": 0.4
+            },
+            {
+              "block": "lotr_port:mithril_ore",
+              "weight": 2
+            }
+          ],
+          "rubble": [
+            {
+              "block": "minecraft:cobbled_deepslate",
+              "weight": 4
+            },
+            {
+              "block": "minecraft:deepslate",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:gravel",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:tuff",
+              "weight": 1
+            }
+          ],
+          "rubble_top": [
+            {
+              "block": "minecraft:air",
+              "weight": 4
+            },
+            {
+              "block": "minecraft:cobbled_deepslate_slab",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:skeleton_skull",
+              "weight": 0.4,
+              "decay": 1
+            }
+          ]
+        },
+        "orc": {
+          "extends": "dwarven",
+          "rubble": [
+            {
+              "block": "minecraft:cobblestone",
+              "weight": 3
+            },
+            {
+              "block": "lotr_port:cracked_dwarven_brick",
+              "weight": 3
+            },
+            {
+              "block": "minecraft:gravel",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:bone_block",
+              "weight": 1
+            },
+            {
+              "block": "minecraft:coarse_dirt",
+              "weight": 2
+            }
+          ],
+          "floor": [
+            {
+              "block": "minecraft:cracked_deepslate_tiles",
+              "weight": 4
+            },
+            {
+              "block": "minecraft:coarse_dirt",
+              "weight": 2
+            },
+            {
+              "block": "minecraft:cobbled_deepslate",
+              "weight": 2
+            }
+          ],
+          "light": [
+            {
+              "block": "lotr_port:orc_torch_block",
+              "weight": 1
+            }
+          ],
+          "chandelier": [
+            {
+              "block": "lotr_port:orc_chandelier",
+              "weight": 1
+            }
+          ]
+        },
+        "west_gate": {
+          "extends": "dwarven",
+          "door": [
+            {
+              "block": "lotr_port:ithildin_dwarven_door",
+              "weight": 1
+            }
+          ],
+          "carved": [
+            {
+              "block": "lotr_port:mithril_trimmed_dwarven_brick",
+              "weight": 2
+            },
+            {
+              "block": "lotr_port:carved_dwarven_brick",
+              "weight": 3
+            }
+          ]
+        },
+        "east_gate": {
+          "extends": "dwarven",
+          "door": [
+            {
+              "block": "lotr_port:dwarven_gate",
+              "weight": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}
