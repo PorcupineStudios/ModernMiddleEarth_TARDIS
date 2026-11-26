@@ -110,7 +110,8 @@ public final class RaceSkins {
                 }
             }
             return new RaceSkinRemap.Rules(NpcModels.hairRows(k), "hobbit".equals(k), "elf".equals(k),
-                    GsonHelper.getAsBoolean(json, "hang", true), GsonHelper.getAsInt(json, "ear_y", 2));
+                    GsonHelper.getAsBoolean(json, "hang", true), GsonHelper.getAsInt(json, "ear_y", 2),
+                    "goblin".equals(k));
         });
     }
 

@@ -22,7 +22,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
  * {@code wait <ticks>}, {@code /<command>} (sent as the player), {@code use <x> <y> <z> [face]} (right-click that block's
  * face, up by default, with the main hand), {@code mouse <x> <y>} (move the pointer, window pixels), {@code click <x> <y>} (left-click the open screen at
  * GUI-scaled x, y), {@code close} (the open screen), {@code tab <id>} (turn the open colony book to that
- * ribbon), {@code hud on|off}, {@code shot <name>}
+ * ribbon), {@code view first|back|front} (the camera, as F5), {@code hud on|off}, {@code shot <name>}
  * ({@code screenshots/<name>.png}), {@code quit}; {@code #} starts a comment.
  */
 @EventBusSubscriber(modid = LotrPort.MOD_ID, value = Dist.CLIENT)
@@ -136,6 +136,12 @@ public final class DevScript {
                     }
                 }
                 case "close" -> mc.player.closeContainer();
+                // the camera, as F5 turns it: first person, third person behind, third person in front
+                case "view" -> mc.options.setCameraType(switch (w[1]) {
+                    case "back" -> net.minecraft.client.CameraType.THIRD_PERSON_BACK;
+                    case "front" -> net.minecraft.client.CameraType.THIRD_PERSON_FRONT;
+                    default -> net.minecraft.client.CameraType.FIRST_PERSON;
+                });
                 // turn the open colony book to a tab (its ribbon), by id
                 case "tab" -> com.porcupinestudios.lotrport.client.book.BookScreen.turnTo(w[1]);
                 case "hud" -> mc.options.hideGui = w[1].equals("off");

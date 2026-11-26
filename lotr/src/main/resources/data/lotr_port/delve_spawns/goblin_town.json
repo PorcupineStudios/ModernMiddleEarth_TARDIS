@@ -10,7 +10,7 @@
   "tries": 8,
   "entries": [
     {
-      "npc": "lotr_port:gundabad_orc",
+      "npc": "lotr_port:goblin",
       "weight": 40,
       "min": 2,
       "max": 4,
@@ -26,7 +26,7 @@
       "dark": false
     },
     {
-      "npc": "lotr_port:gundabad_orc_archer",
+      "npc": "lotr_port:goblin_archer",
       "weight": 15,
       "min": 1,
       "max": 2,
@@ -42,7 +42,7 @@
       "dark": false
     },
     {
-      "npc": "lotr_port:gundabad_orc",
+      "npc": "lotr_port:goblin",
       "weight": 20,
       "min": 2,
       "max": 3,
@@ -58,7 +58,7 @@
       "dark": false
     },
     {
-      "npc": "lotr_port:gundabad_orc",
+      "npc": "lotr_port:goblin",
       "weight": 20,
       "min": 1,
       "max": 2,
@@ -74,7 +74,7 @@
       "dark": true
     },
     {
-      "npc": "lotr_port:gundabad_orc",
+      "npc": "lotr_port:goblin",
       "weight": 20,
       "min": 1,
       "max": 2,
@@ -106,7 +106,7 @@
       "dark": false
     },
     {
-      "npc": "lotr_port:gundabad_orc",
+      "npc": "lotr_port:goblin",
       "weight": 15,
       "min": 2,
       "max": 3,

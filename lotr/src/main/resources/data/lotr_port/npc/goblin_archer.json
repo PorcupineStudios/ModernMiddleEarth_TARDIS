@@ -1,0 +1,64 @@
+{
+  "faction": "lotr_port:goblins",
+  "skins": [
+    "lotr_port:textures/entity/goblin/archer/0.png",
+    "lotr_port:textures/entity/goblin/archer/1.png",
+    "lotr_port:textures/entity/goblin/archer/2.png",
+    "lotr_port:textures/entity/goblin/archer/3.png"
+  ],
+  "model": "goblin",
+  "behaviours": [
+    "orc",
+    "burning_panic",
+    "archer"
+  ],
+  "behaviour_data": {
+    "daylight_ticks": 200,
+    "avoid_range": 8,
+    "avoid_speed": 1.5,
+    "avoid_alignment": -500,
+    "burn_panic_speed": 1.5,
+    "skirmish_chance": 20000,
+    "skirmish_min": 40,
+    "skirmish_ticks": 160,
+    "weak_orc": 1,
+    "avoid_good": 1,
+    "eat_chance": 6000,
+    "drink_chance": 6000,
+    "ranged_speed": 1.25,
+    "ranged_min": 30,
+    "ranged_max": 60,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 1.0,
+    "ranged_swap": 0
+  },
+  "sounds": {
+    "ambient": "lotr_port:orc.say",
+    "hurt": "lotr_port:orc.hurt",
+    "death": "lotr_port:orc.death"
+  },
+  "scale": 0.8,
+  "health": 12.0,
+  "speed": 0.23,
+  "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:orc_bow",
+      "minecraft:bow"
+    ],
+    "chest": [
+      "lotr_port:bone_chestplate",
+      "minecraft:leather_chestplate"
+    ],
+    "legs": [
+      "lotr_port:fur_leggings",
+      "minecraft:leather_leggings"
+    ],
+    "feet": [
+      "lotr_port:fur_boots"
+    ]
+  },
+  "names": "lotr_port:orc",
+  "speech": "lotr_port:gundabad/orc",
+  "skin_height": 64
+}

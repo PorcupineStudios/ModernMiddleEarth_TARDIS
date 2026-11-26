@@ -1,0 +1,69 @@
+{
+  "faction": "lotr_port:goblins",
+  "skins": [
+    "lotr_port:textures/entity/goblin/goblin/0.png",
+    "lotr_port:textures/entity/goblin/goblin/1.png",
+    "lotr_port:textures/entity/goblin/goblin/2.png",
+    "lotr_port:textures/entity/goblin/goblin/3.png",
+    "lotr_port:textures/entity/goblin/goblin/4.png",
+    "lotr_port:textures/entity/goblin/goblin/5.png",
+    "lotr_port:textures/entity/goblin/goblin/6.png",
+    "lotr_port:textures/entity/goblin/goblin/7.png"
+  ],
+  "model": "goblin",
+  "behaviours": [
+    "orc",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "daylight_ticks": 200,
+    "avoid_range": 8,
+    "avoid_speed": 1.5,
+    "avoid_alignment": -500,
+    "burn_panic_speed": 1.5,
+    "skirmish_chance": 20000,
+    "skirmish_min": 40,
+    "skirmish_ticks": 160,
+    "weak_orc": 1,
+    "avoid_good": 1,
+    "eat_chance": 6000,
+    "drink_chance": 6000
+  },
+  "sounds": {
+    "ambient": "lotr_port:orc.say",
+    "hurt": "lotr_port:orc.hurt",
+    "death": "lotr_port:orc.death"
+  },
+  "scale": 0.8,
+  "health": 14.0,
+  "speed": 0.23,
+  "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:bronze_axe",
+      "lotr_port:stone_spear",
+      "lotr_port:mordor_axe",
+      "lotr_port:bronze_dagger",
+      "lotr_port:gundabad_uruk_spear"
+    ],
+    "head": [
+      "lotr_port:bone_helmet",
+      "lotr_port:fur_hat",
+      "lotr_port:bronze_helmet"
+    ],
+    "chest": [
+      "lotr_port:bone_chestplate",
+      "minecraft:leather_chestplate"
+    ],
+    "legs": [
+      "lotr_port:fur_leggings",
+      "minecraft:leather_leggings"
+    ],
+    "feet": [
+      "lotr_port:fur_boots"
+    ]
+  },
+  "names": "lotr_port:orc",
+  "speech": "lotr_port:gundabad/orc",
+  "skin_height": 64
+}

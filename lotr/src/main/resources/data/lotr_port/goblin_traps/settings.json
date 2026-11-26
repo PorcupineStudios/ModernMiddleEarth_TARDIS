@@ -11,12 +11,12 @@
   "min_drop": 4,
   "ambush": [
     {
-      "npc": "lotr_port:gundabad_orc",
+      "npc": "lotr_port:goblin",
       "min": 2,
       "max": 4
     },
     {
-      "npc": "lotr_port:gundabad_orc_archer",
+      "npc": "lotr_port:goblin_archer",
       "min": 0,
       "max": 2
     }

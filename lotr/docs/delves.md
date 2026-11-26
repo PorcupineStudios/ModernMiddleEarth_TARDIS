@@ -166,7 +166,7 @@ exactly like the Front Porch but are safe; the deep falls into Gollum's watery c
   (100-240) and grit falls (`dust`) with creaks for the last `warn_ticks` (50); then it springs: every porch floor
   block joined to it (up to `max_blocks`) becomes a block display, the floor splits along its long axis and the
   two leaves swing down on their outer edges in `swing_steps` (6) steps of `step_ticks` (3), and the `ambush`
-  (2-4 Gundabad orcs, 0-2 archers) waits within `ambush_radius` at the bottom. After `reset_ticks` (2400) with no
+  (2-4 goblins, 0-2 goblin archers) waits within `ambush_radius` at the bottom. After `reset_ticks` (2400) with no
   player within a few blocks it swings shut and the floor is whole again. Open traps are saved
   (`lotr_port_goblin_traps`; a swing cut short by a restart carries on, and a trap waits while its chunks are
   unloaded). A **redstone signal** beside an armed floor
@@ -180,11 +180,11 @@ exactly like the Front Porch but are safe; the deep falls into Gollum's watery c
   within `search` of `near` (zigzag stairs when too steep), a dark oak door in a frame, a ledge outside.
 - **Who lives there** (`delve_spawns/goblin_town.json`, `goblin_towns.json`; `DelveSpawns` with zones): each piece
   has a zone (`town`, `throne`, `porch`, `landing`, `tunnels`, `gollum_lake`, `back_door`) and an entry spawns only
-  in its `zone` (empty = anywhere in the delve). Goblin Town is lit, so its entries have `dark` false. Gundabad
-  orcs and archers in the town, at the landing, in the tunnels and at the back door; the **Great Goblin**
-  (`npc/great_goblin.json`: a big Gundabad orc, scale 1.55, health 160, battleaxe or warhammer) only at the throne,
-  chance 0.25, one at a time; **Gollum** only by his lake, in the dark, chance 0.2, one at a time. GameTest
-  `goblinSpawnsByZone`.
+  in its `zone` (empty = anywhere in the delve). Goblin Town is lit, so its entries have `dark` false. Goblins and
+  goblin archers (faction `lotr_port:goblins`, 2026-11-26, see `lotr/CLAUDE.md` Goblins) in the town, at the landing,
+  in the tunnels and at the back door; the **Great Goblin** (`npc/great_goblin.json`: the goblin body at scale 1.7,
+  crowned skin, health 160, battleaxe or warhammer) only at the throne, chance 0.25, one at a time; **Gollum** only
+  by his lake, in the dark, chance 0.2, one at a time. GameTest `goblinSpawnsByZone`.
 - **Blocks** (`converter/goblin_blocks.py` draws every texture from one palette of warm greyed browns, rope tan,
   rust and straw, so they sit together and against Middle-earth's stone; it also writes models, blockstates, loot,
   recipes): Goblin Planks (+ slab, stairs), Lashed Post (thin log lashed with rope, any axis), Goblin Scaffold (open

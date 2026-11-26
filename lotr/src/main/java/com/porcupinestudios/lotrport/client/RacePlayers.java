@@ -72,7 +72,8 @@ public final class RacePlayers {
             super(context, new HumanoidModel<>(context.bakeLayer(LotrClient.NPC_LAYER)), 0.5f);
             models.put("classic", model);
             for (String kind : NpcModels.KINDS) {
-                models.put(kind, new HumanoidModel<>(context.bakeLayer(NpcModels.layer(kind))));
+                models.put(kind, NpcModels.<AbstractClientPlayer>model(kind,
+                        context.bakeLayer(NpcModels.layer(kind))));
             }
             addLayer(new HumanoidArmorLayer<>(this,
                     new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)),
