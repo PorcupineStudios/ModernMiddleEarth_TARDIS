@@ -28,6 +28,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -421,6 +422,12 @@ public class LotrHorse extends AbstractChestedHorse {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
+        // a rider swinging at what's ahead hits a big mount's own head and neck first (a rhino's fill the crosshair),
+        // and its charge's gore is the rider's attack: a mount never takes damage from its own riders (2026-11-25)
+        Entity by = source.getEntity();
+        if (by != null && (by == this || hasPassenger(by) || by.getRootVehicle() == this)) {
+            return false;
+        }
         boolean hurt = super.hurt(source, amount);
         if (hurt && !level().isClientSide && fightsBack() && source.getEntity() instanceof LivingEntity) {
             sound("angry", null).ifPresent(s -> playSound(s, getSoundVolume(), getVoicePitch()));

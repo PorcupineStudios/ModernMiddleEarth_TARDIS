@@ -75,6 +75,17 @@ public class HitchBlockEntity extends BlockEntity implements BlockEntitySubLevel
         /** pull summed over this tick's substeps, for the strain */
         double forceSum;
         int forceSteps;
+        /**
+         * The tow point at the last two game ticks, as the physics saw them. Not the entity's xo: a ridden animal is
+         * placed by its rider's packets with absMoveTo, which sets xo to the new position too, so from xo a ridden
+         * animal never moved and pulled nothing (2026-11-25).
+         */
+        final Vector3d tickPrev = new Vector3d(), tickNow = new Vector3d();
+        long tickStamp = Long.MIN_VALUE;
+        /** the animal's speed away from the hitch along the traces, smoothed (blocks/s), for the assist */
+        double matchRate;
+        /** the most it may pull this step (force): its own max_pull, or more with the assist on a heavy load */
+        double limit;
 
         /** its place in the team: blocks to the hitch's right and ahead of it, where it stood when hitched */
         double side, ahead;
@@ -311,7 +322,8 @@ public class HitchBlockEntity extends BlockEntity implements BlockEntitySubLevel
                 double pull = hz.forceSteps == 0 ? 0 : hz.forceSum / hz.forceSteps;
                 hz.forceSum = 0;
                 hz.forceSteps = 0;
-                double load = Math.max(pull / Math.max(1e-6, da.maxPull()), hz.stretch / Math.max(1e-6, da.slack()));
+                double limit = Math.max(da.maxPull(), hz.limit);
+                double load = Math.max(pull / Math.max(1e-6, limit), hz.stretch / Math.max(1e-6, da.slack()));
                 hz.strain += (Mth.clamp(load, 0, 1) - hz.strain) * STRAIN_RATE;
                 Straining.apply(animal, da, hz.strain);
             }
@@ -361,14 +373,43 @@ public class HitchBlockEntity extends BlockEntity implements BlockEntitySubLevel
         Vector3d hitchWorld = pose.transformPosition(hitch, new Vector3d());
         Vector3d hitchVel = Sable.HELPER.getVelocity(level, subLevel, hitch, new Vector3d());
         Step report = null;
+        boolean assist = HarnessConfig.ASSIST.get();
+        long tick = level.getGameTime();
+        // with the assist each animal can give its share of the vehicle at least assist_accel, however heavy it is
+        double assistForce = assist ? mass.getMass() * HarnessConfig.ASSIST_ACCEL.get() / hitches.size() : 0;
+        // how much the load needs it: none for a light cart (the team pulls it easily, and the assist only made it
+        // jerkier), all of it once the load at assist_accel needs half of what the team can pull or more
+        double teamPull = 0;
+        for (Hitch hz : hitches) {
+            Entity e = find(hz);
+            DraughtAnimal d = e == null ? null : draught(e);
+            teamPull += d == null ? 0 : d.maxPull();
+        }
+        double need = teamPull <= 0 ? 1
+                : Mth.clamp((mass.getMass() * HarnessConfig.ASSIST_ACCEL.get() / teamPull - 0.25) / 0.25, 0, 1);
+        double match = assist ? need * Math.min(1, HarnessConfig.ASSIST_MATCH.get() * h) : 0;
+        boolean pulled = false;
         for (Hitch hz : hitches) {
             Entity e = find(hz);
             DraughtAnimal d = e == null ? null : draught(e);
             if (d == null) {
                 continue;
             }
-            Vector3d prev = towPoint(e, d, 0);
-            Vector3d now = towPoint(e, d, 1);
+            Vector3d raw = towPoint(e, d, 1);
+            if (hz.tickStamp == Long.MIN_VALUE || raw.distanceSquared(hz.tickNow) > 16) {
+                hz.tickPrev.set(raw);
+                hz.tickNow.set(raw);
+            } else if (tick != hz.tickStamp) {
+                hz.tickPrev.set(hz.tickNow);
+                hz.tickNow.set(raw);
+            } else {
+                hz.tickNow.set(raw); // moved again within the tick (a late rider packet): keep the latest
+            }
+            hz.tickStamp = tick;
+            // only a rider's animal needs the physics' own record (see tickPrev); others keep xo, which is exact
+            boolean ridden = e.getControllingPassenger() instanceof net.minecraft.world.entity.player.Player;
+            Vector3d prev = ridden ? new Vector3d(hz.tickPrev) : towPoint(e, d, 0);
+            Vector3d now = ridden ? new Vector3d(hz.tickNow) : towPoint(e, d, 1);
             Vector3d target = prev.lerp(now, partial, new Vector3d());
             Vector3d targetVel = now.sub(prev, new Vector3d()).div(TICK);
             hz.tracker.step(target, targetVel, d.smoothingOmega(), h, 4);
@@ -393,7 +434,17 @@ public class HitchBlockEntity extends BlockEntity implements BlockEntitySubLevel
                 continue;
             }
             double p = TraceCoupling.impulse(stretch, rate, mEff, d.omega(), d.dampingRatio(), h);
-            double limited = TraceCoupling.limited(p, d.maxPull(), d.maxPush(), n.dot(forward), h);
+            double align = n.dot(forward);
+            // the speed gap, smoothed over about half a second: a step-up's one-tick jump isn't followed
+            hz.matchRate += (rate - hz.matchRate) * Math.min(1, 2 * h);
+            if (assist && align > 0 && stretch > 0 && hz.matchRate > 0) {
+                // the cheat: while the traces are taut, bring the hitch toward the animal's own speed along them, so
+                // a heavy load keeps up with its team instead of waiting for the traces to stretch to their limit
+                p += mEff * hz.matchRate * match * align;
+            }
+            hz.limit = Math.max(d.maxPull(), assistForce);
+            double limited = TraceCoupling.limited(p, hz.limit, Math.max(d.maxPush(), assistForce), align, h);
+            pulled = true;
             force.applyImpulseAtPoint(mass, hitch, n.mul(limited, new Vector3d()));
             hz.stretch = stretch;
             hz.traceAngle = Math.toDegrees(Math.atan2(forward.x * n.z - forward.z * n.x,
@@ -407,6 +458,18 @@ public class HitchBlockEntity extends BlockEntity implements BlockEntitySubLevel
             }
         }
         handle.applyForcesAndReset(force);
+        if (assist && pulled) {
+            // the cheat, steadiness: a hitched vehicle's roll (side to side) spin dies away, so a heavy wagon doesn't
+            // rock or tip over on a step-up. Pitch stays free (it has to tip up onto a step) and so does yaw (turns).
+            double steady = need * Math.min(1, HarnessConfig.ASSIST_STEADY.get() * h);
+            Vector3d axis = pose.transformNormal(new Vector3d(forward));
+            if (axis.lengthSquared() > 1e-9) {
+                axis.normalize();
+                Vector3d w = handle.getAngularVelocity(new Vector3d());
+                double roll = w.dot(axis);
+                handle.addLinearAndAngularVelocity(new Vector3d(), axis.mul(-roll * steady));
+            }
+        }
         if (report != null) {
             double micros = (System.nanoTime() - start) / 1000.0;
             probe.step(new Step(report.stretch(), report.force(), report.saturated(), report.speed(),
