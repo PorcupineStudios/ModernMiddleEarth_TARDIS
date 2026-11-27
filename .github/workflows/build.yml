@@ -15,6 +15,12 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+      - name: No LOTR files in git
+        # We have no rights to LOTR's files (lotr/CLAUDE.md): the ones the port reads from the player's LOTR jar are
+        # gitignored (lotr/src/generated/resources/.gitignore, written by converter/LegacyAssetMap.java).
+        run: |
+          tracked="$(git ls-files -ci --exclude-standard)"
+          if [ -n "$tracked" ]; then echo "::error::Tracked files that must not be committed:"; echo "$tracked" | head -50; exit 1; fi
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -50,6 +56,15 @@ jobs:
           JAVA_TOOL_OPTIONS="-Dlotr_port.worldcheck=true -Xmx10g" ./gradlew :lotr:runServer --stacktrace 2>&1 | tee worldcheck.log
           grep -E "\\[worldcheck\\]|WORLDCHECK" worldcheck.log
           grep "WORLDCHECK PASSED" worldcheck.log
+      - name: LOTR export from its private repo (plant census only)
+        # The export is LOTR's data, so it lives in the private PorcupineStudios/LOTR_export (secret LOTR_EXPORT_TOKEN).
+        if: ${{ !cancelled() && contains(github.event.head_commit.message, '[plant-census]') }}
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: PorcupineStudios/LOTR_export
+          token: ${{ secrets.LOTR_EXPORT_TOKEN }}
+          path: converter/export
       - name: Plant census against LOTR (opt-in)
         # Only when the commit message has [plant-census] (2026-11-25, Aaron: check every plant's where and how many
         # against 1.7.10): world/PortPlantCensus counts the port's plants per biome on a fresh Middle-earth world

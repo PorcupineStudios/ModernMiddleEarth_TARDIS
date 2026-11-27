@@ -1,8 +1,9 @@
 name: Convert LOTR
 
 # Runs the 1.7.10 exporter (converter/) in a real LOTR 36.15 client under a virtual screen and commits what it reads
-# to converter/export/. Only by hand from the Actions tab (Aaron 2026-11-18): the export is committed and the mods build
-# from it, so pushes never need it ("rates" measures how often LOTR's structures stand in its real Middle-earth
+# to the private repo PorcupineStudios/LOTR_export (checked out at converter/export/; we have no rights to publish
+# LOTR's data, lotr/CLAUDE.md). Only by hand from the Actions tab (Aaron 2026-11-18): the converter builds the mods
+# from the export, so pushes never need it ("rates" measures how often LOTR's structures stand in its real Middle-earth
 # instead: structure_rates.json).
 on:
   workflow_dispatch:
@@ -50,6 +51,14 @@ jobs:
           mkdir -p converter/libs
           cp "ringrealms/libs/LOTRMod v36.15.jar" converter/libs/
           rm -rf ringrealms
+      # The export is LOTR's data, so it lives in the private PorcupineStudios/LOTR_export, not here. Needs the secret
+      # LOTR_EXPORT_TOKEN (a fine-grained token with read and write access to that repo's contents).
+      - name: Export repo
+        uses: actions/checkout@v4
+        with:
+          repository: PorcupineStudios/LOTR_export
+          token: ${{ secrets.LOTR_EXPORT_TOKEN }}
+          path: converter/export
       - name: Virtual screen
         run: sudo apt-get update -q && sudo apt-get install -y -q xvfb x11-xserver-utils libgl1-mesa-dri libglu1-mesa
       - name: Run the exporter
@@ -65,15 +74,14 @@ jobs:
         if: always()
         with:
           name: export
-          path: |
-            converter/export/
-            converter/run/client/logs/
-      - name: Commit the export
+          # logs only: artifacts of a public repo are public, and the export is LOTR's data
+          path: converter/run/client/logs/
+      - name: Commit the export to its private repo
+        working-directory: converter/export
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add converter/export
+          git add -A
           if git diff --cached --quiet; then echo "export unchanged"; exit 0; fi
-          git commit -m "Update the LOTR export"
-          git pull --rebase origin "$GITHUB_REF_NAME"
-          git push origin "HEAD:$GITHUB_REF_NAME"
+          git commit -m "Update the LOTR export (from $GITHUB_REPOSITORY $GITHUB_REF_NAME)"
+          git push origin HEAD:main

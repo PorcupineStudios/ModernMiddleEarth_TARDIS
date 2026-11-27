@@ -9,6 +9,8 @@ in a claude.ai doc or artifact: Claude sessions often cannot open those.
 | Roads that change: caravans wear paths, waymakers build roads, tunnels (2026-11-20) | `docs/plans/roads.md` |
 | TARDIS free flight (built in slices 2-4) | `tardis/docs/free-flight-plan.md` |
 | LOTR feature audit: every LOTR 1.7.10 class sorted into a feature, with its port status and the biggest gaps (2026-11-26) | `docs/plans/lotr-feature-audit.md` |
+| Read LOTR's files from the player's jar instead of shipping them: what's left and the steps (2026-11-27) | `docs/plans/legacy-jar-references.md` |
+| User stories for the partial and not-started work in every plan and design doc, with done-when, size and status (2026-11-27) | `docs/plans/user-stories.md` |
 
 ## Tickets
 

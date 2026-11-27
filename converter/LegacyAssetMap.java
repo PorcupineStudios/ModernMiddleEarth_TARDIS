@@ -36,6 +36,11 @@ public class LegacyAssetMap {
             "lotr_port/textures/models/armor/leather_hat_layer_1.png", List.of("tint", "assets/lotr/armor/hat.png", "684A36"),
             "lotr_port/textures/models/armor/party_hat_layer_1.png", List.of("tint", "assets/lotr/armor/partyhat.png", "C83A3A"));
 
+    /** LF line ends on every system, so a rerun on Windows doesn't rewrite the lists. */
+    static String lines(List<String> lines) {
+        return lines.isEmpty() ? "" : String.join("\n", lines) + "\n";
+    }
+
     public static void main(String[] args) throws Exception {
         try (ZipFile zip = new ZipFile(args[0])) {
             Map<String, byte[]> cache = new HashMap<>();
@@ -126,8 +131,16 @@ public class LegacyAssetMap {
                 if (found != null) composites.add(rel + "\t" + String.join("\t", found));
                 else ours.add(rel);
             }
-            Files.write(COPIES, copies);
-            Files.write(COMPOSITES, composites);
+            Files.writeString(COPIES, lines(copies));
+            Files.writeString(COMPOSITES, lines(composites));
+            // LOTR's files stay on disk for the converter and dev runs but never in git (we have no rights to them)
+            List<String> ignore = new ArrayList<>(List.of("# Written by converter/LegacyAssetMap.java: LOTR's own files,"
+                    + " read from the player's LOTR jar. Never commit them (lotr/CLAUDE.md)."));
+            for (String line : copies) ignore.add("/assets/" + line.split("\t", 2)[0]);
+            for (String line : composites) ignore.add("/assets/" + line.split("\t", 2)[0]);
+            int n = ignore.size();
+            for (int i = 1; i < n; i++) ignore.add(ignore.get(i) + ".mcmeta");
+            Files.writeString(GENERATED.getParent().resolve(".gitignore"), lines(ignore));
             System.out.println(copies.size() + " copies and " + composites.size()
                     + " composites read from LOTR's jar at runtime; " + ours.size() + " stay in the mod:");
             Map<String, Integer> byDir = new TreeMap<>();
