@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:gladden_iris_fens",
+  "features": [
+    "regions_unexplored:duckweed",
+    "regions_unexplored:cattail_fen",
+    "regions_unexplored:tree/pine",
+    "regions_unexplored:tree/dead_scotts_pine",
+    "regions_unexplored:tree/dead_bog",
+    "regions_unexplored:fallen_oak_tree_dense",
+    "regions_unexplored:fen_vegetation",
+    "regions_unexplored:pine_dead_shrub_mix"
+  ],
+  "step": "vegetal_decoration"
+}

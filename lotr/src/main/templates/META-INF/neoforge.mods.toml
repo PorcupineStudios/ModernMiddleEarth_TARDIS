@@ -83,3 +83,19 @@ type = "optional"
 versionRange = "[1.0,2.0)"
 ordering = "NONE"
 side = "CLIENT"
+
+# Regions Unexplored and Biomes O' Plenty: optional (converter/compat.py); their copies of LOTR's blocks drop as LOTR's,
+# and their vegetation grows in Middle-earth's sub-biomes made from their biomes
+[[dependencies.${mod_id}]]
+modId = "regions_unexplored"
+type = "optional"
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "biomesoplenty"
+type = "optional"
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"

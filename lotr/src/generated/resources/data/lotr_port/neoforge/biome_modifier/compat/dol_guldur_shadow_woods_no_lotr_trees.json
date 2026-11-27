@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "biomesoplenty"
+        }
+      ]
+    }
+  ],
+  "type": "neoforge:remove_features",
+  "biomes": "lotr_port:dol_guldur_shadow_woods",
+  "features": [
+    "lotr_port:trees/mirkwood_corrupted"
+  ],
+  "steps": [
+    "vegetal_decoration"
+  ]
+}

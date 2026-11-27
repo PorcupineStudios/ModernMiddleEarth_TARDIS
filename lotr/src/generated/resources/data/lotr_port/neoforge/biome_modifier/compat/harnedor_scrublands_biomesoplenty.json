@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:harnedor_scrublands",
+  "features": [
+    "biomesoplenty:trees_scrubland",
+    "biomesoplenty:flower_scrubland",
+    "biomesoplenty:scrub_extra",
+    "biomesoplenty:patch_desert_grass",
+    "biomesoplenty:patch_tall_grass_6",
+    "biomesoplenty:patch_grass_12"
+  ],
+  "step": "vegetal_decoration"
+}

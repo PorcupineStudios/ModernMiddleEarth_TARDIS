@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "biomesoplenty"
+      }
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:harnedor_scrublands",
+  "features": [
+    "regions_unexplored:tree/large_socotra",
+    "regions_unexplored:tree/small_socotra",
+    "regions_unexplored:tree/acacia",
+    "regions_unexplored:tree/oak_shrub_sparse",
+    "regions_unexplored:mallow",
+    "regions_unexplored:socotra_vegetation",
+    "regions_unexplored:socotra_shrub"
+  ],
+  "step": "vegetal_decoration"
+}

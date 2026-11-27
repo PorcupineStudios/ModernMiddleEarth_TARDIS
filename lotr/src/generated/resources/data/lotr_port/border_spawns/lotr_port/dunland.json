@@ -9,14 +9,14 @@
     },
     {
       "npc": "lotr_port:dunlending_archer",
-      "weight": 12,
+      "weight": 10,
       "min": 4,
       "max": 6,
       "dark": false
     },
     {
       "npc": "lotr_port:dunlending_axe_thrower",
-      "weight": 12,
+      "weight": 10,
       "min": 4,
       "max": 6,
       "dark": false
@@ -30,7 +30,7 @@
     },
     {
       "npc": "lotr_port:dunlending_warrior",
-      "weight": 23,
+      "weight": 21,
       "min": 4,
       "max": 6,
       "dark": false

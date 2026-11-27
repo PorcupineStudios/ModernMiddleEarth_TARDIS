@@ -1,7 +1,9 @@
 {
   "values": [
     "lotr_port:anduin_mouth",
+    "lotr_port:ethir_anduin_marshes",
     "lotr_port:entwash_mouth",
-    "lotr_port:nindalf"
+    "lotr_port:nindalf",
+    "lotr_port:wetwang_reedbeds"
   ]
 }

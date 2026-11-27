@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:taurethrim_rainforest",
+  "features": [
+    "regions_unexplored:tree/palm_dense_tall",
+    "regions_unexplored:tree/kapok_dense",
+    "regions_unexplored:tree/big_jungle_dense",
+    "regions_unexplored:tree/palm_shrub",
+    "regions_unexplored:tree/oak_bush_with_flowers_dense",
+    "regions_unexplored:hibiscus",
+    "regions_unexplored:elephant_ear_dense",
+    "regions_unexplored:palm_jungle_shrub_mix",
+    "regions_unexplored:moss_patch_with_water_uncommon"
+  ],
+  "step": "vegetal_decoration"
+}

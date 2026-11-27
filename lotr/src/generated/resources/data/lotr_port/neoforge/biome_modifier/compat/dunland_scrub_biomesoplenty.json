@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:dunland_scrub",
+  "features": [
+    "biomesoplenty:trees_rocky_shrubland",
+    "biomesoplenty:flower_shrubland",
+    "biomesoplenty:patch_bush_4",
+    "biomesoplenty:patch_grass_6"
+  ],
+  "step": "vegetal_decoration"
+}

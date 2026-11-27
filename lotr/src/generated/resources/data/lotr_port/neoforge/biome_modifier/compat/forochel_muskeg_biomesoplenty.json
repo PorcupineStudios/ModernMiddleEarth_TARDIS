@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:forochel_muskeg",
+  "features": [
+    "biomesoplenty:trees_muskeg",
+    "biomesoplenty:small_brown_mushroom",
+    "biomesoplenty:mud_splatter",
+    "biomesoplenty:patch_grass_1"
+  ],
+  "step": "vegetal_decoration"
+}

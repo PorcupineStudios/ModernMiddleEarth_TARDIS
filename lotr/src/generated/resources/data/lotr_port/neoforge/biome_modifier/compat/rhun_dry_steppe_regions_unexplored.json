@@ -1,0 +1,14 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:rhun_dry_steppe",
+  "features": [
+    "regions_unexplored:steppe_vegetation"
+  ],
+  "step": "vegetal_decoration"
+}

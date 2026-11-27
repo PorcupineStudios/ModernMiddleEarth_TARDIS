@@ -2,6 +2,7 @@
   "values": [
     "lotr_port:blackroot_vale",
     "lotr_port:dor_en_ernil",
+    "lotr_port:dor_en_ernil_groves",
     "lotr_port:dor_en_ernil_hills",
     "lotr_port:gondor",
     "lotr_port:gondor_woodlands",
@@ -10,8 +11,11 @@
     "lotr_port:lamedon",
     "lotr_port:lamedon_hills",
     "lotr_port:lebennin",
+    "lotr_port:lebennin_flower_fields",
     "lotr_port:lossarnach",
+    "lotr_port:lossarnach_flowering_vales",
     "lotr_port:pelargir",
-    "lotr_port:pinnath_gelin"
+    "lotr_port:pinnath_gelin",
+    "lotr_port:pinnath_gelin_green_downs"
   ]
 }

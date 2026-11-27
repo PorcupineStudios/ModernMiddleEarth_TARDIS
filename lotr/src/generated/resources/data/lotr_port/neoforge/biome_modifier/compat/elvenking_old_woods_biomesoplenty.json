@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:elvenking_old_woods",
+  "features": [
+    "biomesoplenty:flower_default_extended_6",
+    "biomesoplenty:rose_bush_normal",
+    "biomesoplenty:fallen_log",
+    "biomesoplenty:trees_dense_woodland",
+    "biomesoplenty:patch_grass_12",
+    "biomesoplenty:patch_tall_grass_12"
+  ],
+  "step": "vegetal_decoration"
+}

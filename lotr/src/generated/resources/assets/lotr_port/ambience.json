@@ -33,6 +33,18 @@
       "lotr_port:enchanted_river": {
         "chance": 3000,
         "pitch": 1.0
+      },
+      "lotr_port:withywindle_willow_groves": {
+        "chance": 6000,
+        "pitch": 1.0
+      },
+      "lotr_port:dol_guldur_shadow_woods": {
+        "chance": 3000,
+        "pitch": 1.0
+      },
+      "lotr_port:dead_marshes_bogs": {
+        "chance": 2400,
+        "pitch": 1.0
       }
     },
     "cave_biomes": {}
@@ -58,7 +70,8 @@
       "lotr_port:last_desert",
       "lotr_port:near_harad",
       "lotr_port:near_harad_red_desert",
-      "lotr_port:near_harad_semi_desert"
+      "lotr_port:near_harad_semi_desert",
+      "lotr_port:haradwaith_drylands"
     ]
   },
   "sea": {

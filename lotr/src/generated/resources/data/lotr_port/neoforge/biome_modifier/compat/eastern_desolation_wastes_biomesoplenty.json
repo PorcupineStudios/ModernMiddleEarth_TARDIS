@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:eastern_desolation_wastes",
+  "features": [
+    "biomesoplenty:trees_wasteland",
+    "biomesoplenty:flower_wasteland",
+    "biomesoplenty:wasteland_grass_2"
+  ],
+  "step": "vegetal_decoration"
+}

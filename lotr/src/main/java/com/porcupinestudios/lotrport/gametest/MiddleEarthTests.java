@@ -132,6 +132,37 @@ public final class MiddleEarthTests {
         helper.succeed();
     }
 
+    /**
+     * Aaron 2026-11-26: no floating islands. The terrain (caves aside: a ground scan runs without them) is a height
+     * field: every column is solid up to its ground and air above, never rock over air. Checked on a 16-block grid
+     * round the roughness spots (Shire, hills, mountains, Misty Mountains).
+     */
+    @GameTest(template = EMPTY, timeoutTicks = 2000)
+    public static void terrainHasNoFloatingRock(GameTestHelper helper) {
+        Terrain terrain = middleEarth(helper);
+        int columns = 0;
+        for (int[] spot : ROUGH_SPOTS) {
+            for (int dx = -ROUGH_RADIUS; dx <= ROUGH_RADIUS; dx += 16) {
+                for (int dz = -ROUGH_RADIUS; dz <= ROUGH_RADIUS; dz += 16) {
+                    int x = spot[0] + dx, z = spot[1] + dz;
+                    var column = terrain.generator().getBaseColumn(x, z, terrain.heights(), terrain.random());
+                    boolean air = false;
+                    for (int y = terrain.heights().getMinBuildHeight(); y < terrain.heights().getMaxBuildHeight(); y++) {
+                        var state = column.getBlock(y);
+                        if (state.isAir()) {
+                            air = true;
+                        } else if (air && state.getFluidState().isEmpty()) { // water lies in hollows, rock must not
+                            helper.fail("rock over air at " + x + " " + y + " " + z);
+                        }
+                    }
+                    columns++;
+                }
+            }
+        }
+        LotrPort.LOG.info("[phase3] {} columns, none with rock over air", columns);
+        helper.succeed();
+    }
+
     /** Spots to compare with LOTR's terrain (the exporter's {@code rough} step samples the same squares). */
     static final int[][] ROUGH_SPOTS = { { 704, -297 }, { 45632, 9792 }, { 45632, 15184 }, { 41792, 59456 },
             { 105792, 66624 }, { 83520, -15936 }, { 76480, 47168 } };

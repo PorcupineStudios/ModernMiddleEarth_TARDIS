@@ -1,0 +1,18 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:lebennin_flower_fields",
+  "features": [
+    "biomesoplenty:patch_grass_24",
+    "biomesoplenty:patch_tall_grass_64",
+    "biomesoplenty:flower_lavender",
+    "biomesoplenty:patch_tall_lavender",
+    "biomesoplenty:trees_lavender_field"
+  ],
+  "step": "vegetal_decoration"
+}

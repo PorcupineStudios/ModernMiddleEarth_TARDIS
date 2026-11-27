@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "lotr_port:unify",
+  "ingredients": [
+    {
+      "item": "biomesoplenty:spanish_moss_plant"
+    }
+  ],
+  "result": {
+    "id": "regions_unexplored:spanish_moss_plant"
+  }
+}

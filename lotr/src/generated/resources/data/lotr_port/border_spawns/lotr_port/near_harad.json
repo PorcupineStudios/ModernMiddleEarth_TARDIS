@@ -2,7 +2,7 @@
   "entries": [
     {
       "npc": "lotr_port:corsair",
-      "weight": 19,
+      "weight": 17,
       "min": 2,
       "max": 6,
       "dark": false
@@ -23,7 +23,7 @@
     },
     {
       "npc": "lotr_port:gulf_haradrim",
-      "weight": 12,
+      "weight": 11,
       "min": 2,
       "max": 4,
       "dark": false
@@ -37,28 +37,28 @@
     },
     {
       "npc": "lotr_port:harnedhrim",
-      "weight": 6,
+      "weight": 11,
       "min": 2,
       "max": 4,
       "dark": false
     },
     {
       "npc": "lotr_port:harnedor_archer",
-      "weight": 3,
-      "min": 3,
-      "max": 6,
-      "dark": false
-    },
-    {
-      "npc": "lotr_port:harnedor_warrior",
       "weight": 6,
       "min": 3,
       "max": 6,
       "dark": false
     },
     {
+      "npc": "lotr_port:harnedor_warrior",
+      "weight": 11,
+      "min": 3,
+      "max": 6,
+      "dark": false
+    },
+    {
       "npc": "lotr_port:near_haradrim",
-      "weight": 12,
+      "weight": 11,
       "min": 2,
       "max": 4,
       "dark": false
@@ -72,14 +72,14 @@
     },
     {
       "npc": "lotr_port:near_haradrim_warrior",
-      "weight": 6,
+      "weight": 5,
       "min": 3,
       "max": 6,
       "dark": false
     },
     {
       "npc": "lotr_port:nomad",
-      "weight": 38,
+      "weight": 39,
       "min": 4,
       "max": 6,
       "dark": false
@@ -93,7 +93,7 @@
     },
     {
       "npc": "lotr_port:nomad_warrior",
-      "weight": 15,
+      "weight": 16,
       "min": 2,
       "max": 4,
       "dark": false
@@ -121,7 +121,7 @@
     },
     {
       "npc": "lotr_port:umbarian",
-      "weight": 19,
+      "weight": 17,
       "min": 2,
       "max": 4,
       "dark": false

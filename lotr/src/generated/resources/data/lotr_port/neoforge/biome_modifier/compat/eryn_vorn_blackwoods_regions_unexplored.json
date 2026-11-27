@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:eryn_vorn_blackwoods",
+  "features": [
+    "regions_unexplored:patch/grass_sprouts_sparse",
+    "regions_unexplored:tree/tall_blackwood",
+    "regions_unexplored:tree/blackwood",
+    "regions_unexplored:tree/tall_dark_oak",
+    "regions_unexplored:blackwood_mushrooms",
+    "regions_unexplored:blackwood_decoration",
+    "regions_unexplored:blackwood_vegetation",
+    "regions_unexplored:blackwood_dark_oak_shrub_mix"
+  ],
+  "step": "vegetal_decoration"
+}

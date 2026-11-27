@@ -2,28 +2,28 @@
   "entries": [
     {
       "npc": "lotr_port:high_elf",
-      "weight": 64,
+      "weight": 60,
       "min": 4,
       "max": 6,
       "dark": false
     },
     {
       "npc": "lotr_port:high_elf_warrior",
-      "weight": 13,
+      "weight": 12,
       "min": 4,
       "max": 4,
       "dark": false
     },
     {
       "npc": "lotr_port:rivendell_elf",
-      "weight": 17,
+      "weight": 25,
       "min": 4,
       "max": 6,
       "dark": false
     },
     {
       "npc": "lotr_port:rivendell_warrior",
-      "weight": 20,
+      "weight": 18,
       "min": 4,
       "max": 4,
       "dark": false

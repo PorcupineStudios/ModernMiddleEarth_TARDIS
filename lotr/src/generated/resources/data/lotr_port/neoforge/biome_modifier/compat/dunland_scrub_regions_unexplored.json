@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "biomesoplenty"
+      }
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:dunland_scrub",
+  "features": [
+    "regions_unexplored:patch/grass_sprouts_sparse",
+    "regions_unexplored:tree/spruce_tall_sparse",
+    "regions_unexplored:tree/oak_shrub_dense",
+    "regions_unexplored:tree/oak_bush_single",
+    "regions_unexplored:tree/spruce_shrub_dense",
+    "regions_unexplored:shrubland_flowers",
+    "regions_unexplored:shrubland_vegetation",
+    "regions_unexplored:spruce_shrub"
+  ],
+  "step": "vegetal_decoration"
+}

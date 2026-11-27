@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "regions_unexplored"
+        },
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "biomesoplenty"
+        }
+      ]
+    }
+  ],
+  "type": "neoforge:remove_features",
+  "biomes": "lotr_port:grey_mountain_boreal_woods",
+  "features": [
+    "lotr_port:trees/grey_mountains_foothills"
+  ],
+  "steps": [
+    "vegetal_decoration"
+  ]
+}

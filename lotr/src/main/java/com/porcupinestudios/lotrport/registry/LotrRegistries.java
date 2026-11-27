@@ -79,9 +79,19 @@ public final class LotrRegistries {
     public static final Supplier<AttachmentType<AttackTiming.Wait>> ATTACK_WAIT = ATTACHMENTS.register("attack_wait",
             () -> AttachmentType.builder(() -> AttackTiming.Wait.NONE).build());
 
+    private static final DeferredRegister<com.mojang.serialization.MapCodec<
+            ? extends net.neoforged.neoforge.common.loot.IGlobalLootModifier>> LOOT_MODIFIERS =
+            DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, LotrPort.MOD_ID);
+
+    /** Loot gives one item for another: other mods' copies of LOTR's blocks drop as LOTR's (converter/compat.py). */
+    public static final Supplier<com.mojang.serialization.MapCodec<
+            com.porcupinestudios.lotrport.compat.ReplaceDropsModifier>> REPLACE_DROPS =
+            LOOT_MODIFIERS.register("replace_drops", () -> com.porcupinestudios.lotrport.compat.ReplaceDropsModifier.CODEC);
+
     private LotrRegistries() {}
 
     public static void register(IEventBus modBus) {
         ATTACHMENTS.register(modBus);
+        LOOT_MODIFIERS.register(modBus);
     }
 }

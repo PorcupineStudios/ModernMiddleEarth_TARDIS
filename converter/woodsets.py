@@ -52,7 +52,7 @@ NAMES = {
 
 def write_json(path, data):
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
+    with open(path, "w", encoding="utf-8", newline="\n") as f:  # LF on Windows too, as the repo keeps them
         json.dump(data, f, indent=2, ensure_ascii=False)
         f.write("\n")
 

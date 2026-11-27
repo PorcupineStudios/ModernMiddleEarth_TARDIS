@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "lotr_port:unify",
+  "ingredients": [
+    {
+      "item": "regions_unexplored:pine_slab"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:pine_wood_slab"
+  }
+}

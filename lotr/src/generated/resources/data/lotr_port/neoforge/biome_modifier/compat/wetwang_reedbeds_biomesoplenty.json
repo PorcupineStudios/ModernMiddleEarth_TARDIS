@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:wetwang_reedbeds",
+  "features": [
+    "biomesoplenty:trees_wetland",
+    "biomesoplenty:flower_wetland",
+    "biomesoplenty:patch_cattail_extra",
+    "biomesoplenty:patch_fern_8",
+    "biomesoplenty:patch_lily_pad_10",
+    "biomesoplenty:toadstool_normal",
+    "biomesoplenty:patch_reed_5",
+    "biomesoplenty:patch_grass_12",
+    "biomesoplenty:patch_watergrass_10"
+  ],
+  "step": "vegetal_decoration"
+}

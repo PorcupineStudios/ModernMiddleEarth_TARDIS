@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:ethir_anduin_marshes",
+  "features": [
+    "biomesoplenty:patch_reed_10",
+    "biomesoplenty:patch_grass_24",
+    "biomesoplenty:patch_tall_grass_128",
+    "biomesoplenty:patch_watergrass_250"
+  ],
+  "step": "vegetal_decoration"
+}

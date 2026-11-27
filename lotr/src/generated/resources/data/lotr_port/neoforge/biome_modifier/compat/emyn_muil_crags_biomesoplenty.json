@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:emyn_muil_crags",
+  "features": [
+    "biomesoplenty:crag_moss",
+    "biomesoplenty:crag_splatter",
+    "biomesoplenty:patch_grass_12",
+    "biomesoplenty:patch_tall_grass_24"
+  ],
+  "step": "vegetal_decoration"
+}

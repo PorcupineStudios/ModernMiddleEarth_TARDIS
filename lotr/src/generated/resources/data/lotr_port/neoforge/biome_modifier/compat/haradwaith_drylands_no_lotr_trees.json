@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "biomesoplenty"
+        }
+      ]
+    }
+  ],
+  "type": "neoforge:remove_features",
+  "biomes": "lotr_port:haradwaith_drylands",
+  "features": [
+    "lotr_port:trees/near_harad_semi_desert"
+  ],
+  "steps": [
+    "vegetal_decoration"
+  ]
+}

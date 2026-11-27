@@ -1,6 +1,8 @@
 {
   "values": [
     "lotr_port:dead_marshes",
-    "lotr_port:nindalf"
+    "lotr_port:dead_marshes_bogs",
+    "lotr_port:nindalf",
+    "lotr_port:wetwang_reedbeds"
   ]
 }

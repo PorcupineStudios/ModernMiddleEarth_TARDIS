@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "biomesoplenty"
+        }
+      ]
+    }
+  ],
+  "type": "neoforge:remove_features",
+  "biomes": "lotr_port:brown_lands_deadwood",
+  "features": [
+    "lotr_port:trees/brown_lands"
+  ],
+  "steps": [
+    "vegetal_decoration"
+  ]
+}
