@@ -4,11 +4,35 @@ Future-port of The Lord of the Rings Mod (1.7.10, Update 36.15) to Minecraft 1.2
 modpack project. Mod id `lotr_port`, main class `LotrPort`, package
 `com.porcupinestudios.lotrport`.
 
-**This repo is public** (2026-11-11): the LOTR mod's creator gave Aaron permission to use LOTR's assets. Three things
-must never be committed (all in `.gitignore`): the film music (private repo `PorcupineStudios/LOTR_music`,
-`lotr/docs/music.md`), the LOTR mod's jar itself (private copy `libs/LOTRMod v36.15.jar` in PorcupineStudios/RingRealms;
-copy it to `converter/libs/` to run the converter), and other mods' jars. Its class map:
+**This repo is public** (2026-11-11). **We have no rights to the LOTR mod's files**: its creator's permission to use
+LOTR's assets was revoked, with a grace period to adjust (Aaron, 2026-11-27). LOTR's own files (textures, sounds, text,
+the map) are never shipped or committed: the port reads them from the player's LOTR jar (plan:
+`docs/plans/legacy-jar-references.md`). Also never committed (all in `.gitignore`): the film music (private repo
+`PorcupineStudios/LOTR_music`, `lotr/docs/music.md`), the converter export (private repo
+`PorcupineStudios/LOTR_export`, cloned into `converter/export/`), the LOTR mod's jar itself (private copy
+`libs/LOTRMod v36.15.jar` in PorcupineStudios/RingRealms; copy it to `converter/libs/` to run the converter), and other
+mods' jars. Its class map:
 https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern code; never paste decompiled code.
+
+## LOTR's own files come from the player's LOTR jar (2026-11-26, prototype, branch claude/legacy-jar-assets)
+- Textures and sounds that are unchanged copies of LOTR's (pixels equal; 2994 of 4075) are not shipped: the build
+  leaves them (and their .mcmeta) out of the mod jar, and `client/LegacyAssets` serves them from The Lord of the Rings
+  Mod: Legacy jar in `mods/` (a modpack lists it from its own CurseForge page; NeoForge skips it with one warning,
+  "for an old version of Minecraft Forge") as a required built-in resource pack, loaded at resource reload like any
+  other. Without the jar: an error in the log and a toast on the title screen; LOTR's blocks draw as missing.
+- The list is `src/main/resources/lotr_port_legacy_assets.tsv` (our path, jar path), written by
+  `./gradlew :lotr:compileJava` then `java -cp lotr/build/classes/java/main converter/LegacyAssetMap.java "<LOTR jar>"`
+  from the repo root after a converter run. It also writes `lotr_port_legacy_composites.tsv` (609 textures the
+  converter built from several of LOTR's: drinks = vessel + liquid where the vessel is FF00FF, connected and gate
+  sheets, the two dyed hats), each recipe checked pixel-exact; `client/LegacyComposer` (plain Java, Pillow's
+  alpha_composite maths) rebuilds them in game at resource reload. The rest (~470: wood sets, raw ores, wild-land
+  blocks, 1.7.10 horses, our own mount armour) are not LOTR's pixels and ship. The listed files are never in git:
+  LegacyAssetMap also writes `src/generated/resources/.gitignore` from the two lists, so a converter run leaves them on
+  disk (for the next comparison and dev runs) but untracked, and CI's "No LOTR files in git" step fails if one is.
+- The 1.7.10 jar in mods/ makes NeoForge's load-warning screen show on every launch (and it blocks `-PquickPlay`).
+  A modpack turns it off with `showLoadWarnings = false` in `config/neoforge-client.toml` (hides all load warnings).
+- Checked 2026-11-26 (dev client to the title screen): with the jar, no lotr_port texture or sound missing; without
+  it, all 190 sounds and the model textures missing.
 
 ## Approach (agreed in the project thread)
 - Split the old `LOTRMod` god class into one registry per area.
@@ -755,7 +779,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   down. Use a full one: you drink it where it stands (`LotrDrinkItem.drink`), it stays, empty. Use an empty one with a
   drink in that kind of vessel: pours it in; otherwise nothing (it used to pick the block up, and structure vessels,
   holding nothing, vanished). Break it to take it. Models: `converter/vessels.py` (no two boxes overlap: overlapping
-  floor and walls z-fought; a real glass bottle). Water drawn into a vessel stays in that vessel.
+  floor and walls z-fought). The glass bottle and wine glass (2026-11-27) are single panes of our own seamless
+  `vessel_glass` (`converter/VesselGlass.java`), drawn translucent, and `client/VesselRenderer` fills them with the
+  drink (sides and top), not only a surface. Water drawn into a vessel stays in that vessel.
 - Drink-in-vessel item models are `item/drink/<drink>/<vessel>` (2026-11-17): `<drink>_<vessel>` clashed with real
   items (the empty ale horn drew full ale; ale in a golden horn drew the set-down block).
 - Poisoned drinks (2026-11-17, `drink/PoisonDrinkRecipe`, recipe `own/poison_drink`): any drink + the bottle of
@@ -900,6 +926,11 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   the model takes LOTR's onWall pose. Racks and stands in structures: meta & 3 = north/east/south/west, & 4 = wall.
   The rack's weapon is drawn with `ItemDisplayContext.NONE` moved to 1.7.10's flat-icon frame (checked in game).
 - Items that place another block (`places`): beds stay `BedItem`, the rest are `ItemNameBlockItem`.
+- Orc and Taurëdain torches (2026-11-27): kind `double_torch` (`content/DoubleTorchBlock`, a vanilla double plant on
+  any solid centre): a 2-pixel post, 16 + 8 high, `_bottom`/`_top` icons, light only on the upper half, flame there.
+  Structures got their halves from metadata 1 (`structures.py`); the 35 templates written before were patched with
+  `converter/DoubleTorchHalves.java` (no Python here). Delve palettes name `[half=lower]` and `Draw.set` adds the top.
+  GameTests `DoubleTorchTests`.
 - GameTests `MachineTests` (own batch: the 1-block `empty` template lets other tests land on long-running ones).
 
 ## Farming, ores and pouches (2026-11-10, `content/farm/`, `content/pouch/`)

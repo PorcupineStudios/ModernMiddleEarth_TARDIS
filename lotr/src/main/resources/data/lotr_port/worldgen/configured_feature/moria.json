@@ -1495,7 +1495,7 @@
           ],
           "orc_torch": [
             {
-              "block": "lotr_port:orc_torch_block",
+              "block": "lotr_port:orc_torch_block[half=lower]",
               "weight": 1
             }
           ],
@@ -1795,7 +1795,7 @@
           ],
           "light": [
             {
-              "block": "lotr_port:orc_torch_block",
+              "block": "lotr_port:orc_torch_block[half=lower]",
               "weight": 1
             }
           ],

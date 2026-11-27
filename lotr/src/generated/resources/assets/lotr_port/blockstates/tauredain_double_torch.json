@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
-      "model": "lotr_port:block/tauredain_double_torch"
+    "half=lower": {
+      "model": "lotr_port:block/tauredain_double_torch_lower"
+    },
+    "half=upper": {
+      "model": "lotr_port:block/tauredain_double_torch_upper"
     }
   }
 }

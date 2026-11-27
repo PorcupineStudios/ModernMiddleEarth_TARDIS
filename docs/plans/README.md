@@ -8,6 +8,18 @@ in a claude.ai doc or artifact: Claude sessions often cannot open those.
 | Colony core, hired units, multiplayer, colonists (2026-11-10) | `docs/plans/colony-core.md` |
 | Roads that change: caravans wear paths, waymakers build roads, tunnels (2026-11-20) | `docs/plans/roads.md` |
 | TARDIS free flight (built in slices 2-4) | `tardis/docs/free-flight-plan.md` |
+| LOTR feature audit: every LOTR 1.7.10 class sorted into a feature, with its port status and the biggest gaps (2026-11-26) | `docs/plans/lotr-feature-audit.md` |
+| Read LOTR's files from the player's jar instead of shipping them: what's left and the steps (2026-11-27) | `docs/plans/legacy-jar-references.md` |
+| User stories for the partial and not-started work in every plan and design doc, with done-when, size and status (2026-11-27) | `docs/plans/user-stories.md` |
+
+## Tickets
+
+Work items are GitHub issues in the project "Ring Bearer sprints" (https://github.com/users/PorcupineStudios/projects/1).
+An issue body has the headings `### Story`, `### Mod`, `### Done when`, `### Size` and `### Plan it comes from`, and the
+labels `story`, `mod:<api|tardis|lotr|harness>` and `size:S/M/L`. New ones go in with Status Todo and no milestone; a
+sprint gives them its milestone. LOTR's missing features (from the audit above) are issues #14 to #72. Filing by
+script: `gh issue create --repo PorcupineStudios/ModernMiddleEarth_TARDIS ...`, then `gh project item-add 1 --owner
+PorcupineStudios --url <issue>`.
 
 ## Still only on claude.ai
 

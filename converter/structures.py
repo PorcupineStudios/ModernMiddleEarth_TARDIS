@@ -166,6 +166,8 @@ class Structures:
         if kind == "bed":
             # 1.7.10 beds: low 2 bits the direction foot -> head (player-facing order), bit 8 the head half
             return {"facing": HOOK_FACING[meta & 3], "part": "head" if meta & 8 else "foot", "occupied": "false"}
+        if kind == "double_torch":
+            return {"half": "upper" if meta & 1 else "lower"}  # LOTRBlockDoubleTorch: metadata 1 is the top
         if kind == "torch":
             return {"facing": TORCH_FACING.get(meta, "up")}
         if kind == "button":

@@ -121,10 +121,12 @@ public final class TreeOverflow extends SavedData {
 
     public static TreeOverflow load(CompoundTag tag, HolderLookup.Provider registries) {
         TreeOverflow out = new TreeOverflow();
-        if (tag.contains("chunks")) {
-            CHUNKS.parse(NbtOps.INSTANCE, tag.get("chunks"))
+        // one chunk at a time, as TreeRecords.load: Codec.unboundedMap decodes into an array map (quadratic)
+        CompoundTag chunks = tag.getCompound("chunks");
+        for (String k : chunks.getAllKeys()) {
+            Entry.CODEC.listOf().parse(NbtOps.INSTANCE, chunks.get(k))
                     .resultOrPartial(e -> LotrPort.LOG.error("[tree overflow] {}", e))
-                    .ifPresent(m -> m.forEach((k, v) -> out.byChunk.put(Long.parseLong(k), new ArrayList<>(v))));
+                    .ifPresent(v -> out.byChunk.put(Long.parseLong(k), new ArrayList<>(v)));
         }
         return out;
     }

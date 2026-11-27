@@ -139,11 +139,14 @@ public class NpcRenderer extends HumanoidMobRenderer<LotrNpc, HumanoidModel<Lotr
             float x = -font.width(row) / 2f;
             float y = (i - rows.size() + 1) * (font.lineHeight + 1);
             // background first, then the text pushed in front with polygon offset: text and its box in one pass
-            // share a depth and z-fight under shaderpacks (Iris), which ate half of every letter
-            font.drawInBatch(row, x, y, 0x00FFFFFF, false, matrix, buffers, Font.DisplayMode.NORMAL, background,
-                    light);
+            // share a depth and z-fight under shaderpacks (Iris), which ate half of every letter. The box pass's
+            // text must be invisible: Font makes a colour with alpha under 4 opaque, so 0x00FFFFFF drew every letter
+            // a second time at the box's depth; alpha 4 is kept and the text shader discards it. Full bright, so
+            // speech reads at night and in shade.
+            font.drawInBatch(row, x, y, 0x04FFFFFF, false, matrix, buffers, Font.DisplayMode.NORMAL, background,
+                    LightTexture.FULL_BRIGHT);
             font.drawInBatch(row, x, y, 0xFFFFFFFF, false, matrix, buffers, Font.DisplayMode.POLYGON_OFFSET, 0,
-                    light);
+                    LightTexture.FULL_BRIGHT);
         }
         pose.popPose();
     }

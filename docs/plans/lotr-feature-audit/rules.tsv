@@ -1,0 +1,231 @@
+# LOTR class -> feature. Regex (full match on the class path without "lotr/", inner classes folded) TAB feature id.
+# First match wins: whole families by package first, then features by keyword, then package catch-alls.
+# Read by converter/LotrFeatureAudit.java; feature ids are in features.tsv.
+
+# --- bundled patches, coremod, compat, utilities
+io/gitlab/.*	core.ucp
+common/coremod/.*	core.coremod
+compatibility/.*	core.compat
+common/util/LOTRMazeGenerator	core.util
+common/util/.*	core.util
+common/playerdetails/.*	core.playerdetails
+client/gui/config/.*	core.config
+common/LOTRConfig	core.config
+
+# --- NPC and animal types (checked against the port's NPC types and mount breeds by name)
+common/entity/npc/LOTREntityGollum	npc.gollum
+common/entity/npc/LOTREntity(Gandalf|Saruman)	npc.wizards
+common/entity/npc/LOTREntity(Sauron|Balrog|MountainTrollChieftain)	npc.bosses
+common/entity/npc/LOTREntity(ScrapTrader)	npc.travelling
+common/entity/npc/LOTREntity\w+	npc.types
+common/entity/animal/LOTREntity(Horse|ShirePony|Zebra|Camel|Elk|Rhino|Giraffe|WildBoar)	npc.mounts
+common/entity/animal/LOTREntityAnimalMF	npc.animals
+common/entity/animal/.*	npc.animals
+
+# --- biomes (checked against the port's biomes by name)
+common/world/biome/LOTRBiomeGenUtumno	dim.utumno
+common/world/biome/LOTRBiomeDecorator	world.decorator
+common/world/biome/LOTRMusicRegion	client.music
+common/world/biome/LOTRBiome	world.biomes
+common/world/biome/variant/.*	world.variants
+common/world/biome/.*	world.biomes
+
+# --- structures (checked against exported and placed structures by name)
+common/world/structure2/LOTRWorldGenNPCRespawner	block.spawners
+common/world/structure2/LOTRStructureTimelapse	struct.tools
+common/world/structure2/scan/.*	struct.tools
+common/world/structure/LOTRChestContents	world.loot
+common/world/structure/.*	struct.structures
+common/world/structure2/.*	struct.structures
+common/world/village/.*	struct.villages
+common/world/mapgen/dwarvenmine/.*	struct.mines
+common/world/mapgen/tpyr/.*	struct.pyramid
+
+# --- Utumno, portals
+client/render/entity/LOTRRenderUtumno(IceSpider|Troll)	client.render_npc
+common/world/feature/LOTRWorldGenEntJars	world.features
+common/item/LOTRItemRingil	item.special_weapons
+.*Utumno.*	dim.utumno
+.*(ElvenPortal|MorgulPortal).*	dim.faction_portals
+common/world/LOTRTeleporter	dim.ring_portal
+.*(LOTRBlockPortal|EntityPortal|ModelPortal|RenderPortal|TileEntityPortalBase|PacketPortalPos)	dim.ring_portal
+
+# --- families, fellowships, waypoints, map
+common/entity/ai/LOTREntityAIMFMate	npc.animals
+.*(Marry|Spouse|FamilyInfo|FollowParent|ChildFollow|NPCMate|LOTRItemRing)	npc.families
+.*(Fellowship|GuiButtonFs).*	progress.fellowships
+.*(CustomWaypoint|CWP).*	progress.custom_waypoints
+.*(Waypoint|FastTravel|PacketFT|PacketWaypointRegion).*	progress.fasttravel
+.*(AdminHideMap|UpdatePlayerLocations).*	progress.map_players
+.*(GuiMap|GuiRendererMap|MapLabels|PacketMapTp|PacketIsOp).*	progress.map
+
+# --- progress
+.*Achievement.*	progress.achievements
+.*Title.*	progress.titles
+.*(Shield|Cape).*	progress.shields_capes
+.*(LOTRDate|PacketDate|CommandDate)	progress.calendar
+.*(LOTRTime|CommandTime|CommandTimeVanilla)	progress.time
+common/LOTRLore	progress.lore
+.*RedBook.*	progress.redbook
+
+# --- factions
+.*AlignmentChoice.*	fac.alignment_choices
+.*Pledge.*	fac.pledge
+.*FactionRelations.*	fac.relations
+.*(GuiFactions|ButtonFactions|UpdateViewingFaction).*	fac.screen
+.*(FactionBounties|MiniQuestBounty).*	fac.bounties
+.*ConquestHorn.*	fac.invasions
+.*Conquest.*	fac.conquest
+.*Invasion.*	fac.invasions
+common/entity/npc/LOTRBannerBearer	npc.core
+.*Banner.*	fac.banners
+.*(AlignmentZones|PacketFactionData|common/fac/LOTRControlZone|common/fac/LOTRMapRegion|common/fac/LOTRFaction|common/fac/LOTRFactionData|common/fac/LOTRFactionRank)	fac.factions
+.*(Alignment|NPCSelect|AlignDrain).*	fac.alignment
+common/fac/.*	fac.factions
+
+# --- NPC specifics
+.*(TravellingTrader|TraderRespawn|OddmentCollector|ScrapTrader).*	npc.travelling
+.*(LOTRBoss|BossSpawn|BossJumpAttack).*	npc.bosses
+.*(GreyWanderer|GandalfFireball|GandalfSmoke|SmokeShip).*	npc.wizards
+.*Gollum.*	npc.gollum
+.*SpawnDamping.*	npc.spawn_damping
+.*(Farmhand|HiredFarmer|EntityAIFarm|SlotSeeds|SlotBonemeal).*	trade.farmers
+.*(Squadron|CommandSword|CommandHorn|SwordCommandMarker|HornSelect).*	trade.squadrons
+.*(Hire|Hired|Mercenary|UnitTrade|BuyUnit|HiringPlayer|RemainStill|SlotMeleeWeapon|SlotBomb).*	trade.hiring
+.*(Mount(?!ain)|NPCRideable|SlotSaddle|HorseMoveToRiderTarget|UntamedPanic)(?!.*Armor).*	npc.mounts
+common/entity/npc/LOTR(Names|Speech|Character|InventoryNPCItems)	npc.core
+common/entity/npc/LOTRQuestInfo	quest.miniquests
+.*(Pickpocket).*	quest.pickpocket
+.*(MiniQuest|Miniquest|QuestData|ClientMQEvent|NPCIsOfferingQuest).*	quest.miniquests
+.*(Trade|Trader|Coin|PacketSell|SlotAlignmentReward)(?!Pile).*	trade.trading
+
+# --- items and their blocks
+.*(Barrel|Brewing)(?!.*Entry).*	block.keg
+.*(Pouch).*	item.pouches
+.*(HobbitPipe|SmokeRing|HobbitSmoke).*	item.pipes
+.*(Mug|Vessel|Goblet|WineGlass|SkullCup|AleHorn|GlassBottle|DrunkenSpeech|EntityAIDrink|DrinkIcons|PoisonedDrinks|PotionPoisonKilling|BottlePoison|PoisonDrinks|LOTRItemPotion).*	item.drinks
+.*(Anvil|ItemOwnership).*	item.anvil
+common/enchant/.*	item.modifiers
+.*(ModifierTemplate|AncientItem|CommandEnchant|Reforge|LOTRItemEnchantment).*	item.modifiers
+.*BrandingIron.*	item.branding
+.*(Chisel|SignCarved\w*|EditSign|OpenSignEditor|TileEntitySign)	block.carved_signs
+.*(DaleCracker|SealCracker).*	item.dalecracker
+.*(Mechanism|MechanisedRail).*	item.mechanism
+.*(MobSpawner|SpawnerChest|NPCRespawner|SpawnerCondition).*	block.spawners
+.*(Rug|BossTrophy|TrollStatue|EntityStoneTroll|MallornEntTrophy).*	item.rugs
+.*(TreasurePile|FallingTreasure|FallingCoinPile).*	item.treasure
+.*(DartTrap|TrollTotem).*	block.traps
+.*(CommandTable|InvTableCommand|StrScan|StructureTimelapse|BanStructures|AllowStructures|StructureSpawner).*	struct.tools
+.*(AnimalJar|ButterflyJar).*	item.jars
+.*(RhunFire|FireJar).*	block.rhun_fire
+.*(Gulduril|Quendite|CorruptMallorn).*	block.crystals
+.*Beacon.*	block.beacon
+.*(Fishing|FishHook).*	item.fishing
+.*(Sting|Glamdring|Anduril|ElvenBlade|BalrogWhip|SauronMace|SauronUseMace|GandalfStaff|SkullStaff|StoryItem).*	item.special_weapons
+.*EntDraught.*	item.food
+.*(ArmorStand|WeaponRack|LOTRBlockPlate|TileEntityPlate|RenderPlate|PlateFallingInfo|BookshelfStorage|LOTRBlockChest|TileEntityChest|RenderChest|Bookshelf).*	block.display
+.*(AlloyForge|DwarvenForge|ElvenForge|OrcForge|ForgeBase|HobbitOven|Millstone|Unsmelt|KebabStand|LOTRBlockKebab|EntJar).*	block.machines
+.*(LOTRBlockGate|ItemGate|DwarvenDoor|DwarvenGlow).*	block.gates
+
+# --- weapons and armour
+.*(HaradRobes|HaradTurban|Kaftan|LeatherHat|PartyHat|FeatherDyed|ArmorDyes|ArmorModels|common/item/LOTRItemArmor)	item.armor
+client/model/LOTRModel\w*(Helmet|Chestplate|Robes|Turban|Hat|HeadPlate)	item.armor
+common/item/LOTRItem(Sword|Dagger|Spear|Battleaxe|Hammer|Polearm|PolearmLong|Pike|Lance|Trident|Axe|Pickaxe|Shovel|Hoe|Mattock)	item.weapons
+common/item/LOTR(Material|WeaponStats)	item.weapons
+.*(AttackTiming|WeaponFX|SwingHandler|RecipePoisonWeapon|NetHandlerPlayServer|LOTRDamage)	item.weapons
+common/item/LOTRItem(Bow|Crossbow|CrossbowBolt|ArrowPoisoned|Blowgun|Dart|Sling|Pebble|Conker|ThrowingAxe|FirePot|MysteryWeb|Plate|OrcBomb|Termite)	item.ranged
+common/entity/projectile/LOTREntity(MallornLeafBomb|MarshWraithBall|ThrownRock|TrollSnowball)	npc.ai
+common/entity/projectile/.*	item.ranged
+common/entity/item/LOTREntity(OrcBomb|ArrowPoisoned)	item.ranged
+client/render/entity/LOTRRender(ArrowPoisoned|CrossbowBolt|Dart|OrcBomb|Spear|ThrowingAxe)	item.ranged
+client/render/entity/LOTRRender(ThrownRock|WraithBall|MallornLeafBomb)	npc.ai
+common/block/LOTRBlock(OrcBomb|Termite)	item.ranged
+common/dispenser/.*	item.dispensers
+common/item/LOTRItem(SpawnEgg)	npc.core
+common/item/LOTRItemMountArmor	npc.mounts
+common/item/LOTRItem(Food|Kebab|Stew|ManFlesh|Berry|PlaceableFood|HangingFruit|Salt)	item.food
+.*(LOTRFoods|PlaceableFood)	item.food
+common/item/LOTRItem(MorgulShroom|DoubleFlower|Seeds|GrapeSeeds|TallGrass|Vine|WaterPlant|Reeds|FallenLeaves|Leaves|DoubleTorch|BlockGoran)	block.plants
+common/item/LOTRItem(BlockMetadata|Door|Bed|FenceVanilla)	block.building
+common/item/LOTRItem(Bone|Dye|Gem|Match|ValuableItems)	item.misc
+common/item/LOTRValuableItems	npc.ai
+common/item/.*	item.misc
+
+# --- blocks
+common/block/LOTRBlock\w*Table	block.tables
+.*(LOTRRecipes|common/recipe/LOTRRecipes|GuiCraftingTable|ContainerCraftingTable)	block.tables
+common/recipe/LOTR(EntJarRecipes|MillstoneRecipes)	block.machines
+common/recipe/LOTR(Recipe\w*Dye\w*|RecipeHaradTurbanOrnament|RecipeLeatherHatFeather)	item.armor
+common/recipe/LOTRRecipeHobbitPipe	item.pipes
+common/recipe/.*	block.tables
+common/block/LOTRBlock(Quagmire|Waste|CoralReef|MordorThorn|MorgulFlower)	block.hazards
+common/block/LOTRBlock(Chandelier|BirdCage\w*|OrcChain|Stalactite|MarshLights|ThatchFloor|FallenLeaves|Rope|HithlainRope)	block.supported
+common/block/LOTRBlock(Ore\w*|GemStorage)	block.ores
+common/block/LOTRBlock(SlabFalling|SlabSand|SlabGravel)	block.falling
+common/block/LOTRBlock(Torch|DoubleTorch|ElvenTorch|MallornTorch|MorgulTorch|WoodElvenTorch|Hearth)	block.lights
+common/block/LOTRBlock(Wood\w*|Planks\w*|Leaves\w*|Sapling\w*|FruitSapling|FruitWood|RottenLog|RottenSlab|FruitLeaves)	block.wood
+common/block/(LOTRVanillaSaplings|LOTRItemPlantableBlock)	block.wood
+common/block/LOTRBlock(Flower|DoubleFlower|HaradFlower|RhunFlower|TallGrass|Grass|Clover|DeadPlant|FangornPlant|FangornRiverweed|Reed|ReedDry|Vine|Corn|\w+Crop|BerryBush|Grapevine\w*|PipeweedPlant|Banana|Date|HangingFruit|Blackroot|MordorPlant|MordorMoss|MorgulShroom|MudFarmland|MudGrass|MordorGrass|QuenditeGrass|FlowerPot)	block.plants
+common/block/LOTRBlock(Goran|Remains|Bed|Bone)	block.misc
+common/block/LOTRMaterialRemains	block.misc
+common/block/LOTRConnectedBlock	client.render_blocks
+common/block/LOTRBlockReplacement	core.bootstrap
+common/tileentity/LOTRTileEntityFlowerPot	block.plants
+common/block/.*	block.building
+
+# --- world
+common/world/genlayer/.*	world.genlayer
+common/world/LOTRWorldChunkManager	world.genlayer
+common/world/LOTRChunkProvider	world.terrain
+common/world/LOTR(WorldProvider|WorldProviderMiddleEarth|WorldTypeMiddleEarth|WorldInfo)	world.dimension
+common/LOTRDimension	world.dimension
+common/world/feature/LOTR(TreeType|WorldGen(Almond|Aspen|Banana|Baobab|BigTrees|Cedar|CharredTrees|Cypress|DeadTrees|DesertTrees|Dragonblood|FangornTrees|Fir|GnarledOak|Holly|Kanuka|Lairelosse|Larch|Mallorn|MallornExtreme|Mangrove|MirkOak|Olive|Palm|PartyTrees|Pine|Redwood|ShirePine|SimpleTrees|Willow|Shrub))	world.trees
+common/world/feature/.*	world.features
+common/world/map/LOTR(FixedStructures|WorldGenIsengardWalls|WorldGenRammasEchor)	world.fixed
+common/world/map/LOTRMountains	world.mountains
+common/world/map/LOTRRoad\w*	world.roads
+common/world/mapgen/.*	world.caves
+common/world/spawning/LOTRSpawnerAnimals	npc.animals
+common/world/spawning/.*	npc.spawning
+common/entity/LOTR(EntityRegistry|Entities|EntityUtils|RandomSkinEntity)	npc.core
+common/entity/LOTRScarecrows	npc.ai
+common/entity/LOTRMobSpawnerCondition	block.spawners
+common/entity/ai/.*	npc.ai
+common/entity/npc/.*	npc.core
+common/entity/item/.*	npc.core
+
+# --- client
+client/sound/.*	client.music
+client/render/LOTR(CloudRenderer|SkyRenderer|WeatherRenderer|RenderNorthernLights)	world.sky
+client/render/LOTR(BufferedImageIcon|ConnectedTextures|RenderBlocks)	client.render_blocks
+client/render/item/.*	client.render_items
+client/LOTRItemRendererManager	client.render_items
+client/render/LOTRRenderPlayer	client.render_npc
+client/render/entity/.*	client.render_npc
+client/render/tileentity/.*	client.render_blocks
+client/model/LOTRModelCompass	client.hud
+client/model/.*	client.models
+client/fx/.*	client.fx
+client/LOTR(SpeechClient)	npc.core
+client/LOTR(TextBody)	progress.menu
+client/gui/LOTRGui(NPCInteract)	npc.core
+client/gui/.*	progress.menu
+client/LOTREntityRenderer	client.render_npc
+client/LOTRTextures	client.render_blocks
+client/.*	core.bootstrap
+
+# --- what is left of common
+common/command/LOTRCommandSummon	npc.core
+common/command/LOTRCommandMessageFixed	core.network
+common/inventory/LOTR(EntityInventory|InventoryNPC)	npc.core
+common/inventory/.*	core.util
+common/network/LOTRPacket(NPCCombatStance|NPCFX|NPCIsEating|NPCSpeech|SpawnMob|EntityUUID)	npc.core
+common/network/LOTRPacketMallornEnt\w*	npc.ai
+common/network/LOTRPacketBiomeVariants\w*	world.variants
+common/network/LOTRPacket(Login|LoginPlayerData|Options|SetOption|ClientInfo)	core.playerdata
+common/network/LOTRPacket(Message|ClientsideGUI)	progress.menu
+common/network/.*	core.network
+common/LOTR(PlayerData|LevelData|Options)	core.playerdata
+common/LOTR(GuiMessageTypes)	progress.menu
+common/LOTRPotionChanges	item.misc
+common/LOTR(Mod|ModInfo|CommonProxy|EventHandler|TickHandlerServer|CreativeTabs|InterModComms|Reflection|ChatEvents)	core.bootstrap

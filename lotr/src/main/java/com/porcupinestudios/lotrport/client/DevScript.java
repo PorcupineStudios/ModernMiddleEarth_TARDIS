@@ -20,7 +20,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
  * sandbox). Off unless the JVM has {@code -Dlotr_port.devscript=<file in the run folder>}; with
  * {@code -PquickPlay=<save>} the client opens the save and runs it once the player is in. One step per line:
  * {@code wait <ticks>}, {@code /<command>} (sent as the player), {@code use <x> <y> <z> [face]} (right-click that block's
- * face, up by default, with the main hand), {@code mouse <x> <y>} (move the pointer, window pixels), {@code click <x> <y>} (left-click the open screen at
+ * face, up by default, with the main hand), {@code interact} (right-click the nearest NPC), {@code mouse <x> <y>} (move the pointer, window pixels), {@code click <x> <y>} (left-click the open screen at
  * GUI-scaled x, y), {@code close} (the open screen), {@code noscreen} (any screen, e.g. the race picker), {@code tab <id>} (turn the open colony book to that
  * ribbon), {@code view first|back|front} (the camera, as F5), {@code hud on|off}, {@code floor <x> <z> <yaw> <pitch> [up]} (stand on the real ground there, under any
  * canopy: leaves, trunks, webs and plants are looked through; single player only), {@code turn <yaw> <pitch>} (turn
@@ -86,6 +86,12 @@ public final class DevScript {
                     Direction face = w.length > 4 ? Direction.byName(w[4]) : Direction.UP;
                     mc.gameMode.useItemOn(mc.player, InteractionHand.MAIN_HAND,
                             new BlockHitResult(Vec3.atCenterOf(p), face == null ? Direction.UP : face, p, false));
+                }
+                case "interact" -> { // right-click the nearest NPC within 8 blocks (talk, trade)
+                    mc.level.getEntitiesOfClass(com.porcupinestudios.lotrport.npc.LotrNpc.class,
+                                    mc.player.getBoundingBox().inflate(8)).stream()
+                            .min(java.util.Comparator.comparingDouble(mc.player::distanceToSqr))
+                            .ifPresent(n -> mc.gameMode.interact(mc.player, n, InteractionHand.MAIN_HAND));
                 }
                 case "mouse" -> mouse(mc, Double.parseDouble(w[1]), Double.parseDouble(w[2]));
                 case "click" -> {

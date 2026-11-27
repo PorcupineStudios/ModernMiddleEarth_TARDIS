@@ -7023,22 +7023,13 @@
   },
   {
     "id": "orc_torch_block",
-    "kind": "shaped",
+    "kind": "double_torch",
     "hardness": 0,
     "resistance": 0.0,
-    "light": 0,
+    "light": 14,
     "sound": "wood",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ],
-    "collision": false,
     "item": "none"
   },
   {
@@ -12892,22 +12883,13 @@
   },
   {
     "id": "tauredain_double_torch",
-    "kind": "shaped",
+    "kind": "double_torch",
     "hardness": 0,
     "resistance": 0.0,
-    "light": 0,
+    "light": 14,
     "sound": "wood",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ],
-    "collision": false,
     "item": "none"
   },
   {

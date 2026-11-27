@@ -9014,7 +9014,8 @@
     "kind": "item",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "orc_torch_block"
   },
   {
     "id": "party_hat",
@@ -11491,7 +11492,8 @@
     "kind": "item",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "tauredain_double_torch"
   },
   {
     "id": "exploding_termite",

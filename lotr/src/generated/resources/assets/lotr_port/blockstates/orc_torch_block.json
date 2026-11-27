@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
-      "model": "lotr_port:block/orc_torch_block"
+    "half=lower": {
+      "model": "lotr_port:block/orc_torch_block_lower"
+    },
+    "half=upper": {
+      "model": "lotr_port:block/orc_torch_block_upper"
     }
   }
 }

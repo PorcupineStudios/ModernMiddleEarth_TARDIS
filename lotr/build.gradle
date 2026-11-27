@@ -74,6 +74,16 @@ dependencies {
     runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 }
 
+// LOTR's textures and sounds are never shipped: client/LegacyAssets reads them from the player's LOTR jar, and builds
+// the ones the converter made from several of LOTR's. The lists are written by converter/LegacyAssetMap.java; the
+// copies' .mcmeta files stay out too.
+tasks.named('processResources') {
+    def legacy = ['lotr_port_legacy_assets.tsv', 'lotr_port_legacy_composites.tsv']
+            .collectMany { file("src/main/resources/$it").readLines() }
+            .collect { 'assets/' + it.split('\t')[0] } as Set
+    exclude { legacy.contains(it.path) || (it.path.endsWith('.mcmeta') && legacy.contains(it.path - '.mcmeta')) }
+}
+
 // Dev runs load the shared API next to this mod.
 neoForge {
     mods {

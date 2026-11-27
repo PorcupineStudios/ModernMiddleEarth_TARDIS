@@ -1,3 +1,6 @@
 {
-  "parent": "lotr_port:block/orc_torch_block"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "lotr_port:item/orc_torch"
+  }
 }

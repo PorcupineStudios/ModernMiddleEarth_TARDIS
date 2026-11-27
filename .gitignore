@@ -24,6 +24,8 @@ music-pack/
 # the LOTR mod's jar (private copy in PorcupineStudios/RingRealms libs/; the converter reads it from converter/libs/)
 converter/libs/
 libs/LOTRMod*
+# the LOTR export (raw data from running LOTR; private repo PorcupineStudios/LOTR_export, clone it here)
+converter/export/
 # other mods' jars (builds download them)
 project-files/**/*.jar
 # stray builds of converter/music_pack.py
