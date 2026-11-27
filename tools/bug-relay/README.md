@@ -13,8 +13,10 @@ Limits: 10 reports per IP per day (`DAILY_LIMIT_PER_IP`), title 120 chars, descr
 
 1. **GitHub token.** github.com > Settings > Developer settings > Fine-grained tokens > Generate. Resource owner
    `PorcupineStudios`, only the `ModernMiddleEarth_TARDIS` repository, permission **Issues: Read and write**, nothing
-   else. It can't touch code.
-2. **Cloudflare.** Make a free account at dash.cloudflare.com. Then, in this folder:
+   else. It can't touch code. If the resource owner is your own account instead, issues still open (anyone may
+   open issues on a public repo) but GitHub refuses the labels with a 403.
+2. **Cloudflare.** Make a free account at dash.cloudflare.com. Then, in this folder (if PowerShell blocks `npx`,
+   type `npx.cmd`):
    ```powershell
    npx wrangler login
    ```
@@ -30,8 +32,8 @@ Limits: 10 reports per IP per day (`DAILY_LIMIT_PER_IP`), title 120 chars, descr
    npx wrangler deploy
    ```
    It prints the worker's address, e.g. `https://ringbearer-bugs.<you>.workers.dev`.
-3. **The pack.** Set that address as `bugReport.relayUrl` in `config/ringbearer_api-client.toml` of the pack (or in
-   game: Mods > Ring Bearer API > Config), and ship that config file with the pack.
+3. **The pack.** The address is the default of `bugReport.relayUrl` (`BugReportConfig`); change it there, or in `config/ringbearer_api-client.toml` (or in
+   game: Mods > Ring Bearer API > Config).
 
 ## Working the tickets
 

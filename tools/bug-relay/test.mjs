@@ -16,7 +16,10 @@ const ATTACH = {
 const env = { ATTACH, REPO: 'owner/repo', LABELS: 'bug, from-game', DAILY_LIMIT_PER_IP: '2', GITHUB_TOKEN: 't' };
 
 let sent;
+const calls = [];
 globalThis.fetch = async (url, init) => {
+  calls.push({ url, body: JSON.parse(init.body) });
+  if (url.endsWith('/labels')) return new Response('[]', { status: 200 });
   sent = { url, init, body: JSON.parse(init.body) };
   return new Response(JSON.stringify({ html_url: 'https://github.com/owner/repo/issues/7', number: 7 }), { status: 201 });
 };
@@ -35,6 +38,8 @@ assert.equal(sent.url, 'https://api.github.com/repos/owner/repo/issues');
 assert.equal(sent.init.headers.Authorization, 'Bearer t');
 assert.equal(sent.body.title, '[In-game] Console sparks');
 assert.deepEqual(sent.body.labels, ['bug', 'from-game']);
+// fake GitHub returns no labels on create, so the relay adds them in a second call
+assert.deepEqual(calls[1], { url: 'https://api.github.com/repos/owner/repo/issues/7/labels', body: { labels: ['bug', 'from-game'] } });
 const md = sent.body.body;
 assert.ok(!md.includes('@someone'), 'mention neutralised');
 assert.ok(md.includes('| minecraft | 1.21.1 |'));

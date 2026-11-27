@@ -100,7 +100,23 @@ async function report(req, env, origin) {
     `<sub>Sent from the in-game bug reporter. Report id ${id}.</sub>`,
   ].join('\n');
 
-  const gh = await fetch(`https://api.github.com/repos/${env.REPO}/issues`, {
+  const labels = (env.LABELS ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+  const gh = await github(env, `issues`, { title: `[In-game] ${title}`, body: body.slice(0, 65000), labels });
+  if (!gh.ok) {
+    console.error('GitHub', gh.status, await gh.text());
+    throw new Refused('the ticket tracker refused the report; try again later', 502);
+  }
+  const issue = await gh.json();
+  // GitHub silently drops labels on create for some fine-grained tokens; adding them afterwards works
+  if (labels.length && !issue.labels?.length) {
+    const l = await github(env, `issues/${issue.number}/labels`, { labels });
+    if (!l.ok) console.error('GitHub labels', l.status, await l.text());
+  }
+  return json({ url: issue.html_url, number: issue.number });
+}
+
+function github(env, path, payload) {
+  return fetch(`https://api.github.com/repos/${env.REPO}/${path}`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${env.GITHUB_TOKEN}`,
@@ -109,18 +125,8 @@ async function report(req, env, origin) {
       'User-Agent': 'ringbearer-bug-relay',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      title: `[In-game] ${title}`,
-      body: body.slice(0, 65000),
-      labels: (env.LABELS ?? '').split(',').map((s) => s.trim()).filter(Boolean),
-    }),
+    body: JSON.stringify(payload),
   });
-  if (!gh.ok) {
-    console.error('GitHub', gh.status, await gh.text());
-    throw new Refused('the ticket tracker refused the report; try again later', 502);
-  }
-  const issue = await gh.json();
-  return json({ url: issue.html_url, number: issue.number });
 }
 
 async function rateLimit(req, env) {

@@ -2,14 +2,14 @@ package com.porcupinestudios.ringbearer.api.client.bugreport;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-/** Client settings of the in-game bug reporter. The pack ships relayUrl in its config folder. */
+/** Client settings of the in-game bug reporter. relayUrl defaults to the pack's deployed relay. */
 public final class BugReportConfig {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     public static final ModConfigSpec.ConfigValue<String> RELAY_URL = BUILDER
-            .comment("Address of the bug report relay (tools/bug-relay in the repo), e.g. https://ringbearer-bugs.example.workers.dev",
+            .comment("Address of the bug report relay (tools/bug-relay in the repo).",
                     "Empty turns sending off: the report screen says so.")
-            .define("bugReport.relayUrl", "");
+            .define("bugReport.relayUrl", "https://ringbearer-bugs.aadagosta.workers.dev");
     public static final ModConfigSpec.IntValue LOG_LINES = BUILDER
             .comment("How many of the last lines of logs/latest.log a report carries.")
             .defineInRange("bugReport.logLines", 600, 50, 5000);
