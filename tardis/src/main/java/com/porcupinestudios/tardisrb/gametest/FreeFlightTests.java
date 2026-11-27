@@ -76,13 +76,14 @@ public final class FreeFlightTests {
         TardisBody body = FreeFlight.body(server, t).orElse(null);
         helper.assertTrue(body != null, "no loose body");
 
-        // thrusters on: lifted three blocks, it stays up
+        // thrusters on: lifted two blocks, it stays up (three reached the test's barrier ceiling, and since 7a88cf1e a
+        // box inside blocks is worked up out of them, so it ended up standing on the barrier)
         FreeFlight.setThrusters(server, t, true, Optional.empty());
         // the doors open while loose (Aaron 2026-11-09), and the doorway follows the box when it moves
         helper.assertTrue(Doors.open(server, t) && body.doorsOpen(), "the doors didn't open on the loose box");
-        body.setPos(body.getX(), body.getY() + 3, body.getZ());
+        body.setPos(body.getX(), body.getY() + 2, body.getZ());
         helper.runAfterDelay(20, () -> {
-            helper.assertTrue(body.getY() > base.getY() + 2.5, "it fell with the thrusters on: y " + body.getY());
+            helper.assertTrue(body.getY() > base.getY() + 1.5, "it fell with the thrusters on: y " + body.getY());
             Entity out = helper.getLevel().getEntity(t.moduleData(Doors.MODULE).getUUID("outside"));
             helper.assertTrue(out instanceof Portal p
                     && p.getOriginPos().distanceTo(Doors.outside(body).center()) < 0.01,
