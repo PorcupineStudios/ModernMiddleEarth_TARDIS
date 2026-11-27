@@ -13,7 +13,7 @@ const ATTACH = {
     return { value: v, metadata: e.metadata };
   },
 };
-const env = { ATTACH, REPO: 'owner/repo', LABELS: 'bug, from-game', DAILY_LIMIT_PER_IP: '2', GITHUB_TOKEN: 't' };
+const env = { ATTACH, REPO: 'owner/repo', LABELS: 'bug, from-game', VERSION_MODS: 'tardis_rb,ringbearer_api', DAILY_LIMIT_PER_IP: '2', GITHUB_TOKEN: 't' };
 
 let sent;
 const calls = [];
@@ -29,7 +29,7 @@ const post = (body, ip = '1.2.3.4') => worker.fetch(new Request('https://relay.t
   method: 'POST', headers: { 'CF-Connecting-IP': ip }, body: JSON.stringify(body),
 }), env);
 const report = { title: 'Console sparks', description: 'cc @someone', log: 'line1\n`````\nline3', screenshot: png,
-  crash: 'boom', crashName: 'crash-1.txt', meta: { minecraft: '1.21.1', position: '1, 2, 3', mods: ['a 1', 'b 2'] } };
+  crash: 'boom', crashName: 'crash-1.txt', meta: { minecraft: '1.21.1', position: '1, 2, 3', mods: ['a 1', 'b 2', 'tardis_rb 0.2.0', 'ringbearer_api bad version!'] } };
 
 let res = await post(report);
 assert.equal(res.status, 200, await res.clone().text());
@@ -37,9 +37,9 @@ assert.deepEqual(await res.json(), { url: 'https://github.com/owner/repo/issues/
 assert.equal(sent.url, 'https://api.github.com/repos/owner/repo/issues');
 assert.equal(sent.init.headers.Authorization, 'Bearer t');
 assert.equal(sent.body.title, '[In-game] Console sparks');
-assert.deepEqual(sent.body.labels, ['bug', 'from-game']);
+assert.deepEqual(sent.body.labels, ['bug', 'from-game', 'tardis_rb 0.2.0']);
 // fake GitHub returns no labels on create, so the relay adds them in a second call
-assert.deepEqual(calls[1], { url: 'https://api.github.com/repos/owner/repo/issues/7/labels', body: { labels: ['bug', 'from-game'] } });
+assert.deepEqual(calls[1], { url: 'https://api.github.com/repos/owner/repo/issues/7/labels', body: { labels: ['bug', 'from-game', 'tardis_rb 0.2.0'] } });
 const md = sent.body.body;
 assert.ok(!md.includes('@someone'), 'mention neutralised');
 assert.ok(md.includes('| minecraft | 1.21.1 |'));
