@@ -22,8 +22,9 @@ Neither mod is needed: everything here is data that switches itself on with ``ne
    one, the first listed wins and the other is used only when the first is missing. Without either mod they are just
    named patches of their base biome.
 
-Left out on purpose: the Shire, the Lone-lands and Eriador's patches (hand-tuned in world.py / wilds.py), Lothlorien
-and Fangorn (LOTR's own trees are the point), Mordor; and the mods' fantasy biomes (glowing, crystal, nether, end,
+Left out on purpose: the Shire's own biome and the Marish (their variant patches and enclosures are the Shire), the
+Lone-lands (wilds.py, matched to Aaron's photos, and it runs after regions.py), Eriador's patches, Lothlorien and
+Fangorn itself (LOTR's own trees are the point), Mordor's plains (nothing of theirs is that barren); and the mods' fantasy biomes (glowing, crystal, nether, end,
 mushroom, redstone, "painted" and Americana ones like Joshua desert and saguaro).
 
 Input: converter/compat/mods.json (their ids, item models and per-biome vegetation, extracted from the released jars:
@@ -209,6 +210,16 @@ SUBBIOMES = [
      0.35, 4),
     ("eastern_desolation_wastes", "Wastes of the Eastern Desolation", ["eastern_desolation"], [(BOP, "wasteland")],
      0.35, 4),
+    # in the hand-tuned lands, only where they fit (Aaron 2026-11-26: "as long as it really fits into that area");
+    # these bases have no variant patches or enclosures to lose, and keep their downs (regions.py takes the max)
+    # the Northfarthing: heather moor and violets on the high downs
+    ("northfarthing_heather_moors", "Heather-moors of the Northfarthing", ["shire_moors"],
+     [(BOP, "moor"), (RU, "highland_fields")], 0.4, 2.5),
+    # the Woody End: old oaks, fallen trunks and ferns in its hollows
+    ("woody_end_hollows", "Hollows of the Woody End", ["shire_woodlands"], [(RU, "deciduous_forest")], 0.4, 2),
+    # where Saruman's orcs felled the eaves of Fangorn for Isengard's furnaces
+    ("fangorn_felled_eaves", "Felled Eaves of Fangorn", ["fangorn_wasteland"], [(BOP, "dead_forest")], 0.5, 2.5),
+    ("nurn_black_fens", "Black Fens of Nurn", ["nurn_marshes"], [(BOP, "bog"), (RU, "fen")], 0.45, 3),
 ]
 CELL = 8  # map pixels per patch cell (1024 blocks)
 COLOUR_BLEND = 0.5  # grass and foliage this far from the base's towards the mod biome's

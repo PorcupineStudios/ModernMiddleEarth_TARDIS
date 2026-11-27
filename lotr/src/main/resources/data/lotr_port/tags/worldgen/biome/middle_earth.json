@@ -215,6 +215,10 @@
     "lotr_port:taurethrim_rainforest",
     "lotr_port:far_harad_volcanic_fields",
     "lotr_port:rhun_dry_steppe",
-    "lotr_port:eastern_desolation_wastes"
+    "lotr_port:eastern_desolation_wastes",
+    "lotr_port:northfarthing_heather_moors",
+    "lotr_port:woody_end_hollows",
+    "lotr_port:fangorn_felled_eaves",
+    "lotr_port:nurn_black_fens"
   ]
 }

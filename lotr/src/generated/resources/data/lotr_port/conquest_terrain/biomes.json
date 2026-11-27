@@ -61,6 +61,7 @@
     "lotr_port:ettenmoors": 2.08,
     "lotr_port:fangorn": 2.72,
     "lotr_port:fangorn_clearing": 1.84,
+    "lotr_port:fangorn_felled_eaves": 2.31,
     "lotr_port:fangorn_wasteland": 2.31,
     "lotr_port:far_harad": 1.6,
     "lotr_port:far_harad_arid": 1.65,
@@ -153,7 +154,9 @@
     "lotr_port:near_harad_semi_desert": 1.65,
     "lotr_port:nindalf": 1.29,
     "lotr_port:northern_golden_larchwoods": 2.56,
+    "lotr_port:northfarthing_heather_moors": 1.49,
     "lotr_port:nurn": 1.86,
+    "lotr_port:nurn_black_fens": 1.65,
     "lotr_port:nurn_marshes": 1.75,
     "lotr_port:nurnen": 1.58,
     "lotr_port:ocean": 1.0,
@@ -210,6 +213,7 @@
     "lotr_port:withywindle_willow_groves": 2.27,
     "lotr_port:wold": 1.72,
     "lotr_port:woodland_realm": 1.93,
-    "lotr_port:woodland_realm_hills": 4.24
+    "lotr_port:woodland_realm_hills": 4.24,
+    "lotr_port:woody_end_hollows": 2.11
   }
 }

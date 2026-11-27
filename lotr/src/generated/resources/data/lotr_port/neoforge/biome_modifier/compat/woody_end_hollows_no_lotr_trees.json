@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "regions_unexplored"
+        }
+      ]
+    }
+  ],
+  "type": "neoforge:remove_features",
+  "biomes": "lotr_port:woody_end_hollows",
+  "features": [
+    "lotr_port:trees/shire_woodlands"
+  ],
+  "steps": [
+    "vegetal_decoration"
+  ]
+}

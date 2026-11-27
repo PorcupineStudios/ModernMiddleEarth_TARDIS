@@ -1,0 +1,116 @@
+{
+  "has_precipitation": true,
+  "temperature": 0.9,
+  "downfall": 0.4,
+  "effects": {
+    "fog_color": 12638463,
+    "sky_color": 10526098,
+    "water_color": 8877157,
+    "water_fog_color": 329011,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "grass_color": 10524490,
+    "foliage_color": 9993034
+  },
+  "spawners": {
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "maxCount": 8,
+        "minCount": 8,
+        "weight": 10
+      }
+    ],
+    "underground_water_creature": [
+      {
+        "type": "minecraft:glow_squid",
+        "maxCount": 6,
+        "minCount": 4,
+        "weight": 10
+      }
+    ],
+    "creature": [
+      {
+        "type": "minecraft:frog",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 5
+      }
+    ]
+  },
+  "spawn_costs": {},
+  "carvers": {
+    "air": [
+      "lotr_port:cave",
+      "lotr_port:cave_extra_underground",
+      "lotr_port:canyon"
+    ]
+  },
+  "features": [
+    [],
+    [
+      "lotr_port:crater_lava"
+    ],
+    [
+      "lotr_port:quagmire_1",
+      "lotr_port:mud_patch",
+      "lotr_port:roads",
+      "minecraft:amethyst_geode",
+      "lotr_port:dripstone_pocket_large"
+    ],
+    [],
+    [],
+    [],
+    [
+      "lotr_port:ore/durnor_ore_6",
+      "lotr_port:ore/gulduril_ore_block_13",
+      "lotr_port:ore/mordor_dirt_18",
+      "lotr_port:ore/mordor_gravel_20",
+      "lotr_port:ore/morgul_iron_ore_block_22",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff",
+      "minecraft:disk_clay"
+    ],
+    [
+      "lotr_port:dripstone",
+      "lotr_port:dripstone_pocket_cluster",
+      "lotr_port:dripstone_pocket_pointed"
+    ],
+    [],
+    [
+      "lotr_port:trees/nurn_marshes",
+      "lotr_port:forest_floor/0_2",
+      "lotr_port:plant/reeds_1_6",
+      "lotr_port:plant/dried_reeds_2_4",
+      "minecraft:patch_sugar_cane",
+      "lotr_port:plant_grass/clover_c1",
+      "lotr_port:plant_grass/flax_plant_r32",
+      "lotr_port:plant_grass/flowery_grass_r2",
+      "lotr_port:plant_grass/nettles_r6",
+      "lotr_port:plant_grass/short_grass_c4",
+      "lotr_port:plant_grass/thistle_r8",
+      "lotr_port:plant_grass/wheatgrass_c1",
+      "lotr_port:plant_grass/minecraft_fern_c4",
+      "lotr_port:plant_grass/minecraft_short_grass_c1",
+      "lotr_port:plant_double_grass/minecraft_large_fern_r3",
+      "lotr_port:plant_double_grass/minecraft_tall_grass_r2",
+      "minecraft:glow_lichen",
+      "minecraft:seagrass_swamp",
+      "minecraft:patch_waterlily"
+    ],
+    [
+      "lotr_port:road_verge",
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "creature_spawn_probability": 0.1
+}

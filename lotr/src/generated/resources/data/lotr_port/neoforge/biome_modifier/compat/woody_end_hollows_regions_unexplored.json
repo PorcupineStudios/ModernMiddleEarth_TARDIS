@@ -1,0 +1,18 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:woody_end_hollows",
+  "features": [
+    "regions_unexplored:tree/group/old_growth_forest",
+    "regions_unexplored:tree/fallen/oak_dense",
+    "regions_unexplored:shrub/group/old_growth_forest",
+    "regions_unexplored:patch/fern_sparse",
+    "regions_unexplored:patch/short_grass_sparse"
+  ],
+  "step": "vegetal_decoration"
+}
