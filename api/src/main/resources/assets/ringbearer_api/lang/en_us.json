@@ -1,0 +1,21 @@
+{
+  "key.ringbearer_api.bug_report": "Report a bug",
+  "gui.ringbearer_api.bug_report.button": "Report a bug",
+  "gui.ringbearer_api.bug_report.title": "Report a bug",
+  "gui.ringbearer_api.bug_report.disclaimer.title": "Before you report a bug",
+  "gui.ringbearer_api.bug_report.disclaimer": "Your report becomes a PUBLIC issue on the pack's GitHub, readable by anyone. It includes what you write, the screenshot just taken (you can leave it out on the next screen), your recent game log and crash report, your mod list, versions, graphics card, dimension and position. Names, IPs, tokens, chat and your PC's user folder are removed from the logs first, but check that the screenshot and your text show nothing private. Don't send spam or abuse: reports are rate limited.",
+  "gui.ringbearer_api.bug_report.disclaimer.agree": "I understand, continue",
+  "gui.ringbearer_api.bug_report.summary": "Short title: what went wrong?",
+  "gui.ringbearer_api.bug_report.description": "What happened, what you expected, and how to make it happen again",
+  "gui.ringbearer_api.bug_report.attach": "Attach screenshot",
+  "gui.ringbearer_api.bug_report.public": "Reports are public on GitHub. Logs are cleaned of names, IPs and tokens first.",
+  "gui.ringbearer_api.bug_report.send": "Send report",
+  "gui.ringbearer_api.bug_report.sending": "Sending...",
+  "gui.ringbearer_api.bug_report.failed": "Could not send: %s",
+  "gui.ringbearer_api.bug_report.sent": "Bug report sent (link copied)",
+  "ringbearer_api.configuration.bugReport": "Bug reporter",
+  "ringbearer_api.configuration.relayUrl": "Relay address",
+  "ringbearer_api.configuration.logLines": "Log lines sent",
+  "ringbearer_api.configuration.crashReportMaxAgeHours": "Crash report max age (hours)",
+  "ringbearer_api.configuration.screenshotMaxWidth": "Screenshot max width"
+}
