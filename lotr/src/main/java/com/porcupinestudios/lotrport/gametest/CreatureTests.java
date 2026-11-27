@@ -112,8 +112,8 @@ public final class CreatureTests {
      * batch (the empty template is 1 block, so a shared batch packs other tests and their animals into the field),
      * and a field of 80 crops so a search hits one about once every 7 seconds. The field lies level with the ground
      * the rabbit stands on (farmland in place of the ground block, wheat at y 0): planted one block up, on farmland
-     * set on top of the ground, the rabbit stood a block below it, which is the likeliest reason it failed now and
-     * then ("running []", the rabbit never ate; not reproduced locally). Only wheat gone from farmland that is still
+     * set on top of the ground, the rabbit stood a block below it. The "running []" failures (the rabbit never ate)
+     * were the rabbit hopping out of the force-loaded chunks and freezing there; it is put back before the edge. Only wheat gone from farmland that is still
      * farmland counts: a trampled crop (farmland turned to dirt) isn't an eaten one.
      */
     @GameTest(template = EMPTY, batch = "creature_rabbit", timeoutTicks = 3000, attempts = 3, requiredSuccesses = 1)
@@ -135,8 +135,11 @@ public final class CreatureTests {
             Vec3 floor = helper.absoluteVec(new Vec3(1.5, 0, 1.5));
             rabbit.moveTo(floor.x, floor.y, floor.z);
             helper.succeedWhen(() -> {
-                if (rabbit.position().distanceTo(floor) > 8) {
-                    rabbit.moveTo(floor.x, floor.y, floor.z); // wandered out of its 16-block search of the field
+                // only x -2..14, z -2..10 is force-loaded: a rabbit that hopped past it froze in an unticked chunk
+                // (2026-11-27: the "running []" failures, at x -3), so put it back before it gets there
+                Vec3 at = helper.relativeVec(rabbit.position());
+                if (at.x < -1 || at.x > 13 || at.z < -1 || at.z > 9) {
+                    rabbit.moveTo(floor.x, floor.y, floor.z);
                 }
                 // the bombardier's batch turns mob griefing off while this runs
                 helper.getLevel().getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_MOBGRIEFING)
