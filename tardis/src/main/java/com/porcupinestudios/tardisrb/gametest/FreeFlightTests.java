@@ -49,15 +49,25 @@ public final class FreeFlightTests {
         FreeFlight.phase(server, t, Optional.empty());
         TardisBody body = FreeFlight.body(server, t).orElseThrow();
         FreeFlight.setThrusters(server, t, true, Optional.empty());
-        body.setPos(body.getX(), body.getY() + 3, body.getZ());
-        double y = body.getY();
-        body.hurt(new DamageSource(helper.getLevel().damageSources().generic().typeHolder(),
-                body.position().add(0, -2, 0)), 1); // from below: the platform has nothing above it
-        helper.assertTrue(body.shockStart == body.tickCount, "the hit didn't shock it");
-        helper.runAfterDelay(10, () -> {
-            helper.assertTrue(body.getY() > y + 1, "it wasn't knocked away from the hit: moved " + (body.getY() - y));
-            helper.assertTrue(!body.isRemoved(), "the hit broke it");
-            helper.succeed();
+        // one block up, off the ground's friction and clear of the test's barrier ceiling (three blocks up was inside
+        // it, and a box inside blocks is worked up out of them, which moved it without any hit)
+        body.setPos(body.getX(), body.getY() + 1, body.getZ());
+        Vec3 start = body.position();
+        helper.runAfterDelay(5, () -> {
+            // hovering untouched, nothing moves it: whatever moves it next is the hit
+            helper.assertTrue(body.position().distanceTo(start) < 0.05, "it moved before the hit: "
+                    + body.position().subtract(start));
+            Vec3 before = body.position();
+            body.hurt(new DamageSource(helper.getLevel().damageSources().generic().typeHolder(),
+                    body.getBoundingBox().getCenter().add(-2, 0, 0)), 1); // from the west, across the platform
+            helper.assertTrue(body.shockStart == body.tickCount, "the hit didn't shock it");
+            helper.runAfterDelay(10, () -> {
+                Vec3 moved = body.position().subtract(before);
+                helper.assertTrue(moved.x > 1 && Math.abs(moved.y) < 0.5 && Math.abs(moved.z) < 0.5,
+                        "it wasn't knocked east, away from the hit: moved " + moved);
+                helper.assertTrue(!body.isRemoved(), "the hit broke it");
+                helper.succeed();
+            });
         });
     }
 
@@ -76,13 +86,14 @@ public final class FreeFlightTests {
         TardisBody body = FreeFlight.body(server, t).orElse(null);
         helper.assertTrue(body != null, "no loose body");
 
-        // thrusters on: lifted three blocks, it stays up
+        // thrusters on: lifted two blocks, it stays up (three reached the test's barrier ceiling, and since 7a88cf1e a
+        // box inside blocks is worked up out of them, so it ended up standing on the barrier)
         FreeFlight.setThrusters(server, t, true, Optional.empty());
         // the doors open while loose (Aaron 2026-11-09), and the doorway follows the box when it moves
         helper.assertTrue(Doors.open(server, t) && body.doorsOpen(), "the doors didn't open on the loose box");
-        body.setPos(body.getX(), body.getY() + 3, body.getZ());
+        body.setPos(body.getX(), body.getY() + 2, body.getZ());
         helper.runAfterDelay(20, () -> {
-            helper.assertTrue(body.getY() > base.getY() + 2.5, "it fell with the thrusters on: y " + body.getY());
+            helper.assertTrue(body.getY() > base.getY() + 1.5, "it fell with the thrusters on: y " + body.getY());
             Entity out = helper.getLevel().getEntity(t.moduleData(Doors.MODULE).getUUID("outside"));
             helper.assertTrue(out instanceof Portal p
                     && p.getOriginPos().distanceTo(Doors.outside(body).center()) < 0.01,

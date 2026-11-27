@@ -535,13 +535,17 @@ public final class VortexTests {
                 .done(), "it didn't set off");
         var trip = t.moduleData(Vortex.MODULE);
         helper.assertTrue(trip.hasUUID("end_portal"), "no portal at the end of the tunnel");
-        var portal = vortex.getEntity(trip.getUUID("end_portal"));
-        helper.assertTrue(portal instanceof qouteall.imm_ptl.core.portal.Portal p
-                && Math.abs(p.getZ() - trip.getInt("length")) < 1 && p.getDestDim().equals(helper.getLevel().dimension()),
-                "the end portal isn't at the tunnel's end looking at the landing: " + portal);
-        Vortex.arrive(server, t);
-        helper.assertTrue(vortex.getEntity(trip.getUUID("end_portal")) == null, "the end portal was left behind");
-        helper.succeed();
+        // its chunk at the tunnel's far end is only just force-loaded: the portal can be found a few ticks later
+        helper.startSequence().thenWaitUntil(() -> {
+            var portal = vortex.getEntity(trip.getUUID("end_portal"));
+            helper.assertTrue(portal instanceof qouteall.imm_ptl.core.portal.Portal p
+                    && Math.abs(p.getZ() - trip.getInt("length")) < 1
+                    && p.getDestDim().equals(helper.getLevel().dimension()),
+                    "the end portal isn't at the tunnel's end looking at the landing: " + portal);
+        }).thenExecute(() -> {
+            Vortex.arrive(server, t);
+            helper.assertTrue(vortex.getEntity(trip.getUUID("end_portal")) == null, "the end portal was left behind");
+        }).thenSucceed();
     }
 
     /**

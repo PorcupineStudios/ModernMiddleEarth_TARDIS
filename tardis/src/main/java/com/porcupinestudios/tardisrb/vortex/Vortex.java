@@ -711,6 +711,7 @@ public final class Vortex {
     }
 
     private static BlockPos column(ServerLevel level, BlockPos aim) {
+        level.getChunk(aim); // the heightmap of an unloaded chunk says the column is empty (2026-11-27)
         if (!level.dimensionType().hasCeiling()) {
             return new BlockPos(aim.getX(), level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, aim.getX(),
                     aim.getZ()) - 1, aim.getZ());
