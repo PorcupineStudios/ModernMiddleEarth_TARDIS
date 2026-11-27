@@ -8,11 +8,11 @@
   "type": "neoforge:add_features",
   "biomes": "lotr_port:imladris_autumn_woods",
   "features": [
-    "regions_unexplored:patch/grass_sprouts_sparse",
     "regions_unexplored:tree/group/autumnal_maple_forest",
-    "regions_unexplored:grass",
-    "regions_unexplored:white_trillium",
-    "regions_unexplored:autumnal_shrub_mix"
+    "regions_unexplored:shrub/group/autumnal_maple_forest",
+    "regions_unexplored:patch/silt_podzol_pumpkins",
+    "regions_unexplored:patch/flowers/autumnal_maple_forest",
+    "regions_unexplored:patch/short_grass_sparse"
   ],
   "step": "vegetal_decoration"
 }

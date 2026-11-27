@@ -33,6 +33,7 @@ public final class ReplaceDropsModifier extends LootModifier {
     public ReplaceDropsModifier(LootItemCondition[] conditions, Map<ResourceLocation, ResourceLocation> replace) {
         super(conditions);
         this.replace = replace;
+        Unify.add(replace); // the same table swaps their blocks for LOTR's in the world
     }
 
     /** The table as items, both ends registered (an id of a missing mod resolves to air and is left out). */

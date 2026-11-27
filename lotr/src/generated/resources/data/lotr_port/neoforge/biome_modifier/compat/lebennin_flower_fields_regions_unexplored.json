@@ -15,11 +15,10 @@
   "type": "neoforge:add_features",
   "biomes": "lotr_port:lebennin_flower_fields",
   "features": [
-    "regions_unexplored:patch/grass_sprouts_sparse",
-    "regions_unexplored:small_flowers",
-    "regions_unexplored:tall_flowers",
-    "regions_unexplored:aster",
-    "regions_unexplored:grass"
+    "regions_unexplored:patch/small_flowers",
+    "regions_unexplored:patch/tall_flowers",
+    "regions_unexplored:single/aster",
+    "regions_unexplored:patch/short_grass"
   ],
   "step": "vegetal_decoration"
 }

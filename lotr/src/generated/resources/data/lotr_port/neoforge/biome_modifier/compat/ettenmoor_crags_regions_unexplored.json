@@ -15,13 +15,12 @@
   "type": "neoforge:add_features",
   "biomes": "lotr_port:ettenmoor_crags",
   "features": [
-    "regions_unexplored:patch/grass_sprouts_sparse",
-    "regions_unexplored:tree/mauve_meadow",
-    "regions_unexplored:tree/mauve_sparse",
-    "regions_unexplored:meadow_rock",
-    "regions_unexplored:meadow_vegetation",
-    "regions_unexplored:grass",
-    "regions_unexplored:meadow_sage"
+    "regions_unexplored:tree/group/wisteria_grove",
+    "regions_unexplored:shrub/group/wisteria_grove",
+    "regions_unexplored:patch/tall_flowers/wisteria_grove",
+    "regions_unexplored:patch/flowers/wisteria_grove",
+    "regions_unexplored:single/aster",
+    "regions_unexplored:patch/short_grass_sparse"
   ],
   "step": "vegetal_decoration"
 }

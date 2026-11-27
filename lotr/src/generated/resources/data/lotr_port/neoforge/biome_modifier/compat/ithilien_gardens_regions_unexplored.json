@@ -15,14 +15,11 @@
   "type": "neoforge:add_features",
   "biomes": "lotr_port:ithilien_gardens",
   "features": [
-    "regions_unexplored:patch/grass_sprouts_sparse",
-    "regions_unexplored:tree/magnolia",
-    "regions_unexplored:tree/pink_magnolia",
-    "regions_unexplored:tree/white_magnolia",
-    "regions_unexplored:tsubaki",
-    "regions_unexplored:grass",
-    "regions_unexplored:day_lily",
-    "regions_unexplored:magnolia_shrub_mix"
+    "regions_unexplored:tree/group/magnolia_woodland",
+    "regions_unexplored:shrub/group/magnolia_woodland",
+    "regions_unexplored:patch/tsubaki",
+    "regions_unexplored:single/day_lily",
+    "regions_unexplored:patch/short_grass_sparse"
   ],
   "step": "vegetal_decoration"
 }

@@ -26,7 +26,8 @@ Left out on purpose: the Shire, the Lone-lands and Eriador's patches (hand-tuned
 and Fangorn (LOTR's own trees are the point), Mordor; and the mods' fantasy biomes (glowing, crystal, nether, end,
 mushroom, redstone, "painted" and Americana ones like Joshua desert and saguaro).
 
-Input: converter/compat/mods.json (their ids, names and per-biome vegetation, extracted from their 1.21.1 sources).
+Input: converter/compat/mods.json (their ids, item models and per-biome vegetation, extracted from the released jars:
+Regions Unexplored 0.6.3, Biomes O' Plenty 21.1.0.14; re-extract when updating them, their feature ids change).
 Runs on the generated data (``python compat.py``) after regions.py, biomeconfig.py and borders.py. Idempotent.
 """
 import glob
@@ -65,14 +66,13 @@ SKIP_PART = ("wall_sign", "wall_hanging_sign")  # wall-mounted forms have no ite
 
 
 def lotr_ids(out):
-    lang = load(os.path.join(out, "assets", NS, "lang", "en_us.json"))
-    return {k.split(".", 2)[2] for k in lang if k.count(".") == 2 and k.split(".")[0] in ("block", "item")
-            and k.split(".")[1] == NS}
+    """LOTR's items (every one has an item model): only items can be dropped or crafted."""
+    return {f[:-5] for f in os.listdir(os.path.join(out, "assets", NS, "models", "item")) if f.endswith(".json")}
 
 
 def mod_ids(mod):
-    m = MODDATA[mod]
-    return {i for i in set(m["blocks"]) | set(m["items"])
+    """Their items (item models in their jar), not blocks without one (wall signs, plant tops)."""
+    return {i for i in MODDATA[mod]["item_ids"]
             if not i.startswith(SKIP_PREFIX) and not any(p in i for p in SKIP_PART)}
 
 

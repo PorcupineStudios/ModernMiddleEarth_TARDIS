@@ -8,13 +8,12 @@
   "type": "neoforge:add_features",
   "biomes": "lotr_port:lindon_silver_birchwoods",
   "features": [
-    "regions_unexplored:patch/grass_sprouts_sparse",
-    "regions_unexplored:tree/silver_birch_tall",
-    "regions_unexplored:tree/silver_birch_dense",
-    "regions_unexplored:fallen_silver_birch",
-    "regions_unexplored:tassel_sparse",
-    "regions_unexplored:grass",
-    "regions_unexplored:orange_coneflower"
+    "regions_unexplored:tree/group/silver_birch_forest",
+    "regions_unexplored:tree/fallen/silver_birch",
+    "regions_unexplored:shrub/group/silver_birch_forest",
+    "regions_unexplored:patch/orange_coneflower",
+    "regions_unexplored:single/tassel_sparse",
+    "regions_unexplored:patch/short_grass_sparse"
   ],
   "step": "vegetal_decoration"
 }

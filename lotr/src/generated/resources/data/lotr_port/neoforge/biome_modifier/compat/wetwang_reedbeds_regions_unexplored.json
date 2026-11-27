@@ -15,11 +15,10 @@
   "type": "neoforge:add_features",
   "biomes": "lotr_port:wetwang_reedbeds",
   "features": [
-    "regions_unexplored:duckweed",
-    "regions_unexplored:tree/dead_bog_rare",
-    "regions_unexplored:grass",
-    "regions_unexplored:tall_grass",
-    "regions_unexplored:moss_patch_with_water"
+    "regions_unexplored:tree/group/marsh",
+    "regions_unexplored:patch/duckweed",
+    "regions_unexplored:patch/short_grass",
+    "regions_unexplored:patch/tall_grass"
   ],
   "step": "vegetal_decoration"
 }

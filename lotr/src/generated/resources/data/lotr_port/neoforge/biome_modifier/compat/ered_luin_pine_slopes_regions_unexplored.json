@@ -8,10 +8,11 @@
   "type": "neoforge:add_features",
   "biomes": "lotr_port:ered_luin_pine_slopes",
   "features": [
-    "regions_unexplored:tree/scotts_pine_on_dirt",
-    "regions_unexplored:fallen_pine_tree_on_dirt",
-    "regions_unexplored:mountain_vegetation",
-    "regions_unexplored:pine_shrub"
+    "regions_unexplored:tree/group/pine_slopes",
+    "regions_unexplored:tree/fallen/pine_on_dirt",
+    "regions_unexplored:shrub/group/pine_slopes",
+    "regions_unexplored:patch/fern",
+    "regions_unexplored:patch/short_grass"
   ],
   "step": "vegetal_decoration"
 }
