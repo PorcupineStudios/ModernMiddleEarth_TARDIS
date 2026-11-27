@@ -8,9 +8,9 @@
   "type": "neoforge:add_features",
   "biomes": "lotr_port:lossarnach_flowering_vales",
   "features": [
-    "regions_unexplored:patch/grass_sprouts_sparse",
-    "regions_unexplored:poppies",
-    "regions_unexplored:grass"
+    "regions_unexplored:tree/group/poppy_fields",
+    "regions_unexplored:patch/poppies",
+    "regions_unexplored:patch/short_grass"
   ],
   "step": "vegetal_decoration"
 }

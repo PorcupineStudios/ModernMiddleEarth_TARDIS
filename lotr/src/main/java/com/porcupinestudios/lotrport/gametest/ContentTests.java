@@ -161,8 +161,8 @@ public final class ContentTests {
         int expected = ContentData.read("summary.json").get(0).get("recipes").getAsInt();
         long loaded = helper.getLevel().getRecipeManager().getRecipes().stream()
                 .filter(r -> r.id().getNamespace().equals(LotrPort.MOD_ID) && !r.id().getPath().startsWith("own/")
-                        && !r.id().getPath().startsWith("create/"))
-                .count(); // own/ = our own features' recipes; create/ = cross-mod recipes that need Create
+                        && !r.id().getPath().startsWith("create/") && !r.id().getPath().startsWith("unify/"))
+                .count(); // own/ = our own features' recipes; create/ and unify/ = cross-mod recipes (Create, compat.py)
         helper.assertTrue(loaded == expected, "loaded " + loaded + " of " + expected + " converted recipes");
         helper.succeed();
     }

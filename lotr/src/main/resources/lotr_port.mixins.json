@@ -9,7 +9,8 @@
     "RaceHungerMixin",
     "RaceCrouchMixin",
     "CraftedModifierMixin",
-    "ModifierGlintMixin"
+    "ModifierGlintMixin",
+    "WorldGenRegionMixin"
   ],
   "client": [
     "PlayerSkinMixin"

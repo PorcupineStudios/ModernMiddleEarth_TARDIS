@@ -9,10 +9,10 @@
   "biomes": "lotr_port:angmar_ashen_woods",
   "features": [
     "regions_unexplored:tree/group/ashen_woodland",
-    "regions_unexplored:wilting_trillium",
+    "regions_unexplored:shrub/group/ashen_woodland",
+    "regions_unexplored:patch/wilting_trillium",
     "regions_unexplored:patch/ashen_grass",
-    "regions_unexplored:patch/smouldering_ashen_grass",
-    "regions_unexplored:ashen_shrub"
+    "regions_unexplored:patch/smouldering_ashen_grass"
   ],
   "step": "vegetal_decoration"
 }

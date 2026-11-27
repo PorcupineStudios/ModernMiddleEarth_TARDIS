@@ -8,11 +8,10 @@
   "type": "neoforge:add_features",
   "biomes": "lotr_port:eastemnet_tall_grass",
   "features": [
-    "regions_unexplored:patch/grass_sprouts_sparse",
-    "regions_unexplored:tree/oak_shrub_sparse",
-    "regions_unexplored:tulips",
-    "regions_unexplored:grass",
-    "regions_unexplored:windswept_grass"
+    "regions_unexplored:tree/group/grassland",
+    "regions_unexplored:patch/tulips",
+    "regions_unexplored:patch/windswept_grass",
+    "regions_unexplored:patch/short_grass"
   ],
   "step": "vegetal_decoration"
 }

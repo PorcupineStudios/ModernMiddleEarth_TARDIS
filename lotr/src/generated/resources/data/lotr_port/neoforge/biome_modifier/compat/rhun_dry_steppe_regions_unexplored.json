@@ -8,7 +8,7 @@
   "type": "neoforge:add_features",
   "biomes": "lotr_port:rhun_dry_steppe",
   "features": [
-    "regions_unexplored:steppe_vegetation"
+    "regions_unexplored:patch/grasses_steppe"
   ],
   "step": "vegetal_decoration"
 }

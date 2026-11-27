@@ -8,13 +8,10 @@
   "type": "neoforge:add_features",
   "biomes": "lotr_port:dale_orchards",
   "features": [
-    "regions_unexplored:patch/grass_sprouts_sparse",
-    "regions_unexplored:tree/apple_oak",
-    "regions_unexplored:tree/big_apple_oak",
-    "regions_unexplored:tree/big_oak_sparse",
-    "regions_unexplored:tassel_sparse",
-    "regions_unexplored:grass",
-    "regions_unexplored:oak_shrub"
+    "regions_unexplored:tree/group/orchard",
+    "regions_unexplored:shrub/group/orchard",
+    "regions_unexplored:single/tassel_sparse",
+    "regions_unexplored:patch/short_grass_sparse"
   ],
   "step": "vegetal_decoration"
 }

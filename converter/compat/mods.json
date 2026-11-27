@@ -1,5 +1,5 @@
 {
- "_comment": "Extracted by hand (2026-11-26) from Regions Unexplored (UHQ-GAMES-MODS/RegionsUnexplored branch 1.21, src/shared/21.1) and Biomes O' Plenty (Glitchfiend/BiomesOPlenty branch 1.21.1): their block and item ids with English names, and per biome its vegetation step (features from its own namespace) and grass/foliage colours. Input to converter/compat.py; only ids, no assets.",
+ "_comment": "Extracted (2026-11-26) from the released jars: Regions Unexplored 0.6.3 (NeoForge 21.1) and Biomes O' Plenty 21.1.0.14: their block and item ids with English names, and per biome its vegetation step (features from its own namespace) and grass/foliage colours. Input to converter/compat.py; only ids, no assets. Re-extract when updating either mod.",
  "mods": {
   "regions_unexplored": {
    "blocks": {
@@ -56,7 +56,6 @@
     "black_painted_slab": "Black Painted Slab",
     "black_painted_stairs": "Black Painted Stairs",
     "black_snowbelle": "Black Snowbelle",
-    "blackstone_cluster": "Blackstone Cluster",
     "blackwood_branch": "Blackwood Branch",
     "blackwood_button": "Blackwood Button",
     "blackwood_door": "Blackwood Door",
@@ -200,7 +199,6 @@
     "dead_sign": "Dead Sign",
     "dead_slab": "Dead Slab",
     "dead_stairs": "Dead Stairs",
-    "dead_steppe_shrub": "Dead Steppe Shrub",
     "dead_trapdoor": "Dead Trapdoor",
     "dead_wood": "Dead Wood",
     "deepslate_grass_block": "Deepslate Grass Block",
@@ -213,10 +211,6 @@
     "duskmelon": "Duskmelon Slice",
     "dusktrap": "Dusktrap",
     "elephant_ear": "Elephant Ear",
-    "enchanted_birch_leaf_litter": "Enchanted Birch Leaf Litter",
-    "enchanted_birch_leaves": "Enchanted Birch Leaves",
-    "enchanted_birch_sapling": "Enchanted Birch Sapling",
-    "enchanted_birch_shrub": "Enchanted Birch Shrub",
     "eucalyptus_branch": "Eucalyptus Branch",
     "eucalyptus_button": "Eucalyptus Button",
     "eucalyptus_door": "Eucalyptus Door",
@@ -346,6 +340,10 @@
     "larch_trapdoor": "Larch Trapdoor",
     "larch_wood": "Larch Wood",
     "large_prismarite_cluster": "Large Prismarite Cluster",
+    "lavender_wisteria_leaves": "Lavender Wisteria Leaves",
+    "lavender_wisteria_sapling": "Lavender Wisteria Sapling",
+    "lavender_wisteria_shrub": "Lavender Wisteria Shrub",
+    "lavender_wisteria_vines": "Lavender Wisteria Vines",
     "light_blue_painted_planks": "Light Blue Painted Planks",
     "light_blue_painted_slab": "Light Blue Painted Slab",
     "light_blue_painted_stairs": "Light Blue Painted Stairs",
@@ -400,29 +398,12 @@
     "maple_stairs": "Maple Stairs",
     "maple_trapdoor": "Maple Trapdoor",
     "maple_wood": "Maple Wood",
-    "mauve_branch": "Mauve Branch",
-    "mauve_button": "Mauve Button",
-    "mauve_door": "Mauve Door",
-    "mauve_fence": "Mauve Fence",
-    "mauve_fence_gate": "Mauve Fence Gate",
-    "mauve_hanging_sign": "Mauve Hanging Sign",
-    "mauve_leaves": "Mauve Leaves",
-    "mauve_log": "Mauve Log",
-    "mauve_planks": "Mauve Planks",
-    "mauve_pressure_plate": "Mauve Pressure Plate",
-    "mauve_sapling": "Mauve Sapling",
-    "mauve_shrub": "Mauve Shrub",
-    "mauve_sign": "Mauve Sign",
-    "mauve_slab": "Mauve Slab",
-    "mauve_stairs": "Mauve Stairs",
-    "mauve_trapdoor": "Mauve Trapdoor",
-    "mauve_wood": "Mauve Wood",
     "meadow_sage": "Meadow Sage",
     "mossy_stone": "Mossy Stone",
     "mycotoxic_daisy": "Mycotoxic Daisy",
     "mycotoxic_grass": "Mycotoxic Grass",
-    "mycotoxic_moss": "Mycotoxic Moss",
     "mycotoxic_mushrooms": "Mycotoxic Mushrooms",
+    "mycotoxic_nylium": "Mycotoxic Nylium",
     "oak_branch": "Oak Branch",
     "oak_shrub": "Oak Shrub",
     "orange_coneflower": "Orange Coneflower",
@@ -500,7 +481,6 @@
     "pink_painted_slab": "Pink Painted Slab",
     "pink_painted_stairs": "Pink Painted Stairs",
     "pink_snowbelle": "Pink Snowbelle",
-    "pointed_redstone": "Pointed Redstone",
     "polished_chalk": "Polished Chalk",
     "polished_chalk_slab": "Polished Chalk Slab",
     "polished_chalk_stairs": "Polished Chalk Stairs",
@@ -527,6 +507,7 @@
     "red_snowbelle": "Red Snowbelle",
     "redstone_bud": "Redstone Bud",
     "redstone_bulb": "Redstone Bulb",
+    "redstone_spike": "Redstone Spike",
     "redwood_branch": "Redwood Branch",
     "redwood_button": "Redwood Button",
     "redwood_door": "Redwood Door",
@@ -546,10 +527,16 @@
     "redwood_wood": "Redwood Wood",
     "saguaro_cactus": "Saguaro Cactus",
     "saguaro_cactus_flower": "Saguaro Cactus Flower",
+    "salmon_poppy": "Salmon Poppy",
     "salmon_poppy_bush": "Salmon Poppy Bush",
+    "salmon_wisteria_leaves": "Salmon Wisteria Leaves",
+    "salmon_wisteria_sapling": "Salmon Wisteria Sapling",
+    "salmon_wisteria_shrub": "Salmon Wisteria Shrub",
+    "salmon_wisteria_vines": "Salmon Wisteria Vines",
     "salmonberry_bush": "Salmonberry",
-    "sandy_grass": "Sandy Grass",
-    "sandy_tall_grass": "Sandy Tall Grass",
+    "short_dead_grass": "Short Dead Grass",
+    "short_red_sandy_grass": "Short Red Sandy Grass",
+    "short_sandy_grass": "Short Sandy Grass",
     "silt_coarse_dirt": "Silt Coarse Dirt",
     "silt_dirt": "Silt Dirt",
     "silt_dirt_path": "Silt Dirt Path",
@@ -564,8 +551,10 @@
     "silver_birch_sapling": "Silver Birch Sapling",
     "silver_birch_shrub": "Silver Birch Shrub",
     "silver_birch_wood": "Silver Birch Wood",
-    "small_desert_shrub": "Small Desert Shrub",
-    "small_oak_leaves": "Small Oak Leaves",
+    "sky_wisteria_leaves": "Sky Wisteria Leaves",
+    "sky_wisteria_sapling": "Sky Wisteria Sapling",
+    "sky_wisteria_shrub": "Sky Wisteria Shrub",
+    "sky_wisteria_vines": "Sky Wisteria Vines",
     "small_oak_log": "Small Oak Log",
     "small_oak_sapling": "Small Oak Sapling",
     "socotra_branch": "Socotra Branch",
@@ -589,9 +578,6 @@
     "spanish_moss_plant": "Spanish Moss",
     "spruce_branch": "Spruce Branch",
     "spruce_shrub": "Spruce Shrub",
-    "steppe_grass": "Steppe Grass",
-    "steppe_shrub": "Steppe Shrub",
-    "steppe_tall_grass": "Steppe Tall Grass",
     "stone_grass_block": "Stone Grass Block",
     "stripped_bamboo_log": "Stripped Bamboo Log",
     "stripped_baobab_log": "Stripped Baobab Log",
@@ -622,8 +608,6 @@
     "stripped_magnolia_wood": "Stripped Magnolia Wood",
     "stripped_maple_log": "Stripped Maple Log",
     "stripped_maple_wood": "Stripped Maple Wood",
-    "stripped_mauve_log": "Stripped Mauve Log",
-    "stripped_mauve_wood": "Stripped Mauve Wood",
     "stripped_palm_log": "Stripped Palm Log",
     "stripped_palm_wood": "Stripped Palm Wood",
     "stripped_pine_log": "Stripped Pine Log",
@@ -637,13 +621,18 @@
     "stripped_socotra_wood": "Stripped Socotra Wood",
     "stripped_willow_log": "Stripped Willow Log",
     "stripped_willow_wood": "Stripped Willow Wood",
+    "stripped_wisteria_log": "Stripped Wisteria Log",
+    "stripped_wisteria_wood": "Stripped Wisteria Wood",
     "stripped_yellow_bioshroom_hyphae": "Stripped Yellow Bioshroom Hyphae",
     "stripped_yellow_bioshroom_stem": "Stripped Yellow Bioshroom Stem",
     "tall_blue_bioshroom": "Tall Blue Bioshroom",
     "tall_cobalt_earlight": "Tall Cobalt Earlight",
+    "tall_dead_grass": "Tall Dead Grass",
     "tall_green_bioshroom": "Tall Green Bioshroom",
     "tall_hyacinth_stock": "Tall Hyacinth Stock",
     "tall_pink_bioshroom": "Tall Pink Bioshroom",
+    "tall_red_sandy_grass": "Tall Red Sandy Grass",
+    "tall_sandy_grass": "Tall Sandy Grass",
     "tall_yellow_bioshroom": "Tall Yellow Bioshroom",
     "tassel": "Tassel",
     "tsubaki": "Tsubaki",
@@ -678,6 +667,20 @@
     "willow_wood": "Willow Wood",
     "wilting_trillium": "Wilting Trillium",
     "windswept_grass": "Windswept Grass",
+    "wisteria_branch": "Wisteria Branch",
+    "wisteria_button": "Wisteria Button",
+    "wisteria_door": "Wisteria Door",
+    "wisteria_fence": "Wisteria Fence",
+    "wisteria_fence_gate": "Wisteria Fence Gate",
+    "wisteria_hanging_sign": "Wisteria Hanging Sign",
+    "wisteria_log": "Wisteria Log",
+    "wisteria_planks": "Wisteria Planks",
+    "wisteria_pressure_plate": "Wisteria Pressure Plate",
+    "wisteria_sign": "Wisteria Sign",
+    "wisteria_slab": "Wisteria Slab",
+    "wisteria_stairs": "Wisteria Stairs",
+    "wisteria_trapdoor": "Wisteria Trapdoor",
+    "wisteria_wood": "Wisteria Wood",
     "yellow_bioshroom": "Yellow Bioshroom",
     "yellow_bioshroom_block": "Yellow Bioshroom Block",
     "yellow_bioshroom_button": "Yellow Bioshroom Button",
@@ -710,6 +713,7 @@
     "dead_chest_boat": "Dead Boat with Chest",
     "eucalyptus_boat": "Eucalyptus Boat",
     "eucalyptus_chest_boat": "Eucalyptus Boat with Chest",
+    "iridescent_ring": "Iridescent Ring",
     "joshua_boat": "Joshua Boat",
     "joshua_chest_boat": "Joshua Boat with Chest",
     "kapok_boat": "Kapok Boat",
@@ -720,8 +724,6 @@
     "magnolia_chest_boat": "Magnolia Boat with Chest",
     "maple_boat": "Maple Boat",
     "maple_chest_boat": "Maple Boat with Chest",
-    "mauve_boat": "Mauve Boat",
-    "mauve_chest_boat": "Mauve Boat with Chest",
     "palm_boat": "Palm Boat",
     "palm_chest_boat": "Palm Boat with Chest",
     "pine_boat": "Pine Boat",
@@ -731,15 +733,17 @@
     "socotra_boat": "Socotra Boat",
     "socotra_chest_boat": "Socotra Boat with Chest",
     "willow_boat": "Willow Boat",
-    "willow_chest_boat": "Willow Boat with Chest"
+    "willow_chest_boat": "Willow Boat with Chest",
+    "wisteria_boat": "Wisteria Boat",
+    "wisteria_chest_boat": "Wisteria Boat with Chest"
    },
    "biomes": {
     "alpha_grove": {
      "name": "Alpha Grove",
      "vegetation": [
-      "regions_unexplored:tree/alpha",
-      "regions_unexplored:alpha_dandelion",
-      "regions_unexplored:alpha_rose"
+      "regions_unexplored:tree/group/alpha_grove",
+      "regions_unexplored:patch/alpha_dandelion",
+      "regions_unexplored:patch/alpha_rose"
      ],
      "grass_color": 8901207,
      "foliage_color": 6028091,
@@ -749,12 +753,12 @@
     "ancient_delta": {
      "name": "Ancient Delta",
      "vegetation": [
-      "regions_unexplored:mineral_pool",
-      "regions_unexplored:bladed_grass",
-      "regions_unexplored:corpse_flower",
-      "regions_unexplored:duskmelon",
-      "regions_unexplored:dusktrap",
-      "regions_unexplored:dropleaf"
+      "regions_unexplored:special/calcite_pool",
+      "regions_unexplored:patch/bladed_grass",
+      "regions_unexplored:single/corpse_flower",
+      "regions_unexplored:single/duskmelon",
+      "regions_unexplored:single/dusktrap",
+      "regions_unexplored:patch/dropleaf"
      ],
      "grass_color": 16318340,
      "foliage_color": -10118056,
@@ -762,13 +766,10 @@
      "downfall": 0.8
     },
     "arid_mountains": {
-     "name": "Arid Mountains",
-     "vegetation": [
-      "regions_unexplored:tree/oak_shrub_on_stone",
-      "regions_unexplored:patch/grass_sprouts_sparse"
-     ],
-     "grass_color": -4279222,
-     "foliage_color": -6773446,
+     "name": "Arid Mountains (Removed)",
+     "vegetation": [],
+     "grass_color": 9470285,
+     "foliage_color": 10387789,
      "temperature": 2.0,
      "downfall": 0.0
     },
@@ -776,10 +777,10 @@
      "name": "Ashen Woodland",
      "vegetation": [
       "regions_unexplored:tree/group/ashen_woodland",
-      "regions_unexplored:wilting_trillium",
+      "regions_unexplored:shrub/group/ashen_woodland",
+      "regions_unexplored:patch/wilting_trillium",
       "regions_unexplored:patch/ashen_grass",
-      "regions_unexplored:patch/smouldering_ashen_grass",
-      "regions_unexplored:ashen_shrub"
+      "regions_unexplored:patch/smouldering_ashen_grass"
      ],
      "grass_color": 12434605,
      "foliage_color": 15326658,
@@ -789,13 +790,13 @@
     "autumnal_maple_forest": {
      "name": "Autumnal Maple Forest",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
       "regions_unexplored:tree/group/autumnal_maple_forest",
-      "regions_unexplored:grass",
-      "regions_unexplored:white_trillium",
-      "regions_unexplored:autumnal_shrub_mix"
+      "regions_unexplored:shrub/group/autumnal_maple_forest",
+      "regions_unexplored:patch/silt_podzol_pumpkins",
+      "regions_unexplored:patch/flowers/autumnal_maple_forest",
+      "regions_unexplored:patch/short_grass_sparse"
      ],
-     "grass_color": 12896058,
+     "grass_color": 13414979,
      "foliage_color": 9877306,
      "temperature": 0.25,
      "downfall": 0.35
@@ -803,13 +804,12 @@
     "bamboo_forest": {
      "name": "Bamboo Forest",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
       "regions_unexplored:tree/group/bamboo_forest_primary",
       "regions_unexplored:tree/group/bamboo_forest_secondary",
-      "regions_unexplored:pink_flowers",
-      "regions_unexplored:grass",
-      "regions_unexplored:ferns",
-      "regions_unexplored:cherry_shrub"
+      "regions_unexplored:shrub/group/bamboo_forest",
+      "regions_unexplored:patch/bamboo_flowers",
+      "regions_unexplored:patch/fern_sparse",
+      "regions_unexplored:patch/short_grass_sparse"
      ],
      "grass_color": 11853428,
      "foliage_color": 11140963,
@@ -819,13 +819,9 @@
     "baobab_savanna": {
      "name": "Baobab Savanna",
      "vegetation": [
-      "regions_unexplored:tree/mega_baobab",
-      "regions_unexplored:tree/ultra_baobab",
-      "regions_unexplored:tree/acacia_shrub",
-      "regions_unexplored:tree/oak_bush_sparse",
-      "regions_unexplored:grass",
-      "regions_unexplored:patch/grass_sprouts_dense",
-      "regions_unexplored:baobab_acacia_shrub_mix"
+      "regions_unexplored:tree/group/baobab_savanna",
+      "regions_unexplored:shrub/group/baobab_savanna",
+      "regions_unexplored:patch/grass_sprouts"
      ],
      "grass_color": -4670891,
      "foliage_color": -6636971,
@@ -833,28 +829,28 @@
      "downfall": 0.35
     },
     "barley_fields": {
-     "name": "Barley Fields",
+     "name": "Barley Fields (Removed)",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:prairie_flowers",
-      "regions_unexplored:grass",
-      "regions_unexplored:barley_dense"
+      "regions_unexplored:tree/group/prairie",
+      "regions_unexplored:patch/prairie_flowers",
+      "regions_unexplored:patch/barley_sparse",
+      "regions_unexplored:patch/short_grass",
+      "regions_unexplored:patch/tall_grass"
      ],
-     "grass_color": -5754,
-     "foliage_color": -5256873,
-     "temperature": 0.85,
-     "downfall": 0.6
+     "grass_color": 14079353,
+     "foliage_color": 7844173,
+     "temperature": 0.75,
+     "downfall": 0.7
     },
     "bayou": {
      "name": "Bayou",
      "vegetation": [
-      "regions_unexplored:tree/cypress",
-      "regions_unexplored:tree/willow_vines",
-      "regions_unexplored:tree/oak_bush_sparse",
-      "regions_unexplored:bayou_vegetation",
-      "regions_unexplored:flowering_lily",
-      "regions_unexplored:willow_cypress_shrub_mix",
-      "regions_unexplored:elephant_ear_sparse"
+      "regions_unexplored:tree/group/bayou",
+      "regions_unexplored:shrub/group/bayou",
+      "regions_unexplored:patch/flowering_lily_pad",
+      "regions_unexplored:patch/elephant_ear_sparse",
+      "regions_unexplored:patch/fern",
+      "regions_unexplored:patch/short_grass"
      ],
      "grass_color": -8609196,
      "foliage_color": -9333940,
@@ -864,13 +860,10 @@
     "bioshroom_caves": {
      "name": "Bioshroom Caves",
      "vegetation": [
-      "regions_unexplored:tree/giant_green_bioshroom",
-      "regions_unexplored:tree/giant_blue_bioshroom",
-      "regions_unexplored:cave_grass",
-      "regions_unexplored:cave_tall_grass",
-      "regions_unexplored:blue_bioshroom",
-      "regions_unexplored:green_bioshroom",
-      "regions_unexplored:pink_bioshroom"
+      "regions_unexplored:tree/group/bioshroom_caves",
+      "regions_unexplored:patch/cave_bioshrooms",
+      "regions_unexplored:patch/tall_grass_caves",
+      "regions_unexplored:patch/short_grass_caves"
      ],
      "grass_color": -11093410,
      "foliage_color": -11093361,
@@ -888,14 +881,12 @@
     "blackwood_taiga": {
      "name": "Blackwood Taiga",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/tall_blackwood",
-      "regions_unexplored:tree/blackwood",
-      "regions_unexplored:tree/tall_dark_oak",
-      "regions_unexplored:blackwood_mushrooms",
-      "regions_unexplored:blackwood_decoration",
-      "regions_unexplored:blackwood_vegetation",
-      "regions_unexplored:blackwood_dark_oak_shrub_mix"
+      "regions_unexplored:tree/group/blackwood_taiga_primary",
+      "regions_unexplored:tree/group/blackwood_taiga_secondary",
+      "regions_unexplored:tree/group/blackwood_taiga_tertiary",
+      "regions_unexplored:shrub/group/blackwood_taiga",
+      "regions_unexplored:single/blackwood_bioshrooms",
+      "regions_unexplored:patch/grass_sprouts"
      ],
      "grass_color": 4089639,
      "foliage_color": 4347179,
@@ -905,15 +896,11 @@
     "boreal_taiga": {
      "name": "Boreal Taiga",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/larch_dense",
-      "regions_unexplored:tree/golden_larch_sparse",
-      "regions_unexplored:tree/birch_aspen",
-      "regions_unexplored:tree/oak_bush_sparse",
-      "regions_unexplored:fallen_larch",
-      "regions_unexplored:azure_daisy",
-      "regions_unexplored:grass",
-      "regions_unexplored:larch_shrub"
+      "regions_unexplored:tree/group/boreal_taiga",
+      "regions_unexplored:tree/fallen/larch",
+      "regions_unexplored:shrub/group/boreal_taiga",
+      "regions_unexplored:patch/azure_daisy",
+      "regions_unexplored:patch/short_grass"
      ],
      "grass_color": 8957796,
      "foliage_color": 8103502,
@@ -923,12 +910,11 @@
     "chalk_cliffs": {
      "name": "Chalk Cliffs",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/oak_bush_sparse",
-      "regions_unexplored:daisy",
-      "regions_unexplored:tassel_sparse",
-      "regions_unexplored:grass",
-      "regions_unexplored:flowering_shrub"
+      "regions_unexplored:tree/group/chalk_river",
+      "regions_unexplored:shrub/group/chalk_cliffs",
+      "regions_unexplored:patch/daisy",
+      "regions_unexplored:single/tassel_sparse",
+      "regions_unexplored:patch/short_grass"
      ],
      "grass_color": -6044317,
      "foliage_color": -8414642,
@@ -938,47 +924,38 @@
     "clover_plains": {
      "name": "Clover Plains",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
       "regions_unexplored:patch/lupines",
-      "regions_unexplored:patch/clovers_dense",
-      "regions_unexplored:grass"
+      "regions_unexplored:patch/clover",
+      "regions_unexplored:patch/short_grass"
      ],
-     "grass_color": -6044317,
-     "foliage_color": -6044317,
+     "grass_color": 10732899,
+     "foliage_color": 10732899,
      "temperature": 1.0,
      "downfall": 0.3
     },
     "cold_boreal_taiga": {
      "name": "Cold Boreal Taiga",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/larch_dense",
-      "regions_unexplored:tree/golden_larch_sparse",
-      "regions_unexplored:tree/birch_aspen",
-      "regions_unexplored:tree/oak_bush_sparse",
-      "regions_unexplored:fallen_larch",
-      "regions_unexplored:azure_daisy",
-      "regions_unexplored:snowbelle",
-      "regions_unexplored:larch_shrub"
+      "regions_unexplored:tree/group/cold_boreal_taiga",
+      "regions_unexplored:tree/fallen/larch",
+      "regions_unexplored:shrub/group/cold_boreal_taiga",
+      "regions_unexplored:patch/azure_daisy",
+      "regions_unexplored:single/snowbelle"
      ],
-     "grass_color": -9917084,
-     "foliage_color": -9922472,
+     "grass_color": 6860132,
+     "foliage_color": 6854744,
      "temperature": 0.0,
      "downfall": 0.6
     },
     "cold_deciduous_forest": {
-     "name": "Cold Deciduous Forest",
+     "name": "Cold Deciduous Forest (Removed)",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/oak_with_branch",
-      "regions_unexplored:tree/big_oak_sparse",
-      "regions_unexplored:tree/big_red_maple_sparse",
-      "regions_unexplored:tree/spruce_tall_on_snow",
-      "regions_unexplored:fallen_oak_tree_sparse",
-      "regions_unexplored:frozen_flowers",
-      "regions_unexplored:snowbelle",
-      "regions_unexplored:ferns",
-      "regions_unexplored:spruce_shrub"
+      "regions_unexplored:tree/group/cold_deciduous_forest",
+      "regions_unexplored:tree/fallen/oak_sparse",
+      "regions_unexplored:shrub/group/cold_deciduous_forest",
+      "regions_unexplored:patch/snowy_flowers",
+      "regions_unexplored:single/snowbelle",
+      "regions_unexplored:patch/fern"
      ],
      "grass_color": 6732196,
      "foliage_color": 5614468,
@@ -987,41 +964,35 @@
     },
     "cold_river": {
      "name": "Cold River",
-     "vegetation": [
-      "regions_unexplored:rock_on_gravel"
-     ],
+     "vegetation": [],
      "grass_color": -4733087,
      "foliage_color": -5718172,
      "temperature": 0.4,
      "downfall": 0.7
     },
     "deciduous_forest": {
-     "name": "Deciduous Forest",
+     "name": "Deciduous Forest (Removed)",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/big_oak_dense",
-      "regions_unexplored:tree/small_oak",
-      "regions_unexplored:tree/oak_tall",
-      "regions_unexplored:tree/oak_bush_sparse",
-      "regions_unexplored:fallen_oak_tree_dense",
-      "regions_unexplored:deciduous_vegetation",
-      "regions_unexplored:oak_shrub"
+      "regions_unexplored:tree/group/old_growth_forest",
+      "regions_unexplored:tree/fallen/oak_dense",
+      "regions_unexplored:shrub/group/old_growth_forest",
+      "regions_unexplored:patch/fern_sparse",
+      "regions_unexplored:patch/short_grass_sparse"
      ],
-     "grass_color": 8700997,
-     "foliage_color": 7578936,
-     "temperature": 0.75,
-     "downfall": 0.8
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 0.8,
+     "downfall": 0.6
     },
     "dry_bushland": {
      "name": "Dry Bushland",
      "vegetation": [
-      "regions_unexplored:tree/large_socotra",
-      "regions_unexplored:tree/small_socotra",
-      "regions_unexplored:tree/acacia",
-      "regions_unexplored:tree/oak_shrub_sparse",
-      "regions_unexplored:mallow",
-      "regions_unexplored:socotra_vegetation",
-      "regions_unexplored:socotra_shrub"
+      "regions_unexplored:tree/group/dry_bushland",
+      "regions_unexplored:shrub/group/dry_bushland",
+      "regions_unexplored:patch/mallow",
+      "regions_unexplored:patch/tall_grass",
+      "regions_unexplored:patch/desert_shrub_on_grass",
+      "regions_unexplored:patch/short_grass_dense"
      ],
      "grass_color": -3552115,
      "foliage_color": -5060484,
@@ -1031,13 +1002,11 @@
     "eucalyptus_forest": {
      "name": "Eucalyptus Forest",
      "vegetation": [
-      "regions_unexplored:tree/eucalyptus",
-      "regions_unexplored:tree/small_eucalyptus",
-      "regions_unexplored:tree/oak_bush_dense",
-      "regions_unexplored:waratah",
-      "regions_unexplored:elephant_ear_sparse",
-      "regions_unexplored:tall_grass",
-      "regions_unexplored:eucalyptus_shrub"
+      "regions_unexplored:tree/group/eucalyptus_forest",
+      "regions_unexplored:shrub/group/eucalyptus_forest",
+      "regions_unexplored:patch/waratah",
+      "regions_unexplored:patch/elephant_ear_sparse",
+      "regions_unexplored:patch/tall_grass"
      ],
      "grass_color": 9680182,
      "foliage_color": 8828203,
@@ -1047,14 +1016,13 @@
     "fen": {
      "name": "Fen",
      "vegetation": [
-      "regions_unexplored:duckweed",
-      "regions_unexplored:cattail_fen",
-      "regions_unexplored:tree/pine",
-      "regions_unexplored:tree/dead_scotts_pine",
-      "regions_unexplored:tree/dead_bog",
-      "regions_unexplored:fallen_oak_tree_dense",
-      "regions_unexplored:fen_vegetation",
-      "regions_unexplored:pine_dead_shrub_mix"
+      "regions_unexplored:tree/group/fen",
+      "regions_unexplored:tree/fallen/oak_dense",
+      "regions_unexplored:shrub/group/fen",
+      "regions_unexplored:patch/duckweed",
+      "regions_unexplored:patch/cattail_dense",
+      "regions_unexplored:patch/fern_dense",
+      "regions_unexplored:patch/short_grass_dense"
      ],
      "grass_color": 10858333,
      "foliage_color": 8754506,
@@ -1064,63 +1032,52 @@
     "flower_fields": {
      "name": "Flower Fields",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:small_flowers",
-      "regions_unexplored:tall_flowers",
-      "regions_unexplored:aster",
-      "regions_unexplored:grass"
+      "regions_unexplored:patch/small_flowers",
+      "regions_unexplored:patch/tall_flowers",
+      "regions_unexplored:single/aster",
+      "regions_unexplored:patch/short_grass"
      ],
-     "grass_color": -9189045,
-     "foliage_color": -10635453,
+     "grass_color": 7588171,
+     "foliage_color": 6141763,
      "temperature": 0.975,
      "downfall": 0.8
     },
     "frozen_pine_taiga": {
      "name": "Frozen Pine Taiga",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/scotts_pine_on_snow",
-      "regions_unexplored:tree/scotts_pine_tall_on_snow",
-      "regions_unexplored:tree/pine_shrub_on_snow",
-      "regions_unexplored:fallen_pine_tree_on_dirt",
-      "regions_unexplored:frozen_flowers",
-      "regions_unexplored:snow_grass",
-      "regions_unexplored:pine_shrub"
+      "regions_unexplored:tree/group/frozen_pine_taiga",
+      "regions_unexplored:tree/fallen/pine_on_dirt",
+      "regions_unexplored:shrub/group/frozen_pine_taiga",
+      "regions_unexplored:patch/snowy_flowers",
+      "regions_unexplored:patch/frozen_grass"
      ],
-     "grass_color": -9917084,
-     "foliage_color": -9922472,
+     "grass_color": 6860132,
+     "foliage_color": 6854744,
      "temperature": -0.5,
      "downfall": 0.6
     },
     "frozen_tundra": {
-     "name": "Frozen Tundra",
+     "name": "Frozen Tundra (Removed)",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/spruce_tall_sparse",
-      "regions_unexplored:tree/oak_shrub_dense",
-      "regions_unexplored:tree/oak_bush_single",
-      "regions_unexplored:tree/spruce_shrub_dense",
-      "regions_unexplored:frozen_flowers",
-      "regions_unexplored:snowbelle",
-      "regions_unexplored:snow_grass",
-      "regions_unexplored:spruce_shrub"
+      "regions_unexplored:tree/group/tundra",
+      "regions_unexplored:tree/group/tundra_bushes",
+      "regions_unexplored:patch/flowers/tundra",
+      "regions_unexplored:patch/fern_sparse",
+      "regions_unexplored:patch/short_grass_dense"
      ],
-     "grass_color": -5215920,
-     "foliage_color": -5207984,
-     "temperature": -1.0,
+     "grass_color": 12347986,
+     "foliage_color": 11569232,
+     "temperature": -0.3,
      "downfall": 0.0
     },
     "fungal_fen": {
      "name": "Fungal Fen",
      "vegetation": [
-      "regions_unexplored:tree/giant_pink_bioshroom",
-      "regions_unexplored:tree/giant_brown_mushroom",
-      "regions_unexplored:tree/giant_red_mushroom",
-      "regions_unexplored:tree/lush_pine",
-      "regions_unexplored:pink_bioshroom_dense",
-      "regions_unexplored:grass",
-      "regions_unexplored:ferns",
-      "regions_unexplored:pine_shrub"
+      "regions_unexplored:tree/group/fungal_fen",
+      "regions_unexplored:shrub/group/fungal_fen",
+      "regions_unexplored:patch/pink_bioshroom",
+      "regions_unexplored:patch/fern",
+      "regions_unexplored:patch/short_grass"
      ],
      "grass_color": 8173383,
      "foliage_color": 10667597,
@@ -1136,17 +1093,13 @@
      "downfall": 0.0
     },
     "golden_boreal_taiga": {
-     "name": "Golden Boreal Taiga",
+     "name": "Golden Boreal Taiga (Removed)",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/golden_larch_dense",
-      "regions_unexplored:tree/larch_sparse",
-      "regions_unexplored:tree/birch_aspen",
-      "regions_unexplored:tree/oak_bush_sparse",
-      "regions_unexplored:fallen_larch",
-      "regions_unexplored:azure_daisy",
-      "regions_unexplored:grass",
-      "regions_unexplored:golden_larch_shrub_mix"
+      "regions_unexplored:tree/group/old_growth_golden_boreal_taiga",
+      "regions_unexplored:tree/fallen/larch",
+      "regions_unexplored:shrub/group/old_growth_golden_boreal_taiga",
+      "regions_unexplored:patch/azure_daisy",
+      "regions_unexplored:patch/short_grass"
      ],
      "grass_color": 10400607,
      "foliage_color": 12562512,
@@ -1156,22 +1109,21 @@
     "grassland": {
      "name": "Grassland",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/oak_shrub_sparse",
-      "regions_unexplored:tulips",
-      "regions_unexplored:grass",
-      "regions_unexplored:windswept_grass"
+      "regions_unexplored:tree/group/grassland",
+      "regions_unexplored:patch/tulips",
+      "regions_unexplored:patch/windswept_grass",
+      "regions_unexplored:patch/short_grass"
      ],
-     "grass_color": -6044317,
-     "foliage_color": -7159980,
+     "grass_color": 10732899,
+     "foliage_color": 9617236,
      "temperature": 0.85,
      "downfall": 0.45
     },
     "grassy_beach": {
      "name": "Grassy Beach",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:sandy_grass_vegetation"
+      "regions_unexplored:tree/group/grassy_beach",
+      "regions_unexplored:patch/sandy_grass_dense"
      ],
      "grass_color": -2697863,
      "foliage_color": -8933043,
@@ -1180,9 +1132,7 @@
     },
     "gravel_beach": {
      "name": "Gravel Beach",
-     "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse"
-     ],
+     "vegetation": [],
      "grass_color": -7819420,
      "foliage_color": -8673714,
      "temperature": 0.6,
@@ -1191,22 +1141,21 @@
     "highland_fields": {
      "name": "Highland Fields",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:rock/group/highland_fields",
+      "regions_unexplored:tree/group/highland_fields",
       "regions_unexplored:patch/daisies",
-      "regions_unexplored:grass"
+      "regions_unexplored:patch/short_grass"
      ],
-     "grass_color": -9782677,
-     "foliage_color": -8275350,
+     "grass_color": 6994539,
+     "foliage_color": 8501866,
      "temperature": 0.65,
      "downfall": 0.6
     },
     "hyacinth_deeps": {
      "name": "Hyacinth Deeps",
      "vegetation": [
-      "regions_unexplored:tall_hyacinth_stock",
-      "regions_unexplored:hyacinth_plants",
-      "regions_unexplored:hyacinth_flowers"
+      "regions_unexplored:special/tall_hyacinth_stock",
+      "regions_unexplored:special/hyacinth_plants",
+      "regions_unexplored:special/hyacinth_flowers"
      ],
      "grass_color": -9782677,
      "foliage_color": -8275350,
@@ -1216,17 +1165,14 @@
     "icy_heights": {
      "name": "Icy Heights",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/scotts_pine_mountain_on_snow",
-      "regions_unexplored:tree/dead_scotts_pine_mountain_on_snow",
-      "regions_unexplored:tree/pine_shrub_on_snow_sparse",
-      "regions_unexplored:fallen_pine_tree_on_snow",
-      "regions_unexplored:rock_on_snow",
-      "regions_unexplored:frozen_flowers",
-      "regions_unexplored:snow_grass"
+      "regions_unexplored:tree/group/icy_heights",
+      "regions_unexplored:tree/fallen/pine_on_snow",
+      "regions_unexplored:rock/group/icy_heights",
+      "regions_unexplored:patch/snowy_flowers",
+      "regions_unexplored:patch/frozen_grass"
      ],
-     "grass_color": -9059189,
-     "foliage_color": -9913745,
+     "grass_color": 7718027,
+     "foliage_color": 6863471,
      "temperature": -1.0,
      "downfall": 0.7
     },
@@ -1238,15 +1184,25 @@
      "temperature": 2.0,
      "downfall": 0.0
     },
+    "inferno": {
+     "name": "Inferno",
+     "vegetation": [
+      "regions_unexplored:patch/ash_vents_inferno"
+     ],
+     "grass_color": -8621472,
+     "foliage_color": -8949914,
+     "temperature": 2.0,
+     "downfall": 0.0
+    },
     "joshua_desert": {
      "name": "Joshua Desert",
      "vegetation": [
       "regions_unexplored:tree/group/joshua_desert",
-      "regions_unexplored:mallow",
-      "regions_unexplored:patch/grass_sparse",
-      "regions_unexplored:patch/desert_shrub_sparse",
-      "regions_unexplored:patch/sandy_grass_sparse",
-      "regions_unexplored:joshua_shrub"
+      "regions_unexplored:shrub/group/joshua_desert",
+      "regions_unexplored:patch/mallow",
+      "regions_unexplored:patch/desert_shrub_on_grass",
+      "regions_unexplored:patch/sandy_grass_dense",
+      "regions_unexplored:patch/short_grass_sparse"
      ],
      "grass_color": -5213,
      "foliage_color": -8409523,
@@ -1256,14 +1212,11 @@
     "magnolia_woodland": {
      "name": "Magnolia Woodland",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/magnolia",
-      "regions_unexplored:tree/pink_magnolia",
-      "regions_unexplored:tree/white_magnolia",
-      "regions_unexplored:tsubaki",
-      "regions_unexplored:grass",
-      "regions_unexplored:day_lily",
-      "regions_unexplored:magnolia_shrub_mix"
+      "regions_unexplored:tree/group/magnolia_woodland",
+      "regions_unexplored:shrub/group/magnolia_woodland",
+      "regions_unexplored:patch/tsubaki",
+      "regions_unexplored:single/day_lily",
+      "regions_unexplored:patch/short_grass_sparse"
      ],
      "grass_color": 10406459,
      "foliage_color": 8437033,
@@ -1273,16 +1226,11 @@
     "maple_forest": {
      "name": "Maple Forest",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/maple_dense",
-      "regions_unexplored:tree/red_maple_sparse",
-      "regions_unexplored:tree/big_maple_sparse",
-      "regions_unexplored:tree/spruce_tall_dense",
-      "regions_unexplored:grass",
-      "regions_unexplored:patch/grass_sprouts_dense",
-      "regions_unexplored:white_trillium",
-      "regions_unexplored:fallen_maple",
-      "regions_unexplored:maple_shrub_mix"
+      "regions_unexplored:tree/group/maple_forest",
+      "regions_unexplored:tree/fallen/maple",
+      "regions_unexplored:shrub/group/maple_forest",
+      "regions_unexplored:patch/flowers/autumnal_maple_forest",
+      "regions_unexplored:patch/short_grass_sparse"
      ],
      "grass_color": 9550928,
      "foliage_color": 6462505,
@@ -1292,58 +1240,55 @@
     "marsh": {
      "name": "Marsh",
      "vegetation": [
-      "regions_unexplored:duckweed",
-      "regions_unexplored:tree/dead_bog_rare",
-      "regions_unexplored:grass",
-      "regions_unexplored:tall_grass",
-      "regions_unexplored:moss_patch_with_water"
+      "regions_unexplored:tree/group/marsh",
+      "regions_unexplored:patch/duckweed",
+      "regions_unexplored:patch/short_grass",
+      "regions_unexplored:patch/tall_grass"
      ],
-     "grass_color": -8536223,
-     "foliage_color": -8339092,
+     "grass_color": 8240993,
+     "foliage_color": 8438124,
      "temperature": 1.0,
      "downfall": 1.0
     },
     "mauve_hills": {
-     "name": "Mauve Hills",
+     "name": "Mauve Hills (Removed)",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/big_mauve",
-      "regions_unexplored:tree/mauve_dense",
-      "regions_unexplored:tree/enchanted_birch",
-      "regions_unexplored:tree/enchanted_birch_tall",
-      "regions_unexplored:aster",
-      "regions_unexplored:tassel_dense",
-      "regions_unexplored:grass",
-      "regions_unexplored:mauve_enchanted_shrub_mix"
+      "regions_unexplored:tree/group/wisteria_grove",
+      "regions_unexplored:shrub/group/wisteria_grove",
+      "regions_unexplored:patch/tall_flowers/wisteria_grove",
+      "regions_unexplored:patch/flowers/wisteria_grove",
+      "regions_unexplored:single/aster",
+      "regions_unexplored:patch/short_grass_sparse"
      ],
-     "grass_color": 7518100,
-     "foliage_color": 3966928,
+     "grass_color": 7518088,
+     "foliage_color": 11381503,
      "temperature": 1.1,
      "downfall": 0.85
     },
     "mountains": {
-     "name": "Mountains",
+     "name": "Mountains (Removed)",
      "vegetation": [
-      "regions_unexplored:tree/pine_on_dirt",
-      "regions_unexplored:fallen_pine_tree_on_dirt",
-      "regions_unexplored:mountain_vegetation",
-      "regions_unexplored:pine_shrub"
+      "regions_unexplored:tree/group/mountains",
+      "regions_unexplored:tree/fallen/pine_on_dirt",
+      "regions_unexplored:shrub/group/mountains",
+      "regions_unexplored:patch/fern",
+      "regions_unexplored:patch/short_grass"
      ],
-     "grass_color": -8083622,
-     "foliage_color": -9075130,
-     "temperature": 0.28,
+     "grass_color": 8693594,
+     "foliage_color": 7702086,
+     "temperature": 0.25,
      "downfall": 0.6
     },
     "muddy_river": {
      "name": "Muddy River",
      "vegetation": [
-      "regions_unexplored:cattail_river",
-      "regions_unexplored:grass",
-      "regions_unexplored:tall_grass"
+      "regions_unexplored:patch/cattail",
+      "regions_unexplored:patch/tall_grass",
+      "regions_unexplored:patch/short_grass_dense"
      ],
      "grass_color": -6044317,
      "foliage_color": -7159980,
-     "temperature": 0.75,
+     "temperature": 0.6,
      "downfall": 0.7
     },
     "mycotoxic_undergrowth": {
@@ -1358,27 +1303,67 @@
      "name": "Old Growth Bayou",
      "vegetation": [
       "regions_unexplored:tree/group/old_growth_bayou",
-      "regions_unexplored:bayou_vegetation",
-      "regions_unexplored:flowering_lily",
-      "regions_unexplored:willow_cypress_shrub_mix",
-      "regions_unexplored:elephant_ear_dense",
-      "regions_unexplored:giant_lily"
+      "regions_unexplored:shrub/group/old_growth_bayou",
+      "regions_unexplored:special/giant_lily",
+      "regions_unexplored:patch/flowering_lily_pad",
+      "regions_unexplored:patch/elephant_ear_dense",
+      "regions_unexplored:patch/fern_dense",
+      "regions_unexplored:patch/short_grass_dense"
      ],
      "grass_color": -8609196,
      "foliage_color": -9333940,
      "temperature": 1.2,
      "downfall": 1.0
     },
+    "old_growth_boreal_taiga": {
+     "name": "Old Growth Boreal Taiga",
+     "vegetation": [
+      "regions_unexplored:tree/group/old_growth_boreal_taiga",
+      "regions_unexplored:tree/fallen/larch",
+      "regions_unexplored:shrub/group/old_growth_boreal_taiga",
+      "regions_unexplored:patch/azure_daisy",
+      "regions_unexplored:patch/short_grass"
+     ],
+     "grass_color": 8957796,
+     "foliage_color": 8103502,
+     "temperature": 0.5,
+     "downfall": 0.4
+    },
+    "old_growth_forest": {
+     "name": "Old Growth Forest",
+     "vegetation": [
+      "regions_unexplored:tree/group/old_growth_forest",
+      "regions_unexplored:tree/fallen/oak_dense",
+      "regions_unexplored:shrub/group/old_growth_forest",
+      "regions_unexplored:patch/fern_sparse",
+      "regions_unexplored:patch/short_grass_sparse"
+     ],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 0.8,
+     "downfall": 0.6
+    },
+    "old_growth_golden_boreal_taiga": {
+     "name": "Old Growth Golden Boreal Taiga",
+     "vegetation": [
+      "regions_unexplored:tree/group/old_growth_golden_boreal_taiga",
+      "regions_unexplored:tree/fallen/larch",
+      "regions_unexplored:shrub/group/old_growth_golden_boreal_taiga",
+      "regions_unexplored:patch/azure_daisy",
+      "regions_unexplored:patch/short_grass"
+     ],
+     "grass_color": 10400607,
+     "foliage_color": 12562512,
+     "temperature": 0.45,
+     "downfall": 0.3
+    },
     "orchard": {
      "name": "Orchard",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/apple_oak",
-      "regions_unexplored:tree/big_apple_oak",
-      "regions_unexplored:tree/big_oak_sparse",
-      "regions_unexplored:tassel_sparse",
-      "regions_unexplored:grass",
-      "regions_unexplored:oak_shrub"
+      "regions_unexplored:tree/group/orchard",
+      "regions_unexplored:shrub/group/orchard",
+      "regions_unexplored:single/tassel_sparse",
+      "regions_unexplored:patch/short_grass_sparse"
      ],
      "grass_color": 11717735,
      "foliage_color": 10669160,
@@ -1388,11 +1373,13 @@
     "outback": {
      "name": "Outback",
      "vegetation": [
-      "regions_unexplored:cactus_dense",
-      "regions_unexplored:tree/acacia_shrub",
-      "regions_unexplored:mallow",
-      "regions_unexplored:outback_vegetation",
-      "regions_unexplored:acacia_shrub"
+      "regions_unexplored:patch/cactus_dense",
+      "regions_unexplored:tree/group/outback",
+      "regions_unexplored:shrub/group/outback",
+      "regions_unexplored:patch/mallow",
+      "regions_unexplored:patch/desert_shrub_on_sand",
+      "regions_unexplored:patch/steppe_grass_on_sand",
+      "regions_unexplored:patch/short_grass"
      ],
      "grass_color": -4670891,
      "foliage_color": -8016810,
@@ -1402,27 +1389,27 @@
     "pine_slopes": {
      "name": "Pine Slopes",
      "vegetation": [
-      "regions_unexplored:tree/scotts_pine_on_dirt",
-      "regions_unexplored:fallen_pine_tree_on_dirt",
-      "regions_unexplored:mountain_vegetation",
-      "regions_unexplored:pine_shrub"
+      "regions_unexplored:tree/group/pine_slopes",
+      "regions_unexplored:tree/fallen/pine_on_dirt",
+      "regions_unexplored:shrub/group/pine_slopes",
+      "regions_unexplored:patch/fern",
+      "regions_unexplored:patch/short_grass"
      ],
-     "grass_color": -8083622,
-     "foliage_color": -9075130,
-     "temperature": 0.28,
-     "downfall": 0.6
+     "grass_color": 8693594,
+     "foliage_color": 7702086,
+     "temperature": 0.4,
+     "downfall": 0.4
     },
     "pine_taiga": {
      "name": "Pine Taiga",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/group/pine_taiga",
-      "regions_unexplored:tree/pine_shrub_on_grass",
-      "regions_unexplored:fallen_pine_tree_on_dirt",
-      "regions_unexplored:azure_daisy",
-      "regions_unexplored:dirt_vegetation",
-      "regions_unexplored:grass_vegetation",
-      "regions_unexplored:pine_shrub"
+      "regions_unexplored:tree/group/pine_taiga_primary",
+      "regions_unexplored:tree/group/pine_taiga_secondary",
+      "regions_unexplored:tree/fallen/pine_on_dirt",
+      "regions_unexplored:shrub/group/pine_taiga",
+      "regions_unexplored:patch/azure_daisy",
+      "regions_unexplored:patch/fern",
+      "regions_unexplored:patch/short_grass"
      ],
      "grass_color": 8693594,
      "foliage_color": 7702086,
@@ -1432,37 +1419,36 @@
     "poppy_fields": {
      "name": "Poppy Fields",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:poppies",
-      "regions_unexplored:grass"
+      "regions_unexplored:tree/group/poppy_fields",
+      "regions_unexplored:patch/poppies",
+      "regions_unexplored:patch/short_grass"
      ],
      "grass_color": 8700997,
      "foliage_color": 7578936,
-     "temperature": 0.75,
-     "downfall": 0.8
+     "temperature": 0.7,
+     "downfall": 0.5
     },
     "prairie": {
      "name": "Prairie",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:prairie_trees",
-      "regions_unexplored:prairie_flowers",
-      "regions_unexplored:grass",
-      "regions_unexplored:tall_grass",
-      "regions_unexplored:barley_sparse"
+      "regions_unexplored:tree/group/prairie",
+      "regions_unexplored:patch/prairie_flowers",
+      "regions_unexplored:patch/barley_sparse",
+      "regions_unexplored:patch/short_grass",
+      "regions_unexplored:patch/tall_grass"
      ],
-     "grass_color": -2697863,
-     "foliage_color": -8933043,
+     "grass_color": 14079353,
+     "foliage_color": 7844173,
      "temperature": 0.75,
      "downfall": 0.7
     },
     "prismachasm": {
      "name": "Prismachasm",
      "vegetation": [
-      "regions_unexplored:prismoss_sprout",
-      "regions_unexplored:cave_hyssop",
-      "regions_unexplored:prismarite_clusters",
-      "regions_unexplored:hanging_prismarite_cluster"
+      "regions_unexplored:patch/prismoss_sprout",
+      "regions_unexplored:patch/cave_hyssop",
+      "regions_unexplored:patch/prismarite_cluster",
+      "regions_unexplored:special/hanging_prismarite_cluster"
      ],
      "grass_color": -6625354,
      "foliage_color": -16737793,
@@ -1470,31 +1456,26 @@
      "downfall": 0.9
     },
     "pumpkin_fields": {
-     "name": "Pumpkin Fields",
+     "name": "Pumpkin Fields (Removed)",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/group/pumpkin_fields",
-      "regions_unexplored:noise_pumpkins",
-      "regions_unexplored:grass",
-      "regions_unexplored:autumnal_shrub_mix"
+      "regions_unexplored:tree/group/autumnal_maple_forest",
+      "regions_unexplored:shrub/group/autumnal_maple_forest",
+      "regions_unexplored:patch/silt_podzol_pumpkins",
+      "regions_unexplored:patch/flowers/autumnal_maple_forest",
+      "regions_unexplored:patch/short_grass_sparse"
      ],
-     "grass_color": 11585358,
+     "grass_color": 13414979,
      "foliage_color": 9877306,
-     "temperature": 0.225,
-     "downfall": 0.3
+     "temperature": 0.25,
+     "downfall": 0.35
     },
     "rainforest": {
      "name": "Rainforest",
      "vegetation": [
-      "regions_unexplored:tree/palm_dense_tall",
-      "regions_unexplored:tree/kapok_dense",
-      "regions_unexplored:tree/big_jungle_dense",
-      "regions_unexplored:tree/palm_shrub",
-      "regions_unexplored:tree/oak_bush_with_flowers_dense",
-      "regions_unexplored:hibiscus",
-      "regions_unexplored:elephant_ear_dense",
-      "regions_unexplored:palm_jungle_shrub_mix",
-      "regions_unexplored:moss_patch_with_water_uncommon"
+      "regions_unexplored:tree/group/rainforest",
+      "regions_unexplored:shrub/group/rainforest",
+      "regions_unexplored:patch/hibiscus",
+      "regions_unexplored:patch/elephant_ear_dense"
      ],
      "grass_color": -9718455,
      "foliage_color": -11032271,
@@ -1502,13 +1483,13 @@
      "downfall": 0.9
     },
     "redstone_abyss": {
-     "name": "Redstone Abyss",
+     "name": "Redstone Abyss (Removed)",
      "vegetation": [
-      "regions_unexplored:pointed_redstone_nether",
-      "regions_unexplored:large_pointed_redstone_nether",
-      "regions_unexplored:pointed_redstone_cluster_nether",
-      "regions_unexplored:redstone_bud",
-      "regions_unexplored:redstone_bulb"
+      "regions_unexplored:nether/pointed_redstone",
+      "regions_unexplored:nether/large_pointed_redstone",
+      "regions_unexplored:nether/pointed_redstone_cluster",
+      "regions_unexplored:patch/redstone_bud",
+      "regions_unexplored:patch/redstone_bulb"
      ],
      "grass_color": 10623252,
      "foliage_color": 10623252,
@@ -1518,11 +1499,11 @@
     "redstone_caves": {
      "name": "Redstone Caves",
      "vegetation": [
-      "regions_unexplored:pointed_redstone",
-      "regions_unexplored:large_pointed_redstone",
-      "regions_unexplored:pointed_redstone_cluster",
-      "regions_unexplored:redstone_bud",
-      "regions_unexplored:redstone_bulb"
+      "regions_unexplored:special/pointed_redstone",
+      "regions_unexplored:special/large_pointed_redstone",
+      "regions_unexplored:special/pointed_redstone_cluster",
+      "regions_unexplored:patch/redstone_bud",
+      "regions_unexplored:patch/redstone_bulb"
      ],
      "grass_color": -6044317,
      "foliage_color": -6044317,
@@ -1532,13 +1513,12 @@
     "redwoods": {
      "name": "Redwoods",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
       "regions_unexplored:tree/group/redwoods_primary",
       "regions_unexplored:tree/group/redwoods_secondary",
-      "regions_unexplored:tree/oak_bush_single",
-      "regions_unexplored:patch/ferns_dense",
-      "regions_unexplored:rare_salmonberry_bush",
-      "regions_unexplored:redwood_shrub"
+      "regions_unexplored:tree/group/redwoods_tertiary",
+      "regions_unexplored:shrub/group/redwoods",
+      "regions_unexplored:patch/salmonberry_bush",
+      "regions_unexplored:patch/fern_redwoods"
      ],
      "grass_color": 8101689,
      "foliage_color": 8295737,
@@ -1546,31 +1526,27 @@
      "downfall": 0.8
     },
     "rocky_meadow": {
-     "name": "Rocky Meadow",
+     "name": "Rocky Meadow (Removed)",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/mauve_meadow",
-      "regions_unexplored:tree/mauve_sparse",
-      "regions_unexplored:meadow_rock",
-      "regions_unexplored:meadow_vegetation",
-      "regions_unexplored:grass",
-      "regions_unexplored:meadow_sage"
+      "regions_unexplored:tree/group/wisteria_grove",
+      "regions_unexplored:shrub/group/wisteria_grove",
+      "regions_unexplored:patch/tall_flowers/wisteria_grove",
+      "regions_unexplored:patch/flowers/wisteria_grove",
+      "regions_unexplored:single/aster",
+      "regions_unexplored:patch/short_grass_sparse"
      ],
-     "grass_color": -7486095,
-     "foliage_color": -9001891,
-     "temperature": 0.825,
-     "downfall": 0.7
+     "grass_color": 7518088,
+     "foliage_color": 11381503,
+     "temperature": 1.1,
+     "downfall": 0.85
     },
     "rocky_reef": {
      "name": "Rocky Reef",
      "vegetation": [
-      "regions_unexplored:red_magnolia_flowers_aquatic",
-      "regions_unexplored:pink_magnolia_flowers_aquatic",
-      "regions_unexplored:white_magnolia_flowers_aquatic",
-      "regions_unexplored:palm_sapling_aquatic",
-      "regions_unexplored:elephant_ear_aquatic",
-      "regions_unexplored:jungle_tree_aquatic",
-      "regions_unexplored:palm_tree_aquatic"
+      "regions_unexplored:tree/group/rocky_reef",
+      "regions_unexplored:shrub/group/rocky_reef",
+      "regions_unexplored:special/magnolias",
+      "regions_unexplored:patch/elephant_ear_unrecoverably_dense"
      ],
      "grass_color": -11225797,
      "foliage_color": -11617740,
@@ -1580,10 +1556,10 @@
     "saguaro_desert": {
      "name": "Saguaro Desert",
      "vegetation": [
-      "regions_unexplored:cactus_dense",
-      "regions_unexplored:tree/saguaro_cactus",
-      "regions_unexplored:barrel_cactus",
-      "regions_unexplored:sandy_grass"
+      "regions_unexplored:patch/cactus_dense",
+      "regions_unexplored:tree/group/saguaro_desert",
+      "regions_unexplored:single/barrel_cactus",
+      "regions_unexplored:patch/sandy_grass_sparse"
      ],
      "grass_color": -4212907,
      "foliage_color": -6836695,
@@ -1591,8 +1567,10 @@
      "downfall": 0.0
     },
     "scorching_caves": {
-     "name": "Scorching Caves",
-     "vegetation": [],
+     "name": "Scorching Caves (Removed)",
+     "vegetation": [
+      "regions_unexplored:patch/ash_vents_inferno"
+     ],
      "grass_color": -8621472,
      "foliage_color": -8949914,
      "temperature": 2.0,
@@ -1601,14 +1579,11 @@
     "shrubland": {
      "name": "Shrubland",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/spruce_tall_sparse",
-      "regions_unexplored:tree/oak_shrub_dense",
-      "regions_unexplored:tree/oak_bush_single",
-      "regions_unexplored:tree/spruce_shrub_dense",
-      "regions_unexplored:shrubland_flowers",
-      "regions_unexplored:shrubland_vegetation",
-      "regions_unexplored:spruce_shrub"
+      "regions_unexplored:tree/group/shrubland",
+      "regions_unexplored:shrub/group/shrubland",
+      "regions_unexplored:patch/shrubland_flowers",
+      "regions_unexplored:patch/fern",
+      "regions_unexplored:patch/short_grass"
      ],
      "grass_color": -6637733,
      "foliage_color": -8999081,
@@ -1618,13 +1593,12 @@
     "silver_birch_forest": {
      "name": "Silver Birch Forest",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/silver_birch_tall",
-      "regions_unexplored:tree/silver_birch_dense",
-      "regions_unexplored:fallen_silver_birch",
-      "regions_unexplored:tassel_sparse",
-      "regions_unexplored:grass",
-      "regions_unexplored:orange_coneflower"
+      "regions_unexplored:tree/group/silver_birch_forest",
+      "regions_unexplored:tree/fallen/silver_birch",
+      "regions_unexplored:shrub/group/silver_birch_forest",
+      "regions_unexplored:patch/orange_coneflower",
+      "regions_unexplored:single/tassel_sparse",
+      "regions_unexplored:patch/short_grass_sparse"
      ],
      "grass_color": 11585338,
      "foliage_color": 8960834,
@@ -1634,15 +1608,10 @@
     "sparse_rainforest": {
      "name": "Sparse Rainforest",
      "vegetation": [
-      "regions_unexplored:tree/palm_dense",
-      "regions_unexplored:tree/kapok_sparse",
-      "regions_unexplored:tree/big_jungle_dense",
-      "regions_unexplored:tree/palm_shrub",
-      "regions_unexplored:tree/oak_bush_sparse",
-      "regions_unexplored:hibiscus",
-      "regions_unexplored:elephant_ear_dense",
-      "regions_unexplored:palm_jungle_shrub_mix",
-      "regions_unexplored:moss_patch_with_water_rare"
+      "regions_unexplored:tree/group/sparse_rainforest",
+      "regions_unexplored:shrub/group/rainforest",
+      "regions_unexplored:patch/hibiscus",
+      "regions_unexplored:patch/elephant_ear_dense"
      ],
      "grass_color": -9718455,
      "foliage_color": -11032271,
@@ -1652,37 +1621,33 @@
     "sparse_redwoods": {
      "name": "Sparse Redwoods",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/giant_redwood_sparse",
-      "regions_unexplored:tree/oak_bush_sparse",
-      "regions_unexplored:patch/ferns_dense",
-      "regions_unexplored:rare_salmonberry_bush",
-      "regions_unexplored:redwood_shrub"
+      "regions_unexplored:tree/group/sparse_redwoods_primary",
+      "regions_unexplored:tree/group/sparse_redwoods_secondary",
+      "regions_unexplored:shrub/group/sparse_redwoods",
+      "regions_unexplored:patch/salmonberry_bush",
+      "regions_unexplored:patch/fern_redwoods"
      ],
-     "grass_color": 8240185,
-     "foliage_color": 7512632,
-     "temperature": 0.95,
+     "grass_color": 8101689,
+     "foliage_color": 8295737,
+     "temperature": 1.0,
      "downfall": 0.8
     },
     "spires": {
      "name": "Spires",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:icicle_up",
-      "regions_unexplored:tree/ice_spire",
-      "regions_unexplored:tree/spruce_tall_on_snow",
-      "regions_unexplored:frozen_flowers",
-      "regions_unexplored:snow_grass"
+      "regions_unexplored:tree/group/spires",
+      "regions_unexplored:patch/snowy_flowers",
+      "regions_unexplored:patch/frozen_grass"
      ],
-     "grass_color": -11097488,
-     "foliage_color": -11097502,
+     "grass_color": 5679728,
+     "foliage_color": 5679714,
      "temperature": -2.0,
      "downfall": 0.95
     },
     "steppe": {
-     "name": "Steppe",
+     "name": "Steppe (Removed)",
      "vegetation": [
-      "regions_unexplored:steppe_vegetation"
+      "regions_unexplored:patch/grasses_steppe"
      ],
      "grass_color": -5067675,
      "foliage_color": -5589135,
@@ -1690,17 +1655,13 @@
      "downfall": 0.15
     },
     "temperate_grove": {
-     "name": "Temperate Grove",
+     "name": "Temperate Grove (Removed)",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/oak_with_branch",
-      "regions_unexplored:tree/maple_sparse",
-      "regions_unexplored:tree/birch_aspen",
-      "regions_unexplored:meadow_rock",
-      "regions_unexplored:fallen_oak_tree_sparse",
-      "regions_unexplored:grass",
-      "regions_unexplored:purple_coneflower",
-      "regions_unexplored:oak_shrub"
+      "regions_unexplored:tree/group/windswept_maple_forest",
+      "regions_unexplored:tree/fallen/maple",
+      "regions_unexplored:shrub/group/windswept_maple_forest",
+      "regions_unexplored:patch/purple_coneflower",
+      "regions_unexplored:patch/short_grass_sparse"
      ],
      "grass_color": 8432236,
      "foliage_color": 7054415,
@@ -1710,66 +1671,826 @@
     "towering_cliffs": {
      "name": "Towering Cliffs",
      "vegetation": [
-      "regions_unexplored:tree/scotts_pine_mountain",
-      "regions_unexplored:tree/dead_scotts_pine_mountain",
-      "regions_unexplored:fallen_pine",
-      "regions_unexplored:hyssop",
-      "regions_unexplored:ferns",
-      "regions_unexplored:pine_dead_shrub_mix"
+      "regions_unexplored:tree/group/towering_cliffs",
+      "regions_unexplored:tree/fallen/pine",
+      "regions_unexplored:shrub/group/towering_cliffs",
+      "regions_unexplored:patch/hyssop",
+      "regions_unexplored:patch/fern"
      ],
-     "grass_color": -8482734,
-     "foliage_color": -7362208,
+     "grass_color": 8294482,
+     "foliage_color": 9415008,
      "temperature": 0.75,
      "downfall": 0.8
     },
     "tropical_river": {
      "name": "Tropical River",
      "vegetation": [
-      "regions_unexplored:tree/palm_on_sand",
-      "regions_unexplored:ferns",
-      "regions_unexplored:tall_grass"
+      "regions_unexplored:tree/group/tropical_river"
      ],
      "grass_color": 6798388,
      "foliage_color": 4237620,
-     "temperature": 0.75,
+     "temperature": 0.8,
      "downfall": 0.7
     },
     "tropics": {
      "name": "Tropics",
      "vegetation": [
-      "regions_unexplored:tree/palm_sparse",
-      "regions_unexplored:tree/palm_shrub",
-      "regions_unexplored:tree/jungle_sparse",
-      "regions_unexplored:tree/big_jungle_sparse",
-      "regions_unexplored:tree/oak_bush_with_flowers_sparse",
-      "regions_unexplored:hibiscus",
-      "regions_unexplored:elephant_ear_dense",
-      "regions_unexplored:palm_jungle_shrub_mix"
+      "regions_unexplored:tree/group/tropics",
+      "regions_unexplored:shrub/group/tropics",
+      "regions_unexplored:patch/hibiscus",
+      "regions_unexplored:patch/elephant_ear_dense"
      ],
      "grass_color": -11225797,
      "foliage_color": -11617740,
      "temperature": 1.05,
      "downfall": 0.95
     },
+    "tundra": {
+     "name": "Tundra",
+     "vegetation": [
+      "regions_unexplored:tree/group/tundra",
+      "regions_unexplored:tree/group/tundra_bushes",
+      "regions_unexplored:patch/flowers/tundra",
+      "regions_unexplored:patch/fern_sparse",
+      "regions_unexplored:patch/short_grass_dense"
+     ],
+     "grass_color": 12347986,
+     "foliage_color": 11569232,
+     "temperature": -0.3,
+     "downfall": 0.0
+    },
     "willow_forest": {
      "name": "Willow Forest",
      "vegetation": [
-      "regions_unexplored:patch/grass_sprouts_sparse",
-      "regions_unexplored:tree/big_willow",
-      "regions_unexplored:tree/willow",
-      "regions_unexplored:tree/small_oak",
-      "regions_unexplored:tree/oak_bush_single",
-      "regions_unexplored:tree/blue_magnolia",
-      "regions_unexplored:willow_flowers",
-      "regions_unexplored:ferns",
-      "regions_unexplored:willow_magnolia_shrub_mix"
+      "regions_unexplored:tree/group/willow_forest",
+      "regions_unexplored:shrub/group/willow_forest",
+      "regions_unexplored:patch/willow_flowers",
+      "regions_unexplored:patch/fern_sparse",
+      "regions_unexplored:patch/short_grass_sparse"
      ],
      "grass_color": 8037223,
      "foliage_color": 7778144,
      "temperature": 0.6,
      "downfall": 0.5
+    },
+    "windswept_maple_forest": {
+     "name": "Windswept Maple Forest",
+     "vegetation": [
+      "regions_unexplored:tree/group/windswept_maple_forest",
+      "regions_unexplored:tree/fallen/maple",
+      "regions_unexplored:shrub/group/windswept_maple_forest",
+      "regions_unexplored:patch/purple_coneflower",
+      "regions_unexplored:patch/short_grass_sparse"
+     ],
+     "grass_color": 8432236,
+     "foliage_color": 7054415,
+     "temperature": 0.725,
+     "downfall": 0.6
+    },
+    "wisteria_grove": {
+     "name": "Wisteria Grove",
+     "vegetation": [
+      "regions_unexplored:tree/group/wisteria_grove",
+      "regions_unexplored:shrub/group/wisteria_grove",
+      "regions_unexplored:patch/tall_flowers/wisteria_grove",
+      "regions_unexplored:patch/flowers/wisteria_grove",
+      "regions_unexplored:single/aster",
+      "regions_unexplored:patch/short_grass_sparse"
+     ],
+     "grass_color": 7518088,
+     "foliage_color": 11381503,
+     "temperature": 1.1,
+     "downfall": 0.85
     }
-   }
+   },
+   "item_ids": [
+    "acacia_branch",
+    "acacia_shrub",
+    "alpha_dandelion",
+    "alpha_grass_block",
+    "alpha_leaves",
+    "alpha_log",
+    "alpha_planks",
+    "alpha_rose",
+    "alpha_sapling",
+    "alpha_slab",
+    "alpha_stairs",
+    "apple_oak_leaves",
+    "apple_oak_sapling",
+    "argillite",
+    "argillite_grass_block",
+    "ash",
+    "ash_vent",
+    "ashen_dirt",
+    "ashen_grass",
+    "ashen_leaves",
+    "ashen_log",
+    "ashen_sapling",
+    "ashen_shrub",
+    "ashen_wood",
+    "aster",
+    "bamboo_leaves",
+    "bamboo_log",
+    "bamboo_sapling",
+    "baobab_boat",
+    "baobab_branch",
+    "baobab_button",
+    "baobab_chest_boat",
+    "baobab_door",
+    "baobab_fence",
+    "baobab_fence_gate",
+    "baobab_hanging_sign",
+    "baobab_leaves",
+    "baobab_log",
+    "baobab_planks",
+    "baobab_pressure_plate",
+    "baobab_sapling",
+    "baobab_shrub",
+    "baobab_sign",
+    "baobab_slab",
+    "baobab_stairs",
+    "baobab_trapdoor",
+    "baobab_wood",
+    "barley",
+    "barrel_cactus",
+    "birch_branch",
+    "birch_shrub",
+    "black_painted_planks",
+    "black_painted_slab",
+    "black_painted_stairs",
+    "black_snowbelle",
+    "blackwood_boat",
+    "blackwood_branch",
+    "blackwood_button",
+    "blackwood_chest_boat",
+    "blackwood_door",
+    "blackwood_fence",
+    "blackwood_fence_gate",
+    "blackwood_hanging_sign",
+    "blackwood_leaves",
+    "blackwood_log",
+    "blackwood_planks",
+    "blackwood_pressure_plate",
+    "blackwood_sapling",
+    "blackwood_shrub",
+    "blackwood_sign",
+    "blackwood_slab",
+    "blackwood_stairs",
+    "blackwood_trapdoor",
+    "blackwood_wood",
+    "bladed_grass",
+    "bladed_tall_grass",
+    "bleeding_heart",
+    "blue_bioshroom",
+    "blue_bioshroom_block",
+    "blue_bioshroom_button",
+    "blue_bioshroom_door",
+    "blue_bioshroom_fence",
+    "blue_bioshroom_fence_gate",
+    "blue_bioshroom_hanging_sign",
+    "blue_bioshroom_hyphae",
+    "blue_bioshroom_planks",
+    "blue_bioshroom_pressure_plate",
+    "blue_bioshroom_sign",
+    "blue_bioshroom_slab",
+    "blue_bioshroom_stairs",
+    "blue_bioshroom_stem",
+    "blue_bioshroom_trapdoor",
+    "blue_lupine",
+    "blue_magnolia_flowers",
+    "blue_magnolia_leaves",
+    "blue_magnolia_sapling",
+    "blue_magnolia_shrub",
+    "blue_painted_planks",
+    "blue_painted_slab",
+    "blue_painted_stairs",
+    "blue_snowbelle",
+    "brimsprout",
+    "brimsprout_nylium",
+    "brimwood_button",
+    "brimwood_door",
+    "brimwood_fence",
+    "brimwood_fence_gate",
+    "brimwood_hanging_sign",
+    "brimwood_leaves",
+    "brimwood_log",
+    "brimwood_log_magma",
+    "brimwood_planks",
+    "brimwood_pressure_plate",
+    "brimwood_sapling",
+    "brimwood_shrub",
+    "brimwood_sign",
+    "brimwood_slab",
+    "brimwood_stairs",
+    "brimwood_trapdoor",
+    "brimwood_wood",
+    "brown_painted_planks",
+    "brown_painted_slab",
+    "brown_painted_stairs",
+    "brown_snowbelle",
+    "cattail",
+    "cave_hyssop",
+    "chalk",
+    "chalk_brick_slab",
+    "chalk_brick_stairs",
+    "chalk_bricks",
+    "chalk_grass_block",
+    "chalk_pillar",
+    "chalk_slab",
+    "chalk_stairs",
+    "cherry_branch",
+    "cherry_shrub",
+    "clover",
+    "cobalt_button",
+    "cobalt_door",
+    "cobalt_earlight",
+    "cobalt_fence",
+    "cobalt_fence_gate",
+    "cobalt_hanging_sign",
+    "cobalt_log",
+    "cobalt_nylium",
+    "cobalt_obsidian",
+    "cobalt_planks",
+    "cobalt_pressure_plate",
+    "cobalt_roots",
+    "cobalt_sapling",
+    "cobalt_sign",
+    "cobalt_slab",
+    "cobalt_stairs",
+    "cobalt_trapdoor",
+    "cobalt_webbing",
+    "cobalt_wood",
+    "corpse_flower",
+    "cyan_painted_planks",
+    "cyan_painted_slab",
+    "cyan_painted_stairs",
+    "cyan_snowbelle",
+    "cypress_boat",
+    "cypress_branch",
+    "cypress_button",
+    "cypress_chest_boat",
+    "cypress_door",
+    "cypress_fence",
+    "cypress_fence_gate",
+    "cypress_hanging_sign",
+    "cypress_leaves",
+    "cypress_log",
+    "cypress_planks",
+    "cypress_pressure_plate",
+    "cypress_sapling",
+    "cypress_shrub",
+    "cypress_sign",
+    "cypress_slab",
+    "cypress_stairs",
+    "cypress_trapdoor",
+    "cypress_wood",
+    "daisy",
+    "dark_oak_branch",
+    "dark_oak_shrub",
+    "day_lily",
+    "dead_boat",
+    "dead_branch",
+    "dead_button",
+    "dead_chest_boat",
+    "dead_door",
+    "dead_fence",
+    "dead_fence_gate",
+    "dead_hanging_sign",
+    "dead_leaves",
+    "dead_log",
+    "dead_pine_leaves",
+    "dead_pine_sapling",
+    "dead_pine_shrub",
+    "dead_planks",
+    "dead_pressure_plate",
+    "dead_sapling",
+    "dead_shrub",
+    "dead_sign",
+    "dead_slab",
+    "dead_stairs",
+    "dead_trapdoor",
+    "dead_wood",
+    "deepslate_grass_block",
+    "deepslate_prismoss",
+    "deepslate_viridescent_nylium",
+    "dorcel",
+    "dropleaf",
+    "duckweed",
+    "duskmelon_slice",
+    "dusktrap",
+    "elephant_ear",
+    "eucalyptus_boat",
+    "eucalyptus_branch",
+    "eucalyptus_button",
+    "eucalyptus_chest_boat",
+    "eucalyptus_door",
+    "eucalyptus_fence",
+    "eucalyptus_fence_gate",
+    "eucalyptus_hanging_sign",
+    "eucalyptus_leaves",
+    "eucalyptus_log",
+    "eucalyptus_planks",
+    "eucalyptus_pressure_plate",
+    "eucalyptus_sapling",
+    "eucalyptus_shrub",
+    "eucalyptus_sign",
+    "eucalyptus_slab",
+    "eucalyptus_stairs",
+    "eucalyptus_trapdoor",
+    "eucalyptus_wood",
+    "felicia_daisy",
+    "fireweed",
+    "flowering_leaves",
+    "flowering_lily_pad",
+    "flowering_sapling",
+    "flowering_shrub",
+    "frozen_grass",
+    "glister_bulb",
+    "glister_spire",
+    "glistering_bloom",
+    "glistering_fern",
+    "glistering_ivy",
+    "glistering_nylium",
+    "glistering_sprout",
+    "glistering_wart",
+    "glowing_blue_bioshroom_block",
+    "glowing_green_bioshroom_block",
+    "glowing_pink_bioshroom_block",
+    "glowing_yellow_bioshroom_block",
+    "golden_larch_leaves",
+    "golden_larch_sapling",
+    "golden_larch_shrub",
+    "grass_sprouts",
+    "gray_painted_planks",
+    "gray_painted_slab",
+    "gray_painted_stairs",
+    "gray_snowbelle",
+    "green_bioshroom",
+    "green_bioshroom_block",
+    "green_bioshroom_button",
+    "green_bioshroom_door",
+    "green_bioshroom_fence",
+    "green_bioshroom_fence_gate",
+    "green_bioshroom_hanging_sign",
+    "green_bioshroom_hyphae",
+    "green_bioshroom_planks",
+    "green_bioshroom_pressure_plate",
+    "green_bioshroom_sign",
+    "green_bioshroom_slab",
+    "green_bioshroom_stairs",
+    "green_bioshroom_stem",
+    "green_bioshroom_trapdoor",
+    "green_painted_planks",
+    "green_painted_slab",
+    "green_painted_stairs",
+    "green_snowbelle",
+    "hanging_earlight_fruit",
+    "hanging_prismarite",
+    "hibiscus",
+    "hyacinth_bloom",
+    "hyacinth_flowers",
+    "hyacinth_lamp",
+    "hyssop",
+    "icicle",
+    "iridescent_ring",
+    "joshua_beard",
+    "joshua_boat",
+    "joshua_button",
+    "joshua_chest_boat",
+    "joshua_door",
+    "joshua_fence",
+    "joshua_fence_gate",
+    "joshua_hanging_sign",
+    "joshua_leaves",
+    "joshua_log",
+    "joshua_planks",
+    "joshua_pressure_plate",
+    "joshua_sapling",
+    "joshua_shrub",
+    "joshua_sign",
+    "joshua_slab",
+    "joshua_stairs",
+    "joshua_trapdoor",
+    "joshua_wood",
+    "jungle_branch",
+    "jungle_shrub",
+    "kapok_boat",
+    "kapok_branch",
+    "kapok_button",
+    "kapok_chest_boat",
+    "kapok_door",
+    "kapok_fence",
+    "kapok_fence_gate",
+    "kapok_hanging_sign",
+    "kapok_leaves",
+    "kapok_log",
+    "kapok_planks",
+    "kapok_pressure_plate",
+    "kapok_sapling",
+    "kapok_shrub",
+    "kapok_sign",
+    "kapok_slab",
+    "kapok_stairs",
+    "kapok_trapdoor",
+    "kapok_vines",
+    "kapok_wood",
+    "larch_boat",
+    "larch_branch",
+    "larch_button",
+    "larch_chest_boat",
+    "larch_door",
+    "larch_fence",
+    "larch_fence_gate",
+    "larch_hanging_sign",
+    "larch_leaves",
+    "larch_log",
+    "larch_planks",
+    "larch_pressure_plate",
+    "larch_sapling",
+    "larch_shrub",
+    "larch_sign",
+    "larch_slab",
+    "larch_stairs",
+    "larch_trapdoor",
+    "larch_wood",
+    "large_prismarite_cluster",
+    "lavender_wisteria_leaves",
+    "lavender_wisteria_sapling",
+    "lavender_wisteria_shrub",
+    "lavender_wisteria_vines",
+    "light_blue_painted_planks",
+    "light_blue_painted_slab",
+    "light_blue_painted_stairs",
+    "light_blue_snowbelle",
+    "light_gray_painted_planks",
+    "light_gray_painted_slab",
+    "light_gray_painted_stairs",
+    "light_gray_snowbelle",
+    "lime_painted_planks",
+    "lime_painted_slab",
+    "lime_painted_stairs",
+    "lime_snowbelle",
+    "magenta_painted_planks",
+    "magenta_painted_slab",
+    "magenta_painted_stairs",
+    "magenta_snowbelle",
+    "magnolia_boat",
+    "magnolia_branch",
+    "magnolia_button",
+    "magnolia_chest_boat",
+    "magnolia_door",
+    "magnolia_fence",
+    "magnolia_fence_gate",
+    "magnolia_hanging_sign",
+    "magnolia_leaves",
+    "magnolia_log",
+    "magnolia_planks",
+    "magnolia_pressure_plate",
+    "magnolia_sapling",
+    "magnolia_shrub",
+    "magnolia_sign",
+    "magnolia_slab",
+    "magnolia_stairs",
+    "magnolia_trapdoor",
+    "magnolia_wood",
+    "mallow",
+    "mangrove_branch",
+    "mangrove_shrub",
+    "maple_boat",
+    "maple_branch",
+    "maple_button",
+    "maple_chest_boat",
+    "maple_door",
+    "maple_fence",
+    "maple_fence_gate",
+    "maple_hanging_sign",
+    "maple_leaf_litter",
+    "maple_leaves",
+    "maple_log",
+    "maple_planks",
+    "maple_pressure_plate",
+    "maple_sapling",
+    "maple_shrub",
+    "maple_sign",
+    "maple_slab",
+    "maple_stairs",
+    "maple_trapdoor",
+    "maple_wood",
+    "meadow_sage",
+    "mossy_stone",
+    "mycotoxic_daisy",
+    "mycotoxic_grass",
+    "mycotoxic_mushrooms",
+    "mycotoxic_nylium",
+    "oak_branch",
+    "oak_shrub",
+    "orange_coneflower",
+    "orange_maple_leaf_litter",
+    "orange_maple_leaves",
+    "orange_maple_sapling",
+    "orange_maple_shrub",
+    "orange_painted_planks",
+    "orange_painted_slab",
+    "orange_painted_stairs",
+    "orange_snowbelle",
+    "overgrown_bone_block",
+    "palm_beard",
+    "palm_boat",
+    "palm_button",
+    "palm_chest_boat",
+    "palm_door",
+    "palm_fence",
+    "palm_fence_gate",
+    "palm_hanging_sign",
+    "palm_leaves",
+    "palm_log",
+    "palm_planks",
+    "palm_pressure_plate",
+    "palm_sapling",
+    "palm_shrub",
+    "palm_sign",
+    "palm_slab",
+    "palm_stairs",
+    "palm_trapdoor",
+    "palm_wood",
+    "peat_coarse_dirt",
+    "peat_dirt",
+    "peat_dirt_path",
+    "peat_farmland",
+    "peat_grass_block",
+    "peat_mud",
+    "peat_podzol",
+    "pine_boat",
+    "pine_branch",
+    "pine_button",
+    "pine_chest_boat",
+    "pine_door",
+    "pine_fence",
+    "pine_fence_gate",
+    "pine_hanging_sign",
+    "pine_leaves",
+    "pine_log",
+    "pine_planks",
+    "pine_pressure_plate",
+    "pine_sapling",
+    "pine_shrub",
+    "pine_sign",
+    "pine_slab",
+    "pine_stairs",
+    "pine_trapdoor",
+    "pine_wood",
+    "pink_bioshroom",
+    "pink_bioshroom_block",
+    "pink_bioshroom_button",
+    "pink_bioshroom_door",
+    "pink_bioshroom_fence",
+    "pink_bioshroom_fence_gate",
+    "pink_bioshroom_hanging_sign",
+    "pink_bioshroom_hyphae",
+    "pink_bioshroom_planks",
+    "pink_bioshroom_pressure_plate",
+    "pink_bioshroom_sign",
+    "pink_bioshroom_slab",
+    "pink_bioshroom_stairs",
+    "pink_bioshroom_stem",
+    "pink_bioshroom_trapdoor",
+    "pink_lupine",
+    "pink_magnolia_flowers",
+    "pink_magnolia_leaves",
+    "pink_magnolia_sapling",
+    "pink_magnolia_shrub",
+    "pink_painted_planks",
+    "pink_painted_slab",
+    "pink_painted_stairs",
+    "pink_snowbelle",
+    "polished_chalk",
+    "polished_chalk_slab",
+    "polished_chalk_stairs",
+    "poppy_bush",
+    "prismaglass",
+    "prismarite_cluster",
+    "prismoss",
+    "prismoss_sprout",
+    "purple_coneflower",
+    "purple_lupine",
+    "purple_painted_planks",
+    "purple_painted_slab",
+    "purple_painted_stairs",
+    "purple_snowbelle",
+    "raw_redstone_block",
+    "red_lupine",
+    "red_maple_leaf_litter",
+    "red_maple_leaves",
+    "red_maple_sapling",
+    "red_maple_shrub",
+    "red_painted_planks",
+    "red_painted_slab",
+    "red_painted_stairs",
+    "red_snowbelle",
+    "redstone_bud",
+    "redstone_bulb",
+    "redstone_spike",
+    "redwood_boat",
+    "redwood_branch",
+    "redwood_button",
+    "redwood_chest_boat",
+    "redwood_door",
+    "redwood_fence",
+    "redwood_fence_gate",
+    "redwood_hanging_sign",
+    "redwood_leaves",
+    "redwood_log",
+    "redwood_planks",
+    "redwood_pressure_plate",
+    "redwood_sapling",
+    "redwood_shrub",
+    "redwood_sign",
+    "redwood_slab",
+    "redwood_stairs",
+    "redwood_trapdoor",
+    "redwood_wood",
+    "saguaro_cactus",
+    "saguaro_cactus_flower",
+    "salmon_poppy",
+    "salmon_poppy_bush",
+    "salmon_wisteria_leaves",
+    "salmon_wisteria_sapling",
+    "salmon_wisteria_shrub",
+    "salmon_wisteria_vines",
+    "salmonberry",
+    "short_dead_grass",
+    "short_red_sandy_grass",
+    "short_sandy_grass",
+    "silt_coarse_dirt",
+    "silt_dirt",
+    "silt_dirt_path",
+    "silt_farmland",
+    "silt_grass_block",
+    "silt_mud",
+    "silt_podzol",
+    "silver_birch_branch",
+    "silver_birch_leaf_litter",
+    "silver_birch_leaves",
+    "silver_birch_log",
+    "silver_birch_sapling",
+    "silver_birch_shrub",
+    "silver_birch_wood",
+    "sky_wisteria_leaves",
+    "sky_wisteria_sapling",
+    "sky_wisteria_shrub",
+    "sky_wisteria_vines",
+    "small_oak_log",
+    "small_oak_sapling",
+    "socotra_boat",
+    "socotra_branch",
+    "socotra_button",
+    "socotra_chest_boat",
+    "socotra_door",
+    "socotra_fence",
+    "socotra_fence_gate",
+    "socotra_hanging_sign",
+    "socotra_leaves",
+    "socotra_log",
+    "socotra_planks",
+    "socotra_pressure_plate",
+    "socotra_sapling",
+    "socotra_shrub",
+    "socotra_sign",
+    "socotra_slab",
+    "socotra_stairs",
+    "socotra_trapdoor",
+    "socotra_wood",
+    "spanish_moss",
+    "spruce_branch",
+    "spruce_shrub",
+    "stone_grass_block",
+    "stripped_bamboo_log",
+    "stripped_baobab_log",
+    "stripped_baobab_wood",
+    "stripped_blackwood_log",
+    "stripped_blackwood_wood",
+    "stripped_blue_bioshroom_hyphae",
+    "stripped_blue_bioshroom_stem",
+    "stripped_brimwood_log",
+    "stripped_brimwood_wood",
+    "stripped_cobalt_log",
+    "stripped_cobalt_wood",
+    "stripped_cypress_log",
+    "stripped_cypress_wood",
+    "stripped_dead_log",
+    "stripped_dead_wood",
+    "stripped_eucalyptus_log",
+    "stripped_eucalyptus_wood",
+    "stripped_green_bioshroom_hyphae",
+    "stripped_green_bioshroom_stem",
+    "stripped_joshua_log",
+    "stripped_joshua_wood",
+    "stripped_kapok_log",
+    "stripped_kapok_wood",
+    "stripped_larch_log",
+    "stripped_larch_wood",
+    "stripped_magnolia_log",
+    "stripped_magnolia_wood",
+    "stripped_maple_log",
+    "stripped_maple_wood",
+    "stripped_palm_log",
+    "stripped_palm_wood",
+    "stripped_pine_log",
+    "stripped_pine_wood",
+    "stripped_pink_bioshroom_hyphae",
+    "stripped_pink_bioshroom_stem",
+    "stripped_redwood_log",
+    "stripped_redwood_wood",
+    "stripped_small_oak_log",
+    "stripped_socotra_log",
+    "stripped_socotra_wood",
+    "stripped_willow_log",
+    "stripped_willow_wood",
+    "stripped_wisteria_log",
+    "stripped_wisteria_wood",
+    "stripped_yellow_bioshroom_hyphae",
+    "stripped_yellow_bioshroom_stem",
+    "tall_blue_bioshroom",
+    "tall_cobalt_earlight",
+    "tall_dead_grass",
+    "tall_green_bioshroom",
+    "tall_hyacinth_stock",
+    "tall_pink_bioshroom",
+    "tall_red_sandy_grass",
+    "tall_sandy_grass",
+    "tall_yellow_bioshroom",
+    "tassel",
+    "tsubaki",
+    "viridescent_nylium",
+    "volcanic_ash",
+    "waratah",
+    "white_magnolia_flowers",
+    "white_magnolia_leaves",
+    "white_magnolia_sapling",
+    "white_magnolia_shrub",
+    "white_painted_planks",
+    "white_painted_slab",
+    "white_painted_stairs",
+    "white_snowbelle",
+    "white_trillium",
+    "willow_boat",
+    "willow_branch",
+    "willow_button",
+    "willow_chest_boat",
+    "willow_door",
+    "willow_fence",
+    "willow_fence_gate",
+    "willow_hanging_sign",
+    "willow_leaves",
+    "willow_log",
+    "willow_planks",
+    "willow_pressure_plate",
+    "willow_sapling",
+    "willow_shrub",
+    "willow_sign",
+    "willow_slab",
+    "willow_stairs",
+    "willow_trapdoor",
+    "willow_wood",
+    "wilting_trillium",
+    "windswept_grass",
+    "wisteria_boat",
+    "wisteria_branch",
+    "wisteria_button",
+    "wisteria_chest_boat",
+    "wisteria_door",
+    "wisteria_fence",
+    "wisteria_fence_gate",
+    "wisteria_hanging_sign",
+    "wisteria_log",
+    "wisteria_planks",
+    "wisteria_pressure_plate",
+    "wisteria_sign",
+    "wisteria_slab",
+    "wisteria_stairs",
+    "wisteria_trapdoor",
+    "wisteria_wood",
+    "yellow_bioshroom",
+    "yellow_bioshroom_block",
+    "yellow_bioshroom_button",
+    "yellow_bioshroom_door",
+    "yellow_bioshroom_fence",
+    "yellow_bioshroom_fence_gate",
+    "yellow_bioshroom_hanging_sign",
+    "yellow_bioshroom_hyphae",
+    "yellow_bioshroom_planks",
+    "yellow_bioshroom_pressure_plate",
+    "yellow_bioshroom_sign",
+    "yellow_bioshroom_slab",
+    "yellow_bioshroom_stairs",
+    "yellow_bioshroom_stem",
+    "yellow_bioshroom_trapdoor",
+    "yellow_lupine",
+    "yellow_painted_planks",
+    "yellow_painted_slab",
+    "yellow_painted_stairs",
+    "yellow_snowbelle"
+   ]
   },
   "biomesoplenty": {
    "blocks": {
@@ -2237,311 +2958,6 @@
     "willow_chest_boat": "Willow Boat with Chest"
    },
    "biomes": {
-    "aspen_glade": {
-     "name": "Aspen Glade",
-     "vegetation": [
-      "biomesoplenty:trees_aspen_glade",
-      "biomesoplenty:fallen_birch_log",
-      "biomesoplenty:patch_barley_sparse",
-      "biomesoplenty:patch_fern_4",
-      "biomesoplenty:patch_large_fern_normal",
-      "biomesoplenty:toadstool_normal",
-      "biomesoplenty:patch_reed_10",
-      "biomesoplenty:patch_grass_6",
-      "biomesoplenty:yellow_maple_leaf_piles_extra"
-     ],
-     "grass_color": 14527306,
-     "foliage_color": 13746762,
-     "temperature": 0.4,
-     "downfall": 0.8
-    },
-    "auroral_garden": {
-     "name": "Auroral Garden",
-     "vegetation": [
-      "biomesoplenty:trees_auroral_garden",
-      "biomesoplenty:flower_violet",
-      "biomesoplenty:patch_icy_iris",
-      "biomesoplenty:patch_grass_12"
-     ],
-     "grass_color": 14417148,
-     "foliage_color": 10876919,
-     "temperature": -0.25,
-     "downfall": 0.5
-    },
-    "bayou": {
-     "name": "Bayou",
-     "vegetation": [
-      "biomesoplenty:trees_bayou",
-      "biomesoplenty:patch_cattail_normal",
-      "biomesoplenty:patch_fern_8",
-      "biomesoplenty:patch_large_fern_normal",
-      "biomesoplenty:patch_lily_pad_10",
-      "biomesoplenty:patch_grass_12"
-     ],
-     "grass_color": 7318096,
-     "foliage_color": 9165671,
-     "temperature": 0.95,
-     "downfall": 0.9
-    },
-    "bog": {
-     "name": "Bog",
-     "vegetation": [
-      "biomesoplenty:trees_bog",
-      "biomesoplenty:patch_bush_10",
-      "biomesoplenty:patch_fern_4",
-      "biomesoplenty:patch_reed_10",
-      "biomesoplenty:patch_grass_6"
-     ],
-     "grass_color": 11048279,
-     "foliage_color": 13008731,
-     "temperature": 0.2,
-     "downfall": 0.5
-    },
-    "cold_desert": {
-     "name": "Cold Desert",
-     "vegetation": [
-      "biomesoplenty:wasteland_grass_1"
-     ],
-     "grass_color": 11375460,
-     "foliage_color": 11904876,
-     "temperature": 0.25,
-     "downfall": 0.0
-    },
-    "coniferous_forest": {
-     "name": "Coniferous Forest",
-     "vegetation": [
-      "biomesoplenty:trees_coniferous_forest",
-      "biomesoplenty:flower_coniferous_forest",
-      "biomesoplenty:patch_fern_2",
-      "biomesoplenty:toadstool_normal",
-      "biomesoplenty:patch_grass_12"
-     ],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 0.45,
-     "downfall": 0.5
-    },
-    "crag": {
-     "name": "Crag",
-     "vegetation": [
-      "biomesoplenty:crag_moss",
-      "biomesoplenty:crag_splatter",
-      "biomesoplenty:patch_grass_12",
-      "biomesoplenty:patch_tall_grass_24"
-     ],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 0.6,
-     "downfall": 0.6
-    },
-    "crystalline_chasm": {
-     "name": "Crystalline Chasm",
-     "vegetation": [],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 2.0,
-     "downfall": 0.0
-    },
-    "dead_forest": {
-     "name": "Dead Forest",
-     "vegetation": [
-      "biomesoplenty:trees_dead_forest",
-      "biomesoplenty:patch_grass_3"
-     ],
-     "grass_color": 12234084,
-     "foliage_color": 12040035,
-     "temperature": 0.2,
-     "downfall": 0.3
-    },
-    "dryland": {
-     "name": "Dryland",
-     "vegetation": [
-      "biomesoplenty:trees_dryland",
-      "biomesoplenty:patch_bush_1",
-      "biomesoplenty:patch_grass_6",
-      "biomesoplenty:patch_dead_bush_4",
-      "biomesoplenty:patch_tiny_cactus"
-     ],
-     "grass_color": 15065001,
-     "foliage_color": 14344371,
-     "temperature": 0.85,
-     "downfall": 0.05
-    },
-    "dune_beach": {
-     "name": "Dune Beach",
-     "vegetation": [
-      "biomesoplenty:patch_dune_grass",
-      "biomesoplenty:patch_sea_oats"
-     ],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 0.7,
-     "downfall": 0.4
-    },
-    "end_corruption": {
-     "name": "End Corruption",
-     "vegetation": [
-      "biomesoplenty:trees_end_corruption",
-      "biomesoplenty:patch_null_plants"
-     ],
-     "grass_color": 8174955,
-     "foliage_color": 4764952,
-     "temperature": 0.5,
-     "downfall": 0.5
-    },
-    "end_reef": {
-     "name": "End Reef",
-     "vegetation": [
-      "biomesoplenty:dead_coral",
-      "biomesoplenty:dead_coral_patch",
-      "biomesoplenty:barnacles",
-      "biomesoplenty:wispjelly",
-      "biomesoplenty:patch_dead_grass"
-     ],
-     "grass_color": 15073276,
-     "foliage_color": 15073276,
-     "temperature": 0.5,
-     "downfall": 0.5
-    },
-    "end_wilds": {
-     "name": "End Wilds",
-     "vegetation": [
-      "biomesoplenty:trees_end_wilds",
-      "biomesoplenty:flower_end_wilds",
-      "biomesoplenty:patch_enderphytes",
-      "biomesoplenty:lumaloop"
-     ],
-     "grass_color": 15381341,
-     "foliage_color": 15381341,
-     "temperature": 0.5,
-     "downfall": 0.5
-    },
-    "erupting_inferno": {
-     "name": "Erupting Inferno",
-     "vegetation": [],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 2.0,
-     "downfall": 0.0
-    },
-    "field": {
-     "name": "Field",
-     "vegetation": [
-      "biomesoplenty:rose_bush_normal",
-      "biomesoplenty:sunflower",
-      "biomesoplenty:flower_field",
-      "biomesoplenty:trees_field",
-      "biomesoplenty:patch_tall_white_lavender",
-      "biomesoplenty:patch_sprouts_10",
-      "biomesoplenty:flower_wildflower",
-      "biomesoplenty:patch_grass_6"
-     ],
-     "grass_color": 6533741,
-     "foliage_color": 6533741,
-     "temperature": 0.4,
-     "downfall": 0.7
-    },
-    "fir_clearing": {
-     "name": "Fir Clearing",
-     "vegetation": [
-      "biomesoplenty:trees_fir_clearing",
-      "biomesoplenty:fallen_fir_log",
-      "biomesoplenty:flower_coniferous_forest",
-      "biomesoplenty:patch_fern_4",
-      "biomesoplenty:toadstool_normal",
-      "biomesoplenty:patch_grass_12"
-     ],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 0.45,
-     "downfall": 0.5
-    },
-    "floodplain": {
-     "name": "Floodplain",
-     "vegetation": [
-      "biomesoplenty:trees_rainforest_floodplain",
-      "biomesoplenty:flower_rainforest",
-      "biomesoplenty:patch_lily_pad_15",
-      "biomesoplenty:huge_lily_pad",
-      "biomesoplenty:patch_waterlily_flowers",
-      "biomesoplenty:patch_grass_12",
-      "biomesoplenty:patch_tall_grass_24",
-      "biomesoplenty:patch_watergrass_50"
-     ],
-     "grass_color": 8377405,
-     "foliage_color": 6016293,
-     "temperature": 1.2,
-     "downfall": 2.0
-    },
-    "forested_field": {
-     "name": "Forested Field",
-     "vegetation": [
-      "biomesoplenty:rose_bush_normal",
-      "biomesoplenty:sunflower",
-      "biomesoplenty:flower_field",
-      "biomesoplenty:trees_field_forest",
-      "biomesoplenty:patch_sprouts_15",
-      "biomesoplenty:flower_wildflower",
-      "biomesoplenty:patch_grass_6"
-     ],
-     "grass_color": 6533741,
-     "foliage_color": 6533741,
-     "temperature": 0.4,
-     "downfall": 0.7
-    },
-    "fungal_jungle": {
-     "name": "Fungal Jungle",
-     "vegetation": [
-      "biomesoplenty:trees_fungal_jungle",
-      "biomesoplenty:huge_toadstool",
-      "biomesoplenty:small_toadstool",
-      "biomesoplenty:toadstool_extra",
-      "biomesoplenty:dripstone_splatter",
-      "biomesoplenty:mycelium_splatter",
-      "biomesoplenty:patch_sprouts_5",
-      "biomesoplenty:patch_grass_12",
-      "biomesoplenty:patch_tall_grass_12"
-     ],
-     "grass_color": 13428005,
-     "foliage_color": 14738722,
-     "temperature": 0.9,
-     "downfall": 0.9
-    },
-    "glowing_grotto": {
-     "name": "Glowing Grotto",
-     "vegetation": [
-      "biomesoplenty:glowing_grotto_vegetation",
-      "biomesoplenty:glowing_grotto_mud",
-      "biomesoplenty:glowworm_silk_strands",
-      "biomesoplenty:giant_glowshroom_cave",
-      "biomesoplenty:huge_glowshroom_cave",
-      "biomesoplenty:medium_glowshroom_cave",
-      "biomesoplenty:small_glowshroom_cave",
-      "biomesoplenty:extra_glow_lichen"
-     ],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 0.5,
-     "downfall": 0.5
-    },
-    "grassland": {
-     "name": "Grassland",
-     "vegetation": [
-      "biomesoplenty:patch_grass_3"
-     ],
-     "grass_color": 8963455,
-     "foliage_color": 6993519,
-     "temperature": 0.6,
-     "downfall": 0.7
-    },
-    "gravel_beach": {
-     "name": "Gravel Beach",
-     "vegetation": [],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 0.45,
-     "downfall": 0.5
-    },
     "highland": {
      "name": "Highland",
      "vegetation": [
@@ -2554,213 +2970,18 @@
      "temperature": 0.6,
      "downfall": 0.6
     },
-    "hot_springs": {
-     "name": "Hot Springs",
+    "wasteland_steppe": {
+     "name": "Wasteland Steppe",
      "vegetation": [
-      "biomesoplenty:trees_hot_springs",
-      "biomesoplenty:thin_bamboo",
-      "biomesoplenty:patch_bush_1",
-      "biomesoplenty:patch_fern_2",
-      "biomesoplenty:patch_large_fern_normal",
-      "biomesoplenty:patch_grass_6",
-      "biomesoplenty:hot_spring_vents"
-     ],
-     "grass_color": 8434839,
-     "foliage_color": 6332795,
-     "temperature": 0.17,
-     "downfall": 0.5
-    },
-    "jacaranda_glade": {
-     "name": "Jacaranda Glade",
-     "vegetation": [
-      "biomesoplenty:patch_grass_24",
-      "biomesoplenty:patch_tall_grass_128",
-      "biomesoplenty:flower_jacaranda_glade",
-      "biomesoplenty:trees_jacaranda_glade",
-      "biomesoplenty:fallen_jacaranda_log"
-     ],
-     "grass_color": 8043631,
-     "foliage_color": 8634480,
-     "temperature": 0.7,
-     "downfall": 0.8
-    },
-    "jade_cliffs": {
-     "name": "Jade Cliffs",
-     "vegetation": [
-      "biomesoplenty:trees_jade_cliffs",
-      "biomesoplenty:patch_grass_6"
-     ],
-     "grass_color": 8168808,
-     "foliage_color": 9156462,
-     "temperature": 0.8,
-     "downfall": 0.85
-    },
-    "lavender_field": {
-     "name": "Lavender Field",
-     "vegetation": [
-      "biomesoplenty:patch_grass_24",
-      "biomesoplenty:patch_tall_grass_64",
-      "biomesoplenty:flower_lavender",
-      "biomesoplenty:patch_tall_lavender",
-      "biomesoplenty:trees_lavender_field"
-     ],
-     "grass_color": 10601325,
-     "foliage_color": 10601325,
-     "temperature": 0.8,
-     "downfall": 0.7
-    },
-    "lush_desert": {
-     "name": "Lush Desert",
-     "vegetation": [
-      "biomesoplenty:trees_lush_desert",
-      "biomesoplenty:flower_lush_desert",
-      "biomesoplenty:patch_desert_grass",
-      "biomesoplenty:sparse_dune_grass"
-     ],
-     "grass_color": 15720834,
-     "foliage_color": 13881686,
-     "temperature": 0.9,
-     "downfall": 0.5
-    },
-    "lush_savanna": {
-     "name": "Lush Savanna",
-     "vegetation": [
-      "biomesoplenty:flower_poppy",
-      "biomesoplenty:rose_bush_extra",
-      "biomesoplenty:patch_sprouts_5",
-      "biomesoplenty:patch_grass_24",
-      "biomesoplenty:patch_tall_grass_24"
-     ],
-     "grass_color": 15720834,
-     "foliage_color": 13881686,
-     "temperature": 0.9,
-     "downfall": 0.5
-    },
-    "maple_woods": {
-     "name": "Maple Woods",
-     "vegetation": [
-      "biomesoplenty:trees_maple_forest",
-      "biomesoplenty:flower_snowy",
-      "biomesoplenty:patch_fern_2",
-      "biomesoplenty:patch_grass_6",
-      "biomesoplenty:red_maple_leaf_piles_extra"
-     ],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 0.25,
-     "downfall": 0.5
-    },
-    "marsh": {
-     "name": "Marsh",
-     "vegetation": [
-      "biomesoplenty:patch_reed_10",
-      "biomesoplenty:patch_grass_24",
-      "biomesoplenty:patch_tall_grass_128",
-      "biomesoplenty:patch_watergrass_250"
-     ],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 0.65,
-     "downfall": 0.7
-    },
-    "mediterranean_forest": {
-     "name": "Mediterranean Forest",
-     "vegetation": [
-      "biomesoplenty:trees_mediterranean_forest",
-      "biomesoplenty:flower_default_extended_6",
-      "biomesoplenty:patch_bush_1",
-      "biomesoplenty:patch_peony",
-      "biomesoplenty:patch_grass_3"
-     ],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 0.8,
-     "downfall": 0.275
-    },
-    "moor": {
-     "name": "Moor",
-     "vegetation": [
-      "biomesoplenty:flower_moor",
-      "biomesoplenty:flower_violet",
-      "biomesoplenty:scrub_normal",
-      "biomesoplenty:patch_grass_12",
-      "biomesoplenty:patch_tall_grass_12"
-     ],
-     "grass_color": 7449200,
-     "foliage_color": 7914605,
-     "temperature": 0.6,
-     "downfall": 0.6
-    },
-    "muskeg": {
-     "name": "Muskeg",
-     "vegetation": [
-      "biomesoplenty:trees_muskeg",
-      "biomesoplenty:small_brown_mushroom",
-      "biomesoplenty:mud_splatter",
-      "biomesoplenty:patch_grass_1"
-     ],
-     "grass_color": 9737838,
-     "foliage_color": 9280363,
-     "temperature": 0.0,
-     "downfall": 0.6
-    },
-    "mystic_grove": {
-     "name": "Mystic Grove",
-     "vegetation": [
-      "biomesoplenty:trees_mystic_grove",
-      "biomesoplenty:flower_mystic_grove",
-      "biomesoplenty:patch_blue_hydrangea",
-      "biomesoplenty:huge_red_mushroom_extra",
-      "biomesoplenty:small_red_mushroom",
-      "biomesoplenty:patch_clover_normal",
-      "biomesoplenty:patch_lilac_normal",
-      "biomesoplenty:patch_sprouts_15",
-      "biomesoplenty:patch_grass_12",
-      "biomesoplenty:patch_watergrass_10"
-     ],
-     "grass_color": 6934491,
-     "foliage_color": 7397557,
-     "temperature": 0.7,
-     "downfall": 0.8
-    },
-    "old_growth_dead_forest": {
-     "name": "Old Growth Dead Forest",
-     "vegetation": [
-      "biomesoplenty:trees_old_growth_dead_forest",
-      "biomesoplenty:patch_grass_6"
-     ],
-     "grass_color": 12234084,
-     "foliage_color": 12040035,
-     "temperature": 0.3,
-     "downfall": 0.3
-    },
-    "old_growth_woodland": {
-     "name": "Old Growth Woodland",
-     "vegetation": [
-      "biomesoplenty:flower_default_extended_6",
-      "biomesoplenty:rose_bush_normal",
-      "biomesoplenty:fallen_log",
-      "biomesoplenty:trees_dense_woodland",
-      "biomesoplenty:patch_grass_12",
-      "biomesoplenty:patch_tall_grass_12"
-     ],
-     "grass_color": 10273849,
-     "foliage_color": 8762376,
-     "temperature": 0.8,
-     "downfall": 0.5
-    },
-    "ominous_woods": {
-     "name": "Ominous Woods",
-     "vegetation": [
-      "biomesoplenty:trees_ominous_woods",
-      "biomesoplenty:flower_ominous_woods",
       "biomesoplenty:patch_dead_grass",
+      "biomesoplenty:patch_desert_grass_extra",
+      "biomesoplenty:wasteland_grass_2",
       "biomesoplenty:patch_grass_6"
      ],
-     "grass_color": 4999792,
-     "foliage_color": 7030908,
-     "temperature": 0.6,
-     "downfall": 0.6
+     "grass_color": 13220230,
+     "foliage_color": 13091727,
+     "temperature": 2.0,
+     "downfall": 0.0
     },
     "orchard": {
      "name": "Orchard",
@@ -2777,58 +2998,32 @@
      "temperature": 0.8,
      "downfall": 0.4
     },
-    "origin_valley": {
-     "name": "Origin Valley",
+    "lavender_field": {
+     "name": "Lavender Field",
      "vegetation": [
-      "biomesoplenty:trees_origin_valley",
-      "biomesoplenty:flower_origin_valley"
-     ],
-     "grass_color": 10157919,
-     "foliage_color": 3866368,
-     "temperature": 0.6,
-     "downfall": 0.6
-    },
-    "overgrown_greens": {
-     "name": "Overgrown Greens",
-     "vegetation": [
-      "biomesoplenty:flower_overgrown_greens",
       "biomesoplenty:patch_grass_24",
       "biomesoplenty:patch_tall_grass_64",
-      "biomesoplenty:high_grass",
-      "biomesoplenty:patch_clover_extra",
-      "biomesoplenty:huge_clover"
+      "biomesoplenty:flower_lavender",
+      "biomesoplenty:patch_tall_lavender",
+      "biomesoplenty:trees_lavender_field"
      ],
-     "grass_color": 6209386,
-     "foliage_color": 5618801,
-     "temperature": 0.6,
-     "downfall": 0.9
-    },
-    "pasture": {
-     "name": "Pasture",
-     "vegetation": [
-      "biomesoplenty:patch_barley",
-      "biomesoplenty:patch_grass_24",
-      "biomesoplenty:patch_tall_grass_64"
-     ],
-     "grass_color": 15002231,
-     "foliage_color": 13100658,
+     "grass_color": 10601325,
+     "foliage_color": 10601325,
      "temperature": 0.8,
-     "downfall": 0.3
+     "downfall": 0.7
     },
-    "prairie": {
-     "name": "Prairie",
+    "end_wilds": {
+     "name": "End Wilds",
      "vegetation": [
-      "biomesoplenty:trees_prairie",
-      "biomesoplenty:flower_coniferous_forest",
-      "biomesoplenty:rooted_stump",
-      "biomesoplenty:goldenrod",
-      "biomesoplenty:patch_grass_24",
-      "biomesoplenty:patch_tall_grass_24"
+      "biomesoplenty:trees_end_wilds",
+      "biomesoplenty:flower_end_wilds",
+      "biomesoplenty:patch_enderphytes",
+      "biomesoplenty:lumaloop"
      ],
-     "grass_color": 15002231,
-     "foliage_color": 13100658,
-     "temperature": 0.8,
-     "downfall": 0.3
+     "grass_color": 15381341,
+     "foliage_color": 15381341,
+     "temperature": 0.5,
+     "downfall": 0.5
     },
     "pumpkin_patch": {
      "name": "Pumpkin Patch",
@@ -2846,6 +3041,40 @@
      "foliage_color": 13553994,
      "temperature": 0.4,
      "downfall": 0.8
+    },
+    "grassland": {
+     "name": "Grassland",
+     "vegetation": [
+      "biomesoplenty:patch_grass_3"
+     ],
+     "grass_color": 8963455,
+     "foliage_color": 6993519,
+     "temperature": 0.6,
+     "downfall": 0.7
+    },
+    "forested_field": {
+     "name": "Forested Field",
+     "vegetation": [
+      "biomesoplenty:rose_bush_normal",
+      "biomesoplenty:sunflower",
+      "biomesoplenty:flower_field",
+      "biomesoplenty:trees_field_forest",
+      "biomesoplenty:patch_sprouts_15",
+      "biomesoplenty:flower_wildflower",
+      "biomesoplenty:patch_grass_6"
+     ],
+     "grass_color": 6533741,
+     "foliage_color": 6533741,
+     "temperature": 0.4,
+     "downfall": 0.7
+    },
+    "undergrowth": {
+     "name": "Undergrowth",
+     "vegetation": [],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 2.0,
+     "downfall": 0.0
     },
     "rainforest": {
      "name": "Rainforest",
@@ -2866,18 +3095,331 @@
      "temperature": 1.2,
      "downfall": 2.0
     },
-    "redwood_forest": {
-     "name": "Redwood Forest",
+    "mystic_grove": {
+     "name": "Mystic Grove",
      "vegetation": [
-      "biomesoplenty:trees_redwood_forest",
-      "biomesoplenty:patch_fern_4",
-      "biomesoplenty:patch_large_fern_extra",
-      "biomesoplenty:moss_splatter"
+      "biomesoplenty:trees_mystic_grove",
+      "biomesoplenty:flower_mystic_grove",
+      "biomesoplenty:patch_blue_hydrangea",
+      "biomesoplenty:huge_red_mushroom_extra",
+      "biomesoplenty:small_red_mushroom",
+      "biomesoplenty:patch_clover_normal",
+      "biomesoplenty:patch_lilac_normal",
+      "biomesoplenty:patch_sprouts_15",
+      "biomesoplenty:patch_grass_12",
+      "biomesoplenty:patch_watergrass_10"
      ],
-     "grass_color": 11916636,
-     "foliage_color": 9355074,
+     "grass_color": 6934491,
+     "foliage_color": 7397557,
+     "temperature": 0.7,
+     "downfall": 0.8
+    },
+    "bayou": {
+     "name": "Bayou",
+     "vegetation": [
+      "biomesoplenty:trees_bayou",
+      "biomesoplenty:patch_cattail_normal",
+      "biomesoplenty:patch_fern_8",
+      "biomesoplenty:patch_large_fern_normal",
+      "biomesoplenty:patch_lily_pad_10",
+      "biomesoplenty:patch_grass_12"
+     ],
+     "grass_color": 7318096,
+     "foliage_color": 9165671,
+     "temperature": 0.95,
+     "downfall": 0.9
+    },
+    "woodland": {
+     "name": "Woodland",
+     "vegetation": [
+      "biomesoplenty:flower_default_extended_6",
+      "biomesoplenty:rose_bush_normal",
+      "biomesoplenty:fallen_log",
+      "biomesoplenty:patch_grass_6",
+      "biomesoplenty:patch_tall_grass_6",
+      "biomesoplenty:trees_woodland"
+     ],
+     "grass_color": 10273849,
+     "foliage_color": 8762376,
      "temperature": 0.8,
+     "downfall": 0.5
+    },
+    "dune_beach": {
+     "name": "Dune Beach",
+     "vegetation": [
+      "biomesoplenty:patch_dune_grass",
+      "biomesoplenty:patch_sea_oats"
+     ],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 0.7,
+     "downfall": 0.4
+    },
+    "erupting_inferno": {
+     "name": "Erupting Inferno",
+     "vegetation": [],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 2.0,
+     "downfall": 0.0
+    },
+    "mediterranean_forest": {
+     "name": "Mediterranean Forest",
+     "vegetation": [
+      "biomesoplenty:trees_mediterranean_forest",
+      "biomesoplenty:flower_default_extended_6",
+      "biomesoplenty:patch_bush_1",
+      "biomesoplenty:patch_peony",
+      "biomesoplenty:patch_grass_3"
+     ],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 0.8,
+     "downfall": 0.275
+    },
+    "lush_savanna": {
+     "name": "Lush Savanna",
+     "vegetation": [
+      "biomesoplenty:flower_poppy",
+      "biomesoplenty:rose_bush_extra",
+      "biomesoplenty:patch_sprouts_5",
+      "biomesoplenty:patch_grass_24",
+      "biomesoplenty:patch_tall_grass_24"
+     ],
+     "grass_color": 15720834,
+     "foliage_color": 13881686,
+     "temperature": 0.9,
+     "downfall": 0.5
+    },
+    "rocky_shrubland": {
+     "name": "Rocky Shrubland",
+     "vegetation": [
+      "biomesoplenty:trees_rocky_shrubland",
+      "biomesoplenty:flower_shrubland",
+      "biomesoplenty:patch_bush_4",
+      "biomesoplenty:patch_grass_6"
+     ],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 0.6,
+     "downfall": 0.05
+    },
+    "snowy_fir_clearing": {
+     "name": "Snowy Fir Clearing",
+     "vegetation": [
+      "biomesoplenty:trees_fir_clearing",
+      "biomesoplenty:fallen_fir_log",
+      "biomesoplenty:patch_fern_2",
+      "biomesoplenty:patch_grass_1"
+     ],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": -0.25,
+     "downfall": 0.5
+    },
+    "auroral_garden": {
+     "name": "Auroral Garden",
+     "vegetation": [
+      "biomesoplenty:trees_auroral_garden",
+      "biomesoplenty:flower_violet",
+      "biomesoplenty:patch_icy_iris",
+      "biomesoplenty:patch_grass_12"
+     ],
+     "grass_color": 14417148,
+     "foliage_color": 10876919,
+     "temperature": -0.25,
+     "downfall": 0.5
+    },
+    "marsh": {
+     "name": "Marsh",
+     "vegetation": [
+      "biomesoplenty:patch_reed_10",
+      "biomesoplenty:patch_grass_24",
+      "biomesoplenty:patch_tall_grass_128",
+      "biomesoplenty:patch_watergrass_250"
+     ],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 0.65,
+     "downfall": 0.7
+    },
+    "muskeg": {
+     "name": "Muskeg",
+     "vegetation": [
+      "biomesoplenty:trees_muskeg",
+      "biomesoplenty:small_brown_mushroom",
+      "biomesoplenty:mud_splatter",
+      "biomesoplenty:patch_grass_1"
+     ],
+     "grass_color": 9737838,
+     "foliage_color": 9280363,
+     "temperature": 0.0,
      "downfall": 0.6
+    },
+    "withered_abyss": {
+     "name": "Withered Abyss",
+     "vegetation": [],
+     "grass_color": 3222582,
+     "foliage_color": 3222582,
+     "temperature": 2.0,
+     "downfall": 0.0
+    },
+    "pasture": {
+     "name": "Pasture",
+     "vegetation": [
+      "biomesoplenty:patch_barley",
+      "biomesoplenty:patch_grass_24",
+      "biomesoplenty:patch_tall_grass_64"
+     ],
+     "grass_color": 15002231,
+     "foliage_color": 13100658,
+     "temperature": 0.8,
+     "downfall": 0.3
+    },
+    "dryland": {
+     "name": "Dryland",
+     "vegetation": [
+      "biomesoplenty:trees_dryland",
+      "biomesoplenty:patch_bush_1",
+      "biomesoplenty:patch_grass_6",
+      "biomesoplenty:patch_dead_bush_4",
+      "biomesoplenty:patch_tiny_cactus"
+     ],
+     "grass_color": 15065001,
+     "foliage_color": 14344371,
+     "temperature": 0.85,
+     "downfall": 0.05
+    },
+    "end_corruption": {
+     "name": "End Corruption",
+     "vegetation": [
+      "biomesoplenty:trees_end_corruption",
+      "biomesoplenty:patch_null_plants"
+     ],
+     "grass_color": 8174955,
+     "foliage_color": 4764952,
+     "temperature": 0.5,
+     "downfall": 0.5
+    },
+    "cold_desert": {
+     "name": "Cold Desert",
+     "vegetation": [
+      "biomesoplenty:wasteland_grass_1"
+     ],
+     "grass_color": 11375460,
+     "foliage_color": 11904876,
+     "temperature": 0.25,
+     "downfall": 0.0
+    },
+    "seasonal_forest": {
+     "name": "Seasonal Forest",
+     "vegetation": [
+      "biomesoplenty:trees_seasonal_forest",
+      "biomesoplenty:toadstool_normal",
+      "biomesoplenty:patch_reed_5",
+      "biomesoplenty:patch_grass_12",
+      "biomesoplenty:red_maple_leaf_piles",
+      "biomesoplenty:orange_maple_leaf_piles_extra",
+      "biomesoplenty:yellow_maple_leaf_piles"
+     ],
+     "grass_color": 14522954,
+     "foliage_color": 13742666,
+     "temperature": 0.4,
+     "downfall": 0.8
+    },
+    "snowy_coniferous_forest": {
+     "name": "Snowy Coniferous Forest",
+     "vegetation": [
+      "biomesoplenty:trees_snowy_coniferous_forest",
+      "biomesoplenty:flower_snowy",
+      "biomesoplenty:patch_fern_2",
+      "biomesoplenty:toadstool_normal",
+      "biomesoplenty:patch_grass_12"
+     ],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": -0.25,
+     "downfall": 0.5
+    },
+    "bog": {
+     "name": "Bog",
+     "vegetation": [
+      "biomesoplenty:trees_bog",
+      "biomesoplenty:patch_bush_10",
+      "biomesoplenty:patch_fern_4",
+      "biomesoplenty:patch_reed_10",
+      "biomesoplenty:patch_grass_6"
+     ],
+     "grass_color": 11048279,
+     "foliage_color": 13008731,
+     "temperature": 0.2,
+     "downfall": 0.5
+    },
+    "ominous_woods": {
+     "name": "Ominous Woods",
+     "vegetation": [
+      "biomesoplenty:trees_ominous_woods",
+      "biomesoplenty:flower_ominous_woods",
+      "biomesoplenty:patch_dead_grass",
+      "biomesoplenty:patch_grass_6"
+     ],
+     "grass_color": 4999792,
+     "foliage_color": 7030908,
+     "temperature": 0.6,
+     "downfall": 0.6
+    },
+    "fungal_jungle": {
+     "name": "Fungal Jungle",
+     "vegetation": [
+      "biomesoplenty:trees_fungal_jungle",
+      "biomesoplenty:huge_toadstool",
+      "biomesoplenty:small_toadstool",
+      "biomesoplenty:toadstool_extra",
+      "biomesoplenty:dripstone_splatter",
+      "biomesoplenty:mycelium_splatter",
+      "biomesoplenty:patch_sprouts_5",
+      "biomesoplenty:patch_grass_12",
+      "biomesoplenty:patch_tall_grass_12"
+     ],
+     "grass_color": 13428005,
+     "foliage_color": 14738722,
+     "temperature": 0.9,
+     "downfall": 0.9
+    },
+    "aspen_glade": {
+     "name": "Aspen Glade",
+     "vegetation": [
+      "biomesoplenty:trees_aspen_glade",
+      "biomesoplenty:fallen_birch_log",
+      "biomesoplenty:patch_barley_sparse",
+      "biomesoplenty:patch_fern_4",
+      "biomesoplenty:patch_large_fern_normal",
+      "biomesoplenty:toadstool_normal",
+      "biomesoplenty:patch_reed_10",
+      "biomesoplenty:patch_grass_6",
+      "biomesoplenty:yellow_maple_leaf_piles_extra"
+     ],
+     "grass_color": 14527306,
+     "foliage_color": 13746762,
+     "temperature": 0.4,
+     "downfall": 0.8
+    },
+    "floodplain": {
+     "name": "Floodplain",
+     "vegetation": [
+      "biomesoplenty:trees_rainforest_floodplain",
+      "biomesoplenty:flower_rainforest",
+      "biomesoplenty:patch_lily_pad_15",
+      "biomesoplenty:huge_lily_pad",
+      "biomesoplenty:patch_waterlily_flowers",
+      "biomesoplenty:patch_grass_12",
+      "biomesoplenty:patch_tall_grass_24",
+      "biomesoplenty:patch_watergrass_50"
+     ],
+     "grass_color": 8377405,
+     "foliage_color": 6016293,
+     "temperature": 1.2,
+     "downfall": 2.0
     },
     "rocky_rainforest": {
      "name": "Rocky Rainforest",
@@ -2897,131 +3439,22 @@
      "temperature": 1.2,
      "downfall": 2.0
     },
-    "rocky_shrubland": {
-     "name": "Rocky Shrubland",
+    "field": {
+     "name": "Field",
      "vegetation": [
-      "biomesoplenty:trees_rocky_shrubland",
-      "biomesoplenty:flower_shrubland",
-      "biomesoplenty:patch_bush_4",
+      "biomesoplenty:rose_bush_normal",
+      "biomesoplenty:sunflower",
+      "biomesoplenty:flower_field",
+      "biomesoplenty:trees_field",
+      "biomesoplenty:patch_tall_white_lavender",
+      "biomesoplenty:patch_sprouts_10",
+      "biomesoplenty:flower_wildflower",
       "biomesoplenty:patch_grass_6"
      ],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 0.6,
-     "downfall": 0.05
-    },
-    "scrubland": {
-     "name": "Scrubland",
-     "vegetation": [
-      "biomesoplenty:trees_scrubland",
-      "biomesoplenty:flower_scrubland",
-      "biomesoplenty:scrub_extra",
-      "biomesoplenty:patch_desert_grass",
-      "biomesoplenty:patch_tall_grass_6",
-      "biomesoplenty:patch_grass_12"
-     ],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 1.1,
-     "downfall": 0.15
-    },
-    "seasonal_forest": {
-     "name": "Seasonal Forest",
-     "vegetation": [
-      "biomesoplenty:trees_seasonal_forest",
-      "biomesoplenty:toadstool_normal",
-      "biomesoplenty:patch_reed_5",
-      "biomesoplenty:patch_grass_12",
-      "biomesoplenty:red_maple_leaf_piles",
-      "biomesoplenty:orange_maple_leaf_piles_extra",
-      "biomesoplenty:yellow_maple_leaf_piles"
-     ],
-     "grass_color": 14522954,
-     "foliage_color": 13742666,
+     "grass_color": 6533741,
+     "foliage_color": 6533741,
      "temperature": 0.4,
-     "downfall": 0.8
-    },
-    "shrubland": {
-     "name": "Shrubland",
-     "vegetation": [
-      "biomesoplenty:trees_shrubland",
-      "biomesoplenty:flower_shrubland",
-      "biomesoplenty:patch_bush_4",
-      "biomesoplenty:patch_lilac_normal",
-      "biomesoplenty:patch_reed_10",
-      "biomesoplenty:patch_grass_6"
-     ],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 0.6,
-     "downfall": 0.05
-    },
-    "snowblossom_grove": {
-     "name": "Snowblossom Grove",
-     "vegetation": [
-      "biomesoplenty:trees_snowblossom_grove",
-      "biomesoplenty:flower_snowblossom_grove",
-      "biomesoplenty:patch_grass_3"
-     ],
-     "grass_color": 9349259,
-     "foliage_color": 7705454,
-     "temperature": -0.25,
-     "downfall": 0.8
-    },
-    "snowy_coniferous_forest": {
-     "name": "Snowy Coniferous Forest",
-     "vegetation": [
-      "biomesoplenty:trees_snowy_coniferous_forest",
-      "biomesoplenty:flower_snowy",
-      "biomesoplenty:patch_fern_2",
-      "biomesoplenty:toadstool_normal",
-      "biomesoplenty:patch_grass_12"
-     ],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": -0.25,
-     "downfall": 0.5
-    },
-    "snowy_fir_clearing": {
-     "name": "Snowy Fir Clearing",
-     "vegetation": [
-      "biomesoplenty:trees_fir_clearing",
-      "biomesoplenty:fallen_fir_log",
-      "biomesoplenty:patch_fern_2",
-      "biomesoplenty:patch_grass_1"
-     ],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": -0.25,
-     "downfall": 0.5
-    },
-    "snowy_maple_woods": {
-     "name": "Snowy Maple Woods",
-     "vegetation": [
-      "biomesoplenty:trees_snowy_maple_forest",
-      "biomesoplenty:flower_snowy",
-      "biomesoplenty:patch_fern_2",
-      "biomesoplenty:patch_grass_3",
-      "biomesoplenty:red_maple_leaf_piles"
-     ],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": -0.25,
-     "downfall": 0.5
-    },
-    "spider_nest": {
-     "name": "Spider Nest",
-     "vegetation": [
-      "biomesoplenty:hanging_cobwebs",
-      "biomesoplenty:corner_cobwebs",
-      "biomesoplenty:webbing",
-      "biomesoplenty:spider_eggs",
-      "biomesoplenty:stringy_cobweb"
-     ],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 0.5,
-     "downfall": 0.5
+     "downfall": 0.7
     },
     "tropics": {
      "name": "Tropics",
@@ -3038,37 +3471,6 @@
      "temperature": 0.95,
      "downfall": 1.0
     },
-    "tundra": {
-     "name": "Tundra",
-     "vegetation": [
-      "biomesoplenty:trees_tundra",
-      "biomesoplenty:patch_fern_2",
-      "biomesoplenty:patch_reed_5",
-      "biomesoplenty:patch_grass_6",
-      "biomesoplenty:patch_tundra_shrubs",
-      "biomesoplenty:scattered_rocks"
-     ],
-     "grass_color": 12616537,
-     "foliage_color": 12949340,
-     "temperature": 0.2,
-     "downfall": 0.5
-    },
-    "undergrowth": {
-     "name": "Undergrowth",
-     "vegetation": [],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 2.0,
-     "downfall": 0.0
-    },
-    "visceral_heap": {
-     "name": "Visceral Heap",
-     "vegetation": [],
-     "grass_color": null,
-     "foliage_color": null,
-     "temperature": 2.0,
-     "downfall": 0.0
-    },
     "volcanic_plains": {
      "name": "Volcanic Plains",
      "vegetation": [
@@ -3082,13 +3484,248 @@
      "temperature": 0.95,
      "downfall": 0.3
     },
-    "volcano": {
-     "name": "Volcano",
+    "crystalline_chasm": {
+     "name": "Crystalline Chasm",
      "vegetation": [],
-     "grass_color": 4878395,
-     "foliage_color": 5537090,
-     "temperature": 0.95,
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 2.0,
+     "downfall": 0.0
+    },
+    "dead_forest": {
+     "name": "Dead Forest",
+     "vegetation": [
+      "biomesoplenty:trees_dead_forest",
+      "biomesoplenty:patch_grass_3"
+     ],
+     "grass_color": 12234084,
+     "foliage_color": 12040035,
+     "temperature": 0.2,
      "downfall": 0.3
+    },
+    "jade_cliffs": {
+     "name": "Jade Cliffs",
+     "vegetation": [
+      "biomesoplenty:trees_jade_cliffs",
+      "biomesoplenty:patch_grass_6"
+     ],
+     "grass_color": 8168808,
+     "foliage_color": 9156462,
+     "temperature": 0.8,
+     "downfall": 0.85
+    },
+    "wintry_origin_valley": {
+     "name": "Wintry Origin Valley",
+     "vegetation": [
+      "biomesoplenty:trees_origin_valley",
+      "biomesoplenty:flower_origin_valley"
+     ],
+     "grass_color": 10157919,
+     "foliage_color": 3866368,
+     "temperature": -0.25,
+     "downfall": 0.6
+    },
+    "shrubland": {
+     "name": "Shrubland",
+     "vegetation": [
+      "biomesoplenty:trees_shrubland",
+      "biomesoplenty:flower_shrubland",
+      "biomesoplenty:patch_bush_4",
+      "biomesoplenty:patch_lilac_normal",
+      "biomesoplenty:patch_reed_10",
+      "biomesoplenty:patch_grass_6"
+     ],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 0.6,
+     "downfall": 0.05
+    },
+    "old_growth_woodland": {
+     "name": "Old Growth Woodland",
+     "vegetation": [
+      "biomesoplenty:flower_default_extended_6",
+      "biomesoplenty:rose_bush_normal",
+      "biomesoplenty:fallen_log",
+      "biomesoplenty:trees_dense_woodland",
+      "biomesoplenty:patch_grass_12",
+      "biomesoplenty:patch_tall_grass_12"
+     ],
+     "grass_color": 10273849,
+     "foliage_color": 8762376,
+     "temperature": 0.8,
+     "downfall": 0.5
+    },
+    "snowblossom_grove": {
+     "name": "Snowblossom Grove",
+     "vegetation": [
+      "biomesoplenty:trees_snowblossom_grove",
+      "biomesoplenty:flower_snowblossom_grove",
+      "biomesoplenty:patch_grass_3"
+     ],
+     "grass_color": 9349259,
+     "foliage_color": 7705454,
+     "temperature": -0.25,
+     "downfall": 0.8
+    },
+    "gravel_beach": {
+     "name": "Gravel Beach",
+     "vegetation": [],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 0.45,
+     "downfall": 0.5
+    },
+    "glowing_grotto": {
+     "name": "Glowing Grotto",
+     "vegetation": [
+      "biomesoplenty:glowing_grotto_vegetation",
+      "biomesoplenty:glowing_grotto_mud",
+      "biomesoplenty:glowworm_silk_strands",
+      "biomesoplenty:giant_glowshroom_cave",
+      "biomesoplenty:huge_glowshroom_cave",
+      "biomesoplenty:medium_glowshroom_cave",
+      "biomesoplenty:small_glowshroom_cave",
+      "biomesoplenty:extra_glow_lichen"
+     ],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 0.5,
+     "downfall": 0.5
+    },
+    "coniferous_forest": {
+     "name": "Coniferous Forest",
+     "vegetation": [
+      "biomesoplenty:trees_coniferous_forest",
+      "biomesoplenty:flower_coniferous_forest",
+      "biomesoplenty:patch_fern_2",
+      "biomesoplenty:toadstool_normal",
+      "biomesoplenty:patch_grass_12"
+     ],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 0.45,
+     "downfall": 0.5
+    },
+    "snowy_maple_woods": {
+     "name": "Snowy Maple Woods",
+     "vegetation": [
+      "biomesoplenty:trees_snowy_maple_forest",
+      "biomesoplenty:flower_snowy",
+      "biomesoplenty:patch_fern_2",
+      "biomesoplenty:patch_grass_3",
+      "biomesoplenty:red_maple_leaf_piles"
+     ],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": -0.25,
+     "downfall": 0.5
+    },
+    "visceral_heap": {
+     "name": "Visceral Heap",
+     "vegetation": [],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 2.0,
+     "downfall": 0.0
+    },
+    "maple_woods": {
+     "name": "Maple Woods",
+     "vegetation": [
+      "biomesoplenty:trees_maple_forest",
+      "biomesoplenty:flower_snowy",
+      "biomesoplenty:patch_fern_2",
+      "biomesoplenty:patch_grass_6",
+      "biomesoplenty:red_maple_leaf_piles_extra"
+     ],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 0.25,
+     "downfall": 0.5
+    },
+    "scrubland": {
+     "name": "Scrubland",
+     "vegetation": [
+      "biomesoplenty:trees_scrubland",
+      "biomesoplenty:flower_scrubland",
+      "biomesoplenty:scrub_extra",
+      "biomesoplenty:patch_desert_grass",
+      "biomesoplenty:patch_tall_grass_6",
+      "biomesoplenty:patch_grass_12"
+     ],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 1.1,
+     "downfall": 0.15
+    },
+    "hot_springs": {
+     "name": "Hot Springs",
+     "vegetation": [
+      "biomesoplenty:trees_hot_springs",
+      "biomesoplenty:thin_bamboo",
+      "biomesoplenty:patch_bush_1",
+      "biomesoplenty:patch_fern_2",
+      "biomesoplenty:patch_large_fern_normal",
+      "biomesoplenty:patch_grass_6",
+      "biomesoplenty:hot_spring_vents"
+     ],
+     "grass_color": 8434839,
+     "foliage_color": 6332795,
+     "temperature": 0.17,
+     "downfall": 0.5
+    },
+    "origin_valley": {
+     "name": "Origin Valley",
+     "vegetation": [
+      "biomesoplenty:trees_origin_valley",
+      "biomesoplenty:flower_origin_valley"
+     ],
+     "grass_color": 10157919,
+     "foliage_color": 3866368,
+     "temperature": 0.6,
+     "downfall": 0.6
+    },
+    "prairie": {
+     "name": "Prairie",
+     "vegetation": [
+      "biomesoplenty:trees_prairie",
+      "biomesoplenty:flower_coniferous_forest",
+      "biomesoplenty:rooted_stump",
+      "biomesoplenty:goldenrod",
+      "biomesoplenty:patch_grass_24",
+      "biomesoplenty:patch_tall_grass_24"
+     ],
+     "grass_color": 15002231,
+     "foliage_color": 13100658,
+     "temperature": 0.8,
+     "downfall": 0.3
+    },
+    "moor": {
+     "name": "Moor",
+     "vegetation": [
+      "biomesoplenty:flower_moor",
+      "biomesoplenty:flower_violet",
+      "biomesoplenty:scrub_normal",
+      "biomesoplenty:patch_grass_12",
+      "biomesoplenty:patch_tall_grass_12"
+     ],
+     "grass_color": 7449200,
+     "foliage_color": 7914605,
+     "temperature": 0.6,
+     "downfall": 0.6
+    },
+    "jacaranda_glade": {
+     "name": "Jacaranda Glade",
+     "vegetation": [
+      "biomesoplenty:patch_grass_24",
+      "biomesoplenty:patch_tall_grass_128",
+      "biomesoplenty:flower_jacaranda_glade",
+      "biomesoplenty:trees_jacaranda_glade",
+      "biomesoplenty:fallen_jacaranda_log"
+     ],
+     "grass_color": 8043631,
+     "foliage_color": 8634480,
+     "temperature": 0.7,
+     "downfall": 0.8
     },
     "wasteland": {
      "name": "Wasteland",
@@ -3102,18 +3739,18 @@
      "temperature": 2.0,
      "downfall": 0.0
     },
-    "wasteland_steppe": {
-     "name": "Wasteland Steppe",
+    "crag": {
+     "name": "Crag",
      "vegetation": [
-      "biomesoplenty:patch_dead_grass",
-      "biomesoplenty:patch_desert_grass_extra",
-      "biomesoplenty:wasteland_grass_2",
-      "biomesoplenty:patch_grass_6"
+      "biomesoplenty:crag_moss",
+      "biomesoplenty:crag_splatter",
+      "biomesoplenty:patch_grass_12",
+      "biomesoplenty:patch_tall_grass_24"
      ],
-     "grass_color": 13220230,
-     "foliage_color": 13091727,
-     "temperature": 2.0,
-     "downfall": 0.0
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 0.6,
+     "downfall": 0.6
     },
     "wetland": {
      "name": "Wetland",
@@ -3133,41 +3770,563 @@
      "temperature": 0.6,
      "downfall": 0.7
     },
-    "wintry_origin_valley": {
-     "name": "Wintry Origin Valley",
+    "spider_nest": {
+     "name": "Spider Nest",
      "vegetation": [
-      "biomesoplenty:trees_origin_valley",
-      "biomesoplenty:flower_origin_valley"
+      "biomesoplenty:hanging_cobwebs",
+      "biomesoplenty:corner_cobwebs",
+      "biomesoplenty:webbing",
+      "biomesoplenty:spider_eggs",
+      "biomesoplenty:stringy_cobweb"
      ],
-     "grass_color": 10157919,
-     "foliage_color": 3866368,
-     "temperature": -0.25,
-     "downfall": 0.6
-    },
-    "withered_abyss": {
-     "name": "Withered Abyss",
-     "vegetation": [],
-     "grass_color": 3222582,
-     "foliage_color": 3222582,
-     "temperature": 2.0,
-     "downfall": 0.0
-    },
-    "woodland": {
-     "name": "Woodland",
-     "vegetation": [
-      "biomesoplenty:flower_default_extended_6",
-      "biomesoplenty:rose_bush_normal",
-      "biomesoplenty:fallen_log",
-      "biomesoplenty:patch_grass_6",
-      "biomesoplenty:patch_tall_grass_6",
-      "biomesoplenty:trees_woodland"
-     ],
-     "grass_color": 10273849,
-     "foliage_color": 8762376,
-     "temperature": 0.8,
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 0.5,
      "downfall": 0.5
+    },
+    "tundra": {
+     "name": "Tundra",
+     "vegetation": [
+      "biomesoplenty:trees_tundra",
+      "biomesoplenty:patch_fern_2",
+      "biomesoplenty:patch_reed_5",
+      "biomesoplenty:patch_grass_6",
+      "biomesoplenty:patch_tundra_shrubs",
+      "biomesoplenty:scattered_rocks"
+     ],
+     "grass_color": 12616537,
+     "foliage_color": 12949340,
+     "temperature": 0.2,
+     "downfall": 0.5
+    },
+    "volcano": {
+     "name": "Volcano",
+     "vegetation": [],
+     "grass_color": 4878395,
+     "foliage_color": 5537090,
+     "temperature": 0.95,
+     "downfall": 0.3
+    },
+    "old_growth_dead_forest": {
+     "name": "Old Growth Dead Forest",
+     "vegetation": [
+      "biomesoplenty:trees_old_growth_dead_forest",
+      "biomesoplenty:patch_grass_6"
+     ],
+     "grass_color": 12234084,
+     "foliage_color": 12040035,
+     "temperature": 0.3,
+     "downfall": 0.3
+    },
+    "end_reef": {
+     "name": "End Reef",
+     "vegetation": [
+      "biomesoplenty:dead_coral",
+      "biomesoplenty:dead_coral_patch",
+      "biomesoplenty:barnacles",
+      "biomesoplenty:wispjelly",
+      "biomesoplenty:patch_dead_grass"
+     ],
+     "grass_color": 15073276,
+     "foliage_color": 15073276,
+     "temperature": 0.5,
+     "downfall": 0.5
+    },
+    "fir_clearing": {
+     "name": "Fir Clearing",
+     "vegetation": [
+      "biomesoplenty:trees_fir_clearing",
+      "biomesoplenty:fallen_fir_log",
+      "biomesoplenty:flower_coniferous_forest",
+      "biomesoplenty:patch_fern_4",
+      "biomesoplenty:toadstool_normal",
+      "biomesoplenty:patch_grass_12"
+     ],
+     "grass_color": null,
+     "foliage_color": null,
+     "temperature": 0.45,
+     "downfall": 0.5
+    },
+    "lush_desert": {
+     "name": "Lush Desert",
+     "vegetation": [
+      "biomesoplenty:trees_lush_desert",
+      "biomesoplenty:flower_lush_desert",
+      "biomesoplenty:patch_desert_grass",
+      "biomesoplenty:sparse_dune_grass"
+     ],
+     "grass_color": 15720834,
+     "foliage_color": 13881686,
+     "temperature": 0.9,
+     "downfall": 0.5
+    },
+    "overgrown_greens": {
+     "name": "Overgrown Greens",
+     "vegetation": [
+      "biomesoplenty:flower_overgrown_greens",
+      "biomesoplenty:patch_grass_24",
+      "biomesoplenty:patch_tall_grass_64",
+      "biomesoplenty:high_grass",
+      "biomesoplenty:patch_clover_extra",
+      "biomesoplenty:huge_clover"
+     ],
+     "grass_color": 6209386,
+     "foliage_color": 5618801,
+     "temperature": 0.6,
+     "downfall": 0.9
+    },
+    "redwood_forest": {
+     "name": "Redwood Forest",
+     "vegetation": [
+      "biomesoplenty:trees_redwood_forest",
+      "biomesoplenty:patch_fern_4",
+      "biomesoplenty:patch_large_fern_extra",
+      "biomesoplenty:moss_splatter"
+     ],
+     "grass_color": 11916636,
+     "foliage_color": 9355074,
+     "temperature": 0.8,
+     "downfall": 0.6
     }
-   }
+   },
+   "item_ids": [
+    "algal_end_stone",
+    "anomaly",
+    "barley",
+    "barnacles",
+    "black_sand",
+    "black_sandstone",
+    "black_sandstone_slab",
+    "black_sandstone_stairs",
+    "black_sandstone_wall",
+    "blackstone_bulb",
+    "blackstone_spines",
+    "blood",
+    "blood_bucket",
+    "blue_hydrangea",
+    "bop_icon",
+    "bramble",
+    "bramble_leaves",
+    "brimstone",
+    "brimstone_brick_slab",
+    "brimstone_brick_stairs",
+    "brimstone_brick_wall",
+    "brimstone_bricks",
+    "brimstone_bud",
+    "brimstone_cluster",
+    "brimstone_fumarole",
+    "burning_blossom",
+    "bush",
+    "cattail",
+    "chiseled_black_sandstone",
+    "chiseled_brimstone_bricks",
+    "chiseled_orange_sandstone",
+    "chiseled_white_sandstone",
+    "clover",
+    "cut_black_sandstone",
+    "cut_black_sandstone_slab",
+    "cut_orange_sandstone",
+    "cut_orange_sandstone_slab",
+    "cut_white_sandstone",
+    "cut_white_sandstone_slab",
+    "cypress_leaves",
+    "cypress_sapling",
+    "dead_boat",
+    "dead_branch",
+    "dead_button",
+    "dead_chest_boat",
+    "dead_door",
+    "dead_fence",
+    "dead_fence_gate",
+    "dead_grass",
+    "dead_hanging_sign",
+    "dead_leaves",
+    "dead_log",
+    "dead_planks",
+    "dead_pressure_plate",
+    "dead_sapling",
+    "dead_sign",
+    "dead_slab",
+    "dead_stairs",
+    "dead_trapdoor",
+    "dead_wood",
+    "desert_grass",
+    "dried_salt",
+    "dune_grass",
+    "empyreal_boat",
+    "empyreal_button",
+    "empyreal_chest_boat",
+    "empyreal_door",
+    "empyreal_fence",
+    "empyreal_fence_gate",
+    "empyreal_hanging_sign",
+    "empyreal_leaves",
+    "empyreal_log",
+    "empyreal_planks",
+    "empyreal_pressure_plate",
+    "empyreal_sapling",
+    "empyreal_sign",
+    "empyreal_slab",
+    "empyreal_stairs",
+    "empyreal_trapdoor",
+    "empyreal_wood",
+    "endbloom",
+    "enderphyte",
+    "eyebulb",
+    "fir_boat",
+    "fir_button",
+    "fir_chest_boat",
+    "fir_door",
+    "fir_fence",
+    "fir_fence_gate",
+    "fir_hanging_sign",
+    "fir_leaves",
+    "fir_log",
+    "fir_planks",
+    "fir_pressure_plate",
+    "fir_sapling",
+    "fir_sign",
+    "fir_slab",
+    "fir_stairs",
+    "fir_trapdoor",
+    "fir_wood",
+    "flesh",
+    "flesh_tendons",
+    "flesh_tendons_strand",
+    "flowering_oak_leaves",
+    "flowering_oak_sapling",
+    "glowflower",
+    "glowing_moss_block",
+    "glowing_moss_carpet",
+    "glowshroom",
+    "glowshroom_block",
+    "glowworm_silk",
+    "glowworm_silk_strand",
+    "goldenrod",
+    "hair",
+    "hanging_cobweb",
+    "hanging_cobweb_strand",
+    "hellbark_boat",
+    "hellbark_button",
+    "hellbark_chest_boat",
+    "hellbark_door",
+    "hellbark_fence",
+    "hellbark_fence_gate",
+    "hellbark_hanging_sign",
+    "hellbark_leaves",
+    "hellbark_log",
+    "hellbark_planks",
+    "hellbark_pressure_plate",
+    "hellbark_sapling",
+    "hellbark_sign",
+    "hellbark_slab",
+    "hellbark_stairs",
+    "hellbark_trapdoor",
+    "hellbark_wood",
+    "high_grass",
+    "high_grass_plant",
+    "huge_clover_petal",
+    "huge_lily_pad",
+    "icy_iris",
+    "jacaranda_boat",
+    "jacaranda_button",
+    "jacaranda_chest_boat",
+    "jacaranda_door",
+    "jacaranda_fence",
+    "jacaranda_fence_gate",
+    "jacaranda_hanging_sign",
+    "jacaranda_leaves",
+    "jacaranda_log",
+    "jacaranda_planks",
+    "jacaranda_pressure_plate",
+    "jacaranda_sapling",
+    "jacaranda_sign",
+    "jacaranda_slab",
+    "jacaranda_stairs",
+    "jacaranda_trapdoor",
+    "jacaranda_wood",
+    "large_rose_quartz_bud",
+    "lavender",
+    "liquid_null",
+    "liquid_null_bucket",
+    "lumaloop",
+    "lumaloop_plant",
+    "magic_boat",
+    "magic_button",
+    "magic_chest_boat",
+    "magic_door",
+    "magic_fence",
+    "magic_fence_gate",
+    "magic_hanging_sign",
+    "magic_leaves",
+    "magic_log",
+    "magic_planks",
+    "magic_pressure_plate",
+    "magic_sapling",
+    "magic_sign",
+    "magic_slab",
+    "magic_stairs",
+    "magic_trapdoor",
+    "magic_wood",
+    "mahogany_boat",
+    "mahogany_button",
+    "mahogany_chest_boat",
+    "mahogany_door",
+    "mahogany_fence",
+    "mahogany_fence_gate",
+    "mahogany_hanging_sign",
+    "mahogany_leaves",
+    "mahogany_log",
+    "mahogany_planks",
+    "mahogany_pressure_plate",
+    "mahogany_sapling",
+    "mahogany_sign",
+    "mahogany_slab",
+    "mahogany_stairs",
+    "mahogany_trapdoor",
+    "mahogany_wood",
+    "maple_boat",
+    "maple_button",
+    "maple_chest_boat",
+    "maple_door",
+    "maple_fence",
+    "maple_fence_gate",
+    "maple_hanging_sign",
+    "maple_log",
+    "maple_planks",
+    "maple_pressure_plate",
+    "maple_sign",
+    "maple_slab",
+    "maple_stairs",
+    "maple_trapdoor",
+    "maple_wood",
+    "medium_rose_quartz_bud",
+    "mossy_black_sand",
+    "music_disc_wanderer",
+    "null_block",
+    "null_end_stone",
+    "null_leaves",
+    "null_plant",
+    "orange_cosmos",
+    "orange_maple_leaf_pile",
+    "orange_maple_leaves",
+    "orange_maple_sapling",
+    "orange_sand",
+    "orange_sandstone",
+    "orange_sandstone_slab",
+    "orange_sandstone_stairs",
+    "orange_sandstone_wall",
+    "origin_grass_block",
+    "origin_leaves",
+    "origin_sapling",
+    "palm_boat",
+    "palm_button",
+    "palm_chest_boat",
+    "palm_door",
+    "palm_fence",
+    "palm_fence_gate",
+    "palm_hanging_sign",
+    "palm_leaves",
+    "palm_log",
+    "palm_planks",
+    "palm_pressure_plate",
+    "palm_sapling",
+    "palm_sign",
+    "palm_slab",
+    "palm_stairs",
+    "palm_trapdoor",
+    "palm_wood",
+    "pine_boat",
+    "pine_button",
+    "pine_chest_boat",
+    "pine_door",
+    "pine_fence",
+    "pine_fence_gate",
+    "pine_hanging_sign",
+    "pine_leaves",
+    "pine_log",
+    "pine_planks",
+    "pine_pressure_plate",
+    "pine_sapling",
+    "pine_sign",
+    "pine_slab",
+    "pine_stairs",
+    "pine_trapdoor",
+    "pine_wood",
+    "pink_daffodil",
+    "pink_hibiscus",
+    "porous_flesh",
+    "potted_burning_blossom",
+    "potted_cypress_sapling",
+    "potted_dead_sapling",
+    "potted_empyreal_sapling",
+    "potted_endbloom",
+    "potted_fir_sapling",
+    "potted_flowering_oak_sapling",
+    "potted_glowflower",
+    "potted_glowshroom",
+    "potted_hellbark_sapling",
+    "potted_jacaranda_sapling",
+    "potted_lavender",
+    "potted_magic_sapling",
+    "potted_mahogany_sapling",
+    "potted_orange_cosmos",
+    "potted_orange_maple_sapling",
+    "potted_origin_sapling",
+    "potted_palm_sapling",
+    "potted_pine_sapling",
+    "potted_pink_daffodil",
+    "potted_pink_hibiscus",
+    "potted_rainbow_birch_sapling",
+    "potted_red_maple_sapling",
+    "potted_redwood_sapling",
+    "potted_rose",
+    "potted_snowblossom_sapling",
+    "potted_sprout",
+    "potted_tiny_cactus",
+    "potted_toadstool",
+    "potted_umbran_sapling",
+    "potted_violet",
+    "potted_white_lavender",
+    "potted_wildflower",
+    "potted_willow_sapling",
+    "potted_wilted_lily",
+    "potted_yellow_maple_sapling",
+    "pus_bubble",
+    "rainbow_birch_leaves",
+    "rainbow_birch_sapling",
+    "red_maple_leaf_pile",
+    "red_maple_leaves",
+    "red_maple_sapling",
+    "redwood_boat",
+    "redwood_button",
+    "redwood_chest_boat",
+    "redwood_door",
+    "redwood_fence",
+    "redwood_fence_gate",
+    "redwood_hanging_sign",
+    "redwood_leaves",
+    "redwood_log",
+    "redwood_planks",
+    "redwood_pressure_plate",
+    "redwood_sapling",
+    "redwood_sign",
+    "redwood_slab",
+    "redwood_stairs",
+    "redwood_trapdoor",
+    "redwood_wood",
+    "reed",
+    "rose",
+    "rose_quartz_block",
+    "rose_quartz_bud",
+    "rose_quartz_chunk",
+    "rose_quartz_cluster",
+    "sea_oats",
+    "small_rose_quartz_bud",
+    "smooth_black_sandstone",
+    "smooth_black_sandstone_slab",
+    "smooth_black_sandstone_stairs",
+    "smooth_orange_sandstone",
+    "smooth_orange_sandstone_slab",
+    "smooth_orange_sandstone_stairs",
+    "smooth_white_sandstone",
+    "smooth_white_sandstone_slab",
+    "smooth_white_sandstone_stairs",
+    "snowblossom_leaves",
+    "snowblossom_sapling",
+    "spanish_moss",
+    "spanish_moss_plant",
+    "spider_egg",
+    "sprout",
+    "stringy_cobweb",
+    "stripped_dead_log",
+    "stripped_dead_wood",
+    "stripped_empyreal_log",
+    "stripped_empyreal_wood",
+    "stripped_fir_log",
+    "stripped_fir_wood",
+    "stripped_hellbark_log",
+    "stripped_hellbark_wood",
+    "stripped_jacaranda_log",
+    "stripped_jacaranda_wood",
+    "stripped_magic_log",
+    "stripped_magic_wood",
+    "stripped_mahogany_log",
+    "stripped_mahogany_wood",
+    "stripped_maple_log",
+    "stripped_maple_wood",
+    "stripped_palm_log",
+    "stripped_palm_wood",
+    "stripped_pine_log",
+    "stripped_pine_wood",
+    "stripped_redwood_log",
+    "stripped_redwood_wood",
+    "stripped_umbran_log",
+    "stripped_umbran_wood",
+    "stripped_willow_log",
+    "stripped_willow_wood",
+    "tall_lavender",
+    "tall_white_lavender",
+    "thermal_calcite",
+    "thermal_calcite_vent",
+    "tiny_cactus",
+    "toadstool",
+    "toadstool_block",
+    "tundra_shrub",
+    "umbran_boat",
+    "umbran_button",
+    "umbran_chest_boat",
+    "umbran_door",
+    "umbran_fence",
+    "umbran_fence_gate",
+    "umbran_hanging_sign",
+    "umbran_leaves",
+    "umbran_log",
+    "umbran_planks",
+    "umbran_pressure_plate",
+    "umbran_sapling",
+    "umbran_sign",
+    "umbran_slab",
+    "umbran_stairs",
+    "umbran_trapdoor",
+    "umbran_wood",
+    "unmapped_end_stone",
+    "violet",
+    "watergrass",
+    "waterlily",
+    "webbing",
+    "white_lavender",
+    "white_petals",
+    "white_sand",
+    "white_sandstone",
+    "white_sandstone_slab",
+    "white_sandstone_stairs",
+    "white_sandstone_wall",
+    "wildflower",
+    "willow_boat",
+    "willow_button",
+    "willow_chest_boat",
+    "willow_door",
+    "willow_fence",
+    "willow_fence_gate",
+    "willow_hanging_sign",
+    "willow_leaves",
+    "willow_log",
+    "willow_planks",
+    "willow_pressure_plate",
+    "willow_sapling",
+    "willow_sign",
+    "willow_slab",
+    "willow_stairs",
+    "willow_trapdoor",
+    "willow_vine",
+    "willow_wood",
+    "wilted_lily",
+    "wispjelly",
+    "yellow_maple_leaf_pile",
+    "yellow_maple_leaves",
+    "yellow_maple_sapling"
+   ]
   }
  }
 }

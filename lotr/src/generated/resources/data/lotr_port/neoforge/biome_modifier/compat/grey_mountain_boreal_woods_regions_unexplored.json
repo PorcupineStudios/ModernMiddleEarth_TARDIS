@@ -8,15 +8,11 @@
   "type": "neoforge:add_features",
   "biomes": "lotr_port:grey_mountain_boreal_woods",
   "features": [
-    "regions_unexplored:patch/grass_sprouts_sparse",
-    "regions_unexplored:tree/larch_dense",
-    "regions_unexplored:tree/golden_larch_sparse",
-    "regions_unexplored:tree/birch_aspen",
-    "regions_unexplored:tree/oak_bush_sparse",
-    "regions_unexplored:fallen_larch",
-    "regions_unexplored:azure_daisy",
-    "regions_unexplored:grass",
-    "regions_unexplored:larch_shrub"
+    "regions_unexplored:tree/group/boreal_taiga",
+    "regions_unexplored:tree/fallen/larch",
+    "regions_unexplored:shrub/group/boreal_taiga",
+    "regions_unexplored:patch/azure_daisy",
+    "regions_unexplored:patch/short_grass"
   ],
   "step": "vegetal_decoration"
 }

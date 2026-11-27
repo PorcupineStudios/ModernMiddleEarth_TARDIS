@@ -15,14 +15,11 @@
   "type": "neoforge:add_features",
   "biomes": "lotr_port:dunland_scrub",
   "features": [
-    "regions_unexplored:patch/grass_sprouts_sparse",
-    "regions_unexplored:tree/spruce_tall_sparse",
-    "regions_unexplored:tree/oak_shrub_dense",
-    "regions_unexplored:tree/oak_bush_single",
-    "regions_unexplored:tree/spruce_shrub_dense",
-    "regions_unexplored:shrubland_flowers",
-    "regions_unexplored:shrubland_vegetation",
-    "regions_unexplored:spruce_shrub"
+    "regions_unexplored:tree/group/shrubland",
+    "regions_unexplored:shrub/group/shrubland",
+    "regions_unexplored:patch/shrubland_flowers",
+    "regions_unexplored:patch/fern",
+    "regions_unexplored:patch/short_grass"
   ],
   "step": "vegetal_decoration"
 }
