@@ -100,7 +100,7 @@ async function report(req, env, origin) {
     `<sub>Sent from the in-game bug reporter. Report id ${id}.</sub>`,
   ].join('\n');
 
-  const labels = (env.LABELS ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+  const labels = [...list(env.LABELS), ...versionLabels(list(env.VERSION_MODS), mods)];
   const gh = await github(env, `issues`, { title: `[In-game] ${title}`, body: body.slice(0, 65000), labels });
   if (!gh.ok) {
     console.error('GitHub', gh.status, await gh.text());
@@ -113,6 +113,15 @@ async function report(req, env, origin) {
     if (!l.ok) console.error('GitHub labels', l.status, await l.text());
   }
   return json({ url: issue.html_url, number: issue.number });
+}
+
+const list = (s) => (s ?? '').split(',').map((x) => x.trim()).filter(Boolean);
+
+// "tardis_rb 0.1.0" in the mod list -> label "tardis_rb 0.1.0", only for our own mods and sane versions, so a
+// forged report can't flood the repo with junk labels
+function versionLabels(ids, mods) {
+  return mods.map((m) => m.split(' ')).filter(([id, v, ...rest]) => ids.includes(id) && /^[\w.+-]{1,30}$/.test(v ?? '') && !rest.length)
+    .map(([id, v]) => `${id} ${v}`);
 }
 
 function github(env, path, payload) {

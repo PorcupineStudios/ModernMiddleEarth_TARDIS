@@ -6,6 +6,8 @@ compatibility_date = "2026-11-01"
 REPO = "PorcupineStudios/ModernMiddleEarth_TARDIS"
 LABELS = "bug,from-game"
 DAILY_LIMIT_PER_IP = "10"
+# our mods: each report gets a label "<mod id> <version>" per mod it ran with, to filter tickets by version
+VERSION_MODS = "ringbearer_api,tardis_rb,lotr_port,ringbearer_harness"
 
 # Create with `npx wrangler kv namespace create ATTACH` and paste the id it prints here.
 [[kv_namespaces]]
