@@ -41,6 +41,19 @@ public class LegacyAssetMap {
         return lines.isEmpty() ? "" : String.join("\n", lines) + "\n";
     }
 
+    /** Adds the list's old entries whose file is missing from GENERATED, then sorts by path. */
+    static void keepMissing(Path list, List<String> found) throws java.io.IOException {
+        Set<String> have = new HashSet<>();
+        for (String line : found) have.add(line.split("\t", 2)[0]);
+        if (Files.exists(list)) {
+            for (String line : Files.readAllLines(list)) {
+                String rel = line.split("\t", 2)[0];
+                if (!line.isBlank() && !have.contains(rel) && !Files.exists(GENERATED.resolve(rel))) found.add(line);
+            }
+        }
+        found.sort(java.util.Comparator.comparing(l -> l.split("\t", 2)[0]));
+    }
+
     public static void main(String[] args) throws Exception {
         try (ZipFile zip = new ZipFile(args[0])) {
             Map<String, byte[]> cache = new HashMap<>();
@@ -131,6 +144,10 @@ public class LegacyAssetMap {
                 if (found != null) composites.add(rel + "\t" + String.join("\t", found));
                 else ours.add(rel);
             }
+            // LOTR's files aren't in git, so a checkout (CI) has only what this converter run wrote: keep listed
+            // entries whose file isn't on disk instead of dropping them
+            keepMissing(COPIES, copies);
+            keepMissing(COMPOSITES, composites);
             Files.writeString(COPIES, lines(copies));
             Files.writeString(COMPOSITES, lines(composites));
             // LOTR's files stay on disk for the converter and dev runs but never in git (we have no rights to them)
