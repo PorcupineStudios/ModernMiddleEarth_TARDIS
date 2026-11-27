@@ -1,0 +1,15 @@
+name = "ringbearer-bugs"
+main = "src/worker.js"
+compatibility_date = "2026-11-01"
+
+[vars]
+REPO = "PorcupineStudios/ModernMiddleEarth_TARDIS"
+LABELS = "bug,from-game"
+DAILY_LIMIT_PER_IP = "10"
+
+# Create with `npx wrangler kv namespace create ATTACH` and paste the id it prints here.
+[[kv_namespaces]]
+binding = "ATTACH"
+id = "PASTE_KV_NAMESPACE_ID_HERE"
+
+# GITHUB_TOKEN is a secret: `npx wrangler secret put GITHUB_TOKEN` (never in this file).
