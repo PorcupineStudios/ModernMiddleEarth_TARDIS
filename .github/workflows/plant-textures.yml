@@ -32,6 +32,22 @@ jobs:
           token: ${{ secrets.RINGREALMS_TOKEN }}
           path: ringrealms
           sparse-checkout: libs
+      - name: Check the token for the LOTR export
+        env:
+          TOKEN: ${{ secrets.LOTR_EXPORT_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ] || ! curl -sf -H "Authorization: Bearer $TOKEN" \
+              https://api.github.com/repos/PorcupineStudios/LOTR_export > /dev/null; then
+            echo "::error::LOTR_EXPORT_TOKEN is missing or expired. Save a fine-grained token with read and write access to PorcupineStudios/LOTR_export contents as the repository secret LOTR_EXPORT_TOKEN, then run this again."
+            exit 1
+          fi
+      - name: LOTR export from its private repo
+        # plant_textures.py reads the export (blocks.json); it is LOTR's data, so it lives in PorcupineStudios/LOTR_export
+        uses: actions/checkout@v4
+        with:
+          repository: PorcupineStudios/LOTR_export
+          token: ${{ secrets.LOTR_EXPORT_TOKEN }}
+          path: converter/export
       - name: Plant textures and models, then list LOTR's files
         run: |
           mkdir -p converter/libs
