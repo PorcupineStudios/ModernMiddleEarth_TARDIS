@@ -190,5 +190,6 @@
   "taurethrim_rainforest": "enterFarHaradJungle",
   "far_harad_volcanic_fields": "enterFarHaradVolcano",
   "rhun_dry_steppe": "enterRhunLand",
-  "eastern_desolation_wastes": "enterMordor"
+  "eastern_desolation_wastes": "enterMordor",
+  "nurn_black_fens": "enterNurn"
 }

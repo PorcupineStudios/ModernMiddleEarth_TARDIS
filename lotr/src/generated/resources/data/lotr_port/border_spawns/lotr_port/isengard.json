@@ -2,35 +2,35 @@
   "entries": [
     {
       "npc": "lotr_port:isengard_snaga",
-      "weight": 33,
+      "weight": 25,
       "min": 4,
       "max": 6,
       "dark": true
     },
     {
       "npc": "lotr_port:isengard_snaga_archer",
-      "weight": 8,
+      "weight": 6,
       "min": 4,
       "max": 6,
       "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai",
-      "weight": 93,
+      "weight": 95,
       "min": 4,
       "max": 6,
       "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai_berserker",
-      "weight": 23,
+      "weight": 24,
       "min": 4,
       "max": 6,
       "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai_crossbower",
-      "weight": 46,
+      "weight": 47,
       "min": 4,
       "max": 6,
       "dark": true
@@ -44,7 +44,7 @@
     },
     {
       "npc": "lotr_port:uruk_warg",
-      "weight": 58,
+      "weight": 50,
       "min": 4,
       "max": 4,
       "dark": true

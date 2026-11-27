@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "biomesoplenty"
+      }
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:northfarthing_heather_moors",
+  "features": [
+    "regions_unexplored:tree/group/highland_fields",
+    "regions_unexplored:patch/daisies",
+    "regions_unexplored:patch/short_grass"
+  ],
+  "step": "vegetal_decoration"
+}

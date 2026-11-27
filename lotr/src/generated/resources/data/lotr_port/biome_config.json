@@ -157,6 +157,16 @@
     },
     "eriador": {
       "shire": {
+        "northfarthing_heather_moors": {
+          "caveEntrances": 0.3,
+          "ravines": 0.3,
+          "carverCaves": 1.0,
+          "surfaceCover": 4,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
+        },
         "shire": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
@@ -206,6 +216,16 @@
           "spaghettiCaves": true,
           "noodleCaves": true,
           "dripstoneCaves": 1.0
+        },
+        "woody_end_hollows": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
         }
       },
       "bree_land": {
@@ -1086,6 +1106,16 @@
           "noodleCaves": true,
           "lushCaves": 1.0
         },
+        "fangorn_felled_eaves": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "dripstoneCaves": 1.0
+        },
         "fangorn_wasteland": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
@@ -1498,6 +1528,16 @@
       },
       "nurn": {
         "nurn": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "dripstoneCaves": 1.0
+        },
+        "nurn_black_fens": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
           "carverCaves": 1.0,

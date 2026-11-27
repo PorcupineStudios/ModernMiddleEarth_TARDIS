@@ -209,7 +209,11 @@
     "taurethrim_rainforest": "far_harad_jungle",
     "far_harad_volcanic_fields": "far_harad",
     "rhun_dry_steppe": "rhun",
-    "eastern_desolation_wastes": "mordor"
+    "eastern_desolation_wastes": "mordor",
+    "northfarthing_heather_moors": "shire",
+    "woody_end_hollows": "shire",
+    "fangorn_felled_eaves": "isengard",
+    "nurn_black_fens": "mordor"
   },
   "playlists": {
     "angmar": [],

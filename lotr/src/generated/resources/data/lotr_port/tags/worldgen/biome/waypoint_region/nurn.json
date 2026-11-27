@@ -2,6 +2,7 @@
   "values": [
     "lotr_port:nurn",
     "lotr_port:nurn_marshes",
+    "lotr_port:nurn_black_fens",
     "lotr_port:nurnen"
   ]
 }

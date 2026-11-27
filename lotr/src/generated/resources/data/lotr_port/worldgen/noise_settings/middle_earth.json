@@ -5422,7 +5422,8 @@
               "if_true": {
                 "type": "minecraft:biome",
                 "biome_is": [
-                  "lotr_port:shire_woodlands"
+                  "lotr_port:shire_woodlands",
+                  "lotr_port:woody_end_hollows"
                 ]
               },
               "then_run": {
@@ -23999,6 +24000,7 @@
                   "lotr_port:dor_en_ernil_hills",
                   "lotr_port:eregion",
                   "lotr_port:fangorn_wasteland",
+                  "lotr_port:fangorn_felled_eaves",
                   "lotr_port:island",
                   "lotr_port:lone_lands_hills",
                   "lotr_port:ocean",
@@ -25575,7 +25577,8 @@
                 "type": "minecraft:biome",
                 "biome_is": [
                   "lotr_port:shire",
-                  "lotr_port:shire_moors"
+                  "lotr_port:shire_moors",
+                  "lotr_port:northfarthing_heather_moors"
                 ]
               },
               "then_run": {
@@ -47736,7 +47739,8 @@
               "if_true": {
                 "type": "minecraft:biome",
                 "biome_is": [
-                  "lotr_port:nurn_marshes"
+                  "lotr_port:nurn_marshes",
+                  "lotr_port:nurn_black_fens"
                 ]
               },
               "then_run": {
@@ -60304,6 +60308,7 @@
             "lotr_port:nan_ungol",
             "lotr_port:nurn",
             "lotr_port:nurn_marshes",
+            "lotr_port:nurn_black_fens",
             "lotr_port:nurnen",
             "lotr_port:udun"
           ]

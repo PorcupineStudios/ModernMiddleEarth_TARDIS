@@ -32,6 +32,7 @@
     "lotr_port:ettenmoors": "lotr_port:angmar",
     "lotr_port:fangorn": "lotr_port:fangorn",
     "lotr_port:fangorn_clearing": "lotr_port:fangorn",
+    "lotr_port:fangorn_felled_eaves": "lotr_port:isengard",
     "lotr_port:fangorn_wasteland": "lotr_port:isengard",
     "lotr_port:far_harad": "lotr_port:morwaith",
     "lotr_port:far_harad_arid": "lotr_port:morwaith",
@@ -82,7 +83,9 @@
     "lotr_port:near_harad_red_desert": "lotr_port:near_harad",
     "lotr_port:near_harad_riverbank": "lotr_port:near_harad",
     "lotr_port:near_harad_semi_desert": "lotr_port:near_harad",
+    "lotr_port:northfarthing_heather_moors": "lotr_port:hobbit",
     "lotr_port:nurn": "lotr_port:mordor",
+    "lotr_port:nurn_black_fens": "lotr_port:mordor",
     "lotr_port:nurn_marshes": "lotr_port:mordor",
     "lotr_port:old_forest": "lotr_port:dark_huorn",
     "lotr_port:pelargir": "lotr_port:gondor",
@@ -117,7 +120,8 @@
     "lotr_port:withywindle_willow_groves": "lotr_port:dark_huorn",
     "lotr_port:wold": "lotr_port:rohan",
     "lotr_port:woodland_realm": "lotr_port:wood_elf",
-    "lotr_port:woodland_realm_hills": "lotr_port:wood_elf"
+    "lotr_port:woodland_realm_hills": "lotr_port:wood_elf",
+    "lotr_port:woody_end_hollows": "lotr_port:hobbit"
   },
   "fill": [
     "lotr_port:enchanted_river",

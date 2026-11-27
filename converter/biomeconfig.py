@@ -48,7 +48,7 @@ LANDS = {
 }
 # biomes in no waypoint region
 EXTRA = {"river": "waters", "lake": "waters", "fangorn_wasteland": "fangorn", "mordor_mountains": "mordor",
-         "entwash_mouth": "rohan"}
+         "entwash_mouth": "rohan", "fangorn_felled_eaves": "fangorn"}  # the last: compat.py's, on fangorn_wasteland
 WATER = ("ocean", "river", "lake", "beach")
 
 # The settings, in config order: (key, kind, low, high, help). Kind "chance" and "number" are decimals, "blocks" a

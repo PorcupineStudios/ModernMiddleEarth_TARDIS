@@ -6624,5 +6624,9 @@
   "biome.lotr_port.taurethrim_rainforest": "Rainforest of the Taurethrim",
   "biome.lotr_port.far_harad_volcanic_fields": "Volcanic Fields of Far Harad",
   "biome.lotr_port.rhun_dry_steppe": "Dry Steppe of Rhun",
-  "biome.lotr_port.eastern_desolation_wastes": "Wastes of the Eastern Desolation"
+  "biome.lotr_port.eastern_desolation_wastes": "Wastes of the Eastern Desolation",
+  "biome.lotr_port.northfarthing_heather_moors": "Heather-moors of the Northfarthing",
+  "biome.lotr_port.woody_end_hollows": "Hollows of the Woody End",
+  "biome.lotr_port.fangorn_felled_eaves": "Felled Eaves of Fangorn",
+  "biome.lotr_port.nurn_black_fens": "Black Fens of Nurn"
 }

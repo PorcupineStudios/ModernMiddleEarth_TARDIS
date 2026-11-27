@@ -1,0 +1,15 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:fangorn_felled_eaves",
+  "features": [
+    "biomesoplenty:trees_dead_forest",
+    "biomesoplenty:patch_grass_3"
+  ],
+  "step": "vegetal_decoration"
+}

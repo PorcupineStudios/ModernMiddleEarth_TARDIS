@@ -1854,5 +1854,16 @@
         "lotr_port:rhun"
       ]
     }
+  ],
+  "fangorn_felled_eaves": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:uruk_hai",
+        "lotr_port:rohan",
+        "lotr_port:eastemnet_tall_grass",
+        "lotr_port:fangorn"
+      ]
+    }
   ]
 }

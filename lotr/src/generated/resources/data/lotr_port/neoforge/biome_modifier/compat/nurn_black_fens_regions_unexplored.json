@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "biomesoplenty"
+      }
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:nurn_black_fens",
+  "features": [
+    "regions_unexplored:tree/group/fen",
+    "regions_unexplored:tree/fallen/oak_dense",
+    "regions_unexplored:shrub/group/fen",
+    "regions_unexplored:patch/duckweed",
+    "regions_unexplored:patch/cattail_dense",
+    "regions_unexplored:patch/fern_dense",
+    "regions_unexplored:patch/short_grass_dense"
+  ],
+  "step": "vegetal_decoration"
+}

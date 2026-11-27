@@ -1,0 +1,115 @@
+{
+  "has_precipitation": true,
+  "temperature": 0.7,
+  "downfall": 0.4,
+  "effects": {
+    "fog_color": 12638463,
+    "sky_color": 7972607,
+    "water_color": 7186907,
+    "water_fog_color": 329011,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    }
+  },
+  "spawners": {
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "maxCount": 8,
+        "minCount": 8,
+        "weight": 10
+      }
+    ],
+    "underground_water_creature": [
+      {
+        "type": "minecraft:glow_squid",
+        "maxCount": 6,
+        "minCount": 4,
+        "weight": 10
+      }
+    ]
+  },
+  "spawn_costs": {},
+  "carvers": {
+    "air": [
+      "lotr_port:cave",
+      "lotr_port:cave_extra_underground",
+      "lotr_port:canyon"
+    ]
+  },
+  "features": [
+    [],
+    [
+      "lotr_port:crater_lava"
+    ],
+    [
+      "lotr_port:roads",
+      "minecraft:amethyst_geode",
+      "lotr_port:dripstone_pocket_large"
+    ],
+    [],
+    [],
+    [],
+    [
+      "lotr_port:ore/amber_vein_0",
+      "lotr_port:ore/tanzanite_vein_2",
+      "lotr_port:ore/copper_ore_4",
+      "lotr_port:ore/diamond_vein_5",
+      "lotr_port:ore/emerald_vein_8",
+      "lotr_port:ore/niter_ore_23",
+      "lotr_port:ore/opal_vein_24",
+      "lotr_port:ore/rock_salt_30",
+      "lotr_port:ore/ruby_vein_32",
+      "lotr_port:ore/sapphire_vein_33",
+      "lotr_port:ore/silver_ore_35",
+      "lotr_port:ore/sulfur_ore_36",
+      "lotr_port:ore/tin_ore_37",
+      "lotr_port:ore/topaz_vein_38",
+      "lotr_port:ore/coal_ore_40",
+      "lotr_port:ore/dirt_42",
+      "lotr_port:ore/gold_ore_45",
+      "lotr_port:ore/gravel_46",
+      "lotr_port:ore/iron_ore_49",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff"
+    ],
+    [
+      "lotr_port:dripstone",
+      "lotr_port:dripstone_pocket_cluster",
+      "lotr_port:dripstone_pocket_pointed"
+    ],
+    [],
+    [
+      "lotr_port:trees/fangorn_wasteland",
+      "lotr_port:forest_floor/1_3",
+      "lotr_port:plant/reeds_0_9",
+      "lotr_port:plant/dried_reeds_0_1",
+      "lotr_port:plant_grass/clover_r3",
+      "lotr_port:plant_grass/flax_plant_r64",
+      "lotr_port:plant_grass/flowery_grass_r5",
+      "lotr_port:plant_grass/nettles_r20",
+      "lotr_port:plant_grass/short_grass_c2",
+      "lotr_port:plant_grass/thistle_r40",
+      "lotr_port:plant_grass/wheatgrass_r4",
+      "lotr_port:plant_grass/minecraft_fern_c2",
+      "lotr_port:plant_grass/minecraft_short_grass_r2",
+      "lotr_port:plant_double_grass/minecraft_large_fern_r6",
+      "lotr_port:plant_double_grass/minecraft_tall_grass_r5",
+      "lotr_port:plant_flowers/minecraft_dandelion_r80",
+      "lotr_port:plant_flowers/minecraft_poppy_r640",
+      "minecraft:glow_lichen"
+    ],
+    [
+      "lotr_port:road_verge",
+      "minecraft:freeze_top_layer"
+    ]
+  ]
+}
