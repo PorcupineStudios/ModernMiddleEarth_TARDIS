@@ -28,7 +28,8 @@ public final class RoadWorksTests {
     private static final ResourceLocation DIRT_PATH = LotrPort.id("dirt_path");
     private static final ResourceLocation COBBLE = LotrPort.id("cobble_road");
 
-    @GameTest(template = "empty", batch = "road_works")
+    // sky access: else the runner's barrier ceiling is the heightmap top, and paving rightly skips covered columns
+    @GameTest(template = "empty", batch = "road_works", skyAccess = true)
     public static void stretchPavesNaturalGroundOnly(GameTestHelper helper) {
         var server = helper.getLevel().getServer();
         for (int x = 0; x < 16; x++) {
