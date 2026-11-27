@@ -1,0 +1,24 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "regions_unexplored"
+      }
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:rhun_dry_steppe",
+  "features": [
+    "biomesoplenty:patch_dead_grass",
+    "biomesoplenty:patch_desert_grass_extra",
+    "biomesoplenty:wasteland_grass_2",
+    "biomesoplenty:patch_grass_6"
+  ],
+  "step": "vegetal_decoration"
+}

@@ -53,7 +53,46 @@
       "lotr_port:half_troll_forest",
       "lotr_port:mirkwood_enchanted",
       "lotr_port:mirkwood_spider_nests",
-      "lotr_port:enchanted_river"
+      "lotr_port:enchanted_river",
+      "lotr_port:withywindle_willow_groves",
+      "lotr_port:midgewater_fens",
+      "lotr_port:chetwood_deepwood",
+      "lotr_port:ettenmoor_crags",
+      "lotr_port:trollshaw_pinewoods",
+      "lotr_port:imladris_autumn_woods",
+      "lotr_port:angmar_ashen_woods",
+      "lotr_port:lindon_silver_birchwoods",
+      "lotr_port:ered_luin_pine_slopes",
+      "lotr_port:eryn_vorn_blackwoods",
+      "lotr_port:dunland_scrub",
+      "lotr_port:forochel_muskeg",
+      "lotr_port:northern_golden_larchwoods",
+      "lotr_port:anduin_floodmeadows",
+      "lotr_port:gladden_iris_fens",
+      "lotr_port:elvenking_old_woods",
+      "lotr_port:dol_guldur_shadow_woods",
+      "lotr_port:brown_lands_deadwood",
+      "lotr_port:wilderland_long_grass",
+      "lotr_port:grey_mountain_boreal_woods",
+      "lotr_port:dale_orchards",
+      "lotr_port:emyn_muil_crags",
+      "lotr_port:dead_marshes_bogs",
+      "lotr_port:wetwang_reedbeds",
+      "lotr_port:eastemnet_tall_grass",
+      "lotr_port:ered_nimrais_upland_meadows",
+      "lotr_port:ithilien_gardens",
+      "lotr_port:lebennin_flower_fields",
+      "lotr_port:lossarnach_flowering_vales",
+      "lotr_port:dor_en_ernil_groves",
+      "lotr_port:ethir_anduin_marshes",
+      "lotr_port:pinnath_gelin_green_downs",
+      "lotr_port:haradwaith_drylands",
+      "lotr_port:harnedor_scrublands",
+      "lotr_port:far_harad_baobab_savanna",
+      "lotr_port:taurethrim_rainforest",
+      "lotr_port:far_harad_volcanic_fields",
+      "lotr_port:rhun_dry_steppe",
+      "lotr_port:eastern_desolation_wastes"
     ]
   },
   "ranges": {
@@ -1507,6 +1546,201 @@
       "id": "lotr_port:enchanted_river",
       "height": 47.0,
       "variation": 0.0
+    },
+    {
+      "id": "lotr_port:withywindle_willow_groves",
+      "height": 80.3,
+      "variation": 12.7
+    },
+    {
+      "id": "lotr_port:midgewater_fens",
+      "height": 63.5,
+      "variation": 3.6
+    },
+    {
+      "id": "lotr_port:chetwood_deepwood",
+      "height": 76.4,
+      "variation": 11.1
+    },
+    {
+      "id": "lotr_port:ettenmoor_crags",
+      "height": 80.92,
+      "variation": 11.62
+    },
+    {
+      "id": "lotr_port:trollshaw_pinewoods",
+      "height": 77.3,
+      "variation": 20.3
+    },
+    {
+      "id": "lotr_port:imladris_autumn_woods",
+      "height": 98.15,
+      "variation": 4.92
+    },
+    {
+      "id": "lotr_port:angmar_ashen_woods",
+      "height": 77.2,
+      "variation": 13.4
+    },
+    {
+      "id": "lotr_port:lindon_silver_birchwoods",
+      "height": 73.79,
+      "variation": 9.18
+    },
+    {
+      "id": "lotr_port:ered_luin_pine_slopes",
+      "height": 85.8,
+      "variation": 16.0
+    },
+    {
+      "id": "lotr_port:eryn_vorn_blackwoods",
+      "height": 77.1,
+      "variation": 11.2
+    },
+    {
+      "id": "lotr_port:dunland_scrub",
+      "height": 75.8,
+      "variation": 8.9
+    },
+    {
+      "id": "lotr_port:forochel_muskeg",
+      "height": 68.3,
+      "variation": 5.7
+    },
+    {
+      "id": "lotr_port:northern_golden_larchwoods",
+      "height": 72.3,
+      "variation": 11.6
+    },
+    {
+      "id": "lotr_port:anduin_floodmeadows",
+      "height": 67.3,
+      "variation": 6.9
+    },
+    {
+      "id": "lotr_port:gladden_iris_fens",
+      "height": 62.3,
+      "variation": 3.7
+    },
+    {
+      "id": "lotr_port:elvenking_old_woods",
+      "height": 71.3,
+      "variation": 6.1
+    },
+    {
+      "id": "lotr_port:dol_guldur_shadow_woods",
+      "height": 76.8,
+      "variation": 12.3
+    },
+    {
+      "id": "lotr_port:brown_lands_deadwood",
+      "height": 70.5,
+      "variation": 4.7
+    },
+    {
+      "id": "lotr_port:wilderland_long_grass",
+      "height": 74.75,
+      "variation": 10.85
+    },
+    {
+      "id": "lotr_port:grey_mountain_boreal_woods",
+      "height": 86.0,
+      "variation": 13.5
+    },
+    {
+      "id": "lotr_port:dale_orchards",
+      "height": 69.6,
+      "variation": 7.7
+    },
+    {
+      "id": "lotr_port:emyn_muil_crags",
+      "height": 72.3,
+      "variation": 11.6
+    },
+    {
+      "id": "lotr_port:dead_marshes_bogs",
+      "height": 61.3,
+      "variation": 0.9
+    },
+    {
+      "id": "lotr_port:wetwang_reedbeds",
+      "height": 62.3,
+      "variation": 2.9
+    },
+    {
+      "id": "lotr_port:eastemnet_tall_grass",
+      "height": 72.2,
+      "variation": 7.0
+    },
+    {
+      "id": "lotr_port:ered_nimrais_upland_meadows",
+      "height": 84.9,
+      "variation": 14.7
+    },
+    {
+      "id": "lotr_port:ithilien_gardens",
+      "height": 73.57,
+      "variation": 11.19
+    },
+    {
+      "id": "lotr_port:lebennin_flower_fields",
+      "height": 71.4,
+      "variation": 10.2
+    },
+    {
+      "id": "lotr_port:lossarnach_flowering_vales",
+      "height": 68.8,
+      "variation": 6.9
+    },
+    {
+      "id": "lotr_port:dor_en_ernil_groves",
+      "height": 71.99,
+      "variation": 7.27
+    },
+    {
+      "id": "lotr_port:ethir_anduin_marshes",
+      "height": 59.9,
+      "variation": 5.7
+    },
+    {
+      "id": "lotr_port:pinnath_gelin_green_downs",
+      "height": 79.8,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:haradwaith_drylands",
+      "height": 73.9,
+      "variation": 6.5
+    },
+    {
+      "id": "lotr_port:harnedor_scrublands",
+      "height": 69.3,
+      "variation": 7.4
+    },
+    {
+      "id": "lotr_port:far_harad_baobab_savanna",
+      "height": 68.7,
+      "variation": 6.0
+    },
+    {
+      "id": "lotr_port:taurethrim_rainforest",
+      "height": 76.9,
+      "variation": 16.2
+    },
+    {
+      "id": "lotr_port:far_harad_volcanic_fields",
+      "height": 91.0,
+      "variation": 20.1
+    },
+    {
+      "id": "lotr_port:rhun_dry_steppe",
+      "height": 71.8,
+      "variation": 6.2
+    },
+    {
+      "id": "lotr_port:eastern_desolation_wastes",
+      "height": 70.5,
+      "variation": 5.9
     }
   ],
   "seas": {
@@ -1548,6 +1782,286 @@
         "lotr_port:river"
       ],
       "biome": "lotr_port:enchanted_river"
+    },
+    {
+      "region": "withywindle_willow_groves",
+      "on": [
+        "lotr_port:old_forest"
+      ],
+      "biome": "lotr_port:withywindle_willow_groves"
+    },
+    {
+      "region": "midgewater_fens",
+      "on": [
+        "lotr_port:midgewater"
+      ],
+      "biome": "lotr_port:midgewater_fens"
+    },
+    {
+      "region": "chetwood_deepwood",
+      "on": [
+        "lotr_port:chetwood"
+      ],
+      "biome": "lotr_port:chetwood_deepwood"
+    },
+    {
+      "region": "ettenmoor_crags",
+      "on": [
+        "lotr_port:ettenmoors",
+        "lotr_port:coldfells"
+      ],
+      "biome": "lotr_port:ettenmoor_crags"
+    },
+    {
+      "region": "trollshaw_pinewoods",
+      "on": [
+        "lotr_port:trollshaws"
+      ],
+      "biome": "lotr_port:trollshaw_pinewoods"
+    },
+    {
+      "region": "imladris_autumn_woods",
+      "on": [
+        "lotr_port:rivendell",
+        "lotr_port:rivendell_hills"
+      ],
+      "biome": "lotr_port:imladris_autumn_woods"
+    },
+    {
+      "region": "angmar_ashen_woods",
+      "on": [
+        "lotr_port:angmar"
+      ],
+      "biome": "lotr_port:angmar_ashen_woods"
+    },
+    {
+      "region": "lindon_silver_birchwoods",
+      "on": [
+        "lotr_port:lindon",
+        "lotr_port:lindon_woodlands"
+      ],
+      "biome": "lotr_port:lindon_silver_birchwoods"
+    },
+    {
+      "region": "ered_luin_pine_slopes",
+      "on": [
+        "lotr_port:blue_mountains_foothills"
+      ],
+      "biome": "lotr_port:ered_luin_pine_slopes"
+    },
+    {
+      "region": "eryn_vorn_blackwoods",
+      "on": [
+        "lotr_port:eryn_vorn"
+      ],
+      "biome": "lotr_port:eryn_vorn_blackwoods"
+    },
+    {
+      "region": "dunland_scrub",
+      "on": [
+        "lotr_port:dunland"
+      ],
+      "biome": "lotr_port:dunland_scrub"
+    },
+    {
+      "region": "forochel_muskeg",
+      "on": [
+        "lotr_port:tundra"
+      ],
+      "biome": "lotr_port:forochel_muskeg"
+    },
+    {
+      "region": "northern_golden_larchwoods",
+      "on": [
+        "lotr_port:taiga"
+      ],
+      "biome": "lotr_port:northern_golden_larchwoods"
+    },
+    {
+      "region": "anduin_floodmeadows",
+      "on": [
+        "lotr_port:anduin_vale"
+      ],
+      "biome": "lotr_port:anduin_floodmeadows"
+    },
+    {
+      "region": "gladden_iris_fens",
+      "on": [
+        "lotr_port:gladden_fields"
+      ],
+      "biome": "lotr_port:gladden_iris_fens"
+    },
+    {
+      "region": "elvenking_old_woods",
+      "on": [
+        "lotr_port:woodland_realm",
+        "lotr_port:woodland_realm_hills"
+      ],
+      "biome": "lotr_port:elvenking_old_woods"
+    },
+    {
+      "region": "dol_guldur_shadow_woods",
+      "on": [
+        "lotr_port:mirkwood_corrupted"
+      ],
+      "biome": "lotr_port:dol_guldur_shadow_woods"
+    },
+    {
+      "region": "brown_lands_deadwood",
+      "on": [
+        "lotr_port:brown_lands"
+      ],
+      "biome": "lotr_port:brown_lands_deadwood"
+    },
+    {
+      "region": "wilderland_long_grass",
+      "on": [
+        "lotr_port:wilderland",
+        "lotr_port:wilderland_north"
+      ],
+      "biome": "lotr_port:wilderland_long_grass"
+    },
+    {
+      "region": "grey_mountain_boreal_woods",
+      "on": [
+        "lotr_port:grey_mountains_foothills"
+      ],
+      "biome": "lotr_port:grey_mountain_boreal_woods"
+    },
+    {
+      "region": "dale_orchards",
+      "on": [
+        "lotr_port:dale"
+      ],
+      "biome": "lotr_port:dale_orchards"
+    },
+    {
+      "region": "emyn_muil_crags",
+      "on": [
+        "lotr_port:emyn_muil"
+      ],
+      "biome": "lotr_port:emyn_muil_crags"
+    },
+    {
+      "region": "dead_marshes_bogs",
+      "on": [
+        "lotr_port:dead_marshes"
+      ],
+      "biome": "lotr_port:dead_marshes_bogs"
+    },
+    {
+      "region": "wetwang_reedbeds",
+      "on": [
+        "lotr_port:nindalf"
+      ],
+      "biome": "lotr_port:wetwang_reedbeds"
+    },
+    {
+      "region": "eastemnet_tall_grass",
+      "on": [
+        "lotr_port:rohan"
+      ],
+      "biome": "lotr_port:eastemnet_tall_grass"
+    },
+    {
+      "region": "ered_nimrais_upland_meadows",
+      "on": [
+        "lotr_port:white_mountains_foothills"
+      ],
+      "biome": "lotr_port:ered_nimrais_upland_meadows"
+    },
+    {
+      "region": "ithilien_gardens",
+      "on": [
+        "lotr_port:ithilien",
+        "lotr_port:ithilien_hills"
+      ],
+      "biome": "lotr_port:ithilien_gardens"
+    },
+    {
+      "region": "lebennin_flower_fields",
+      "on": [
+        "lotr_port:lebennin"
+      ],
+      "biome": "lotr_port:lebennin_flower_fields"
+    },
+    {
+      "region": "lossarnach_flowering_vales",
+      "on": [
+        "lotr_port:lossarnach"
+      ],
+      "biome": "lotr_port:lossarnach_flowering_vales"
+    },
+    {
+      "region": "dor_en_ernil_groves",
+      "on": [
+        "lotr_port:dor_en_ernil",
+        "lotr_port:dor_en_ernil_hills"
+      ],
+      "biome": "lotr_port:dor_en_ernil_groves"
+    },
+    {
+      "region": "ethir_anduin_marshes",
+      "on": [
+        "lotr_port:anduin_mouth"
+      ],
+      "biome": "lotr_port:ethir_anduin_marshes"
+    },
+    {
+      "region": "pinnath_gelin_green_downs",
+      "on": [
+        "lotr_port:pinnath_gelin"
+      ],
+      "biome": "lotr_port:pinnath_gelin_green_downs"
+    },
+    {
+      "region": "haradwaith_drylands",
+      "on": [
+        "lotr_port:near_harad_semi_desert"
+      ],
+      "biome": "lotr_port:haradwaith_drylands"
+    },
+    {
+      "region": "harnedor_scrublands",
+      "on": [
+        "lotr_port:harnedor"
+      ],
+      "biome": "lotr_port:harnedor_scrublands"
+    },
+    {
+      "region": "far_harad_baobab_savanna",
+      "on": [
+        "lotr_port:far_harad"
+      ],
+      "biome": "lotr_port:far_harad_baobab_savanna"
+    },
+    {
+      "region": "taurethrim_rainforest",
+      "on": [
+        "lotr_port:far_harad_jungle"
+      ],
+      "biome": "lotr_port:taurethrim_rainforest"
+    },
+    {
+      "region": "far_harad_volcanic_fields",
+      "on": [
+        "lotr_port:far_harad_volcano"
+      ],
+      "biome": "lotr_port:far_harad_volcanic_fields"
+    },
+    {
+      "region": "rhun_dry_steppe",
+      "on": [
+        "lotr_port:rhun_land_steppe"
+      ],
+      "biome": "lotr_port:rhun_dry_steppe"
+    },
+    {
+      "region": "eastern_desolation_wastes",
+      "on": [
+        "lotr_port:eastern_desolation"
+      ],
+      "biome": "lotr_port:eastern_desolation_wastes"
     }
   ],
   "lairs": {

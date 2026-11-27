@@ -2,70 +2,70 @@
   "entries": [
     {
       "npc": "lotr_port:angmar_hillman",
-      "weight": 18,
+      "weight": 22,
       "min": 4,
       "max": 6,
       "dark": false
     },
     {
       "npc": "lotr_port:angmar_hillman_axe_thrower",
-      "weight": 9,
+      "weight": 11,
       "min": 4,
       "max": 6,
       "dark": false
     },
     {
       "npc": "lotr_port:angmar_hillman_warrior",
-      "weight": 9,
+      "weight": 11,
       "min": 4,
       "max": 6,
       "dark": false
     },
     {
       "npc": "lotr_port:angmar_orc",
-      "weight": 30,
+      "weight": 35,
       "min": 4,
       "max": 6,
       "dark": true
     },
     {
       "npc": "lotr_port:angmar_orc_archer",
-      "weight": 15,
+      "weight": 17,
       "min": 4,
       "max": 6,
       "dark": true
     },
     {
       "npc": "lotr_port:angmar_orc_bombardier",
-      "weight": 6,
+      "weight": 7,
       "min": 1,
       "max": 2,
       "dark": true
     },
     {
       "npc": "lotr_port:angmar_warg",
-      "weight": 38,
+      "weight": 44,
       "min": 4,
       "max": 4,
       "dark": true
     },
     {
       "npc": "lotr_port:mountain_troll",
-      "weight": 36,
+      "weight": 44,
       "min": 1,
       "max": 3,
       "dark": true
     },
     {
       "npc": "lotr_port:snow_troll",
-      "weight": 29,
+      "weight": 22,
       "min": 1,
       "max": 3,
       "dark": true
     },
     {
       "npc": "lotr_port:troll",
-      "weight": 60,
+      "weight": 73,
       "min": 1,
       "max": 3,
       "dark": true

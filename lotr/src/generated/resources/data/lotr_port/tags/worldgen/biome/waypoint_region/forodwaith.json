@@ -5,6 +5,8 @@
     "lotr_port:forodwaith_glacier",
     "lotr_port:forodwaith_mountains",
     "lotr_port:taiga",
-    "lotr_port:tundra"
+    "lotr_port:northern_golden_larchwoods",
+    "lotr_port:tundra",
+    "lotr_port:forochel_muskeg"
   ]
 }

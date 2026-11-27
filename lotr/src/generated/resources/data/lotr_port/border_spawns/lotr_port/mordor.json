@@ -2,21 +2,21 @@
   "entries": [
     {
       "npc": "lotr_port:black_uruk",
-      "weight": 9,
+      "weight": 10,
       "min": 4,
       "max": 6,
       "dark": true
     },
     {
       "npc": "lotr_port:black_uruk_archer",
-      "weight": 4,
+      "weight": 5,
       "min": 4,
       "max": 6,
       "dark": true
     },
     {
       "npc": "lotr_port:mordor_orc",
-      "weight": 73,
+      "weight": 72,
       "min": 4,
       "max": 6,
       "dark": true
@@ -37,21 +37,21 @@
     },
     {
       "npc": "lotr_port:mordor_spider",
-      "weight": 11,
+      "weight": 10,
       "min": 4,
       "max": 4,
       "dark": true
     },
     {
       "npc": "lotr_port:mordor_warg",
-      "weight": 58,
+      "weight": 62,
       "min": 4,
       "max": 4,
       "dark": true
     },
     {
       "npc": "lotr_port:olog_hai",
-      "weight": 18,
+      "weight": 20,
       "min": 1,
       "max": 3,
       "dark": true

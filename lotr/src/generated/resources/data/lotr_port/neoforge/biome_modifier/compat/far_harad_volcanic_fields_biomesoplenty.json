@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:far_harad_volcanic_fields",
+  "features": [
+    "biomesoplenty:trees_volcanic_plains",
+    "biomesoplenty:mossy_black_sand_splatter",
+    "biomesoplenty:patch_sprouts_10",
+    "biomesoplenty:patch_grass_12"
+  ],
+  "step": "vegetal_decoration"
+}

@@ -1,0 +1,29 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "biomesoplenty"
+      }
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:forochel_muskeg",
+  "features": [
+    "regions_unexplored:patch/grass_sprouts_sparse",
+    "regions_unexplored:tree/larch_dense",
+    "regions_unexplored:tree/golden_larch_sparse",
+    "regions_unexplored:tree/birch_aspen",
+    "regions_unexplored:tree/oak_bush_sparse",
+    "regions_unexplored:fallen_larch",
+    "regions_unexplored:azure_daisy",
+    "regions_unexplored:snowbelle",
+    "regions_unexplored:larch_shrub"
+  ],
+  "step": "vegetal_decoration"
+}

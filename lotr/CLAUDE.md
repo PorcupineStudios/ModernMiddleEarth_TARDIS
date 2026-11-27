@@ -189,6 +189,23 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   columns with the cuts match the full formula exactly. Benchmark (one runner, 512x512 squares, seed 12345):
   Shire 44 s before -> 31 s, the same as the world at y 320; Misty Mountains 84 s (y 320 flattens them: 57 s).
   The world check's leaf failure on seed 7866868388345729068 (Gondor woodlands, 64928 74 59930) predates the cuts.
+- No floating terrain (2026-11-26, Aaron: floating islands in playtests; "stable through set rules rather than pure 3d
+  randomization"): LOTR's blended noise is sampled at y 0 only (`flat_cache` round `old_blended_noise`, world.py), so
+  hills are a 2D height offset and every column's density falls with y and crosses zero once (the 4x-steeper ground,
+  the band and the interpolation all keep that). No overhangs either. Noodle caves only in deep rock (terrain density
+  >= 1.5625, as cheese and spaghetti; noisecaves.py): near the ground they left thin crusts. Cave entrances and the
+  ranges' carvers still open the ground. GameTest `terrainHasNoFloatingRock` (ground scans, caves off, round the
+  roughness spots).
+- Regions Unexplored / Biomes O' Plenty (2026-11-26, optional; `converter/compat.py`, input `converter/compat/mods.json`):
+  their copies of LOTR's things (the 8 shared woods with their id shifts `<w>_log` -> `<w>_wood`, `<w>_wood` ->
+  `<w>_bark`, planks/slabs/stairs `<w>_wood_*`; chalk, white sand/sandstone, clover, lavender, hibiscus, reeds, willow
+  vines) drop as LOTR's (global loot modifier `lotr_port:replace_drops`, `compat/ReplaceDropsModifier`) and craft 1:1
+  into them; what only the two mods share goes to Regions Unexplored's. Report `converter/compat/unify_report.json`.
+  Their trees in the world keep their own blocks until broken. 39 sub-biomes (compat.py `SUBBIOMES`: "Gardens of
+  Ithilien" from BOP's Mediterranean forest, "Withywindle Willow-groves" from RU's willow forest...) painted in seeded
+  patches over their LOTR base by regions.py (`compat.extend`); base everything plus grass/foliage halfway to the mod
+  biome's; biome modifiers `neoforge/biome_modifier/compat/` add the mod biome's own vegetation and take out the
+  base's `trees/<base>` when that mod is installed (first listed source wins). Not looked at in game with either mod.
 - Mountain ores, caves, Heart of the Mountain (2026-11-17, Aaron: mountains had lost ores and caves): LOTR's ores sit
   under y 48 and vanilla caves under 180, so the 640-high ranges were bare stone. Biome modifiers
   (`data/lotr_port/neoforge/biome_modifier/`, biome tag `lotr_port:middle_earth`) add `world/feature/MountainOresFeature`

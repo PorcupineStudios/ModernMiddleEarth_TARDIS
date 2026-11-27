@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:dor_en_ernil_groves",
+  "features": [
+    "regions_unexplored:patch/grass_sprouts_sparse",
+    "regions_unexplored:tree/oak_with_branch",
+    "regions_unexplored:tree/maple_sparse",
+    "regions_unexplored:tree/birch_aspen",
+    "regions_unexplored:meadow_rock",
+    "regions_unexplored:fallen_oak_tree_sparse",
+    "regions_unexplored:grass",
+    "regions_unexplored:purple_coneflower",
+    "regions_unexplored:oak_shrub"
+  ],
+  "step": "vegetal_decoration"
+}

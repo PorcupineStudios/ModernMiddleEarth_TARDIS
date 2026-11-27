@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "regions_unexplored"
+        }
+      ]
+    }
+  ],
+  "type": "neoforge:remove_features",
+  "biomes": "lotr_port:ered_nimrais_upland_meadows",
+  "features": [
+    "lotr_port:trees/white_mountains_foothills"
+  ],
+  "steps": [
+    "vegetal_decoration"
+  ]
+}

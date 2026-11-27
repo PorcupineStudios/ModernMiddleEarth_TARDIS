@@ -2,15 +2,19 @@
   "values": [
     "lotr_port:anduin_hills",
     "lotr_port:anduin_vale",
+    "lotr_port:anduin_floodmeadows",
     "lotr_port:enedwaith",
     "lotr_port:eriador",
     "lotr_port:eriador_downs",
     "lotr_port:eryn_vorn",
+    "lotr_port:eryn_vorn_blackwoods",
     "lotr_port:gladden_fields",
+    "lotr_port:gladden_iris_fens",
     "lotr_port:long_marshes",
     "lotr_port:minhiriath",
     "lotr_port:swanfleet",
     "lotr_port:wilderland",
+    "lotr_port:wilderland_long_grass",
     "lotr_port:wilderland_north"
   ]
 }

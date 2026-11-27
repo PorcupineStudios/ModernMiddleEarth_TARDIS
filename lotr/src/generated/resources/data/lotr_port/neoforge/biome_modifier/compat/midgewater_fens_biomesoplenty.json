@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "regions_unexplored"
+      }
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:midgewater_fens",
+  "features": [
+    "biomesoplenty:trees_bog",
+    "biomesoplenty:patch_bush_10",
+    "biomesoplenty:patch_fern_4",
+    "biomesoplenty:patch_reed_10",
+    "biomesoplenty:patch_grass_6"
+  ],
+  "step": "vegetal_decoration"
+}

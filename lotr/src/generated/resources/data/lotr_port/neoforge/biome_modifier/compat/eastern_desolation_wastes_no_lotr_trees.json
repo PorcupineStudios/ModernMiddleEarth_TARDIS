@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "biomesoplenty"
+        }
+      ]
+    }
+  ],
+  "type": "neoforge:remove_features",
+  "biomes": "lotr_port:eastern_desolation_wastes",
+  "features": [
+    "lotr_port:trees/eastern_desolation"
+  ],
+  "steps": [
+    "vegetal_decoration"
+  ]
+}

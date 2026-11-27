@@ -1,6 +1,7 @@
 {
   "values": [
     "lotr_port:far_harad",
+    "lotr_port:far_harad_baobab_savanna",
     "lotr_port:far_harad_arid",
     "lotr_port:far_harad_arid_hills",
     "lotr_port:far_harad_bushland",
@@ -11,6 +12,7 @@
     "lotr_port:far_harad_kanuka",
     "lotr_port:far_harad_mangrove",
     "lotr_port:far_harad_swamp",
-    "lotr_port:far_harad_volcano"
+    "lotr_port:far_harad_volcano",
+    "lotr_port:far_harad_volcanic_fields"
   ]
 }

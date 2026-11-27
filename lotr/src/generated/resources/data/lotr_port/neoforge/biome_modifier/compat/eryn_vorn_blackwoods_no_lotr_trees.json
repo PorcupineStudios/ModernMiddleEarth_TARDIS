@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "regions_unexplored"
+        },
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "biomesoplenty"
+        }
+      ]
+    }
+  ],
+  "type": "neoforge:remove_features",
+  "biomes": "lotr_port:eryn_vorn_blackwoods",
+  "features": [
+    "lotr_port:trees/eryn_vorn"
+  ],
+  "steps": [
+    "vegetal_decoration"
+  ]
+}

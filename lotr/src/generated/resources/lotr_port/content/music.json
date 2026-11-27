@@ -682,5 +682,161 @@
   "enchanted_river": {
     "region": "mirkwood",
     "sub": "mirkwood"
+  },
+  "withywindle_willow_groves": {
+    "region": "old_forest",
+    "sub": "old_forest"
+  },
+  "midgewater_fens": {
+    "region": "eriador",
+    "sub": "midgewater"
+  },
+  "chetwood_deepwood": {
+    "region": "bree",
+    "sub": "chetwood"
+  },
+  "ettenmoor_crags": {
+    "region": "angmar",
+    "sub": "ettenmoors"
+  },
+  "trollshaw_pinewoods": {
+    "region": "eriador",
+    "sub": "trollshaws"
+  },
+  "imladris_autumn_woods": {
+    "region": "rivendell",
+    "sub": "rivendell"
+  },
+  "angmar_ashen_woods": {
+    "region": "angmar",
+    "sub": "angmar"
+  },
+  "lindon_silver_birchwoods": {
+    "region": "lindon",
+    "sub": "lindon"
+  },
+  "ered_luin_pine_slopes": {
+    "region": "dwarven",
+    "sub": "blue_mountains"
+  },
+  "eryn_vorn_blackwoods": {
+    "region": "eriador",
+    "sub": "eriador"
+  },
+  "dunland_scrub": {
+    "region": "dunland",
+    "sub": "dunland"
+  },
+  "forochel_muskeg": {
+    "region": "forodwaith",
+    "sub": "tundra"
+  },
+  "northern_golden_larchwoods": {
+    "region": "forodwaith",
+    "sub": "tundra"
+  },
+  "anduin_floodmeadows": {
+    "region": "rhovanion",
+    "sub": "anduin"
+  },
+  "gladden_iris_fens": {
+    "region": "rhovanion",
+    "sub": "gladden"
+  },
+  "elvenking_old_woods": {
+    "region": "woodland_realm",
+    "sub": "woodland_realm"
+  },
+  "dol_guldur_shadow_woods": {
+    "region": "mirkwood",
+    "sub": "mirkwood"
+  },
+  "brown_lands_deadwood": {
+    "region": "brown_lands",
+    "sub": "brown_lands"
+  },
+  "wilderland_long_grass": {
+    "region": "rhovanion",
+    "sub": "wilderland"
+  },
+  "grey_mountain_boreal_woods": {
+    "region": "grey_mountains",
+    "sub": "grey_mountains"
+  },
+  "dale_orchards": {
+    "region": "dale",
+    "sub": "dale"
+  },
+  "emyn_muil_crags": {
+    "region": "brown_lands",
+    "sub": "emyn_muil"
+  },
+  "dead_marshes_bogs": {
+    "region": "dead_marshes",
+    "sub": "dead_marshes"
+  },
+  "wetwang_reedbeds": {
+    "region": "dead_marshes",
+    "sub": "nindalf"
+  },
+  "eastemnet_tall_grass": {
+    "region": "rohan",
+    "sub": "rohan"
+  },
+  "ered_nimrais_upland_meadows": {
+    "region": "gondor",
+    "sub": "white_mountains"
+  },
+  "ithilien_gardens": {
+    "region": "gondor",
+    "sub": "ithilien"
+  },
+  "lebennin_flower_fields": {
+    "region": "gondor",
+    "sub": "lebennin"
+  },
+  "lossarnach_flowering_vales": {
+    "region": "gondor",
+    "sub": "lossarnach"
+  },
+  "dor_en_ernil_groves": {
+    "region": "gondor",
+    "sub": "dol_amroth"
+  },
+  "ethir_anduin_marshes": {
+    "region": "gondor",
+    "sub": "lebennin"
+  },
+  "pinnath_gelin_green_downs": {
+    "region": "gondor",
+    "sub": "pinnath_gelin"
+  },
+  "haradwaith_drylands": {
+    "region": "near_harad",
+    "sub": "desert"
+  },
+  "harnedor_scrublands": {
+    "region": "near_harad",
+    "sub": "harnedor"
+  },
+  "far_harad_baobab_savanna": {
+    "region": "far_harad",
+    "sub": "savannah"
+  },
+  "taurethrim_rainforest": {
+    "region": "far_harad_jungle",
+    "sub": "jungle"
+  },
+  "far_harad_volcanic_fields": {
+    "region": "far_harad",
+    "sub": "volcano"
+  },
+  "rhun_dry_steppe": {
+    "region": "rhun",
+    "sub": "rhudel"
+  },
+  "eastern_desolation_wastes": {
+    "region": "mordor",
+    "sub": "east"
   }
 }

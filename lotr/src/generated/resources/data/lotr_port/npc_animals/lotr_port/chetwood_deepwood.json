@@ -1,0 +1,22 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:deer",
+      "weight": 5,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:deer",
+      "weight": 20,
+      "min": 4,
+      "max": 6
+    }
+  ],
+  "cap": 10,
+  "chance": 1.0,
+  "interval": 400,
+  "radius": 128,
+  "count_only_animals": true,
+  "generation_chance": 0.02941
+}

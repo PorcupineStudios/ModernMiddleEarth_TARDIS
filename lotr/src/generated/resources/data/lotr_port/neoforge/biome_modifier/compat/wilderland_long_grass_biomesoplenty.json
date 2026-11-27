@@ -1,0 +1,26 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "regions_unexplored"
+      }
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:wilderland_long_grass",
+  "features": [
+    "biomesoplenty:trees_prairie",
+    "biomesoplenty:flower_coniferous_forest",
+    "biomesoplenty:rooted_stump",
+    "biomesoplenty:goldenrod",
+    "biomesoplenty:patch_grass_24",
+    "biomesoplenty:patch_tall_grass_24"
+  ],
+  "step": "vegetal_decoration"
+}

@@ -340,15 +340,25 @@
         "when_in_range": {
           "type": "minecraft:range_choice",
           "input": {
-            "type": "minecraft:cache_2d",
-            "argument": {
-              "type": "lotr_port:cave_setting",
-              "setting": "noodle"
-            }
+            "type": "minecraft:interpolated",
+            "argument": "lotr_port:middle_earth/terrain"
           },
-          "min_inclusive": 0.5,
-          "max_exclusive": 2.0,
-          "when_in_range": "minecraft:overworld/caves/noodle",
+          "min_inclusive": 1.5625,
+          "max_exclusive": 1000000.0,
+          "when_in_range": {
+            "type": "minecraft:range_choice",
+            "input": {
+              "type": "minecraft:cache_2d",
+              "argument": {
+                "type": "lotr_port:cave_setting",
+                "setting": "noodle"
+              }
+            },
+            "min_inclusive": 0.5,
+            "max_exclusive": 2.0,
+            "when_in_range": "minecraft:overworld/caves/noodle",
+            "when_out_of_range": 64.0
+          },
           "when_out_of_range": 64.0
         },
         "when_out_of_range": 64.0
@@ -1333,6 +1343,7 @@
                 "type": "minecraft:biome",
                 "biome_is": [
                   "lotr_port:far_harad_jungle",
+                  "lotr_port:taurethrim_rainforest",
                   "lotr_port:far_harad_jungle_lake",
                   "lotr_port:tauredain_clearing"
                 ]
@@ -2064,7 +2075,8 @@
               "if_true": {
                 "type": "minecraft:biome",
                 "biome_is": [
-                  "lotr_port:eastern_desolation"
+                  "lotr_port:eastern_desolation",
+                  "lotr_port:eastern_desolation_wastes"
                 ]
               },
               "then_run": {
@@ -6381,6 +6393,7 @@
                 "biome_is": [
                   "lotr_port:fangorn",
                   "lotr_port:mirkwood_corrupted",
+                  "lotr_port:dol_guldur_shadow_woods",
                   "lotr_port:mirkwood_enchanted",
                   "lotr_port:mirkwood_spider_nests",
                   "lotr_port:mirkwood_north"
@@ -8037,11 +8050,13 @@
                 "type": "minecraft:biome",
                 "biome_is": [
                   "lotr_port:eryn_vorn",
+                  "lotr_port:eryn_vorn_blackwoods",
                   "lotr_port:far_harad_cloud_forest",
                   "lotr_port:far_harad_forest",
                   "lotr_port:gondor_woodlands",
                   "lotr_port:lindon_woodlands",
                   "lotr_port:old_forest",
+                  "lotr_port:withywindle_willow_groves",
                   "lotr_port:rhun_forest",
                   "lotr_port:rhun_island_forest",
                   "lotr_port:rhun_red_forest"
@@ -11276,7 +11291,8 @@
               "if_true": {
                 "type": "minecraft:biome",
                 "biome_is": [
-                  "lotr_port:chetwood"
+                  "lotr_port:chetwood",
+                  "lotr_port:chetwood_deepwood"
                 ]
               },
               "then_run": {
@@ -15004,7 +15020,8 @@
               "if_true": {
                 "type": "minecraft:biome",
                 "biome_is": [
-                  "lotr_port:taiga"
+                  "lotr_port:taiga",
+                  "lotr_port:northern_golden_larchwoods"
                 ]
               },
               "then_run": {
@@ -23977,6 +23994,7 @@
                 "type": "minecraft:biome",
                 "biome_is": [
                   "lotr_port:blue_mountains_foothills",
+                  "lotr_port:ered_luin_pine_slopes",
                   "lotr_port:dol_guldur",
                   "lotr_port:dor_en_ernil_hills",
                   "lotr_port:eregion",
@@ -23990,7 +24008,9 @@
                   "lotr_port:warm_ocean",
                   "lotr_port:red_mountains_foothills",
                   "lotr_port:trollshaws",
-                  "lotr_port:white_mountains_foothills"
+                  "lotr_port:trollshaw_pinewoods",
+                  "lotr_port:white_mountains_foothills",
+                  "lotr_port:ered_nimrais_upland_meadows"
                 ]
               },
               "then_run": {
@@ -24764,7 +24784,8 @@
               "if_true": {
                 "type": "minecraft:biome",
                 "biome_is": [
-                  "lotr_port:woodland_realm"
+                  "lotr_port:woodland_realm",
+                  "lotr_port:elvenking_old_woods"
                 ]
               },
               "then_run": {
@@ -26565,7 +26586,8 @@
               "if_true": {
                 "type": "minecraft:biome",
                 "biome_is": [
-                  "lotr_port:angmar"
+                  "lotr_port:angmar",
+                  "lotr_port:angmar_ashen_woods"
                 ]
               },
               "then_run": {
@@ -28597,7 +28619,8 @@
               "if_true": {
                 "type": "minecraft:biome",
                 "biome_is": [
-                  "lotr_port:brown_lands"
+                  "lotr_port:brown_lands",
+                  "lotr_port:brown_lands_deadwood"
                 ]
               },
               "then_run": {
@@ -31728,7 +31751,8 @@
               "if_true": {
                 "type": "minecraft:biome",
                 "biome_is": [
-                  "lotr_port:harnedor"
+                  "lotr_port:harnedor",
+                  "lotr_port:harnedor_scrublands"
                 ]
               },
               "then_run": {
@@ -40418,7 +40442,8 @@
               "if_true": {
                 "type": "minecraft:biome",
                 "biome_is": [
-                  "lotr_port:tundra"
+                  "lotr_port:tundra",
+                  "lotr_port:forochel_muskeg"
                 ]
               },
               "then_run": {
@@ -46916,36 +46941,47 @@
                   "lotr_port:adornland",
                   "lotr_port:anduin_hills",
                   "lotr_port:anduin_vale",
+                  "lotr_port:anduin_floodmeadows",
                   "lotr_port:angle",
                   "lotr_port:barrow_downs",
                   "lotr_port:blackroot_vale",
                   "lotr_port:breeland",
                   "lotr_port:celebrant",
                   "lotr_port:dale",
+                  "lotr_port:dale_orchards",
                   "lotr_port:dor_en_ernil",
+                  "lotr_port:dor_en_ernil_groves",
                   "lotr_port:dorwinion",
                   "lotr_port:dunland",
+                  "lotr_port:dunland_scrub",
                   "lotr_port:enedwaith",
                   "lotr_port:eriador",
                   "lotr_port:eriador_downs",
                   "lotr_port:ettenmoors",
+                  "lotr_port:ettenmoor_crags",
                   "lotr_port:fangorn_clearing",
                   "lotr_port:far_harad",
+                  "lotr_port:far_harad_baobab_savanna",
                   "lotr_port:far_harad_bushland",
                   "lotr_port:far_harad_bushland_hills",
                   "lotr_port:far_harad_kanuka",
                   "lotr_port:gondor",
                   "lotr_port:grey_mountains_foothills",
+                  "lotr_port:grey_mountain_boreal_woods",
                   "lotr_port:imloth_melui",
                   "lotr_port:iron_hills",
                   "lotr_port:ithilien",
+                  "lotr_port:ithilien_gardens",
                   "lotr_port:ithilien_hills",
                   "lotr_port:ithilien_wasteland",
                   "lotr_port:lake",
                   "lotr_port:lebennin",
+                  "lotr_port:lebennin_flower_fields",
                   "lotr_port:lindon",
+                  "lotr_port:lindon_silver_birchwoods",
                   "lotr_port:lone_lands",
                   "lotr_port:lossarnach",
+                  "lotr_port:lossarnach_flowering_vales",
                   "lotr_port:lothlorien",
                   "lotr_port:lothlorien_edge",
                   "lotr_port:minhiriath",
@@ -46953,17 +46989,22 @@
                   "lotr_port:pelennor",
                   "lotr_port:pertorogwaith",
                   "lotr_port:pinnath_gelin",
+                  "lotr_port:pinnath_gelin_green_downs",
                   "lotr_port:rhun",
                   "lotr_port:rhun_island",
                   "lotr_port:rhun_land",
                   "lotr_port:rhun_land_steppe",
+                  "lotr_port:rhun_dry_steppe",
                   "lotr_port:rivendell",
+                  "lotr_port:imladris_autumn_woods",
                   "lotr_port:river",
                   "lotr_port:enchanted_river",
                   "lotr_port:rohan",
+                  "lotr_port:eastemnet_tall_grass",
                   "lotr_port:rohan_uruk_highlands",
                   "lotr_port:tower_hills",
                   "lotr_port:wilderland",
+                  "lotr_port:wilderland_long_grass",
                   "lotr_port:wilderland_north",
                   "lotr_port:wind_mountains_foothills"
                 ]
@@ -48495,13 +48536,18 @@
                 "type": "minecraft:biome",
                 "biome_is": [
                   "lotr_port:anduin_mouth",
+                  "lotr_port:ethir_anduin_marshes",
                   "lotr_port:dead_marshes",
+                  "lotr_port:dead_marshes_bogs",
                   "lotr_port:entwash_mouth",
                   "lotr_port:far_harad_swamp",
                   "lotr_port:gladden_fields",
+                  "lotr_port:gladden_iris_fens",
                   "lotr_port:long_marshes",
                   "lotr_port:midgewater",
+                  "lotr_port:midgewater_fens",
                   "lotr_port:nindalf",
+                  "lotr_port:wetwang_reedbeds",
                   "lotr_port:swanfleet"
                 ]
               },
@@ -54406,7 +54452,8 @@
               "if_true": {
                 "type": "minecraft:biome",
                 "biome_is": [
-                  "lotr_port:near_harad_semi_desert"
+                  "lotr_port:near_harad_semi_desert",
+                  "lotr_port:haradwaith_drylands"
                 ]
               },
               "then_run": {
@@ -58751,7 +58798,8 @@
               "if_true": {
                 "type": "minecraft:biome",
                 "biome_is": [
-                  "lotr_port:far_harad_volcano"
+                  "lotr_port:far_harad_volcano",
+                  "lotr_port:far_harad_volcanic_fields"
                 ]
               },
               "then_run": {
@@ -59512,6 +59560,7 @@
                 "type": "minecraft:biome",
                 "biome_is": [
                   "lotr_port:emyn_muil",
+                  "lotr_port:emyn_muil_crags",
                   "lotr_port:forodwaith_coast",
                   "lotr_port:lindon_coast"
                 ]
@@ -60247,6 +60296,7 @@
           "type": "minecraft:biome",
           "biome_is": [
             "lotr_port:eastern_desolation",
+            "lotr_port:eastern_desolation_wastes",
             "lotr_port:gorgoroth",
             "lotr_port:mordor",
             "lotr_port:mordor_mountains",

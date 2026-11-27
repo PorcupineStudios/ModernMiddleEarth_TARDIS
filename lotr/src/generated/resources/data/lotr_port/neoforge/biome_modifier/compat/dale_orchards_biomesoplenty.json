@@ -1,0 +1,26 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "regions_unexplored"
+      }
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:dale_orchards",
+  "features": [
+    "biomesoplenty:trees_orchard",
+    "biomesoplenty:flower_default_extended_15",
+    "biomesoplenty:patch_clover_normal",
+    "biomesoplenty:rose_bush_normal",
+    "biomesoplenty:patch_sprouts_5",
+    "biomesoplenty:patch_grass_12"
+  ],
+  "step": "vegetal_decoration"
+}

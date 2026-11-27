@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "entries": [
+    "lotr_port:unify/regions_unexplored",
+    "lotr_port:unify/biomesoplenty",
+    "lotr_port:unify/biomesoplenty_to_regions_unexplored"
+  ]
+}

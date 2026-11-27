@@ -1054,8 +1054,12 @@ class World:
         shaped = {"type": "minecraft:add", "argument1": {"type": "minecraft:min", "argument1": base, "argument2": 0.0},
                   "argument2": {"type": "minecraft:mul", "argument1": 4.0,
                                 "argument2": {"type": "minecraft:max", "argument1": base, "argument2": 0.0}}}
-        blended = {"type": "minecraft:old_blended_noise", "xz_scale": 1.0, "y_scale": 1.0, "xz_factor": 400.0,
-                   "y_factor": 160.0, "smear_scale_multiplier": 8.0}
+        # flat_cache samples LOTR's blended noise at y 0 only: a 2D height offset, so every column's density falls
+        # monotonically with y and crosses zero once (no floating islands or overhangs; Aaron 2026-11-26: "stable
+        # through set rules rather than pure 3d randomization"). Its xz character, and so the roughness, is LOTR's.
+        blended = {"type": "minecraft:flat_cache", "argument": {
+            "type": "minecraft:old_blended_noise", "xz_scale": 1.0, "y_scale": 1.0, "xz_factor": 400.0,
+            "y_factor": 160.0, "smear_scale_multiplier": 8.0}}
         hill2d = {"type": "minecraft:add", "argument1": -VALLEY_SHIFT, "argument2": {
             "type": "minecraft:quarter_negative" if VALLEYS == 0.25 else "minecraft:half_negative",
             "argument": {"type": "minecraft:noise", "noise": f"{NS}:terrain", "xz_scale": 1.0, "y_scale": 0.0}}}

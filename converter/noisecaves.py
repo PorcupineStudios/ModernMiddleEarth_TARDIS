@@ -96,9 +96,13 @@ def wrap(terrain_ref, vanilla_entrances):
     # lotr_port:caves_on is 0 while the game scans a column for its ground (CavesOn): no cave noise then
     below = {"type": "minecraft:range_choice", "input": {"type": f"{NS}:caves_on"}, "min_inclusive": 0.5,
              "max_exclusive": 2.0, "when_in_range": below, "when_out_of_range": s}
+    # noodles only in deep rock (as the cheese and spaghetti): near the ground they left thin floating crusts.
+    # The terrain is read interpolated, from the cell corners `below` already works out, so it stays cheap.
+    deep = {"type": "minecraft:range_choice", "input": {"type": "minecraft:interpolated", "argument": s},
+            "min_inclusive": 1.5625, "max_exclusive": 1000000.0,
+            "when_in_range": gate("noodle", "minecraft:overworld/caves/noodle"), "when_out_of_range": 64.0}
     noodle = {"type": "minecraft:range_choice", "input": {"type": f"{NS}:caves_on"}, "min_inclusive": 0.5,
-              "max_exclusive": 2.0, "when_in_range": gate("noodle", "minecraft:overworld/caves/noodle"),
-              "when_out_of_range": 64.0}
+              "max_exclusive": 2.0, "when_in_range": deep, "when_out_of_range": 64.0}
     return {"type": "minecraft:min", "argument1": {"type": "minecraft:interpolated", "argument": below},
             "argument2": noodle}
 

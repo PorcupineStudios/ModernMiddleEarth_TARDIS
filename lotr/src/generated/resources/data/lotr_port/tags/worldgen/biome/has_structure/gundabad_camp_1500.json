@@ -2,7 +2,9 @@
   "values": [
     "lotr_port:anduin_hills",
     "lotr_port:anduin_vale",
+    "lotr_port:anduin_floodmeadows",
     "lotr_port:gladden_fields",
+    "lotr_port:gladden_iris_fens",
     "lotr_port:lone_lands",
     "lotr_port:lone_lands_hills"
   ]

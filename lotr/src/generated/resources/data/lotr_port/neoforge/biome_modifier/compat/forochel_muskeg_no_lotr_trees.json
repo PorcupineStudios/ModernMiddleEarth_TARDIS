@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "biomesoplenty"
+        },
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "regions_unexplored"
+        }
+      ]
+    }
+  ],
+  "type": "neoforge:remove_features",
+  "biomes": "lotr_port:forochel_muskeg",
+  "features": [
+    "lotr_port:trees/tundra"
+  ],
+  "steps": [
+    "vegetal_decoration"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:deer",
+      "weight": 10,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:aurochs",
+      "weight": 6,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:kine_araw",
+      "weight": 6,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:bear",
+      "weight": 4,
+      "min": 1,
+      "max": 4
+    }
+  ],
+  "cap": 10,
+  "chance": 1.0,
+  "interval": 400,
+  "radius": 128,
+  "count_only_animals": true,
+  "generation_chance": 0.04
+}

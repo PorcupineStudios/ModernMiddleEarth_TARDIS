@@ -1255,7 +1255,7 @@
               "weight": 4
             },
             {
-              "block": "lotr_port:copper_ore",
+              "block": "minecraft:copper_ore",
               "weight": 3
             },
             {
@@ -1604,7 +1604,7 @@
               "weight": 5
             },
             {
-              "block": "lotr_port:copper_ore",
+              "block": "minecraft:copper_ore",
               "weight": 3
             },
             {

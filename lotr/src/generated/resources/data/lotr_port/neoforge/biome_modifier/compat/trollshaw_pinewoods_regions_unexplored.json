@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:trollshaw_pinewoods",
+  "features": [
+    "regions_unexplored:patch/grass_sprouts_sparse",
+    "regions_unexplored:tree/group/pine_taiga",
+    "regions_unexplored:tree/pine_shrub_on_grass",
+    "regions_unexplored:fallen_pine_tree_on_dirt",
+    "regions_unexplored:azure_daisy",
+    "regions_unexplored:dirt_vegetation",
+    "regions_unexplored:grass_vegetation",
+    "regions_unexplored:pine_shrub"
+  ],
+  "step": "vegetal_decoration"
+}

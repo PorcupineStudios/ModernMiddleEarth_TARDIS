@@ -3,6 +3,7 @@
     "lotr_port:andrast",
     "lotr_port:anduin_hills",
     "lotr_port:anduin_vale",
+    "lotr_port:anduin_floodmeadows",
     "lotr_port:angle",
     "lotr_port:beach",
     "lotr_port:beach_gravel",
@@ -14,10 +15,14 @@
     "lotr_port:eriador",
     "lotr_port:eriador_downs",
     "lotr_port:eryn_vorn",
+    "lotr_port:eryn_vorn_blackwoods",
     "lotr_port:ettenmoors",
+    "lotr_port:ettenmoor_crags",
     "lotr_port:gladden_fields",
+    "lotr_port:gladden_iris_fens",
     "lotr_port:island",
     "lotr_port:ithilien",
+    "lotr_port:ithilien_gardens",
     "lotr_port:ithilien_hills",
     "lotr_port:ithilien_wasteland",
     "lotr_port:minhiriath",
@@ -32,6 +37,7 @@
     "lotr_port:warm_ocean",
     "lotr_port:pukel",
     "lotr_port:swanfleet",
-    "lotr_port:wilderland"
+    "lotr_port:wilderland",
+    "lotr_port:wilderland_long_grass"
   ]
 }

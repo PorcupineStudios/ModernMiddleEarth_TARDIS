@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "biomesoplenty"
+      }
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:ethir_anduin_marshes",
+  "features": [
+    "regions_unexplored:duckweed",
+    "regions_unexplored:tree/dead_bog_rare",
+    "regions_unexplored:grass",
+    "regions_unexplored:tall_grass",
+    "regions_unexplored:moss_patch_with_water"
+  ],
+  "step": "vegetal_decoration"
+}

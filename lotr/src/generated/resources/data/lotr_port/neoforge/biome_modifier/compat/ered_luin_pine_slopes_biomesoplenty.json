@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "regions_unexplored"
+      }
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:ered_luin_pine_slopes",
+  "features": [
+    "biomesoplenty:trees_coniferous_forest",
+    "biomesoplenty:flower_coniferous_forest",
+    "biomesoplenty:patch_fern_2",
+    "biomesoplenty:toadstool_normal",
+    "biomesoplenty:patch_grass_12"
+  ],
+  "step": "vegetal_decoration"
+}

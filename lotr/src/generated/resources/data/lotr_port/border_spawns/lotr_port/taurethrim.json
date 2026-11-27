@@ -2,7 +2,7 @@
   "entries": [
     {
       "npc": "lotr_port:tauredain",
-      "weight": 56,
+      "weight": 55,
       "min": 4,
       "max": 6,
       "dark": false

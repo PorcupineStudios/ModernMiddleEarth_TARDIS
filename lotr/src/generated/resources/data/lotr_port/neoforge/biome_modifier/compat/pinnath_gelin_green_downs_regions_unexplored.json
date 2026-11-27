@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:pinnath_gelin_green_downs",
+  "features": [
+    "regions_unexplored:patch/grass_sprouts_sparse",
+    "regions_unexplored:patch/lupines",
+    "regions_unexplored:patch/clovers_dense",
+    "regions_unexplored:grass"
+  ],
+  "step": "vegetal_decoration"
+}

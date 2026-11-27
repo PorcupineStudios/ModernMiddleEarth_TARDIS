@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:wilderland_long_grass",
+  "features": [
+    "regions_unexplored:patch/grass_sprouts_sparse",
+    "regions_unexplored:prairie_trees",
+    "regions_unexplored:prairie_flowers",
+    "regions_unexplored:grass",
+    "regions_unexplored:tall_grass",
+    "regions_unexplored:barley_sparse"
+  ],
+  "step": "vegetal_decoration"
+}

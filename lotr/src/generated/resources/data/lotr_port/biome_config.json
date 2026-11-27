@@ -88,6 +88,16 @@
           "noodleCaves": true,
           "lushCaves": 1.0
         },
+        "lindon_silver_birchwoods": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
+        },
         "lindon_woodlands": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
@@ -122,6 +132,17 @@
           "dripstoneCaves": 1.0
         },
         "blue_mountains_foothills": {
+          "caveEntrances": 0.5,
+          "ravines": 0.6,
+          "carverCaves": 1.0,
+          "surfaceCover": 0,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0,
+          "dripstoneCaves": 1.0
+        },
+        "ered_luin_pine_slopes": {
           "caveEntrances": 0.5,
           "ravines": 0.6,
           "carverCaves": 1.0,
@@ -206,6 +227,16 @@
           "spaghettiCaves": true,
           "noodleCaves": true,
           "lushCaves": 1.0
+        },
+        "chetwood_deepwood": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
         }
       },
       "eriador": {
@@ -240,6 +271,16 @@
           "dripstoneCaves": 1.0
         },
         "eryn_vorn": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
+        },
+        "eryn_vorn_blackwoods": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
           "carverCaves": 1.0,
@@ -322,6 +363,16 @@
           "spaghettiCaves": true,
           "noodleCaves": true,
           "lushCaves": 1.0
+        },
+        "midgewater_fens": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
         }
       },
       "old_forest": {
@@ -334,9 +385,29 @@
           "spaghettiCaves": true,
           "noodleCaves": true,
           "lushCaves": 1.0
+        },
+        "withywindle_willow_groves": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
         }
       },
       "trollshaws": {
+        "trollshaw_pinewoods": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
+        },
         "trollshaws": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
@@ -349,6 +420,16 @@
         }
       },
       "rivendell_vale": {
+        "imladris_autumn_woods": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
+        },
         "rivendell": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
@@ -361,6 +442,15 @@
         }
       },
       "ettenmoors": {
+        "ettenmoor_crags": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true
+        },
         "ettenmoors": {
           "caveEntrances": 0.3,
           "ravines": 0.3,
@@ -385,6 +475,16 @@
       },
       "angmar": {
         "angmar": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "dripstoneCaves": 1.0
+        },
+        "angmar_ashen_woods": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
           "carverCaves": 1.0,
@@ -437,6 +537,15 @@
           "cheeseCaves": true,
           "spaghettiCaves": true,
           "noodleCaves": true
+        },
+        "dunland_scrub": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true
         }
       },
       "pukel": {
@@ -475,6 +584,16 @@
         }
       },
       "grey_mountains": {
+        "grey_mountain_boreal_woods": {
+          "caveEntrances": 0.5,
+          "ravines": 0.6,
+          "carverCaves": 1.0,
+          "surfaceCover": 0,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "dripstoneCaves": 1.0
+        },
         "grey_mountains": {
           "caveEntrances": 0.5,
           "ravines": 0.6,
@@ -497,6 +616,16 @@
         }
       },
       "vales_of_anduin": {
+        "anduin_floodmeadows": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
+        },
         "anduin_hills": {
           "caveEntrances": 0.3,
           "ravines": 0.3,
@@ -536,6 +665,16 @@
           "spaghettiCaves": true,
           "noodleCaves": true,
           "lushCaves": 1.0
+        },
+        "gladden_iris_fens": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
         }
       },
       "lothlorien": {
@@ -562,6 +701,15 @@
       },
       "mirkwood": {
         "dol_guldur": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true
+        },
+        "dol_guldur_shadow_woods": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
           "carverCaves": 1.0,
@@ -627,6 +775,16 @@
         }
       },
       "woodland_realm": {
+        "elvenking_old_woods": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
+        },
         "woodland_realm": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
@@ -679,6 +837,16 @@
           "noodleCaves": true,
           "dripstoneCaves": 1.0
         },
+        "wilderland_long_grass": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "dripstoneCaves": 1.0
+        },
         "wilderland_north": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
@@ -691,6 +859,15 @@
       },
       "dale": {
         "dale": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true
+        },
+        "dale_orchards": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
           "carverCaves": 1.0,
@@ -731,6 +908,16 @@
           "spaghettiCaves": true,
           "noodleCaves": true,
           "dripstoneCaves": 1.0
+        },
+        "brown_lands_deadwood": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "dripstoneCaves": 1.0
         }
       },
       "emyn_muil": {
@@ -739,6 +926,16 @@
           "ravines": 0.3,
           "carverCaves": 1.0,
           "surfaceCover": 4,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "dripstoneCaves": 1.0
+        },
+        "emyn_muil_crags": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
           "cheeseCaves": true,
           "spaghettiCaves": true,
           "noodleCaves": true,
@@ -755,7 +952,25 @@
           "spaghettiCaves": true,
           "noodleCaves": true
         },
+        "dead_marshes_bogs": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true
+        },
         "nindalf": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true
+        },
+        "wetwang_reedbeds": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
           "carverCaves": 1.0,
@@ -788,6 +1003,16 @@
           "cheeseCaves": true,
           "spaghettiCaves": true,
           "noodleCaves": true
+        },
+        "eastemnet_tall_grass": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
         },
         "entwash_mouth": {
           "caveEntrances": 0.15,
@@ -929,6 +1154,16 @@
         }
       },
       "white_mountains": {
+        "ered_nimrais_upland_meadows": {
+          "caveEntrances": 0.5,
+          "ravines": 0.6,
+          "carverCaves": 1.0,
+          "surfaceCover": 0,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "dripstoneCaves": 1.0
+        },
         "white_mountains": {
           "caveEntrances": 0.5,
           "ravines": 0.6,
@@ -953,6 +1188,16 @@
       },
       "ithilien": {
         "ithilien": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
+        },
+        "ithilien_gardens": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
           "carverCaves": 1.0,
@@ -1002,6 +1247,16 @@
           "spaghettiCaves": true,
           "noodleCaves": true,
           "lushCaves": 1.0
+        },
+        "lossarnach_flowering_vales": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
         }
       },
       "lebennin": {
@@ -1015,7 +1270,27 @@
           "noodleCaves": true,
           "lushCaves": 1.0
         },
+        "ethir_anduin_marshes": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
+        },
         "lebennin": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
+        },
+        "lebennin_flower_fields": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
           "carverCaves": 1.0,
@@ -1079,10 +1354,30 @@
           "spaghettiCaves": true,
           "noodleCaves": true,
           "lushCaves": 1.0
+        },
+        "pinnath_gelin_green_downs": {
+          "caveEntrances": 0.3,
+          "ravines": 0.3,
+          "carverCaves": 1.0,
+          "surfaceCover": 4,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
         }
       },
       "dor_en_ernil": {
         "dor_en_ernil": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
+        },
+        "dor_en_ernil_groves": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
           "carverCaves": 1.0,
@@ -1119,6 +1414,16 @@
     "mordor": {
       "mordor": {
         "eastern_desolation": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "dripstoneCaves": 1.0
+        },
+        "eastern_desolation_wastes": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
           "carverCaves": 1.0,
@@ -1278,6 +1583,16 @@
         }
       },
       "rhun_khaganate": {
+        "rhun_dry_steppe": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "dripstoneCaves": 1.0
+        },
         "rhun_land": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
@@ -1412,6 +1727,16 @@
         }
       },
       "harad_desert": {
+        "haradwaith_drylands": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "dripstoneCaves": 1.0
+        },
         "near_harad": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
@@ -1475,6 +1800,16 @@
       },
       "harnedor": {
         "harnedor": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "dripstoneCaves": 1.0
+        },
+        "harnedor_scrublands": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
           "carverCaves": 1.0,
@@ -1601,6 +1936,16 @@
           "noodleCaves": true,
           "dripstoneCaves": 1.0
         },
+        "far_harad_baobab_savanna": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "dripstoneCaves": 1.0
+        },
         "far_harad_bushland": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
@@ -1681,6 +2026,16 @@
           "noodleCaves": true,
           "lushCaves": 1.0
         },
+        "far_harad_volcanic_fields": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "dripstoneCaves": 1.0
+        },
         "far_harad_volcano": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
@@ -1743,6 +2098,16 @@
           "spaghettiCaves": true,
           "noodleCaves": true,
           "lushCaves": 1.0
+        },
+        "taurethrim_rainforest": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "lushCaves": 1.0
         }
       },
       "pertorogwaith": {
@@ -1772,6 +2137,16 @@
     },
     "forodwaith": {
       "forodwaith": {
+        "forochel_muskeg": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true,
+          "dripstoneCaves": 1.0
+        },
         "forodwaith": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
@@ -1811,6 +2186,15 @@
           "spaghettiCaves": true,
           "noodleCaves": true,
           "dripstoneCaves": 1.0
+        },
+        "northern_golden_larchwoods": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true
         },
         "taiga": {
           "caveEntrances": 0.15,

@@ -1606,6 +1606,8 @@ class Gen:
         print(json.dumps({"biomeconfig": biomeconfig.run(OUT)}))
         import borders
         print(json.dumps({"borders": borders.run(OUT)}))
+        import compat
+        print(json.dumps({"compat": compat.run(OUT)}))
         import create_extra
         print(json.dumps({"create_extra": create_extra.run(OUT)}))
         import create_crafters

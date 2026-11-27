@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "lotr_port:unify",
+  "ingredients": [
+    {
+      "item": "biomesoplenty:dead_door"
+    }
+  ],
+  "result": {
+    "id": "regions_unexplored:dead_door"
+  }
+}

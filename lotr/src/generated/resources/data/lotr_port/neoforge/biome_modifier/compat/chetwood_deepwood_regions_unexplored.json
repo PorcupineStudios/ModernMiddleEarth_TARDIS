@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:chetwood_deepwood",
+  "features": [
+    "regions_unexplored:patch/grass_sprouts_sparse",
+    "regions_unexplored:tree/big_oak_dense",
+    "regions_unexplored:tree/small_oak",
+    "regions_unexplored:tree/oak_tall",
+    "regions_unexplored:tree/oak_bush_sparse",
+    "regions_unexplored:fallen_oak_tree_dense",
+    "regions_unexplored:deciduous_vegetation",
+    "regions_unexplored:oak_shrub"
+  ],
+  "step": "vegetal_decoration"
+}

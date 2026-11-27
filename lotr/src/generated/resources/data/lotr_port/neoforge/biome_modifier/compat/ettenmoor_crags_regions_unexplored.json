@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "regions_unexplored"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "biomesoplenty"
+      }
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:ettenmoor_crags",
+  "features": [
+    "regions_unexplored:patch/grass_sprouts_sparse",
+    "regions_unexplored:tree/mauve_meadow",
+    "regions_unexplored:tree/mauve_sparse",
+    "regions_unexplored:meadow_rock",
+    "regions_unexplored:meadow_vegetation",
+    "regions_unexplored:grass",
+    "regions_unexplored:meadow_sage"
+  ],
+  "step": "vegetal_decoration"
+}

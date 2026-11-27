@@ -1,0 +1,26 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "regions_unexplored"
+      }
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "lotr_port:chetwood_deepwood",
+  "features": [
+    "biomesoplenty:flower_default_extended_6",
+    "biomesoplenty:rose_bush_normal",
+    "biomesoplenty:fallen_log",
+    "biomesoplenty:patch_grass_6",
+    "biomesoplenty:patch_tall_grass_6",
+    "biomesoplenty:trees_woodland"
+  ],
+  "step": "vegetal_decoration"
+}
