@@ -5,12 +5,18 @@
 What LOTR 1.7.10 had that the port still lacks, biggest first. (The original numbered task list of 2026-11-04 is
 done apart from these and was removed; what vanilla gained since 1.7.10 is in `modernize.md`.)
 
+Each gap is also a ticket: issues #14 to #72 in the GitHub project "Ring Bearer sprints"
+(https://github.com/users/PorcupineStudios/projects/1), labelled `story`, `mod:lotr` and `size:S/M/L`, Status Todo,
+no milestone until a sprint takes them. Each issue names its feature id in `docs/plans/lotr-feature-audit.md`. When
+one is done, close the issue and trim the line here.
+
 - **World:** Utumno (dimension, layers, caves, return portal) and the ring/elven/Morgul portals; fixed builds at map
   coordinates (Minas Tirith, Isengard walls, Rammas Echor, other waypoint settlements); LOTR's small dwarven mines (Moria is a delve now, `docs/delves.md`; the
   mines could be small delves) and Taurëdain pyramids; villages are one fixed layout per seed; sky (sun/moon/stars, northern lights), sandstorms, Mordor ash,
   seasonal grass, holidays.
-- **NPCs:** families (hobbit/dwarf/man marriage, rings, children); travelling traders and scrap traders; Sauron;
-  skeletal wraith; Gollum's fishing and inventory; troll chieftain boss fight; spider webs
+- **NPCs:** LOTR's wild families (hobbit/dwarf/man marriage, rings, children; colonists already marry and have
+  children through colony events); travelling traders and scrap traders; Sauron;
+  skeletal wraith (an unused class in LOTR 36.15, never registered); Gollum's fishing and inventory; troll chieftain boss fight; spider webs
   (mystery web loot); NPCs throwing spears; mounted lances; players riding wargs/spiders; structure NPCs riding.
 - **Multiplayer and meta:** fellowships (replaced by colony membership, not built as LOTR's); bounty quests
   (30); custom waypoints; factions screen with faction map; Red Book tabs; shield and cape rendering on players;
@@ -23,6 +29,13 @@ done apart from these and was removed; what vanilla gained since 1.7.10 is in `m
   robes); dyeable hats/armour and the other special recipes (task 36); carved stone sign text; drunken speech and
   alcohol tolerance; barrels ageing drinks; pipe smoke colour; pouch restock from chests; mud farmland and fruit
   leaves; unsmeltery rocking.
+- **Found by the class audit (2026-11-26, `docs/plans/lotr-feature-audit.md`, which sorts every LOTR class into a
+  feature):** 21 structures LOTR placed that were never exported (the old `world/structure` generators, e.g. the
+  Angmar and Mordor towers, Rivendell and High Elven halls; `StructureExporter` builds only `structure2`); LOTR's
+  own day length (`LOTRTime`); "+n alignment" pop-ups; Dale crackers; animal and butterfly jars; LOTR's fishing hook
+  and loot; the rideable barrel; anvil owner engraving and gem-coloured names; the mini-quest tracker and retrieve
+  and welcome quests; the hired-unit inventory screen; the command sword's marker; world features (streams, troll
+  hoards, skull piles, Ent jars, cave cobwebs, blasted land, obsidian gravel); most of LOTR's 26 particle effects.
 
 Done since the list was written (don't redo): sounds, music, enchantments, achievements/titles, lore books,
 creatures with LOTR models and animations, animals, invasions, 11 village kinds, drinks and kegs, set-down vessels,

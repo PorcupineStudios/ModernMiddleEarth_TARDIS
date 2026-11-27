@@ -1,0 +1,120 @@
+# id TAB category TAB status (Ported, Replaced, Partial, Not ported, Dropped) TAB title TAB port counterpart or what is missing
+# The order here is the report's order. Read by converter/LotrFeatureAudit.java.
+core.bootstrap	Core and platform	Replaced	Mod bootstrap: the LOTRMod god class, proxies, event and tick handlers, creative tabs, key bindings	`LotrPort`, `LotrClient`, one registry per area (`registry/LotrRegistries`), content from data (`content/LotrBlocks`, `LotrItems`, `content/*.json`), `content/LotrTabs`
+core.config	Core and platform	Replaced	Config and its screen	`LotrConfig`, `LotrClientConfig`, `client/LotrConfigScreen` (NeoForge `ConfigurationScreen`, COMMON and CLIENT only)
+core.playerdata	Core and platform	Replaced	Player and world data, login sync, options	Attachments and SavedData with codecs: `player/PlayerLotrData`, `world/LotrWorldData`, `travel/TravelData`, `quest/QuestLog`; client options are client config
+core.network	Core and platform	Replaced	Network handler and generic packets	`CustomPacketPayload` + `StreamCodec` per area (`net/HudNet`, `MapNet`, `QuestNet`, `ui/UiNet`, `unit/UnitNet`, `border/BorderNet`, `social/SocialNet`...)
+core.util	Core and platform	Replaced	Utilities, generic inventory slots, maze generator, version checker	Java and NeoForge equivalents; the delve planner has its own maze (`world/delve/DelvePlanner`); no update checker
+core.compat	Core and platform	Replaced	Mod checker	`compat/` (Create, JEI, Jade, Iris), `converter/compat.py` (Regions Unexplored, Biomes O' Plenty)
+core.coremod	Core and platform	Dropped	Coremod (ASM patches to vanilla)	Mixins only where needed (`mixin/`)
+core.ucp	Core and platform	Dropped	Bundled Unofficial Compatibility Patch (Thaumcraft, Botania, ScreenshotEnhanced fixes)	1.7.10 mod conflicts; nothing to port
+core.playerdetails	Core and platform	Not ported	Player details from LOTR's web API (exclusive groups, e.g. who gets exclusive shields)	No online lookup; exclusive shields have no source in the port
+progress.achievements	Progress and meta	Partial	Achievements and their screen	523 advancements (`advancement/`, `progress/Achievements.grant` by LOTR name, `extra.py`); most triggers (kills, crafting, trading, drinking) are not wired; LOTR's screen is vanilla's advancement screen
+progress.titles	Progress and meta	Partial	Titles	`progress/Titles`, `/lotr_title`; no title screen (LOTRGuiTitles)
+progress.shields_capes	Progress and meta	Partial	Shields and capes (cosmetic)	`progress/Cosmetics`, `/lotr_shield`, `/lotr_cape`; not drawn on players (LOTRRenderShield), no picking screen
+progress.calendar	Progress and meta	Ported	Shire Reckoning calendar	`progress/Calendar`, `/lotr_date`; holidays not ported
+progress.time	Progress and meta	Not ported	Middle-earth's own day length and clock (LOTRTime, `/lotr time`)	The port uses vanilla's 24000-tick day and `/time`
+progress.lore	Progress and meta	Ported	Lore books	`converter/lore.py`: 114 `lore/` books in structure chests
+progress.redbook	Progress and meta	Partial	Red Book	`quest/RedBookItem`, `client/RedBookScreen` (quests: list, details, abandon); LOTR's other tabs (missing-features: "Red Book tabs")
+progress.map	Progress and meta	Ported	Map screen	`client/MapScreen` (LOTRGuiMap rebuilt), `MapTextures`, 105 labels `map/labels.json`, `net/MapNet` (map teleport for operators)
+progress.map_players	Progress and meta	Replaced	Other players on the map, admin hiding	`social/Social.canSee`, `client/VisibilityScreen` (who sees you), colony icons `social/MapPresence`
+progress.fasttravel	Progress and meta	Ported	Waypoints and fast travel	`travel/FastTravel`, 274 `waypoint/`, `fast_travel/settings.json`, `travel/Companions`, `/lotr_travel`, `/lotr waypoint`
+progress.custom_waypoints	Progress and meta	Not ported	Custom waypoints (made by players, shared)	Nothing in the port (missing-features)
+progress.fellowships	Progress and meta	Replaced	Fellowships	Colony membership (`colony/members`) and player groups (`social/Social`); no fellowship chat, icons or friendly-fire switch
+progress.menu	Progress and meta	Replaced	LOTR's menu screens, options, notifications, title screen	Management screens on the UI core (`client/ui/UiScreen`, `ui/Views`), config screen, `client/MenuMusic`; LOTR's own main menu backdrop is not ported
+fac.factions	Factions, war and diplomacy	Ported	Factions, ranks, map regions, control zones	`faction/` (`FactionDef`, 29 `faction/` + goblins, `Factions`, `FactionInfluence` zones)
+fac.alignment	Factions, war and diplomacy	Ported	Alignment, kill values, alignment bar	`faction/Alignment`, `FactionKills`, `client/LotrHud`; the floating "+n alignment" pop-ups over kills (LOTREntityAlignmentBonus) are not drawn
+fac.relations	Factions, war and diplomacy	Ported	Faction relations	`faction/Relation`, `Diplomacy` SavedData over data defaults, `/lotr faction`
+fac.pledge	Factions, war and diplomacy	Ported	Pledging and broken pledges	`faction/Pledges`, `/lotr pledge` (the pledge makes the player's realm a vassal)
+fac.alignment_choices	Factions, war and diplomacy	Dropped	Alignment choices offered after LOTR's faction changes	Only for old saves; the port is new worlds only
+fac.screen	Factions, war and diplomacy	Not ported	Factions screen (faction pages, faction map)	missing-features; realms and treaties have `diplomacy/DiplomacyViews`
+fac.bounties	Factions, war and diplomacy	Not ported	Bounties on players and bounty quests	missing-features (30 bounty quests)
+fac.conquest	Factions, war and diplomacy	Replaced	Conquest grid	`border/Conquest` (pressure against defence moves land), `border/Borders`, map layer `client/BorderLayer`
+fac.invasions	Factions, war and diplomacy	Partial	Invasions	`npc/InvasionSpawner`, 45 `invasion/`, `invasion_spawns`; the conquest horn (starts an invasion) only plays its sound, no invasion boss bar
+fac.banners	Factions, war and diplomacy	Replaced	Banners and banner protection	`land/ClaimBannerItem` (42 faction banners claim land), `land/Claims`, `land/Protection`; the whitelist screen is colony role permissions
+npc.core	NPCs and creatures	Ported	NPC base: one entity, skins, names, speech, inventory	`npc/LotrNpc` + `NpcType` data (412 `npc/`), `npc_names/`, 1514 `speech/`, `client/NpcRenderer`, `npc/SpawnEggs`, `/lotr npc`
+npc.types	NPCs and creatures	Ported	NPC types (one class per race and job in LOTR)	One NPC type file each, checked by name (see the count); female NPCs and trader outfits not yet; LOTR never registered the skeletal wraith (an unused class), so missing-features' "skeletal wraith" is a new NPC, not a port
+npc.ai	NPCs and creatures	Ported	NPC AI and NPC-thrown attacks	`npc/behaviour/` (36 behaviours: archers, bandits, trolls fleeing the sun, orc bombs, huorns, ents, wights...), `LotrProjectile`, `npc/OpenGateGoal`; spear-throwing NPCs and mounted lances missing (missing-features)
+npc.animals	NPCs and creatures	Ported	Animals and ambient creatures	Creature NPCs on LOTR's models, 157 `npc_animals/`, `AnimalBehaviour`, `AnimalGenerationMixin`
+npc.mounts	NPCs and creatures	Partial	Mounts, riding, mount inventories	`mount/LotrHorse` (vanilla chested horse, 8 LOTR breeds), `MountArmorItem`, NPC riders (`LotrNpc.maybeRide`); players riding wargs and spiders, structure NPCs riding missing
+npc.gollum	NPCs and creatures	Partial	Gollum	`GollumBehaviour` (feed fish, follows, sits); his fishing and inventory missing
+npc.wizards	NPCs and creatures	Partial	Gandalf, Saruman, the Grey Wanderer	`GandalfBehaviour` (LOTRGreyWandererTracker); Gandalf's fireball and smoke ship missing
+npc.bosses	NPCs and creatures	Partial	Bosses (Balrog, troll chieftain, Sauron)	`BalrogBehaviour`, `BossJumpBehaviour`; the troll chieftain fight and Sauron missing (missing-features)
+npc.families	NPCs and creatures	Partial	Marriage, rings, children	Colonists marry and have children through colony events (`colony/events/ColonyEvents` wedding and birth, `colonist/Kin`, family tree `client/ui/TreePane`); LOTR's wild hobbit, dwarf and man families, marriage rings and children following players are not ported
+npc.travelling	NPCs and creatures	Not ported	Travelling traders, scrap traders, trader respawn	missing-features
+npc.spawning	NPCs and creatures	Ported	NPC spawning (lists, conditions, event spawner)	`npc/NpcSpawner`, 177 `npc_spawns/`, `world/NoMonsters`, `border/TerritorySpawns`; the event spawner's travelling-trader timers belong to `npc.travelling`
+npc.spawn_damping	NPCs and creatures	Not ported	Spawn damping	missing-features
+trade.trading	Hiring, trade and quests	Ported	Trading and coins	`npc/Traders`, `TraderMenu`, `CoinExchangeMenu`, 206 `npc_trades/`, `npc/Coins`
+trade.hiring	Hiring, trade and quests	Ported	Hiring units, mercenaries, hired-unit screens	`npc/Hiring`, `client/UnitScreen`, 51 `npc_units/`, `unit/Units` (orders, post, wage); hired units' own inventory screen is not ported
+trade.farmers	Hiring, trade and quests	Replaced	Hired farmers	Colony jobs and production (`colony/work`, `colony_job/`)
+trade.squadrons	Hiring, trade and quests	Replaced	Squadrons, command sword and command horn	Unit squads (`unit/Units` `squad`); the command sword's target marker is not ported
+quest.miniquests	Hiring, trade and quests	Partial	Mini-quests	`quest/` (collect, kill_faction, kill_npc; 37 pools), `client/QuestOfferScreen`; retrieve and welcome quests, the on-screen tracker and the per-quest speech missing
+quest.pickpocket	Hiring, trade and quests	Ported	Pickpocketing	Quest kind `pickpocket`
+item.weapons	Items and combat	Ported	Melee weapons, tools, LOTR's attack timing	`content/LotrWeaponItem`, `combat/AttackTiming`, weapon stats per class (missing-features "Combat")
+item.ranged	Items and combat	Ported	Bows, crossbows, thrown weapons, bombs, termites	`LotrBowItem`, `LotrCrossbowItem`, `content/thrown/` (`ThrownWeapon`, `ThrownMissile`, `OrcBomb`)
+item.dispensers	Items and combat	Ported	Dispenser behaviours	`Thrown.dispensers`
+item.special_weapons	Items and combat	Partial	Named and magic weapons	Items exist as swords; Sting/Glamdring/Orcrist glowing near orcs, the Balrog whip's fire, Sauron's mace and the staffs' powers missing
+item.armor	Items and combat	Partial	Armour, special models, dyeable hats and robes	`client/ArmorModels` (34 models), per-item textures, dyeable flag; animated parts (swan wings, robes), dyeing and feather recipes missing
+item.modifiers	Items and combat	Ported	Modifiers, smith's scrolls, reforging, ancient items	`modifier/` (data enchantments, `SmithScrollItem`, `AncientItem`)
+item.anvil	Items and combat	Replaced	LOTR's anvil (coloured names, reforge, engrave owner)	Vanilla anvil + `modifier/Modifiers` (scrolls, reforging); owner engraving and gem-coloured names missing
+item.food	Items and combat	Ported	Foods, placeable foods, Ent-draughts	Foods in `content/items.json`, `content/PieBlock`, `FeastMode`, `EntDraughtItem`
+item.drinks	Items and combat	Partial	Drinks, vessels, poisoned drinks	`drink/`, `LotrDrinkItem`, `VesselBlock`, `PoisonDrinkRecipe`; drunken speech, alcohol tolerance, NPCs drinking missing
+item.pouches	Items and combat	Partial	Pouches	`content/pouch/`; restocking from chests and the chest-with-pouch screen missing
+item.pipes	Items and combat	Partial	Pipes and smoke rings	`content/LotrUseItem` (smoking, smoke ring); smoke colour recipes missing
+item.branding	Items and combat	Ported	Branding iron	`content/BrandingIronItem`
+item.rugs	Items and combat	Ported	Rugs, boss trophies, troll statues	`content/figure/` (figure entity: statues and rugs)
+item.jars	Items and combat	Not ported	Animal and butterfly jars (catching creatures)	`butterfly_jar` is a plain shaped block
+item.treasure	Items and combat	Not ported	Treasure piles (stacking, falling)	Plain blocks (behavior-audit)
+item.dalecracker	Items and combat	Not ported	Dale crackers (seal items inside)	`dalish_cracker` is a plain item
+item.mechanism	Items and combat	Not ported	Mechanism and mechanised rails	Plain item and blocks (behavior-audit)
+item.fishing	Items and combat	Not ported	LOTR's fishing hook and loot	Vanilla fishing; regional loot is open in `modernize.md`
+item.misc	Items and combat	Ported	Other items (gems, bones, dyes, matches) and potion changes	Plain items with LOTR's ids; dye on mobs not ported
+block.building	Blocks and machines	Ported	Building blocks (stone, bricks, slabs, stairs, walls, pillars, glass, panes, bars, doors...)	`content/blocks.json` kinds cube, pillar, slab, stairs, wall, pane, door...; stonecutter recipes, waterlogging, tags
+block.wood	Blocks and machines	Ported	Woods, planks, beams, leaves, saplings	Full wood sets (`content/woodset/`), `LotrSaplingBlock` + `sapling/` rules, leaf drops
+block.plants	Blocks and machines	Partial	Plants, flowers, crops, grass, reeds	`PlantBlock`, `content/farm/`, `ReedBlock`, `HazardPlantBlock`; Mordor moss and Morgul shroom spreading, mud farmland, fruit leaves and hanging fruit, goran use missing
+block.hazards	Blocks and machines	Ported	Blocks that hurt or slow (quagmire, waste, thorns, Morgul flowers, coral)	`content/Hazards`, `HazardBlock`, `HazardPlantBlock`
+block.supported	Blocks and machines	Ported	Hanging and floor-bound blocks (chandeliers, cages, chains, stalactites, fallen leaves, ropes)	`content/SupportedBlock`, `behaviors.json`
+block.lights	Blocks and machines	Ported	Torches and hearths	`LotrTorchBlock`, `client/BlockParticles`
+block.ores	Blocks and machines	Ported	Ores and storage blocks	`ore` kind, raw ores (`converter/raw_ores.py`)
+block.falling	Blocks and machines	Not ported	Sand and gravel slabs that fall	Plain slabs (missing-features)
+block.tables	Blocks and machines	Ported	Faction crafting tables and recipes	`crafting/FactionTableBlock`, `FactionRecipe`, 4949 recipes, JEI category
+block.machines	Blocks and machines	Ported	Forges, hobbit oven, millstone, unsmeltery, kebab stand, Ent jar	`machine/` (`MachineBlock`, `MachineMenu`, `client/MachineScreen`); the unsmeltery's rocking animation missing
+block.keg	Blocks and machines	Ported	Barrel (brewing)	`drink/KegBlock` (LOTR's barrel is the keg); the rideable barrel entity (LOTREntityBarrel) and drinks ageing in barrels are not ported
+block.display	Blocks and machines	Ported	Plates, weapon racks, armour stands, chests, bookshelf storage	`machine/DisplayBlock`, `WeaponRackBlock`, `LotrChestBlock`, `BookshelfStorageBlock`
+block.gates	Blocks and machines	Partial	Gates, portcullises, dwarven doors	`content/GateBlock`, `client/ConnectedModel`; ithildin glow and LOTR's gate sounds missing
+block.beacon	Blocks and machines	Ported	Beacons of Gondor	`content/GondorBeaconBlock` (lit beacons light each other)
+block.carved_signs	Blocks and machines	Not ported	Chisel and carved stone signs (ithildin glow)	missing-features; stonecutting is done
+block.spawners	Blocks and machines	Not ported	Mob spawners, spawner chests, NPC respawners	Structures place up to 3 NPCs once (missing-features)
+block.traps	Blocks and machines	Not ported	Dart traps, troll totems	missing-features
+block.rhun_fire	Blocks and machines	Not ported	Rhûn fire and fire jars	missing-features
+block.crystals	Blocks and machines	Not ported	Gulduril and edhelvir crystals, glows, corrupt mallorn	Blocks and items exist without behaviour (missing-features)
+block.misc	Blocks and machines	Partial	Beds, bones, remains, goran	Beds (`LotrBedBlock`) done; goran use and remains' drops missing
+world.dimension	World generation	Ported	Middle-earth dimension and world type	`world/LotrDimensions`, world preset `lotr_port:middle_earth`, `/lotr travel`
+world.terrain	World generation	Ported	Terrain (chunk provider)	Noise settings + `lotr_port:map_terrain` (`world/map/MapTerrain`, `MiddleEarthMap`), tuned by LOTR's terrain survey
+world.genlayer	World generation	Replaced	Biome layers and rivers (GenLayer)	`world/map/MapBiomeSource` reads LOTR's map image; rivers `MiddleEarthMap.Rivers`
+world.biomes	World generation	Ported	Biomes	219 biome files (one per LOTR biome plus sub-biomes and seas), checked by name
+world.decorator	World generation	Ported	Biome decorator	`converter/world.py` placed features per biome
+world.variants	World generation	Ported	Biome variants	`world/map/Variants`, placement filter `lotr_port:in_variant`
+world.trees	World generation	Ported	Trees	111 tree types grown by LOTR's own generators into templates (`TemplateTreeFeature`)
+world.features	World generation	Partial	Other world features	Boulders, reeds, logs, fallen leaves, quagmire, crater, webs (`world/feature/`); streams, troll hoards, skull piles, Ent jars, cave cobwebs, blasted land, obsidian gravel, marsh lights not found in the port's features; spider webs dropping mystery webs missing
+world.caves	World generation	Replaced	Caves and ravines	Vanilla carvers and noise caves (`world/feature/BiomeCarvers`, `BiomeCaveConfig`, `converter/noisecaves.py`)
+world.roads	World generation	Ported	Roads and bridges	`world/map/Roads`, `RoadFeature`, `converter/roads.py`
+world.mountains	World generation	Ported	Mountains and peaks	`map.json` mountains, `world/map/Ranges`
+world.fixed	World generation	Not ported	Fixed builds at map coordinates (Isengard walls, Rammas Echor, waypoint settlements)	missing-features
+world.loot	World generation	Ported	Chest contents	2254 loot tables
+world.sky	World generation	Partial	Sky, clouds, weather	`client/MiddleEarthSky` (sun, moon, stars, Eärendil), `client/Atmosphere`, `LotrAmbience`; northern lights, sandstorms, Mordor ash, LOTR's clouds, seasonal grass colours missing
+struct.structures	Structures	Partial	Structures (LOTR's generators)	82 structures placed by `world/structure/LotrStructure` at LOTR's rates; the automatic check lists generators LOTR placed that the port lacks
+struct.villages	Structures	Partial	Villages and towns	11 village kinds (`village_*`, 3 layouts each); one fixed layout per seed, no town walls variety
+struct.mines	Structures	Not ported	Dwarven mines	Moria is a delve (`world/delve/`); LOTR's small mines could be small delves
+struct.pyramid	Structures	Not ported	Taurëdain pyramids (map-gen)	missing-features
+struct.tools	Structures	Replaced	Structure scans, timelapse, table of command, ban and allow	The converter exports LOTR's structures (`converter/.../StructureExporter`); no in-game scan tool, no structure ban commands
+dim.utumno	Dimensions and portals	Not ported	Utumno (dimension, levels, portals, keys, its NPCs' home)	missing-features; Utumno's NPC types exist
+dim.ring_portal	Dimensions and portals	Replaced	The ring portal to Middle-earth	World type, `/lotr travel`, TARDIS crash site (`shared/SharedApiHooks`)
+dim.faction_portals	Dimensions and portals	Not ported	Elven and Morgul portals	missing-features
+client.render_npc	Client rendering, models, sound	Ported	NPC, creature and player renderers	`client/NpcRenderer`, `CreatureRenderer`, `RigRenderer`, `RacePlayers`, `HuornRenderer`
+client.models	Client rendering, models, sound	Ported	Creature and block models	`converter/entity_models.py` replays LOTR's model constructors (`npc_model/`), `client/CreatureModel`, `CreatureAnim`
+client.render_items	Client rendering, models, sound	Partial	Item renderers	Large icons, bows, crossbows done; the skull staff, horns blown and elven-blade glow missing
+client.render_blocks	Client rendering, models, sound	Ported	Block rendering and block entity renderers	`client/ConnectedModel`, `MachineRenderers`, `VesselRenderer`, `LegacyAssets`
+client.fx	Client rendering, models, sound	Partial	Particles	Torch and leaf particles (`client/BlockParticles`), creature trails (`TrailBehaviour`); many of LOTR's 26 effects (marsh faces, river water, waves, music notes...) and ore glow particles missing
+client.hud	Client rendering, models, sound	Ported	HUD (compass, alignment bar, attack meter)	`client/LotrHud`
+client.music	Client rendering, models, sound	Ported	Music regions and ambience	`client/LotrMusic`, `LotrAmbience`, music pack (`lotr/docs/music-pack.md`)

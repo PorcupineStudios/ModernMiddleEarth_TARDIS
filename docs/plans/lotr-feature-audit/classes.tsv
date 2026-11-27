@@ -1,0 +1,2515 @@
+class	feature	port counterpart (automatic)	mentions	mentioned in
+client/LOTRAlignmentTicker	fac.alignment		1	LotrHud.java
+client/LOTRAttackTiming	item.weapons		3	AttackTiming.java LotrHud.java quests.py
+client/LOTRClientProxy	core.bootstrap		0	
+client/LOTREntityRenderer	client.render_npc		0	
+client/LOTRGuiHandler	core.bootstrap		0	
+client/LOTRItemRendererManager	client.render_items		0	
+client/LOTRKeyHandler	core.bootstrap		0	
+client/LOTRLang	core.bootstrap		0	
+client/LOTRReflectionClient	core.bootstrap		0	
+client/LOTRSpeechClient	npc.core		0	
+client/LOTRTextBody	progress.menu		0	
+client/LOTRTextures	client.render_blocks		0	
+client/LOTRTickHandlerClient	core.bootstrap		3	AlignmentHud.java LotrHud.java quests.py
+client/fx/LOTREffectRenderer	client.fx		0	
+client/fx/LOTREntityAlignmentBonus	fac.alignment		0	
+client/fx/LOTREntityAngryFX	client.fx		0	
+client/fx/LOTREntityBlueFlameFX	client.fx		0	
+client/fx/LOTREntityBossSpawnFX	npc.bosses		0	
+client/fx/LOTREntityChillFX	client.fx		0	
+client/fx/LOTREntityDeadMarshFace	client.fx		0	
+client/fx/LOTREntityElvenGlowFX	client.fx		0	
+client/fx/LOTREntityGandalfFireballExplodeFX	npc.wizards		0	
+client/fx/LOTREntityLargeBlockFX	client.fx		0	
+client/fx/LOTREntityLeafFX	client.fx		0	
+client/fx/LOTREntityMTCHealFX	client.fx		0	
+client/fx/LOTREntityMallornEntHealFX	client.fx		0	
+client/fx/LOTREntityMallornEntSummonFX	client.fx		0	
+client/fx/LOTREntityMarshFlameFX	client.fx		0	
+client/fx/LOTREntityMarshLightFX	client.fx		0	
+client/fx/LOTREntityMorgulPortalFX	dim.faction_portals		0	
+client/fx/LOTREntityMusicFX	client.fx		0	
+client/fx/LOTREntityPickpocketFX	quest.pickpocket		0	
+client/fx/LOTREntityPickpocketFailFX	quest.pickpocket		0	
+client/fx/LOTREntityQuenditeSmokeFX	block.crystals		0	
+client/fx/LOTREntityRiverWaterFX	client.fx		0	
+client/fx/LOTREntitySwordCommandMarker	trade.squadrons		0	
+client/fx/LOTREntityUtumnoKillFX	dim.utumno		0	
+client/fx/LOTREntityWaveFX	client.fx		0	
+client/fx/LOTREntityWhiteSmokeFX	client.fx		0	
+client/gui/LOTRGuiAchievementHoverEvent	progress.achievements		0	
+client/gui/LOTRGuiAchievements	progress.achievements		0	
+client/gui/LOTRGuiAlignmentChoices	fac.alignment_choices		0	
+client/gui/LOTRGuiAlloyForge	block.machines		0	
+client/gui/LOTRGuiAnvil	item.anvil		0	
+client/gui/LOTRGuiArmorStand	block.display		0	
+client/gui/LOTRGuiBanner	fac.banners		0	
+client/gui/LOTRGuiBarrel	block.keg		1	KegScreen.java
+client/gui/LOTRGuiBeacon	block.beacon		0	
+client/gui/LOTRGuiBookshelf	block.display		0	
+client/gui/LOTRGuiBrandingIron	item.branding		0	
+client/gui/LOTRGuiButtonAchievements	progress.achievements		0	
+client/gui/LOTRGuiButtonBanner	fac.banners		0	
+client/gui/LOTRGuiButtonBannerWhitelistSlots	fac.banners		0	
+client/gui/LOTRGuiButtonCoinExchange	trade.trading		0	
+client/gui/LOTRGuiButtonFactionsMap	fac.screen		0	
+client/gui/LOTRGuiButtonFactionsPage	fac.screen		0	
+client/gui/LOTRGuiButtonFsInvites	progress.fellowships		0	
+client/gui/LOTRGuiButtonFsOption	progress.fellowships		0	
+client/gui/LOTRGuiButtonLeftRight	progress.menu		0	
+client/gui/LOTRGuiButtonLock	progress.menu		0	
+client/gui/LOTRGuiButtonMenu	progress.menu		0	
+client/gui/LOTRGuiButtonOptions	progress.menu		0	
+client/gui/LOTRGuiButtonPledge	fac.pledge		0	
+client/gui/LOTRGuiButtonRedBook	progress.redbook		0	
+client/gui/LOTRGuiButtonReforge	item.modifiers		0	
+client/gui/LOTRGuiButtonRestockPouch	item.pouches		0	
+client/gui/LOTRGuiButtonShieldsArrows	progress.shields_capes		0	
+client/gui/LOTRGuiChestWithPouch	item.pouches		0	
+client/gui/LOTRGuiCoinExchange	trade.trading		1	CoinExchangeScreen.java
+client/gui/LOTRGuiCraftingTable	block.tables		0	
+client/gui/LOTRGuiDaleCracker	item.dalecracker		0	
+client/gui/LOTRGuiDownloadTerrain	progress.menu		0	
+client/gui/LOTRGuiEditSign	block.carved_signs		0	
+client/gui/LOTRGuiFactions	fac.screen		0	
+client/gui/LOTRGuiFastTravel	progress.fasttravel		0	
+client/gui/LOTRGuiFellowships	progress.fellowships		0	
+client/gui/LOTRGuiGollum	npc.gollum		0	
+client/gui/LOTRGuiHireBase	trade.hiring		0	
+client/gui/LOTRGuiHiredDismiss	trade.hiring		0	
+client/gui/LOTRGuiHiredFarmer	trade.farmers		0	
+client/gui/LOTRGuiHiredFarmerInventory	trade.farmers		0	
+client/gui/LOTRGuiHiredInteract	trade.hiring		0	
+client/gui/LOTRGuiHiredNPC	trade.hiring		0	
+client/gui/LOTRGuiHiredWarrior	trade.hiring		0	
+client/gui/LOTRGuiHiredWarriorInventory	trade.hiring		0	
+client/gui/LOTRGuiHobbitOven	block.machines		0	
+client/gui/LOTRGuiHornSelect	trade.squadrons		0	
+client/gui/LOTRGuiMainMenu	progress.menu		0	
+client/gui/LOTRGuiMap	progress.map		2	CLAUDE.md MapScreen.java
+client/gui/LOTRGuiMapWidget	progress.map		0	
+client/gui/LOTRGuiMenu	progress.menu		0	
+client/gui/LOTRGuiMenuBase	progress.menu		0	
+client/gui/LOTRGuiMercenaryHire	trade.hiring		0	
+client/gui/LOTRGuiMercenaryInteract	trade.hiring		0	
+client/gui/LOTRGuiMessage	progress.menu		0	
+client/gui/LOTRGuiMillstone	block.machines		0	
+client/gui/LOTRGuiMiniquestOffer	quest.miniquests		0	
+client/gui/LOTRGuiMiniquestTracker	quest.miniquests		0	
+client/gui/LOTRGuiMobSpawner	block.spawners		0	
+client/gui/LOTRGuiMountInventory	npc.mounts		0	
+client/gui/LOTRGuiNPCInteract	npc.core		0	
+client/gui/LOTRGuiNPCMountInventory	npc.mounts		0	
+client/gui/LOTRGuiNPCRespawner	block.spawners		0	
+client/gui/LOTRGuiNotificationDisplay	progress.menu		0	
+client/gui/LOTRGuiOptions	progress.menu		0	
+client/gui/LOTRGuiPouch	item.pouches		1	PouchScreen.java
+client/gui/LOTRGuiRedBook	progress.redbook		0	
+client/gui/LOTRGuiRendererMap	progress.map		0	
+client/gui/LOTRGuiScreenBase	progress.menu		0	
+client/gui/LOTRGuiScrollPane	progress.menu		0	
+client/gui/LOTRGuiShields	progress.shields_capes		0	
+client/gui/LOTRGuiSlider	progress.menu		0	
+client/gui/LOTRGuiSquadronItem	trade.squadrons		0	
+client/gui/LOTRGuiTitles	progress.titles		0	
+client/gui/LOTRGuiTrade	trade.trading		1	TradeScreen.java
+client/gui/LOTRGuiTradeButton	trade.trading		0	
+client/gui/LOTRGuiTradeInteract	trade.trading		2	TraderInteractScreen.java Traders.java
+client/gui/LOTRGuiTradeUnitTradeInteract	trade.hiring		0	
+client/gui/LOTRGuiUnitTrade	trade.hiring		0	
+client/gui/LOTRGuiUnitTradeButton	trade.hiring		0	
+client/gui/LOTRGuiUnitTradeInteract	trade.hiring		0	
+client/gui/LOTRGuiUnsmeltery	block.machines		0	
+client/gui/LOTRMapLabels	progress.map		1	quests.py
+client/gui/config/LOTRGuiConfig	core.config		0	
+client/gui/config/LOTRGuiFactory	core.config		0	
+client/model/LOTRArmorModels	item.armor		3	README.md armor_models.py missing-features.md
+client/model/LOTRModelAleHorn	item.drinks		0	
+client/model/LOTRModelArmorStand	block.display		1	machines.py
+client/model/LOTRModelArnorHelmet	item.armor		0	
+client/model/LOTRModelAurochs	client.models		0	
+client/model/LOTRModelBalrog	client.models		0	
+client/model/LOTRModelBanner	fac.banners		0	
+client/model/LOTRModelBannerWall	fac.banners		0	
+client/model/LOTRModelBarrowWight	client.models		0	
+client/model/LOTRModelBeacon	block.beacon		0	
+client/model/LOTRModelBear	client.models		0	
+client/model/LOTRModelBearRug	item.rugs		0	
+client/model/LOTRModelBiped	client.models		0	
+client/model/LOTRModelBird	client.models		0	
+client/model/LOTRModelBlackNumenoreanHelmet	item.armor		0	
+client/model/LOTRModelBlackUrukHelmet	item.armor		0	
+client/model/LOTRModelBlock	client.models		0	
+client/model/LOTRModelBoar	client.models		1	mounts.py
+client/model/LOTRModelButterfly	client.models		0	
+client/model/LOTRModelCamel	client.models		1	mounts.py
+client/model/LOTRModelCompass	client.hud		2	LotrHud.java quests.py
+client/model/LOTRModelCrocodile	client.models		0	
+client/model/LOTRModelDeer	client.models		0	
+client/model/LOTRModelDikDik	client.models		0	
+client/model/LOTRModelDorwinionElfHelmet	item.armor		0	
+client/model/LOTRModelDwarf	client.models		1	npcs.py
+client/model/LOTRModelEasterlingHelmet	item.armor		0	
+client/model/LOTRModelElf	client.models		1	npcs.py
+client/model/LOTRModelElk	client.models		1	mounts.py
+client/model/LOTRModelEnt	client.models		0	
+client/model/LOTRModelFish	client.models		0	
+client/model/LOTRModelFlamingo	client.models		0	
+client/model/LOTRModelGaladhrimHelmet	item.armor		0	
+client/model/LOTRModelGemsbok	client.models		0	
+client/model/LOTRModelGemsbokHelmet	item.armor		0	
+client/model/LOTRModelGiraffe	client.models		1	mounts.py
+client/model/LOTRModelGiraffeRug	item.rugs		0	
+client/model/LOTRModelGlassBottle	item.drinks		0	
+client/model/LOTRModelGoblet	item.drinks		0	
+client/model/LOTRModelGollum	npc.gollum		0	
+client/model/LOTRModelGondolinHelmet	item.armor		0	
+client/model/LOTRModelGondorHelmet	item.armor		0	
+client/model/LOTRModelGulfChestplate	item.armor		0	
+client/model/LOTRModelGundabadUrukHelmet	item.armor		0	
+client/model/LOTRModelHalfTroll	client.models		0	
+client/model/LOTRModelHaradRobes	item.armor		0	
+client/model/LOTRModelHaradTurban	item.armor		0	
+client/model/LOTRModelHarnedorChestplate	item.armor		0	
+client/model/LOTRModelHarnedorHelmet	item.armor		0	
+client/model/LOTRModelHeadPlate	item.armor		0	
+client/model/LOTRModelHighElvenHelmet	item.armor		0	
+client/model/LOTRModelHobbit	client.models		1	npcs.py
+client/model/LOTRModelHuman	client.models		1	npcs.py
+client/model/LOTRModelHuorn	client.models		2	HuornRenderer.java npcs.py
+client/model/LOTRModelKebabStand	block.machines		1	machines.py
+client/model/LOTRModelLeatherHat	item.armor		0	
+client/model/LOTRModelLion	client.models		0	
+client/model/LOTRModelLionOld	client.models		0	
+client/model/LOTRModelLionRug	item.rugs		0	
+client/model/LOTRModelMallornEntTrophy	item.rugs		0	
+client/model/LOTRModelMarshWraith	client.models		0	
+client/model/LOTRModelMidge	client.models		0	
+client/model/LOTRModelMoredainLionHelmet	item.armor		0	
+client/model/LOTRModelMorgulHelmet	item.armor		0	
+client/model/LOTRModelMug	item.drinks		0	
+client/model/LOTRModelNearHaradWarlordHelmet	item.armor		0	
+client/model/LOTRModelOrc	client.models		1	npcs.py
+client/model/LOTRModelPartyHat	item.armor		0	
+client/model/LOTRModelPortal	dim.ring_portal		1	LotrHud.java
+client/model/LOTRModelRabbit	client.models		0	
+client/model/LOTRModelRhino	client.models		1	mounts.py
+client/model/LOTRModelRohanMarshalHelmet	item.armor		0	
+client/model/LOTRModelSauron	client.models		0	
+client/model/LOTRModelScorpion	client.models		0	
+client/model/LOTRModelSkeleton	client.models		0	
+client/model/LOTRModelSkullCup	item.drinks		0	
+client/model/LOTRModelSmokeShip	npc.wizards		0	
+client/model/LOTRModelSpider	client.models		0	
+client/model/LOTRModelSwan	client.models		0	
+client/model/LOTRModelSwanChestplate	item.armor		0	
+client/model/LOTRModelSwanHelmet	item.armor		0	
+client/model/LOTRModelTauredainChieftainHelmet	item.armor		0	
+client/model/LOTRModelTauredainGoldHelmet	item.armor		0	
+client/model/LOTRModelTermite	client.models		0	
+client/model/LOTRModelTroll	client.models		1	entity_models.py
+client/model/LOTRModelTrollTotem	block.traps		0	
+client/model/LOTRModelUmbarHelmet	item.armor		0	
+client/model/LOTRModelUnsmeltery	block.machines		1	machines.py
+client/model/LOTRModelUrukHelmet	item.armor		0	
+client/model/LOTRModelWarg	client.models		0	
+client/model/LOTRModelWargskinRug	item.rugs		0	
+client/model/LOTRModelWeaponRack	block.display		2	MachineRenderers.java machines.py
+client/model/LOTRModelWineGlass	item.drinks		0	
+client/model/LOTRModelWingedHelmet	item.armor		0	
+client/model/LOTRModelWizardHat	item.armor		0	
+client/render/LOTRBufferedImageIcon	client.render_blocks		0	
+client/render/LOTRCloudRenderer	world.sky		0	
+client/render/LOTRConnectedTextures	client.render_blocks		0	
+client/render/LOTRDrinkIcons	item.drinks		2	LegacyComposer.java drinks.py
+client/render/LOTRRenderBlocks	client.render_blocks		1	generate.py
+client/render/LOTRRenderNorthernLights	world.sky		0	
+client/render/LOTRRenderPlayer	client.render_npc		0	
+client/render/LOTRRenderShield	progress.shields_capes		0	
+client/render/LOTRSkyRenderer	world.sky		0	
+client/render/LOTRWeatherRenderer	world.sky		1	sounds.py
+client/render/entity/LOTRGlowingEyes	client.render_npc		0	
+client/render/entity/LOTRHuornTextures	client.render_npc		0	
+client/render/entity/LOTRNPCRendering	client.render_npc		0	
+client/render/entity/LOTRRandomSkins	client.render_npc		0	
+client/render/entity/LOTRRenderAlignmentBonus	fac.alignment		0	
+client/render/entity/LOTRRenderAngmarHillman	client.render_npc		0	
+client/render/entity/LOTRRenderArrowPoisoned	item.ranged		0	
+client/render/entity/LOTRRenderAurochs	client.render_npc		0	
+client/render/entity/LOTRRenderBalrog	client.render_npc		0	
+client/render/entity/LOTRRenderBandit	client.render_npc		0	
+client/render/entity/LOTRRenderBanner	fac.banners		0	
+client/render/entity/LOTRRenderBannerWall	fac.banners		0	
+client/render/entity/LOTRRenderBarrowWight	client.render_npc		0	
+client/render/entity/LOTRRenderBear	client.render_npc		0	
+client/render/entity/LOTRRenderBearRug	item.rugs		0	
+client/render/entity/LOTRRenderBiped	client.render_npc		0	
+client/render/entity/LOTRRenderBird	client.render_npc		0	
+client/render/entity/LOTRRenderBlacksmith	client.render_npc		0	
+client/render/entity/LOTRRenderBossTrophy	item.rugs		0	
+client/render/entity/LOTRRenderBreeMan	client.render_npc		0	
+client/render/entity/LOTRRenderBreeRuffian	client.render_npc		0	
+client/render/entity/LOTRRenderBreeTrader	trade.trading		0	
+client/render/entity/LOTRRenderButterfly	client.render_npc		0	
+client/render/entity/LOTRRenderCamel	client.render_npc		1	mounts.py
+client/render/entity/LOTRRenderCrocodile	client.render_npc		0	
+client/render/entity/LOTRRenderCrossbowBolt	item.ranged		0	
+client/render/entity/LOTRRenderDaleMan	client.render_npc		0	
+client/render/entity/LOTRRenderDaleTrader	trade.trading		0	
+client/render/entity/LOTRRenderDart	item.ranged		0	
+client/render/entity/LOTRRenderDeadMarshFace	client.render_npc		0	
+client/render/entity/LOTRRenderDeer	client.render_npc		0	
+client/render/entity/LOTRRenderDikDik	client.render_npc		0	
+client/render/entity/LOTRRenderDorwinionElfVintner	client.render_npc		0	
+client/render/entity/LOTRRenderDorwinionMan	client.render_npc		0	
+client/render/entity/LOTRRenderDunedain	client.render_npc		0	
+client/render/entity/LOTRRenderDunedainTrader	trade.trading		0	
+client/render/entity/LOTRRenderDunlending	client.render_npc		0	
+client/render/entity/LOTRRenderDunlendingBase	client.render_npc		0	
+client/render/entity/LOTRRenderDwarf	client.render_npc		0	
+client/render/entity/LOTRRenderDwarfCommander	client.render_npc		0	
+client/render/entity/LOTRRenderDwarfSmith	client.render_npc		0	
+client/render/entity/LOTRRenderEasterling	client.render_npc		0	
+client/render/entity/LOTRRenderEasterlingTrader	trade.trading		0	
+client/render/entity/LOTRRenderElf	client.render_npc		1	NpcRenderer.java
+client/render/entity/LOTRRenderElk	client.render_npc		1	mounts.py
+client/render/entity/LOTRRenderElvenSmith	client.render_npc		0	
+client/render/entity/LOTRRenderElvenTrader	trade.trading		0	
+client/render/entity/LOTRRenderEnt	client.render_npc		0	
+client/render/entity/LOTRRenderEntityBarrel	block.keg		0	
+client/render/entity/LOTRRenderFallingCoinPile	item.treasure		0	
+client/render/entity/LOTRRenderFallingFireJar	block.rhun_fire		0	
+client/render/entity/LOTRRenderFish	client.render_npc		0	
+client/render/entity/LOTRRenderFlamingo	client.render_npc		0	
+client/render/entity/LOTRRenderGaladhrimWarden	client.render_npc		0	
+client/render/entity/LOTRRenderGandalf	client.render_npc		0	
+client/render/entity/LOTRRenderGandalfFireball	npc.wizards		0	
+client/render/entity/LOTRRenderGemsbok	client.render_npc		0	
+client/render/entity/LOTRRenderGiraffe	client.render_npc		1	mounts.py
+client/render/entity/LOTRRenderGiraffeRug	item.rugs		0	
+client/render/entity/LOTRRenderGollum	npc.gollum		0	
+client/render/entity/LOTRRenderGondorMan	client.render_npc		0	
+client/render/entity/LOTRRenderGondorRenegade	client.render_npc		0	
+client/render/entity/LOTRRenderGondorTrader	trade.trading		0	
+client/render/entity/LOTRRenderHalfTroll	client.render_npc		0	
+client/render/entity/LOTRRenderHalfTrollScavenger	client.render_npc		0	
+client/render/entity/LOTRRenderHaradSlave	client.render_npc		0	
+client/render/entity/LOTRRenderHaradrimTrader	trade.trading		0	
+client/render/entity/LOTRRenderHobbit	client.render_npc		0	
+client/render/entity/LOTRRenderHobbitTrader	trade.trading		0	
+client/render/entity/LOTRRenderHorse	client.render_npc		0	
+client/render/entity/LOTRRenderHuorn	client.render_npc		0	
+client/render/entity/LOTRRenderInvasionSpawner	fac.invasions		0	
+client/render/entity/LOTRRenderKineAraw	client.render_npc		0	
+client/render/entity/LOTRRenderLion	client.render_npc		0	
+client/render/entity/LOTRRenderLionRug	item.rugs		0	
+client/render/entity/LOTRRenderMallornEnt	client.render_npc		0	
+client/render/entity/LOTRRenderMallornLeafBomb	npc.ai		0	
+client/render/entity/LOTRRenderMarshWraith	client.render_npc		0	
+client/render/entity/LOTRRenderMidges	client.render_npc		0	
+client/render/entity/LOTRRenderMirkTroll	client.render_npc		1	entity_models.py
+client/render/entity/LOTRRenderMirkwoodSpider	client.render_npc		0	
+client/render/entity/LOTRRenderMordorSpider	client.render_npc		0	
+client/render/entity/LOTRRenderMoredain	client.render_npc		0	
+client/render/entity/LOTRRenderMountainTroll	client.render_npc		1	entity_models.py
+client/render/entity/LOTRRenderMountainTrollChieftain	client.render_npc		1	entity_models.py
+client/render/entity/LOTRRenderNPCRespawner	block.spawners		0	
+client/render/entity/LOTRRenderNearHaradTrader	trade.trading		0	
+client/render/entity/LOTRRenderNearHaradrim	client.render_npc		0	
+client/render/entity/LOTRRenderNearHaradrimWarlord	client.render_npc		0	
+client/render/entity/LOTRRenderNurnSlave	client.render_npc		0	
+client/render/entity/LOTRRenderOlogHai	client.render_npc		1	entity_models.py
+client/render/entity/LOTRRenderOrc	client.render_npc		0	
+client/render/entity/LOTRRenderOrcBomb	item.ranged		1	ThrownRenderers.java
+client/render/entity/LOTRRenderPlate	block.display		0	
+client/render/entity/LOTRRenderPortal	dim.ring_portal		0	
+client/render/entity/LOTRRenderRabbit	client.render_npc		0	
+client/render/entity/LOTRRenderRanger	client.render_npc		0	
+client/render/entity/LOTRRenderRhino	client.render_npc		1	mounts.py
+client/render/entity/LOTRRenderRohanTrader	trade.trading		0	
+client/render/entity/LOTRRenderRohirrim	client.render_npc		0	
+client/render/entity/LOTRRenderRugBase	item.rugs		1	FigureRenderer.java
+client/render/entity/LOTRRenderSaruman	client.render_npc		0	
+client/render/entity/LOTRRenderSauron	client.render_npc		0	
+client/render/entity/LOTRRenderScorpion	client.render_npc		0	
+client/render/entity/LOTRRenderScrapTrader	npc.travelling		0	
+client/render/entity/LOTRRenderShirePony	client.render_npc		0	
+client/render/entity/LOTRRenderSkeleton	client.render_npc		0	
+client/render/entity/LOTRRenderSmokeRing	item.pipes		0	
+client/render/entity/LOTRRenderSnowTroll	client.render_npc		1	entity_models.py
+client/render/entity/LOTRRenderSpear	item.ranged		1	ThrownRenderers.java
+client/render/entity/LOTRRenderSpiderBase	client.render_npc		0	
+client/render/entity/LOTRRenderStoneTroll	client.render_npc		0	
+client/render/entity/LOTRRenderSwan	client.render_npc		0	
+client/render/entity/LOTRRenderSwanKnight	client.render_npc		0	
+client/render/entity/LOTRRenderSwordCommandMarker	trade.squadrons		0	
+client/render/entity/LOTRRenderTauredain	client.render_npc		0	
+client/render/entity/LOTRRenderTauredainShaman	client.render_npc		0	
+client/render/entity/LOTRRenderTermite	client.render_npc		0	
+client/render/entity/LOTRRenderThrowingAxe	item.ranged		0	
+client/render/entity/LOTRRenderThrownRock	npc.ai		0	
+client/render/entity/LOTRRenderTraderRespawn	npc.travelling		0	
+client/render/entity/LOTRRenderTroll	client.render_npc		1	entity_models.py
+client/render/entity/LOTRRenderUtumnoIceSpider	client.render_npc		0	
+client/render/entity/LOTRRenderUtumnoTroll	client.render_npc		1	entity_models.py
+client/render/entity/LOTRRenderWarg	client.render_npc		1	npcs.py
+client/render/entity/LOTRRenderWargskinRug	item.rugs		0	
+client/render/entity/LOTRRenderWhiteOryx	client.render_npc		0	
+client/render/entity/LOTRRenderWickedDwarf	client.render_npc		0	
+client/render/entity/LOTRRenderWildBoar	client.render_npc		1	mounts.py
+client/render/entity/LOTRRenderWraithBall	npc.ai		0	
+client/render/entity/LOTRRenderZebra	client.render_npc		0	
+client/render/entity/LOTRSwingHandler	item.weapons		0	
+client/render/item/LOTRRenderBannerItem	fac.banners		0	
+client/render/item/LOTRRenderBlownItem	client.render_items		0	
+client/render/item/LOTRRenderBow	client.render_items		1	missing-features.md
+client/render/item/LOTRRenderCrossbow	client.render_items		0	
+client/render/item/LOTRRenderElvenBlade	item.special_weapons		0	
+client/render/item/LOTRRenderInvTableCommand	struct.tools		0	
+client/render/item/LOTRRenderLargeItem	client.render_items		3	ThrownRenderers.java generate.py missing-features.md
+client/render/item/LOTRRenderSkullStaff	item.special_weapons		0	
+client/render/tileentity/LOTRRenderAnimalJar	item.jars		0	
+client/render/tileentity/LOTRRenderArmorStand	block.display		0	
+client/render/tileentity/LOTRRenderBeacon	block.beacon		0	
+client/render/tileentity/LOTRRenderChest	block.display		0	
+client/render/tileentity/LOTRRenderCommandTable	struct.tools		0	
+client/render/tileentity/LOTRRenderDartTrap	block.traps		0	
+client/render/tileentity/LOTRRenderDwarvenDoor	block.gates		0	
+client/render/tileentity/LOTRRenderDwarvenGlow	block.gates		0	
+client/render/tileentity/LOTRRenderElvenPortal	dim.faction_portals		0	
+client/render/tileentity/LOTRRenderEntJar	block.machines		0	
+client/render/tileentity/LOTRRenderGuldurilGlow	block.crystals		0	
+client/render/tileentity/LOTRRenderKebabStand	block.machines		0	
+client/render/tileentity/LOTRRenderMorgulPortal	dim.faction_portals		0	
+client/render/tileentity/LOTRRenderMug	item.drinks		0	
+client/render/tileentity/LOTRRenderPlateFood	block.display		0	
+client/render/tileentity/LOTRRenderSignCarved	block.carved_signs		0	
+client/render/tileentity/LOTRRenderSignCarvedIthildin	block.carved_signs		0	
+client/render/tileentity/LOTRRenderSpawnerChest	block.spawners		0	
+client/render/tileentity/LOTRRenderTrollTotem	block.traps		0	
+client/render/tileentity/LOTRRenderUnsmeltery	block.machines		0	
+client/render/tileentity/LOTRRenderUtumnoPortal	dim.utumno		0	
+client/render/tileentity/LOTRRenderUtumnoReturnPortal	dim.utumno		0	
+client/render/tileentity/LOTRRenderWeaponRack	block.display		0	
+client/render/tileentity/LOTRTileEntityMobSpawnerRenderer	block.spawners		0	
+client/sound/LOTRAmbience	client.music		2	LotrAmbience.java sounds.py
+client/sound/LOTRMusic	client.music		0	
+client/sound/LOTRMusicCategory	client.music		0	
+client/sound/LOTRMusicResourceManager	client.music		0	
+client/sound/LOTRMusicTicker	client.music		0	
+client/sound/LOTRMusicTrack	client.music		0	
+client/sound/LOTRRegionTrackPool	client.music		0	
+client/sound/LOTRTrackRegionInfo	client.music		0	
+client/sound/LOTRTrackSorter	client.music		0	
+common/LOTRAchievement	progress.achievements		2	ReflectionDump.java extra.py
+common/LOTRAchievementRank	progress.achievements		0	
+common/LOTRBannerProtection	fac.banners		0	
+common/LOTRCapes	progress.shields_capes		3	Cosmetics.java ReflectionDump.java extra.py
+common/LOTRChatEvents	core.bootstrap		0	
+common/LOTRCommonProxy	core.bootstrap		0	
+common/LOTRConfig	core.config		0	
+common/LOTRCreativeTabs	core.bootstrap		0	
+common/LOTRDamage	item.weapons		0	
+common/LOTRDate	progress.calendar		3	Calendar.java ReflectionDump.java extra.py
+common/LOTRDimension	world.dimension		7	AlignmentHud.java PlantCensus.java ReflectionDump.java
+common/LOTRDrunkenSpeech	item.drinks		0	
+common/LOTREventHandler	core.bootstrap		0	
+common/LOTRFoods	item.food		1	EatDrinkBehaviour.java
+common/LOTRGreyWandererTracker	npc.wizards		2	GandalfBehaviour.java behaviours.py
+common/LOTRGuiMessageTypes	progress.menu		0	
+common/LOTRInterModComms	core.bootstrap		0	
+common/LOTRLevelData	core.playerdata		3	CLAUDE.md LotrWorldData.java QuestExporter.java
+common/LOTRLore	progress.lore		2	lore.py structures.py
+common/LOTRMod	core.bootstrap		14	CLAUDE.md Crops.java LegacyAssetMap.java
+common/LOTRModInfo	core.bootstrap		0	
+common/LOTRNetHandlerPlayServer	item.weapons		1	AttackTiming.java
+common/LOTROptions	core.playerdata		0	
+common/LOTRPlayerData	core.playerdata		2	CLAUDE.md PlayerLotrData.java
+common/LOTRPlayerQuestData	quest.miniquests		0	
+common/LOTRPotionChanges	item.misc		0	
+common/LOTRReflection	core.bootstrap		0	
+common/LOTRShields	progress.shields_capes		3	Cosmetics.java ReflectionDump.java extra.py
+common/LOTRSpawnDamping	npc.spawn_damping		0	
+common/LOTRSquadrons	trade.squadrons		0	
+common/LOTRTickHandlerServer	core.bootstrap		0	
+common/LOTRTime	progress.time		1	missing-features.md
+common/LOTRTitle	progress.titles		3	ReflectionDump.java Titles.java extra.py
+common/block/LOTRBlockAleHorn	item.drinks	ids 2/2	0	
+common/block/LOTRBlockAlloyForge	block.machines	ids 1/1	1	machines.py
+common/block/LOTRBlockAngmarTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockAnimalJar	item.jars	ids 3/3	0	
+common/block/LOTRBlockArmorStand	block.display	ids 1/1	1	machines.py
+common/block/LOTRBlockBanana	block.plants	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockBarrel	block.keg	ids 1/1	1	generate.py
+common/block/LOTRBlockBars	block.building	ids 11/11	0	
+common/block/LOTRBlockBeacon	block.beacon	ids 1/1	2	GondorBeaconBlock.java behavior-audit.md
+common/block/LOTRBlockBed	block.misc	ids 8/8	0	
+common/block/LOTRBlockBerryBush	block.plants	ids 1/1	3	BerryBushBlock.java Farming.java farming.py
+common/block/LOTRBlockBirdCage	block.supported	ids 2/2	1	behavior-audit.md
+common/block/LOTRBlockBirdCageWood	block.supported	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockBlackroot	block.plants	ids 1/1	0	
+common/block/LOTRBlockBlueDwarvenTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockBone	block.misc	ids 1/1	0	
+common/block/LOTRBlockBookshelfStorage	block.display	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockBreeTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockBrick	block.building	ids 1/1	0	
+common/block/LOTRBlockBrick2	block.building	ids 1/1	0	
+common/block/LOTRBlockBrick3	block.building	ids 1/1	0	
+common/block/LOTRBlockBrick4	block.building	ids 1/1	0	
+common/block/LOTRBlockBrick5	block.building	ids 1/1	0	
+common/block/LOTRBlockBrick6	block.building	ids 1/1	0	
+common/block/LOTRBlockBrickBase	block.building	ids 10/10	0	
+common/block/LOTRBlockButterflyJar	item.jars	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockButton	block.building	ids 6/6	0	
+common/block/LOTRBlockChandelier	block.supported	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockChest	block.display	ids 5/5	3	LotrChestBlock.java generate.py machines.py
+common/block/LOTRBlockClayMug	item.drinks	ids 1/1	0	
+common/block/LOTRBlockClayTile	block.building	ids 2/2	0	
+common/block/LOTRBlockClayTileDyed	block.building	ids 1/1	0	
+common/block/LOTRBlockClover	block.plants	ids 1/1	2	generate.py plant_textures.py
+common/block/LOTRBlockCobblebrick	block.building	ids 1/1	0	
+common/block/LOTRBlockCommandTable	struct.tools	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockCoralReef	block.hazards	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockCorn	block.plants	ids 1/1	2	CornBlock.java farming.py
+common/block/LOTRBlockCorruptMallorn	block.crystals	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockCraftingTable	block.tables	ids 27/27	2	create_crafters.py generate.py
+common/block/LOTRBlockDaleTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockDartTrap	block.traps	ids 3/3	2	behavior-audit.md generate.py
+common/block/LOTRBlockDate	block.plants	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockDaub	block.building	ids 1/1	0	
+common/block/LOTRBlockDeadPlant	block.plants	ids 1/1	0	
+common/block/LOTRBlockDirtPath	block.building	ids 1/1	0	
+common/block/LOTRBlockDolAmrothTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockDolGuldurTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockDoor	block.building	ids 44/44	0	
+common/block/LOTRBlockDorwinionTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockDoubleFlower	block.plants	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockDoubleTorch	block.lights	ids 2/2	1	behavior-audit.md
+common/block/LOTRBlockDunlendingTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockDwarvenForge	block.machines	ids 1/1	1	machines.py
+common/block/LOTRBlockDwarvenTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockElvenForge	block.machines	ids 1/1	1	machines.py
+common/block/LOTRBlockElvenPortal	dim.faction_portals	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockElvenTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockElvenTorch	block.lights	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockEntJar	block.machines	ids 1/1	2	EntJarBlock.java machines.py
+common/block/LOTRBlockFallenLeaves	block.supported	ids 4/4	1	behavior-audit.md
+common/block/LOTRBlockFangornPlant	block.plants	ids 1/1	0	
+common/block/LOTRBlockFangornRiverweed	block.plants	ids 1/1	0	
+common/block/LOTRBlockFence	block.building	ids 4/4	0	
+common/block/LOTRBlockFenceGate	block.building	ids 44/44	1	generate.py
+common/block/LOTRBlockFenceVanilla	block.building		0	
+common/block/LOTRBlockFlaxCrop	block.plants	ids 1/1	1	farming.py
+common/block/LOTRBlockFlower	block.plants	ids 32/32	0	
+common/block/LOTRBlockFlowerPot	block.plants	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockForgeBase	block.machines	ids 5/5	1	generate.py
+common/block/LOTRBlockFruitLeaves	block.wood	ids 1/1	0	
+common/block/LOTRBlockFruitSapling	block.wood	ids 1/1	1	saplings.py
+common/block/LOTRBlockFruitWood	block.wood	ids 1/1	0	
+common/block/LOTRBlockGate	block.gates	ids 25/25	2	GateBlock.java generate.py
+common/block/LOTRBlockGateDwarven	block.gates	ids 2/2	0	
+common/block/LOTRBlockGateDwarvenIthildin	block.gates	ids 1/1	0	
+common/block/LOTRBlockGemStorage	block.ores	ids 1/1	0	
+common/block/LOTRBlockGlass	block.building	ids 2/2	0	
+common/block/LOTRBlockGlassBottle	item.drinks	ids 1/1	0	
+common/block/LOTRBlockGlassPane	block.building	ids 2/2	0	
+common/block/LOTRBlockGoblet	item.drinks	ids 4/4	0	
+common/block/LOTRBlockGondorianTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockGoran	block.misc	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockGrapevine	block.plants	ids 3/3	3	GrapevineBlock.java behavior-audit.md farming.py
+common/block/LOTRBlockGrapevineRed	block.plants	ids 1/1	1	farming.py
+common/block/LOTRBlockGrapevineWhite	block.plants	ids 1/1	1	farming.py
+common/block/LOTRBlockGrass	block.plants	ids 2/2	1	behavior-audit.md
+common/block/LOTRBlockGravel	block.building	ids 2/2	0	
+common/block/LOTRBlockGuldurilBrick	block.crystals	ids 1/1	0	
+common/block/LOTRBlockGulfTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockGundabadTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockHalfTrollTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockHangingFruit	block.plants	ids 2/2	0	
+common/block/LOTRBlockHaradFlower	block.plants	ids 1/1	0	
+common/block/LOTRBlockHearth	block.lights	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockHighElvenTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockHithlainRope	block.supported	ids 1/1	0	
+common/block/LOTRBlockHobbitOven	block.machines	ids 1/1	2	generate.py machines.py
+common/block/LOTRBlockHobbitTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockKebab	block.machines	ids 1/1	0	
+common/block/LOTRBlockKebabStand	block.machines	ids 2/2	3	KebabStandBlock.java generate.py machines.py
+common/block/LOTRBlockLadder	block.building	ids 3/3	0	
+common/block/LOTRBlockLeaves	block.wood	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockLeaves2	block.wood	ids 1/1	0	
+common/block/LOTRBlockLeaves3	block.wood	ids 1/1	0	
+common/block/LOTRBlockLeaves4	block.wood	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockLeaves5	block.wood	ids 1/1	0	
+common/block/LOTRBlockLeaves6	block.wood	ids 1/1	0	
+common/block/LOTRBlockLeaves7	block.wood	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockLeaves8	block.wood	ids 1/1	0	
+common/block/LOTRBlockLeaves9	block.wood	ids 1/1	0	
+common/block/LOTRBlockLeavesBase	block.wood	ids 10/10	0	
+common/block/LOTRBlockLeavesVanilla1	block.wood		0	
+common/block/LOTRBlockLeavesVanilla2	block.wood		0	
+common/block/LOTRBlockLeekCrop	block.plants	ids 1/1	1	farming.py
+common/block/LOTRBlockLettuceCrop	block.plants	ids 1/1	1	farming.py
+common/block/LOTRBlockMallornTorch	block.lights	ids 4/4	1	behavior-audit.md
+common/block/LOTRBlockMarshLights	block.supported	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockMechanisedRail	item.mechanism	ids 2/2	1	behavior-audit.md
+common/block/LOTRBlockMillstone	block.machines	ids 1/1	2	generate.py machines.py
+common/block/LOTRBlockMobSpawner	block.spawners	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockMordorDirt	block.building	ids 1/1	1	machines.py
+common/block/LOTRBlockMordorGrass	block.plants	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockMordorMoss	block.plants	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockMordorPlant	block.plants	ids 2/2	0	
+common/block/LOTRBlockMordorThorn	block.hazards	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockMoredainTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockMorgulFlower	block.hazards	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockMorgulPortal	dim.faction_portals	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockMorgulShroom	block.plants	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockMorgulTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockMorgulTorch	block.lights	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockMud	block.building	ids 1/1	0	
+common/block/LOTRBlockMudFarmland	block.plants	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockMudGrass	block.plants	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockMug	item.drinks	ids 11/11	1	VesselBlock.java
+common/block/LOTRBlockNearHaradTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockObsidianGravel	block.building	ids 1/1	0	
+common/block/LOTRBlockOrcBomb	item.ranged	ids 1/1	2	OrcBombBlock.java thrown.py
+common/block/LOTRBlockOrcChain	block.supported	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockOrcForge	block.machines	ids 1/1	1	machines.py
+common/block/LOTRBlockOrcPlating	block.building	ids 1/1	0	
+common/block/LOTRBlockOre	block.ores	ids 12/12	5	LotrBlocks.java behavior-audit.md create_compat.py
+common/block/LOTRBlockOreGem	block.ores	ids 1/1	1	machines.py
+common/block/LOTRBlockOreMordorVariant	block.ores	ids 2/2	2	behavior-audit.md machines.py
+common/block/LOTRBlockOreStorage	block.ores	ids 1/1	0	
+common/block/LOTRBlockOreStorage2	block.ores	ids 1/1	0	
+common/block/LOTRBlockOreStorageBase	block.ores	ids 3/3	0	
+common/block/LOTRBlockPane	block.building	ids 17/17	0	
+common/block/LOTRBlockPillar	block.building	ids 1/1	0	
+common/block/LOTRBlockPillar2	block.building	ids 1/1	0	
+common/block/LOTRBlockPillar3	block.building	ids 1/1	0	
+common/block/LOTRBlockPillarBase	block.building	ids 4/4	0	
+common/block/LOTRBlockPipeweedCrop	block.plants	ids 1/1	1	farming.py
+common/block/LOTRBlockPipeweedPlant	block.plants	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockPlaceableFood	item.food	ids 7/7	2	PieBlock.java behavior-audit.md
+common/block/LOTRBlockPlanks	block.wood	ids 1/1	0	
+common/block/LOTRBlockPlanks2	block.wood	ids 1/1	0	
+common/block/LOTRBlockPlanks3	block.wood	ids 1/1	0	
+common/block/LOTRBlockPlanksBase	block.wood	ids 4/4	0	
+common/block/LOTRBlockPlanksRotten	block.wood	ids 1/1	0	
+common/block/LOTRBlockPlate	block.display	ids 3/3	3	DisplayBlock.java LotrBlocks.java machines.py
+common/block/LOTRBlockPortal	dim.ring_portal	ids 2/2	0	
+common/block/LOTRBlockPressurePlate	block.building	ids 6/6	0	
+common/block/LOTRBlockQuagmire	block.hazards	ids 1/1	2	Hazards.java behavior-audit.md
+common/block/LOTRBlockQuenditeGrass	block.crystals	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockRangerTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockRedBrick	block.building	ids 1/1	0	
+common/block/LOTRBlockRedClay	block.building	ids 1/1	1	machines.py
+common/block/LOTRBlockReed	block.plants	ids 2/2	2	ReedBlock.java generate.py
+common/block/LOTRBlockReedBars	block.building	ids 1/1	0	
+common/block/LOTRBlockReedDry	block.plants	ids 1/1	2	ReedBlock.java generate.py
+common/block/LOTRBlockRemains	block.misc	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockReplacement	core.bootstrap		0	
+common/block/LOTRBlockRhunFire	block.rhun_fire	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockRhunFireJar	block.rhun_fire	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockRhunFlower	block.plants	ids 1/1	0	
+common/block/LOTRBlockRhunTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockRivendellTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockRock	block.building	ids 1/1	2	behavior-audit.md machines.py
+common/block/LOTRBlockRohirricTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockRope	block.supported	ids 2/2	0	
+common/block/LOTRBlockRottenLog	block.wood	ids 1/1	0	
+common/block/LOTRBlockRottenSlab	block.wood	ids 2/2	0	
+common/block/LOTRBlockSand	block.building	ids 1/1	1	machines.py
+common/block/LOTRBlockSandstone	block.building	ids 2/2	0	
+common/block/LOTRBlockSapling	block.wood	ids 1/1	1	saplings.py
+common/block/LOTRBlockSapling2	block.wood	ids 1/1	0	
+common/block/LOTRBlockSapling3	block.wood	ids 1/1	0	
+common/block/LOTRBlockSapling4	block.wood	ids 1/1	0	
+common/block/LOTRBlockSapling5	block.wood	ids 1/1	0	
+common/block/LOTRBlockSapling6	block.wood	ids 1/1	0	
+common/block/LOTRBlockSapling7	block.wood	ids 1/1	0	
+common/block/LOTRBlockSapling8	block.wood	ids 1/1	0	
+common/block/LOTRBlockSapling9	block.wood	ids 1/1	0	
+common/block/LOTRBlockSaplingBase	block.wood	ids 10/10	1	generate.py
+common/block/LOTRBlockScorchedSlab	block.building	ids 2/2	0	
+common/block/LOTRBlockScorchedStone	block.building	ids 1/1	0	
+common/block/LOTRBlockScorchedWall	block.building	ids 1/1	0	
+common/block/LOTRBlockSignCarved	block.carved_signs	ids 2/2	1	generate.py
+common/block/LOTRBlockSkullCup	item.drinks	ids 1/1	0	
+common/block/LOTRBlockSlab	block.building	ids 2/2	0	
+common/block/LOTRBlockSlab10	block.building	ids 2/2	0	
+common/block/LOTRBlockSlab11	block.building	ids 2/2	0	
+common/block/LOTRBlockSlab12	block.building	ids 2/2	0	
+common/block/LOTRBlockSlab13	block.building	ids 2/2	0	
+common/block/LOTRBlockSlab14	block.building	ids 2/2	0	
+common/block/LOTRBlockSlab2	block.building	ids 2/2	0	
+common/block/LOTRBlockSlab3	block.building	ids 2/2	0	
+common/block/LOTRBlockSlab4	block.building	ids 2/2	0	
+common/block/LOTRBlockSlab5	block.building	ids 2/2	0	
+common/block/LOTRBlockSlab6	block.building	ids 2/2	0	
+common/block/LOTRBlockSlab7	block.building	ids 2/2	0	
+common/block/LOTRBlockSlab8	block.building	ids 2/2	0	
+common/block/LOTRBlockSlab9	block.building	ids 2/2	0	
+common/block/LOTRBlockSlabBase	block.building	ids 64/64	0	
+common/block/LOTRBlockSlabBone	block.building	ids 2/2	0	
+common/block/LOTRBlockSlabClayTile	block.building	ids 2/2	0	
+common/block/LOTRBlockSlabClayTileDyed	block.building	ids 2/2	0	
+common/block/LOTRBlockSlabClayTileDyed2	block.building	ids 2/2	0	
+common/block/LOTRBlockSlabDirt	block.building	ids 2/2	0	
+common/block/LOTRBlockSlabFalling	block.falling	ids 4/4	0	
+common/block/LOTRBlockSlabGravel	block.falling	ids 2/2	1	behavior-audit.md
+common/block/LOTRBlockSlabSand	block.falling	ids 2/2	1	behavior-audit.md
+common/block/LOTRBlockSlabThatch	block.building	ids 2/2	0	
+common/block/LOTRBlockSlabV	block.building	ids 2/2	0	
+common/block/LOTRBlockSmoothStone	block.building	ids 1/1	0	
+common/block/LOTRBlockSmoothStoneBase	block.building	ids 2/2	0	
+common/block/LOTRBlockSmoothStoneV	block.building	ids 1/1	0	
+common/block/LOTRBlockSpawnerChest	block.spawners	ids 3/3	2	behavior-audit.md generate.py
+common/block/LOTRBlockStainedGlass	block.building	ids 1/1	0	
+common/block/LOTRBlockStainedGlassPane	block.building	ids 1/1	0	
+common/block/LOTRBlockStairs	block.building	ids 142/142	0	
+common/block/LOTRBlockStalactite	block.supported	ids 3/3	1	behavior-audit.md
+common/block/LOTRBlockTallGrass	block.plants	ids 1/1	2	behavior-audit.md generate.py
+common/block/LOTRBlockTauredainTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockTermite	item.ranged	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockThatch	block.building	ids 1/1	0	
+common/block/LOTRBlockThatchFloor	block.supported	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockTorch	block.lights	ids 7/7	0	
+common/block/LOTRBlockTrapdoor	block.building	ids 44/44	0	
+common/block/LOTRBlockTreasurePile	item.treasure	ids 3/3	2	LotrBlocks.java behavior-audit.md
+common/block/LOTRBlockTrollTotem	block.traps	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockTurnipCrop	block.plants	ids 1/1	1	farming.py
+common/block/LOTRBlockUmbarTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockUnsmeltery	block.machines	ids 1/1	2	generate.py machines.py
+common/block/LOTRBlockUrukTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockUtumnoBrick	dim.utumno	ids 1/1	0	
+common/block/LOTRBlockUtumnoBrickEntrance	dim.utumno	ids 1/1	0	
+common/block/LOTRBlockUtumnoPillar	dim.utumno	ids 1/1	0	
+common/block/LOTRBlockUtumnoPortal	dim.utumno	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockUtumnoReturnLight	dim.utumno	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockUtumnoReturnPortal	dim.utumno	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockUtumnoReturnPortalBase	dim.utumno	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockUtumnoSlab	dim.utumno	ids 2/2	0	
+common/block/LOTRBlockUtumnoSlab2	dim.utumno	ids 2/2	0	
+common/block/LOTRBlockUtumnoSlabBase	dim.utumno	ids 4/4	0	
+common/block/LOTRBlockUtumnoStairs	dim.utumno	ids 6/6	0	
+common/block/LOTRBlockUtumnoWall	dim.utumno	ids 1/1	0	
+common/block/LOTRBlockVine	block.plants	ids 2/2	0	
+common/block/LOTRBlockWall	block.building	ids 1/1	0	
+common/block/LOTRBlockWall2	block.building	ids 1/1	0	
+common/block/LOTRBlockWall3	block.building	ids 1/1	0	
+common/block/LOTRBlockWall4	block.building	ids 1/1	0	
+common/block/LOTRBlockWall5	block.building	ids 1/1	0	
+common/block/LOTRBlockWallBase	block.building	ids 11/11	0	
+common/block/LOTRBlockWallBone	block.building	ids 1/1	0	
+common/block/LOTRBlockWallClayTile	block.building	ids 1/1	0	
+common/block/LOTRBlockWallClayTileDyed	block.building	ids 1/1	0	
+common/block/LOTRBlockWallV	block.building	ids 1/1	0	
+common/block/LOTRBlockWaste	block.hazards	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockWeaponRack	block.display	ids 1/1	2	WeaponRackBlock.java machines.py
+common/block/LOTRBlockWineGlass	item.drinks	ids 1/1	0	
+common/block/LOTRBlockWood	block.wood	ids 1/1	0	
+common/block/LOTRBlockWood2	block.wood	ids 1/1	0	
+common/block/LOTRBlockWood3	block.wood	ids 1/1	0	
+common/block/LOTRBlockWood4	block.wood	ids 1/1	0	
+common/block/LOTRBlockWood5	block.wood	ids 1/1	0	
+common/block/LOTRBlockWood6	block.wood	ids 1/1	0	
+common/block/LOTRBlockWood7	block.wood	ids 1/1	0	
+common/block/LOTRBlockWood8	block.wood	ids 1/1	0	
+common/block/LOTRBlockWood9	block.wood	ids 1/1	0	
+common/block/LOTRBlockWoodBars	block.wood	ids 3/3	0	
+common/block/LOTRBlockWoodBase	block.wood	ids 11/11	0	
+common/block/LOTRBlockWoodBeam	block.wood	ids 14/14	0	
+common/block/LOTRBlockWoodBeam1	block.wood	ids 1/1	0	
+common/block/LOTRBlockWoodBeam2	block.wood	ids 1/1	0	
+common/block/LOTRBlockWoodBeam3	block.wood	ids 1/1	0	
+common/block/LOTRBlockWoodBeam4	block.wood	ids 1/1	0	
+common/block/LOTRBlockWoodBeam5	block.wood	ids 1/1	0	
+common/block/LOTRBlockWoodBeam6	block.wood	ids 1/1	0	
+common/block/LOTRBlockWoodBeam7	block.wood	ids 1/1	0	
+common/block/LOTRBlockWoodBeam8	block.wood	ids 1/1	0	
+common/block/LOTRBlockWoodBeam9	block.wood	ids 1/1	0	
+common/block/LOTRBlockWoodBeamFruit	block.wood	ids 1/1	0	
+common/block/LOTRBlockWoodBeamRotten	block.wood	ids 1/1	0	
+common/block/LOTRBlockWoodBeamS	block.wood	ids 1/1	0	
+common/block/LOTRBlockWoodBeamV1	block.wood	ids 1/1	0	
+common/block/LOTRBlockWoodBeamV2	block.wood	ids 1/1	0	
+common/block/LOTRBlockWoodElvenTable	block.tables	ids 1/1	0	
+common/block/LOTRBlockWoodElvenTorch	block.lights	ids 1/1	1	behavior-audit.md
+common/block/LOTRBlockWoodSlab	block.wood	ids 2/2	0	
+common/block/LOTRBlockWoodSlab2	block.wood	ids 2/2	0	
+common/block/LOTRBlockWoodSlab3	block.wood	ids 2/2	0	
+common/block/LOTRBlockWoodSlab4	block.wood	ids 2/2	0	
+common/block/LOTRBlockWoodSlab5	block.wood	ids 2/2	0	
+common/block/LOTRBlockYamCrop	block.plants	ids 1/1	1	farming.py
+common/block/LOTRConnectedBlock	client.render_blocks		0	
+common/block/LOTRItemBlockWeaponRack	block.display		0	
+common/block/LOTRItemPlantableBlock	block.wood		0	
+common/block/LOTRMaterialRemains	block.misc		0	
+common/block/LOTRVanillaSaplings	block.wood		0	
+common/command/LOTRCommandAchievement	progress.achievements		0	
+common/command/LOTRCommandAdminHideMap	progress.map_players		0	
+common/command/LOTRCommandAlignment	fac.alignment		0	
+common/command/LOTRCommandAlignmentSee	fac.alignment		0	
+common/command/LOTRCommandAllowStructures	struct.tools		0	
+common/command/LOTRCommandBanStructures	struct.tools		0	
+common/command/LOTRCommandConquest	fac.conquest		0	
+common/command/LOTRCommandDate	progress.calendar		0	
+common/command/LOTRCommandEnableAlignmentZones	fac.factions		0	
+common/command/LOTRCommandEnchant	item.modifiers		0	
+common/command/LOTRCommandFactionRelations	fac.relations		0	
+common/command/LOTRCommandFastTravelClock	progress.fasttravel		0	
+common/command/LOTRCommandFellowship	progress.fellowships		0	
+common/command/LOTRCommandFellowshipMessage	progress.fellowships		0	
+common/command/LOTRCommandInvasion	fac.invasions		0	
+common/command/LOTRCommandMessageFixed	core.network		0	
+common/command/LOTRCommandPledgeCooldown	fac.pledge		0	
+common/command/LOTRCommandSpawnDamping	npc.spawn_damping		0	
+common/command/LOTRCommandStrScan	struct.tools		0	
+common/command/LOTRCommandStructureTimelapse	struct.tools		0	
+common/command/LOTRCommandSummon	npc.core		0	
+common/command/LOTRCommandTime	progress.time		0	
+common/command/LOTRCommandTimeVanilla	progress.time		0	
+common/command/LOTRCommandWaypointCooldown	progress.fasttravel		0	
+common/command/LOTRCommandWaypoints	progress.fasttravel		0	
+common/coremod/LOTRClassTransformer	core.coremod		0	
+common/coremod/LOTRLoadingPlugin	core.coremod		0	
+common/coremod/LOTRReplacedMethods	core.coremod		0	
+common/coremod/RandomTexturePatchCheck	core.coremod		0	
+common/dispenser/LOTRDispenseArrowPoisoned	item.dispensers		0	
+common/dispenser/LOTRDispenseConker	item.dispensers		0	
+common/dispenser/LOTRDispenseCrossbowBolt	item.dispensers		0	
+common/dispenser/LOTRDispenseDart	item.dispensers		0	
+common/dispenser/LOTRDispenseFirePot	item.dispensers		0	
+common/dispenser/LOTRDispenseMysteryWeb	item.dispensers		0	
+common/dispenser/LOTRDispenseOrcBomb	item.dispensers		1	Thrown.java
+common/dispenser/LOTRDispensePebble	item.dispensers		0	
+common/dispenser/LOTRDispensePlate	item.dispensers		0	
+common/dispenser/LOTRDispenseRhunFireJar	block.rhun_fire		0	
+common/dispenser/LOTRDispenseSpawnEgg	item.dispensers		0	
+common/dispenser/LOTRDispenseSpear	item.dispensers		1	Thrown.java
+common/dispenser/LOTRDispenseTermite	item.dispensers		0	
+common/dispenser/LOTRDispenseThrowingAxe	item.dispensers		0	
+common/enchant/LOTREnchantment	item.modifiers		3	ModifierDef.java ReflectionDump.java extra.py
+common/enchant/LOTREnchantmentBane	item.modifiers		0	
+common/enchant/LOTREnchantmentCombining	item.modifiers		0	
+common/enchant/LOTREnchantmentDamage	item.modifiers		0	
+common/enchant/LOTREnchantmentDurability	item.modifiers		0	
+common/enchant/LOTREnchantmentHelper	item.modifiers		1	Modifiers.java
+common/enchant/LOTREnchantmentKnockback	item.modifiers		0	
+common/enchant/LOTREnchantmentLooting	item.modifiers		0	
+common/enchant/LOTREnchantmentMeleeReach	item.modifiers		0	
+common/enchant/LOTREnchantmentMeleeSpeed	item.modifiers		0	
+common/enchant/LOTREnchantmentProtection	item.modifiers		0	
+common/enchant/LOTREnchantmentProtectionFall	item.modifiers		0	
+common/enchant/LOTREnchantmentProtectionFire	item.modifiers		0	
+common/enchant/LOTREnchantmentProtectionMithril	item.modifiers		0	
+common/enchant/LOTREnchantmentProtectionRanged	item.modifiers		0	
+common/enchant/LOTREnchantmentProtectionSpecial	item.modifiers		0	
+common/enchant/LOTREnchantmentRangedDamage	item.modifiers		0	
+common/enchant/LOTREnchantmentRangedKnockback	item.modifiers		0	
+common/enchant/LOTREnchantmentSilkTouch	item.modifiers		0	
+common/enchant/LOTREnchantmentToolSpeed	item.modifiers		0	
+common/enchant/LOTREnchantmentType	item.modifiers		1	extra.py
+common/enchant/LOTREnchantmentWeaponSpecial	item.modifiers		0	
+common/entity/AnimalJarUpdater	item.jars		0	
+common/entity/LOTRBannerProtectable	fac.banners		0	
+common/entity/LOTREntities	npc.core		4	CreatureExporter.java NpcExporter.java StructureExporter.java
+common/entity/LOTREntityFallingFireJar	block.rhun_fire		0	
+common/entity/LOTREntityInvasionSpawner	fac.invasions		0	
+common/entity/LOTREntityNPCRespawner	block.spawners		0	
+common/entity/LOTREntityRegistry	npc.core		0	
+common/entity/LOTREntityUtils	npc.core		0	
+common/entity/LOTRInvasionStatus	fac.invasions		0	
+common/entity/LOTRMobSpawnerCondition	block.spawners		0	
+common/entity/LOTRMountFunctions	npc.mounts		0	
+common/entity/LOTRNPCSelectByFaction	fac.alignment		0	
+common/entity/LOTRNPCSelectForInfluence	fac.alignment		0	
+common/entity/LOTRPlateFallingInfo	block.display		0	
+common/entity/LOTRRandomSkinEntity	npc.core		0	
+common/entity/LOTRScarecrows	npc.ai		1	Crops.java
+common/entity/ai/LOTREntityAIAttackOnCollide	npc.ai		1	LotrNpc.java
+common/entity/ai/LOTREntityAIAvoidHuorn	npc.ai		0	
+common/entity/ai/LOTREntityAIAvoidWithChance	npc.ai		0	
+common/entity/ai/LOTREntityAIBalrogCharge	npc.ai		1	BalrogBehaviour.java
+common/entity/ai/LOTREntityAIBanditFlee	npc.ai		0	
+common/entity/ai/LOTREntityAIBanditSteal	npc.ai		2	BanditBehaviour.java behaviours.py
+common/entity/ai/LOTREntityAIBossJumpAttack	npc.bosses		1	BossJumpBehaviour.java
+common/entity/ai/LOTREntityAIBreeEat	npc.ai		0	
+common/entity/ai/LOTREntityAIBurningPanic	npc.ai		2	BurningPanicBehaviour.java behaviours.py
+common/entity/ai/LOTREntityAIConsumeBase	npc.ai		1	EatDrinkBehaviour.java
+common/entity/ai/LOTREntityAIDrink	item.drinks		1	behaviours.py
+common/entity/ai/LOTREntityAIEat	npc.ai		2	EatDrinkBehaviour.java behaviours.py
+common/entity/ai/LOTREntityAIEntHealSapling	npc.ai		2	EntBehaviour.java behaviours.py
+common/entity/ai/LOTREntityAIFarm	trade.farmers		0	
+common/entity/ai/LOTREntityAIFarmhandAttackRabbit	trade.farmers		0	
+common/entity/ai/LOTREntityAIFlee	npc.ai		0	
+common/entity/ai/LOTREntityAIFollowHiringPlayer	trade.hiring		0	
+common/entity/ai/LOTREntityAIGandalfSmoke	npc.wizards		0	
+common/entity/ai/LOTREntityAIGollumAvoidEntity	npc.gollum		0	
+common/entity/ai/LOTREntityAIGollumFishing	npc.gollum		0	
+common/entity/ai/LOTREntityAIGollumFollowOwner	npc.gollum		0	
+common/entity/ai/LOTREntityAIGollumPanic	npc.gollum		0	
+common/entity/ai/LOTREntityAIGollumRemainStill	npc.gollum		0	
+common/entity/ai/LOTREntityAIHiredHorseRemainStill	trade.hiring		0	
+common/entity/ai/LOTREntityAIHiredRemainStill	trade.hiring		0	
+common/entity/ai/LOTREntityAIHiringPlayerHurtByTarget	trade.hiring		0	
+common/entity/ai/LOTREntityAIHiringPlayerHurtTarget	trade.hiring		0	
+common/entity/ai/LOTREntityAIHobbitChildFollowGoodPlayer	npc.ai		0	
+common/entity/ai/LOTREntityAIHobbitSmoke	item.pipes		0	
+common/entity/ai/LOTREntityAIHobbitTargetRuffian	npc.ai		0	
+common/entity/ai/LOTREntityAIHorseFollowHiringPlayer	trade.hiring		0	
+common/entity/ai/LOTREntityAIHorseMoveToRiderTarget	npc.mounts		0	
+common/entity/ai/LOTREntityAILionChase	npc.ai		2	PreyChaseBehaviour.java behaviours.py
+common/entity/ai/LOTREntityAIMFMate	npc.animals		0	
+common/entity/ai/LOTREntityAINPCAvoidEvilPlayer	npc.ai		3	AvoidEvilBehaviour.java FleeGoal.java behaviours.py
+common/entity/ai/LOTREntityAINPCFollowParent	npc.families		0	
+common/entity/ai/LOTREntityAINPCFollowSpouse	npc.families		0	
+common/entity/ai/LOTREntityAINPCHurtByTarget	npc.ai		0	
+common/entity/ai/LOTREntityAINPCMarry	npc.families		0	
+common/entity/ai/LOTREntityAINPCMate	npc.families		0	
+common/entity/ai/LOTREntityAINearestAttackableTargetBandit	npc.ai		1	BanditBehaviour.java
+common/entity/ai/LOTREntityAINearestAttackableTargetBasic	npc.ai		0	
+common/entity/ai/LOTREntityAINearestAttackableTargetHuorn	npc.ai		2	HuornBehaviour.java behaviours.py
+common/entity/ai/LOTREntityAINearestAttackableTargetOrc	npc.ai		0	
+common/entity/ai/LOTREntityAINearestAttackableTargetTroll	npc.ai		0	
+common/entity/ai/LOTREntityAINearestAttackableTargetWoodElf	npc.ai		0	
+common/entity/ai/LOTREntityAIOrcAvoidGoodPlayer	npc.ai		1	OrcBehaviour.java
+common/entity/ai/LOTREntityAIOrcPlaceBomb	npc.ai		2	OrcBombBehaviour.java behaviours.py
+common/entity/ai/LOTREntityAIOrcSkirmish	npc.ai		1	OrcBehaviour.java
+common/entity/ai/LOTREntityAIRabbitEatCrops	npc.ai		2	CropEaterBehaviour.java behaviours.py
+common/entity/ai/LOTREntityAIRangedAttack	npc.ai		6	ArcherBehaviour.java CLAUDE.md RangedBehaviour.java
+common/entity/ai/LOTREntityAISauronUseMace	item.special_weapons		0	
+common/entity/ai/LOTREntityAITrollFleeSun	npc.ai		2	TrollBehaviour.java behaviours.py
+common/entity/ai/LOTREntityAIUntamedPanic	npc.mounts		0	
+common/entity/ai/LOTREntityAIWargBombardierAttack	npc.ai		1	WargBombBehaviour.java
+common/entity/ai/LOTRNPCTargetSelector	npc.ai		0	
+common/entity/animal/LOTRAmbientCreature	npc.animals		0	
+common/entity/animal/LOTRAmbientSpawnChecks	npc.animals		0	
+common/entity/animal/LOTRAnimalSpawnConditions	npc.animals		0	
+common/entity/animal/LOTREntityAnimalMF	npc.animals	not registered in LOTR (base or unused class)	0	
+common/entity/animal/LOTREntityAurochs	npc.animals	npc aurochs	1	behaviours.py
+common/entity/animal/LOTREntityBear	npc.animals	npc bear	1	behaviours.py
+common/entity/animal/LOTREntityBird	npc.animals	npc bird	2	BirdThiefBehaviour.java behaviours.py
+common/entity/animal/LOTREntityButterfly	npc.animals	npc butterfly	0	
+common/entity/animal/LOTREntityCamel	npc.mounts	npc camel	1	mounts.py
+common/entity/animal/LOTREntityCrebain	npc.animals	npc crebain	0	
+common/entity/animal/LOTREntityCrocodile	npc.animals	npc crocodile	3	CrocodileBehaviour.java behaviours.py sounds.py
+common/entity/animal/LOTREntityDeer	npc.animals	npc deer	0	
+common/entity/animal/LOTREntityDesertScorpion	npc.animals	npc desert_scorpion	0	
+common/entity/animal/LOTREntityDikDik	npc.animals	npc dik_dik	0	
+common/entity/animal/LOTREntityElk	npc.mounts	npc elk	1	mounts.py
+common/entity/animal/LOTREntityFish	npc.animals	npc fish	0	
+common/entity/animal/LOTREntityFlamingo	npc.animals	npc flamingo	0	
+common/entity/animal/LOTREntityGemsbok	npc.animals	npc gemsbok	0	
+common/entity/animal/LOTREntityGiraffe	npc.mounts	npc giraffe	1	mounts.py
+common/entity/animal/LOTREntityGorcrow	npc.animals	npc gorcrow	1	behaviours.py
+common/entity/animal/LOTREntityHorse	npc.mounts	npc horse	3	LotrHorse.java behaviours.py mounts.py
+common/entity/animal/LOTREntityJungleScorpion	npc.animals	npc jungle_scorpion	0	
+common/entity/animal/LOTREntityKineAraw	npc.animals	npc kine_araw	0	
+common/entity/animal/LOTREntityLion	npc.animals	npc lion	0	
+common/entity/animal/LOTREntityLionBase	npc.animals	not registered in LOTR (base or unused class)	1	behaviours.py
+common/entity/animal/LOTREntityLioness	npc.animals	npc lioness	0	
+common/entity/animal/LOTREntityMidges	npc.animals	npc midges	0	
+common/entity/animal/LOTREntityRabbit	npc.animals	npc rabbit	2	Crops.java behaviours.py
+common/entity/animal/LOTREntityRhino	npc.mounts	npc rhino	3	LotrHorse.java behaviours.py mounts.py
+common/entity/animal/LOTREntityScorpion	npc.animals	not registered in LOTR (base or unused class)	2	ScorpionBehaviour.java behaviours.py
+common/entity/animal/LOTREntitySeagull	npc.animals	npc seagull	0	
+common/entity/animal/LOTREntityShirePony	npc.mounts	npc shire_pony	1	mounts.py
+common/entity/animal/LOTREntitySwan	npc.animals	npc swan	0	
+common/entity/animal/LOTREntityTermite	npc.animals	npc termite	2	TermiteBehaviour.java behaviours.py
+common/entity/animal/LOTREntityWhiteOryx	npc.animals	npc white_oryx	0	
+common/entity/animal/LOTREntityWildBoar	npc.mounts	npc wild_boar	1	mounts.py
+common/entity/animal/LOTREntityZebra	npc.mounts	npc zebra	1	mounts.py
+common/entity/item/LOTRBannerWhitelistEntry	fac.banners		0	
+common/entity/item/LOTREntityArrowPoisoned	item.ranged		0	
+common/entity/item/LOTREntityBanner	fac.banners		0	
+common/entity/item/LOTREntityBannerWall	fac.banners		0	
+common/entity/item/LOTREntityBarrel	block.keg		0	
+common/entity/item/LOTREntityBearRug	item.rugs		0	
+common/entity/item/LOTREntityBossTrophy	item.rugs		0	
+common/entity/item/LOTREntityFallingTreasure	item.treasure		0	
+common/entity/item/LOTREntityGiraffeRug	item.rugs		0	
+common/entity/item/LOTREntityLionRug	item.rugs		0	
+common/entity/item/LOTREntityOrcBomb	item.ranged		2	OrcBomb.java thrown.py
+common/entity/item/LOTREntityPortal	dim.ring_portal		0	
+common/entity/item/LOTREntityRugBase	item.rugs		0	
+common/entity/item/LOTREntityStoneTroll	item.rugs		4	CreatureRenderer.java NpcTests.java TrollBehaviour.java
+common/entity/item/LOTREntityTraderRespawn	npc.travelling		0	
+common/entity/item/LOTREntityWargskinRug	item.rugs		0	
+common/entity/npc/IBandit	npc.core		0	
+common/entity/npc/LOTRBannerBearer	npc.core		0	
+common/entity/npc/LOTRBoss	npc.bosses		0	
+common/entity/npc/LOTRBossInfo	npc.bosses		1	BossJumpBehaviour.java
+common/entity/npc/LOTRCharacter	npc.core		0	
+common/entity/npc/LOTREntityAngmarBannerBearer	npc.types	npc angmar_banner_bearer	0	
+common/entity/npc/LOTREntityAngmarHillman	npc.types	npc angmar_hillman	0	
+common/entity/npc/LOTREntityAngmarHillmanAxeThrower	npc.types	npc angmar_hillman_axe_thrower	0	
+common/entity/npc/LOTREntityAngmarHillmanBannerBearer	npc.types	npc angmar_hillman_banner_bearer	0	
+common/entity/npc/LOTREntityAngmarHillmanChieftain	npc.types	npc angmar_hillman_chieftain	0	
+common/entity/npc/LOTREntityAngmarHillmanWarrior	npc.types	npc angmar_hillman_warrior	0	
+common/entity/npc/LOTREntityAngmarOrc	npc.types	npc angmar_orc	0	
+common/entity/npc/LOTREntityAngmarOrcArcher	npc.types	npc angmar_orc_archer	0	
+common/entity/npc/LOTREntityAngmarOrcBombardier	npc.types	npc angmar_orc_bombardier	1	behaviours.py
+common/entity/npc/LOTREntityAngmarOrcMercenaryCaptain	npc.types	npc angmar_orc_mercenary_captain	0	
+common/entity/npc/LOTREntityAngmarOrcTrader	npc.types	npc angmar_orc_trader	0	
+common/entity/npc/LOTREntityAngmarWarg	npc.types	npc angmar_warg	0	
+common/entity/npc/LOTREntityAngmarWargBombardier	npc.types	npc angmar_warg_bombardier	0	
+common/entity/npc/LOTREntityBalrog	npc.bosses	npc balrog	3	BalrogBehaviour.java behaviours.py sounds.py
+common/entity/npc/LOTREntityBandit	npc.types	npc bandit	1	behaviours.py
+common/entity/npc/LOTREntityBanditHarad	npc.types	npc bandit_harad	0	
+common/entity/npc/LOTREntityBarrowWight	npc.types	npc barrow_wight	4	WightBehaviour.java behaviours.py extra.py
+common/entity/npc/LOTREntityBlackUruk	npc.types	npc black_uruk	0	
+common/entity/npc/LOTREntityBlackUrukArcher	npc.types	npc black_uruk_archer	0	
+common/entity/npc/LOTREntityBlackUrukBannerBearer	npc.types	npc black_uruk_banner_bearer	0	
+common/entity/npc/LOTREntityBlackUrukCaptain	npc.types	npc black_uruk_captain	0	
+common/entity/npc/LOTREntityBlackrootArcher	npc.types	npc blackroot_archer	0	
+common/entity/npc/LOTREntityBlackrootBannerBearer	npc.types	npc blackroot_banner_bearer	0	
+common/entity/npc/LOTREntityBlackrootCaptain	npc.types	npc blackroot_captain	0	
+common/entity/npc/LOTREntityBlackrootSoldier	npc.types	npc blackroot_soldier	0	
+common/entity/npc/LOTREntityBlueDwarf	npc.types	npc blue_dwarf	0	
+common/entity/npc/LOTREntityBlueDwarfAxeThrower	npc.types	npc blue_dwarf_axe_thrower	0	
+common/entity/npc/LOTREntityBlueDwarfBannerBearer	npc.types	npc blue_dwarf_banner_bearer	0	
+common/entity/npc/LOTREntityBlueDwarfCommander	npc.types	npc blue_dwarf_commander	0	
+common/entity/npc/LOTREntityBlueDwarfMerchant	npc.types	npc blue_dwarf_merchant	0	
+common/entity/npc/LOTREntityBlueDwarfMiner	npc.types	npc blue_dwarf_miner	0	
+common/entity/npc/LOTREntityBlueDwarfWarrior	npc.types	npc blue_dwarf_warrior	0	
+common/entity/npc/LOTREntityBlueMountainsSmith	npc.types	npc blue_dwarf_smith	0	
+common/entity/npc/LOTREntityBreeBaker	npc.types	npc bree_baker	0	
+common/entity/npc/LOTREntityBreeBannerBearer	npc.types	npc bree_banner_bearer	0	
+common/entity/npc/LOTREntityBreeBlacksmith	npc.types	npc bree_blacksmith	0	
+common/entity/npc/LOTREntityBreeBrewer	npc.types	npc bree_brewer	0	
+common/entity/npc/LOTREntityBreeButcher	npc.types	npc bree_butcher	0	
+common/entity/npc/LOTREntityBreeCaptain	npc.types	npc bree_captain	0	
+common/entity/npc/LOTREntityBreeFarmer	npc.types	npc bree_farmer	0	
+common/entity/npc/LOTREntityBreeFarmhand	npc.types	npc bree_farmhand	0	
+common/entity/npc/LOTREntityBreeFlorist	npc.types	npc bree_florist	0	
+common/entity/npc/LOTREntityBreeGuard	npc.types	npc bree_guard	0	
+common/entity/npc/LOTREntityBreeHobbit	npc.types	npc bree_hobbit	0	
+common/entity/npc/LOTREntityBreeHobbitBaker	npc.types	npc bree_hobbit_baker	0	
+common/entity/npc/LOTREntityBreeHobbitBrewer	npc.types	npc bree_hobbit_brewer	0	
+common/entity/npc/LOTREntityBreeHobbitButcher	npc.types	npc bree_hobbit_butcher	0	
+common/entity/npc/LOTREntityBreeHobbitFlorist	npc.types	npc bree_hobbit_florist	0	
+common/entity/npc/LOTREntityBreeHobbitInnkeeper	npc.types	npc bree_hobbit_innkeeper	0	
+common/entity/npc/LOTREntityBreeHobbitTrader	npc.types	not registered in LOTR (base or unused class)	0	
+common/entity/npc/LOTREntityBreeInnkeeper	npc.types	npc bree_innkeeper	0	
+common/entity/npc/LOTREntityBreeLumberman	npc.types	npc bree_lumberman	0	
+common/entity/npc/LOTREntityBreeMan	npc.types	npc bree_man	0	
+common/entity/npc/LOTREntityBreeMarketTrader	npc.types	not registered in LOTR (base or unused class)	0	
+common/entity/npc/LOTREntityBreeMason	npc.types	npc bree_mason	0	
+common/entity/npc/LOTREntityBreeRuffian	npc.types	not registered in LOTR (base or unused class)	3	BanditBehaviour.java RuffianBehaviour.java behaviours.py
+common/entity/npc/LOTREntityCorsair	npc.types	npc corsair	0	
+common/entity/npc/LOTREntityCorsairCaptain	npc.types	npc corsair_captain	0	
+common/entity/npc/LOTREntityCorsairSlaver	npc.types	npc corsair_slaver	0	
+common/entity/npc/LOTREntityDaleArcher	npc.types	npc dale_archer	0	
+common/entity/npc/LOTREntityDaleBaker	npc.types	npc dale_baker	0	
+common/entity/npc/LOTREntityDaleBannerBearer	npc.types	npc dale_banner_bearer	0	
+common/entity/npc/LOTREntityDaleBlacksmith	npc.types	npc dale_blacksmith	0	
+common/entity/npc/LOTREntityDaleCaptain	npc.types	npc dale_captain	0	
+common/entity/npc/LOTREntityDaleLevyman	npc.types	npc dale_levyman	0	
+common/entity/npc/LOTREntityDaleMan	npc.types	npc dale_man	0	
+common/entity/npc/LOTREntityDaleMerchant	npc.types	npc dale_merchant	0	
+common/entity/npc/LOTREntityDaleSoldier	npc.types	npc dale_soldier	0	
+common/entity/npc/LOTREntityDarkHuorn	npc.types	npc dark_huorn	0	
+common/entity/npc/LOTREntityDolAmrothArcher	npc.types	npc dol_amroth_archer	0	
+common/entity/npc/LOTREntityDolAmrothBannerBearer	npc.types	npc dol_amroth_banner_bearer	0	
+common/entity/npc/LOTREntityDolAmrothCaptain	npc.types	npc dol_amroth_captain	0	
+common/entity/npc/LOTREntityDolAmrothSoldier	npc.types	npc dol_amroth_soldier	0	
+common/entity/npc/LOTREntityDolGuldurBannerBearer	npc.types	npc dol_guldur_banner_bearer	0	
+common/entity/npc/LOTREntityDolGuldurOrc	npc.types	npc dol_guldur_orc	0	
+common/entity/npc/LOTREntityDolGuldurOrcArcher	npc.types	npc dol_guldur_orc_archer	0	
+common/entity/npc/LOTREntityDolGuldurOrcChieftain	npc.types	npc dol_guldur_chieftain	0	
+common/entity/npc/LOTREntityDolGuldurOrcTrader	npc.types	npc dol_guldur_orc_trader	0	
+common/entity/npc/LOTREntityDorwinionBannerBearer	npc.types	npc dorwinion_banner_bearer	0	
+common/entity/npc/LOTREntityDorwinionCaptain	npc.types	npc dorwinion_captain	0	
+common/entity/npc/LOTREntityDorwinionCrossbower	npc.types	npc dorwinion_crossbower	0	
+common/entity/npc/LOTREntityDorwinionElf	npc.types	npc dorwinion_elf	0	
+common/entity/npc/LOTREntityDorwinionElfArcher	npc.types	npc dorwinion_elf_archer	0	
+common/entity/npc/LOTREntityDorwinionElfBannerBearer	npc.types	npc dorwinion_elf_banner_bearer	0	
+common/entity/npc/LOTREntityDorwinionElfCaptain	npc.types	npc dorwinion_elf_captain	0	
+common/entity/npc/LOTREntityDorwinionElfVintner	npc.types	npc dorwinion_elf_vintner	0	
+common/entity/npc/LOTREntityDorwinionElfWarrior	npc.types	npc dorwinion_elf_warrior	0	
+common/entity/npc/LOTREntityDorwinionGuard	npc.types	npc dorwinion_guard	2	GrapeGuardBehaviour.java behaviours.py
+common/entity/npc/LOTREntityDorwinionMan	npc.types	npc dorwinion_man	0	
+common/entity/npc/LOTREntityDorwinionMerchantElf	npc.types	npc dorwinion_merchant	0	
+common/entity/npc/LOTREntityDorwinionMerchantMan	npc.types	npc dorwinion_merchant_man	0	
+common/entity/npc/LOTREntityDorwinionVinehand	npc.types	npc dorwinion_vinehand	0	
+common/entity/npc/LOTREntityDorwinionVinekeeper	npc.types	npc dorwinion_vinekeeper	0	
+common/entity/npc/LOTREntityDunedain	npc.types	npc dunedain	0	
+common/entity/npc/LOTREntityDunedainBlacksmith	npc.types	npc dunedain_blacksmith	0	
+common/entity/npc/LOTREntityDunlending	npc.types	npc dunlending	0	
+common/entity/npc/LOTREntityDunlendingArcher	npc.types	npc dunlending_archer	0	
+common/entity/npc/LOTREntityDunlendingAxeThrower	npc.types	npc dunlending_axe_thrower	0	
+common/entity/npc/LOTREntityDunlendingBannerBearer	npc.types	npc dunlending_banner_bearer	0	
+common/entity/npc/LOTREntityDunlendingBartender	npc.types	npc dunlending_bartender	0	
+common/entity/npc/LOTREntityDunlendingBerserker	npc.types	npc dunlending_berserker	0	
+common/entity/npc/LOTREntityDunlendingWarlord	npc.types	npc dunlending_warlord	0	
+common/entity/npc/LOTREntityDunlendingWarrior	npc.types	npc dunlending_warrior	0	
+common/entity/npc/LOTREntityDwarf	npc.types	npc dwarf	1	sounds.py
+common/entity/npc/LOTREntityDwarfAxeThrower	npc.types	npc dwarf_axe_thrower	0	
+common/entity/npc/LOTREntityDwarfBannerBearer	npc.types	npc dwarf_banner_bearer	0	
+common/entity/npc/LOTREntityDwarfCommander	npc.types	npc dwarf_commander	0	
+common/entity/npc/LOTREntityDwarfMiner	npc.types	npc dwarf_miner	0	
+common/entity/npc/LOTREntityDwarfSmith	npc.types	npc dwarf_smith	0	
+common/entity/npc/LOTREntityDwarfWarrior	npc.types	npc dwarf_warrior	0	
+common/entity/npc/LOTREntityEasterling	npc.types	npc easterling	0	
+common/entity/npc/LOTREntityEasterlingArcher	npc.types	npc easterling_archer	0	
+common/entity/npc/LOTREntityEasterlingBaker	npc.types	npc easterling_baker	0	
+common/entity/npc/LOTREntityEasterlingBannerBearer	npc.types	npc easterling_banner_bearer	0	
+common/entity/npc/LOTREntityEasterlingBartender	npc.types	npc easterling_bartender	0	
+common/entity/npc/LOTREntityEasterlingBlacksmith	npc.types	npc easterling_blacksmith	0	
+common/entity/npc/LOTREntityEasterlingBrewer	npc.types	npc easterling_brewer	0	
+common/entity/npc/LOTREntityEasterlingButcher	npc.types	npc easterling_butcher	0	
+common/entity/npc/LOTREntityEasterlingFarmer	npc.types	npc easterling_farmer	0	
+common/entity/npc/LOTREntityEasterlingFarmhand	npc.types	npc easterling_farmhand	0	
+common/entity/npc/LOTREntityEasterlingFireThrower	npc.types	npc easterling_fire_thrower	1	behaviours.py
+common/entity/npc/LOTREntityEasterlingFishmonger	npc.types	npc easterling_fishmonger	0	
+common/entity/npc/LOTREntityEasterlingGoldWarrior	npc.types	npc easterling_gold_warrior	0	
+common/entity/npc/LOTREntityEasterlingGoldsmith	npc.types	npc easterling_goldsmith	0	
+common/entity/npc/LOTREntityEasterlingHunter	npc.types	npc easterling_hunter	0	
+common/entity/npc/LOTREntityEasterlingLevyman	npc.types	npc easterling_levyman	0	
+common/entity/npc/LOTREntityEasterlingLumberman	npc.types	npc easterling_lumberman	0	
+common/entity/npc/LOTREntityEasterlingMarketTrader	npc.types	not registered in LOTR (base or unused class)	0	
+common/entity/npc/LOTREntityEasterlingMason	npc.types	npc easterling_mason	0	
+common/entity/npc/LOTREntityEasterlingWarlord	npc.types	npc easterling_warlord	0	
+common/entity/npc/LOTREntityEasterlingWarrior	npc.types	npc easterling_warrior	0	
+common/entity/npc/LOTREntityElf	npc.types	not registered in LOTR (base or unused class)	3	ElfBowBehaviour.java behaviours.py sounds.py
+common/entity/npc/LOTREntityEnt	npc.types	npc ent	3	EntBehaviour.java behaviours.py sounds.py
+common/entity/npc/LOTREntityEsgarothBannerBearer	npc.types	npc esgaroth_banner_bearer	0	
+common/entity/npc/LOTREntityGaladhrimBannerBearer	npc.types	npc galadhrim_banner_bearer	0	
+common/entity/npc/LOTREntityGaladhrimElf	npc.types	npc galadhrim_elf	0	
+common/entity/npc/LOTREntityGaladhrimLord	npc.types	npc galadhrim_lord	0	
+common/entity/npc/LOTREntityGaladhrimSmith	npc.types	npc galadhrim_smith	0	
+common/entity/npc/LOTREntityGaladhrimTrader	npc.types	npc galadhrim_trader	0	
+common/entity/npc/LOTREntityGaladhrimWarden	npc.types	npc galadhrim_warden	1	behaviours.py
+common/entity/npc/LOTREntityGaladhrimWarrior	npc.types	npc galadhrim_warrior	0	
+common/entity/npc/LOTREntityGandalf	npc.wizards	npc gandalf	2	GandalfBehaviour.java behaviours.py
+common/entity/npc/LOTREntityGollum	npc.gollum	npc gollum	3	GollumBehaviour.java behaviours.py sounds.py
+common/entity/npc/LOTREntityGondorArcher	npc.types	npc gondor_archer	0	
+common/entity/npc/LOTREntityGondorBaker	npc.types	npc gondor_baker	0	
+common/entity/npc/LOTREntityGondorBannerBearer	npc.types	npc gondor_banner_bearer	0	
+common/entity/npc/LOTREntityGondorBartender	npc.types	npc gondor_bartender	0	
+common/entity/npc/LOTREntityGondorBlacksmith	npc.types	npc gondor_blacksmith	0	
+common/entity/npc/LOTREntityGondorBrewer	npc.types	npc gondor_brewer	0	
+common/entity/npc/LOTREntityGondorButcher	npc.types	npc gondor_butcher	0	
+common/entity/npc/LOTREntityGondorFarmer	npc.types	npc gondor_farmer	0	
+common/entity/npc/LOTREntityGondorFarmhand	npc.types	npc gondor_farmhand	0	
+common/entity/npc/LOTREntityGondorFishmonger	npc.types	npc gondor_fishmonger	0	
+common/entity/npc/LOTREntityGondorFlorist	npc.types	npc gondor_florist	0	
+common/entity/npc/LOTREntityGondorGreengrocer	npc.types	npc gondor_greengrocer	0	
+common/entity/npc/LOTREntityGondorLevyman	npc.types	npc gondor_levyman	0	
+common/entity/npc/LOTREntityGondorLumberman	npc.types	npc gondor_lumberman	0	
+common/entity/npc/LOTREntityGondorMan	npc.types	npc gondor_man	0	
+common/entity/npc/LOTREntityGondorMarketTrader	npc.types	not registered in LOTR (base or unused class)	0	
+common/entity/npc/LOTREntityGondorMason	npc.types	npc gondor_mason	0	
+common/entity/npc/LOTREntityGondorRenegade	npc.types	npc gondor_renegade	1	quests.py
+common/entity/npc/LOTREntityGondorRuinsWraith	npc.types	npc gondor_ruins_wraith	0	
+common/entity/npc/LOTREntityGondorSoldier	npc.types	npc gondor_soldier	0	
+common/entity/npc/LOTREntityGondorTowerGuard	npc.types	npc gondor_tower_guard	0	
+common/entity/npc/LOTREntityGondorianCaptain	npc.types	npc gondorian_captain	0	
+common/entity/npc/LOTREntityGulfBaker	npc.types	npc gulf_baker	0	
+common/entity/npc/LOTREntityGulfBartender	npc.types	npc gulf_bartender	0	
+common/entity/npc/LOTREntityGulfBlacksmith	npc.types	npc gulf_blacksmith	0	
+common/entity/npc/LOTREntityGulfBrewer	npc.types	npc gulf_brewer	0	
+common/entity/npc/LOTREntityGulfButcher	npc.types	npc gulf_butcher	0	
+common/entity/npc/LOTREntityGulfFarmer	npc.types	npc gulf_farmer	0	
+common/entity/npc/LOTREntityGulfFishmonger	npc.types	npc gulf_fishmonger	0	
+common/entity/npc/LOTREntityGulfGoldsmith	npc.types	npc gulf_goldsmith	0	
+common/entity/npc/LOTREntityGulfHaradArcher	npc.types	npc gulf_archer	0	
+common/entity/npc/LOTREntityGulfHaradBannerBearer	npc.types	npc gulf_banner_bearer	0	
+common/entity/npc/LOTREntityGulfHaradWarlord	npc.types	npc gulf_warlord	0	
+common/entity/npc/LOTREntityGulfHaradWarrior	npc.types	npc gulf_warrior	0	
+common/entity/npc/LOTREntityGulfHaradrim	npc.types	npc gulf_haradrim	0	
+common/entity/npc/LOTREntityGulfHunter	npc.types	npc gulf_hunter	0	
+common/entity/npc/LOTREntityGulfLumberman	npc.types	npc gulf_lumberman	0	
+common/entity/npc/LOTREntityGulfMason	npc.types	npc gulf_mason	0	
+common/entity/npc/LOTREntityGulfMiner	npc.types	npc gulf_miner	0	
+common/entity/npc/LOTREntityGulfTrader	npc.types	not registered in LOTR (base or unused class)	0	
+common/entity/npc/LOTREntityGundabadBannerBearer	npc.types	npc gundabad_banner_bearer	0	
+common/entity/npc/LOTREntityGundabadOrc	npc.types	npc gundabad_orc	0	
+common/entity/npc/LOTREntityGundabadOrcArcher	npc.types	npc gundabad_orc_archer	0	
+common/entity/npc/LOTREntityGundabadOrcMercenaryCaptain	npc.types	npc gundabad_orc_mercenary_captain	0	
+common/entity/npc/LOTREntityGundabadOrcTrader	npc.types	npc gundabad_orc_trader	0	
+common/entity/npc/LOTREntityGundabadUruk	npc.types	npc gundabad_uruk	0	
+common/entity/npc/LOTREntityGundabadUrukArcher	npc.types	npc gundabad_uruk_archer	0	
+common/entity/npc/LOTREntityGundabadWarg	npc.types	npc gundabad_warg	0	
+common/entity/npc/LOTREntityHalfTroll	npc.types	npc half_troll	3	HalfTrollBehaviour.java behaviours.py sounds.py
+common/entity/npc/LOTREntityHalfTrollBannerBearer	npc.types	npc half_troll_banner_bearer	0	
+common/entity/npc/LOTREntityHalfTrollScavenger	npc.types	npc half_troll_scavenger	0	
+common/entity/npc/LOTREntityHalfTrollWarlord	npc.types	npc half_troll_warlord	0	
+common/entity/npc/LOTREntityHalfTrollWarrior	npc.types	npc half_troll_warrior	0	
+common/entity/npc/LOTREntityHaradPyramidWraith	npc.types	npc harad_pyramid_wraith	0	
+common/entity/npc/LOTREntityHaradSlave	npc.types	npc harad_slave	0	
+common/entity/npc/LOTREntityHarnedhrim	npc.types	npc harnedhrim	0	
+common/entity/npc/LOTREntityHarnedorArcher	npc.types	npc harnedor_archer	0	
+common/entity/npc/LOTREntityHarnedorBaker	npc.types	npc harnedor_baker	0	
+common/entity/npc/LOTREntityHarnedorBannerBearer	npc.types	npc harnedor_banner_bearer	0	
+common/entity/npc/LOTREntityHarnedorBartender	npc.types	npc harnedor_bartender	0	
+common/entity/npc/LOTREntityHarnedorBlacksmith	npc.types	npc harnedor_blacksmith	0	
+common/entity/npc/LOTREntityHarnedorBrewer	npc.types	npc harnedor_brewer	0	
+common/entity/npc/LOTREntityHarnedorButcher	npc.types	npc harnedor_butcher	0	
+common/entity/npc/LOTREntityHarnedorFarmer	npc.types	npc harnedor_farmer	0	
+common/entity/npc/LOTREntityHarnedorFarmhand	npc.types	npc harnedor_farmhand	0	
+common/entity/npc/LOTREntityHarnedorFishmonger	npc.types	npc harnedor_fishmonger	0	
+common/entity/npc/LOTREntityHarnedorHunter	npc.types	npc harnedor_hunter	0	
+common/entity/npc/LOTREntityHarnedorLumberman	npc.types	npc harnedor_lumberman	0	
+common/entity/npc/LOTREntityHarnedorMason	npc.types	npc harnedor_mason	0	
+common/entity/npc/LOTREntityHarnedorMiner	npc.types	npc harnedor_miner	0	
+common/entity/npc/LOTREntityHarnedorTrader	npc.types	not registered in LOTR (base or unused class)	0	
+common/entity/npc/LOTREntityHarnedorWarlord	npc.types	npc harnedor_warlord	0	
+common/entity/npc/LOTREntityHarnedorWarrior	npc.types	npc harnedor_warrior	0	
+common/entity/npc/LOTREntityHighElf	npc.types	npc high_elf	0	
+common/entity/npc/LOTREntityHighElfBannerBearer	npc.types	npc high_elf_banner_bearer	0	
+common/entity/npc/LOTREntityHighElfBase	npc.types	not registered in LOTR (base or unused class)	0	
+common/entity/npc/LOTREntityHighElfLord	npc.types	npc high_elf_lord	0	
+common/entity/npc/LOTREntityHighElfSmith	npc.types	npc high_elf_smith	0	
+common/entity/npc/LOTREntityHighElfWarrior	npc.types	npc high_elf_warrior	0	
+common/entity/npc/LOTREntityHobbit	npc.types	npc hobbit	1	behaviours.py
+common/entity/npc/LOTREntityHobbitBartender	npc.types	npc hobbit_bartender	0	
+common/entity/npc/LOTREntityHobbitBounder	npc.types	npc hobbit_shirriff	0	
+common/entity/npc/LOTREntityHobbitFarmer	npc.types	npc hobbit_farmer	0	
+common/entity/npc/LOTREntityHobbitFarmhand	npc.types	npc hobbit_farmhand	0	
+common/entity/npc/LOTREntityHobbitOrcharder	npc.types	npc hobbit_orcharder	0	
+common/entity/npc/LOTREntityHobbitShirriff	npc.types	npc hobbit_shirriff_chief	0	
+common/entity/npc/LOTREntityHuorn	npc.types	npc huorn	0	
+common/entity/npc/LOTREntityHuornBase	npc.types	not registered in LOTR (base or unused class)	2	HuornBehaviour.java behaviours.py
+common/entity/npc/LOTREntityIronHillsMerchant	npc.types	npc iron_hills_merchant	0	
+common/entity/npc/LOTREntityIsengardSnaga	npc.types	npc isengard_snaga	0	
+common/entity/npc/LOTREntityIsengardSnagaArcher	npc.types	npc isengard_snaga_archer	0	
+common/entity/npc/LOTREntityLamedonArcher	npc.types	npc lamedon_archer	0	
+common/entity/npc/LOTREntityLamedonBannerBearer	npc.types	npc lamedon_banner_bearer	0	
+common/entity/npc/LOTREntityLamedonCaptain	npc.types	npc lamedon_captain	0	
+common/entity/npc/LOTREntityLamedonHillman	npc.types	npc lamedon_hillman	0	
+common/entity/npc/LOTREntityLamedonSoldier	npc.types	npc lamedon_soldier	0	
+common/entity/npc/LOTREntityLebenninBannerBearer	npc.types	npc lebennin_banner_bearer	0	
+common/entity/npc/LOTREntityLebenninCaptain	npc.types	npc lebennin_captain	0	
+common/entity/npc/LOTREntityLebenninLevyman	npc.types	npc lebennin_levyman	0	
+common/entity/npc/LOTREntityLossarnachAxeman	npc.types	npc lossarnach_axeman	0	
+common/entity/npc/LOTREntityLossarnachBannerBearer	npc.types	npc lossarnach_banner_bearer	0	
+common/entity/npc/LOTREntityLossarnachCaptain	npc.types	npc lossarnach_captain	0	
+common/entity/npc/LOTREntityMallornEnt	npc.types	npc mallorn_ent	1	behaviours.py
+common/entity/npc/LOTREntityMan	npc.types	not registered in LOTR (base or unused class)	2	ManFleshBehaviour.java behaviours.py
+common/entity/npc/LOTREntityMarshWraith	npc.types	npc marsh_wraith	3	MarshWraithBehaviour.java behaviours.py sounds.py
+common/entity/npc/LOTREntityMinasMorgulBannerBearer	npc.types	npc minas_morgul_banner_bearer	0	
+common/entity/npc/LOTREntityMirkTroll	npc.types	npc mirk_troll	1	behaviours.py
+common/entity/npc/LOTREntityMirkwoodSpider	npc.types	npc mirkwood_spider	1	behaviours.py
+common/entity/npc/LOTREntityMordorBannerBearer	npc.types	npc mordor_banner_bearer	0	
+common/entity/npc/LOTREntityMordorOrc	npc.types	npc mordor_orc	0	
+common/entity/npc/LOTREntityMordorOrcArcher	npc.types	npc mordor_orc_archer	0	
+common/entity/npc/LOTREntityMordorOrcBombardier	npc.types	npc mordor_orc_bombardier	1	behaviours.py
+common/entity/npc/LOTREntityMordorOrcMercenaryCaptain	npc.types	npc mordor_orc_mercenary_captain	0	
+common/entity/npc/LOTREntityMordorOrcSlaver	npc.types	npc mordor_orc_slaver	0	
+common/entity/npc/LOTREntityMordorOrcSpiderKeeper	npc.types	npc mordor_orc_spider_keeper	0	
+common/entity/npc/LOTREntityMordorOrcTrader	npc.types	npc mordor_orc_trader	0	
+common/entity/npc/LOTREntityMordorSpider	npc.types	npc mordor_spider	0	
+common/entity/npc/LOTREntityMordorWarg	npc.types	npc mordor_warg	0	
+common/entity/npc/LOTREntityMordorWargBombardier	npc.types	npc mordor_warg_bombardier	0	
+common/entity/npc/LOTREntityMoredain	npc.types	npc moredain	0	
+common/entity/npc/LOTREntityMoredainBannerBearer	npc.types	npc moredain_banner_bearer	0	
+common/entity/npc/LOTREntityMoredainChieftain	npc.types	npc moredain_chieftain	0	
+common/entity/npc/LOTREntityMoredainHuntsman	npc.types	npc moredain_huntsman	0	
+common/entity/npc/LOTREntityMoredainHutmaker	npc.types	npc moredain_hutmaker	0	
+common/entity/npc/LOTREntityMoredainMercenary	npc.types	npc moredain_mercenary	0	
+common/entity/npc/LOTREntityMoredainVillageTrader	npc.types	not registered in LOTR (base or unused class)	0	
+common/entity/npc/LOTREntityMoredainWarrior	npc.types	npc moredain_warrior	0	
+common/entity/npc/LOTREntityMountainTroll	npc.types	npc mountain_troll	2	RangedBehaviour.java behaviours.py
+common/entity/npc/LOTREntityMountainTrollChieftain	npc.bosses	npc mountain_troll_chieftain	1	behaviours.py
+common/entity/npc/LOTREntityNPC	npc.types	not registered in LOTR (base or unused class)	7	ArcherBehaviour.java CreatureAnim.java LotrNpc.java
+common/entity/npc/LOTREntityNPCRideable	npc.types	not registered in LOTR (base or unused class)	1	CreatureExporter.java
+common/entity/npc/LOTREntityNanUngolBannerBearer	npc.types	npc nan_ungol_banner_bearer	0	
+common/entity/npc/LOTREntityNearHaradBannerBearer	npc.types	npc near_harad_banner_bearer	0	
+common/entity/npc/LOTREntityNearHaradBlacksmith	npc.types	npc near_harad_blacksmith	0	
+common/entity/npc/LOTREntityNearHaradMerchant	npc.types	npc near_harad_merchant	0	
+common/entity/npc/LOTREntityNearHaradrim	npc.types	npc near_haradrim	0	
+common/entity/npc/LOTREntityNearHaradrimArcher	npc.types	npc near_haradrim_archer	0	
+common/entity/npc/LOTREntityNearHaradrimBase	npc.types	not registered in LOTR (base or unused class)	0	
+common/entity/npc/LOTREntityNearHaradrimWarlord	npc.types	npc near_haradrim_warlord	0	
+common/entity/npc/LOTREntityNearHaradrimWarrior	npc.types	npc near_haradrim_warrior	0	
+common/entity/npc/LOTREntityNomad	npc.types	npc nomad	0	
+common/entity/npc/LOTREntityNomadArcher	npc.types	npc nomad_archer	0	
+common/entity/npc/LOTREntityNomadArmourer	npc.types	npc nomad_armourer	0	
+common/entity/npc/LOTREntityNomadBannerBearer	npc.types	npc nomad_banner_bearer	0	
+common/entity/npc/LOTREntityNomadBrewer	npc.types	npc nomad_brewer	0	
+common/entity/npc/LOTREntityNomadChieftain	npc.types	npc nomad_chieftain	0	
+common/entity/npc/LOTREntityNomadMason	npc.types	npc nomad_mason	0	
+common/entity/npc/LOTREntityNomadMerchant	npc.types	npc nomad_merchant	0	
+common/entity/npc/LOTREntityNomadMiner	npc.types	npc nomad_miner	0	
+common/entity/npc/LOTREntityNomadTrader	npc.types	not registered in LOTR (base or unused class)	0	
+common/entity/npc/LOTREntityNomadWarrior	npc.types	npc nomad_warrior	0	
+common/entity/npc/LOTREntityNurnSlave	npc.types	npc nurn_slave	0	
+common/entity/npc/LOTREntityOlogHai	npc.types	npc olog_hai	2	behaviours.py sounds.py
+common/entity/npc/LOTREntityOrc	npc.types	not registered in LOTR (base or unused class)	3	OrcBehaviour.java behaviours.py sounds.py
+common/entity/npc/LOTREntityPelargirBannerBearer	npc.types	npc pelargir_banner_bearer	0	
+common/entity/npc/LOTREntityPelargirCaptain	npc.types	npc pelargir_captain	0	
+common/entity/npc/LOTREntityPelargirMarine	npc.types	npc pelargir_marine	0	
+common/entity/npc/LOTREntityPinnathGelinBannerBearer	npc.types	npc pinnath_gelin_banner_bearer	0	
+common/entity/npc/LOTREntityPinnathGelinCaptain	npc.types	npc pinnath_gelin_captain	0	
+common/entity/npc/LOTREntityPinnathGelinSoldier	npc.types	npc pinnath_gelin_soldier	0	
+common/entity/npc/LOTREntityQuestInfo	npc.types	not registered in LOTR (base or unused class)	1	CLAUDE.md
+common/entity/npc/LOTREntityRanger	npc.types	not registered in LOTR (base or unused class)	2	SneakBehaviour.java behaviours.py
+common/entity/npc/LOTREntityRangerIthilien	npc.types	npc ranger_ithilien	0	
+common/entity/npc/LOTREntityRangerIthilienBannerBearer	npc.types	npc ranger_ithilien_banner_bearer	0	
+common/entity/npc/LOTREntityRangerIthilienCaptain	npc.types	npc ranger_ithilien_captain	0	
+common/entity/npc/LOTREntityRangerNorth	npc.types	npc ranger_north	0	
+common/entity/npc/LOTREntityRangerNorthBannerBearer	npc.types	npc ranger_north_banner_bearer	0	
+common/entity/npc/LOTREntityRangerNorthCaptain	npc.types	npc ranger_north_captain	0	
+common/entity/npc/LOTREntityRivendellBannerBearer	npc.types	npc rivendell_banner_bearer	0	
+common/entity/npc/LOTREntityRivendellElf	npc.types	npc rivendell_elf	0	
+common/entity/npc/LOTREntityRivendellLord	npc.types	npc rivendell_lord	0	
+common/entity/npc/LOTREntityRivendellSmith	npc.types	npc rivendell_smith	0	
+common/entity/npc/LOTREntityRivendellTrader	npc.types	npc rivendell_trader	0	
+common/entity/npc/LOTREntityRivendellWarrior	npc.types	npc rivendell_warrior	0	
+common/entity/npc/LOTREntityRohanBaker	npc.types	npc rohan_baker	0	
+common/entity/npc/LOTREntityRohanBannerBearer	npc.types	npc rohan_banner_bearer	0	
+common/entity/npc/LOTREntityRohanBarrowWraith	npc.types	npc rohan_barrow_wraith	0	
+common/entity/npc/LOTREntityRohanBlacksmith	npc.types	npc rohan_blacksmith	0	
+common/entity/npc/LOTREntityRohanBrewer	npc.types	npc rohan_brewer	0	
+common/entity/npc/LOTREntityRohanBuilder	npc.types	npc rohan_builder	0	
+common/entity/npc/LOTREntityRohanButcher	npc.types	npc rohan_butcher	0	
+common/entity/npc/LOTREntityRohanFarmer	npc.types	npc rohan_farmer	0	
+common/entity/npc/LOTREntityRohanFarmhand	npc.types	npc rohan_farmhand	0	
+common/entity/npc/LOTREntityRohanFishmonger	npc.types	npc rohan_fishmonger	0	
+common/entity/npc/LOTREntityRohanLumberman	npc.types	npc rohan_lumberman	0	
+common/entity/npc/LOTREntityRohanMan	npc.types	npc rohan_man	0	
+common/entity/npc/LOTREntityRohanMarketTrader	npc.types	not registered in LOTR (base or unused class)	0	
+common/entity/npc/LOTREntityRohanMeadhost	npc.types	npc rohan_meadhost	0	
+common/entity/npc/LOTREntityRohanOrcharder	npc.types	npc rohan_orcharder	0	
+common/entity/npc/LOTREntityRohanShieldmaiden	npc.types	npc rohan_shieldmaiden	1	quests.py
+common/entity/npc/LOTREntityRohanStablemaster	npc.types	npc rohan_stablemaster	0	
+common/entity/npc/LOTREntityRohirrimArcher	npc.types	npc rohirrim_archer	0	
+common/entity/npc/LOTREntityRohirrimMarshal	npc.types	npc rohirrim_marshal	0	
+common/entity/npc/LOTREntityRohirrimWarrior	npc.types	npc rohirrim	0	
+common/entity/npc/LOTREntityRuffianBrute	npc.types	npc ruffian_brute	0	
+common/entity/npc/LOTREntityRuffianSpy	npc.types	npc ruffian_spy	1	behaviours.py
+common/entity/npc/LOTREntitySaruman	npc.wizards	npc saruman	1	sounds.py
+common/entity/npc/LOTREntitySauron	npc.bosses	not registered in LOTR (base or unused class)	0	
+common/entity/npc/LOTREntityScrapTrader	npc.travelling	npc scrap_trader	0	
+common/entity/npc/LOTREntitySkeletalWraith	npc.types	not registered in LOTR (base or unused class)	2	extra.py sounds.py
+common/entity/npc/LOTREntitySnowTroll	npc.types	npc snow_troll	1	behaviours.py
+common/entity/npc/LOTREntitySouthronBaker	npc.types	npc southron_baker	0	
+common/entity/npc/LOTREntitySouthronBartender	npc.types	npc southron_bartender	0	
+common/entity/npc/LOTREntitySouthronBrewer	npc.types	npc near_harad_drinks_trader	0	
+common/entity/npc/LOTREntitySouthronButcher	npc.types	npc near_harad_food_trader	0	
+common/entity/npc/LOTREntitySouthronChampion	npc.types	npc southron_champion	0	
+common/entity/npc/LOTREntitySouthronFarmer	npc.types	npc southron_farmer	0	
+common/entity/npc/LOTREntitySouthronFishmonger	npc.types	npc southron_fishmonger	0	
+common/entity/npc/LOTREntitySouthronFlorist	npc.types	npc near_harad_plants_trader	0	
+common/entity/npc/LOTREntitySouthronGoldsmith	npc.types	npc southron_goldsmith	0	
+common/entity/npc/LOTREntitySouthronLumberman	npc.types	npc southron_lumberman	0	
+common/entity/npc/LOTREntitySouthronMason	npc.types	npc southron_mason	0	
+common/entity/npc/LOTREntitySouthronMiner	npc.types	npc near_harad_minerals_trader	0	
+common/entity/npc/LOTREntitySouthronTrader	npc.types	not registered in LOTR (base or unused class)	0	
+common/entity/npc/LOTREntitySpiderBase	npc.types	not registered in LOTR (base or unused class)	4	SpiderBehaviour.java behaviours.py extra.py
+common/entity/npc/LOTREntitySwanKnight	npc.types	npc swan_knight	0	
+common/entity/npc/LOTREntityTauredain	npc.types	npc tauredain	0	
+common/entity/npc/LOTREntityTauredainBannerBearer	npc.types	npc tauredain_banner_bearer	0	
+common/entity/npc/LOTREntityTauredainBlowgunner	npc.types	npc tauredain_blowgunner	0	
+common/entity/npc/LOTREntityTauredainChieftain	npc.types	npc tauredain_chieftain	0	
+common/entity/npc/LOTREntityTauredainFarmer	npc.types	npc tauredain_farmer	0	
+common/entity/npc/LOTREntityTauredainFarmhand	npc.types	npc tauredain_farmhand	0	
+common/entity/npc/LOTREntityTauredainPyramidWraith	npc.types	npc tauredain_pyramid_wraith	0	
+common/entity/npc/LOTREntityTauredainShaman	npc.types	npc tauredain_shaman	0	
+common/entity/npc/LOTREntityTauredainSmith	npc.types	npc tauredain_smith	0	
+common/entity/npc/LOTREntityTauredainWarrior	npc.types	npc tauredain_warrior	0	
+common/entity/npc/LOTREntityTormentedElf	npc.types	npc tormented_elf	0	
+common/entity/npc/LOTREntityTree	npc.types	not registered in LOTR (base or unused class)	2	TreeBehaviour.java behaviours.py
+common/entity/npc/LOTREntityTroll	npc.types	npc troll	5	CreatureAnim.java LotrNpc.java TrollBehaviour.java
+common/entity/npc/LOTREntityUmbarArcher	npc.types	npc umbar_archer	0	
+common/entity/npc/LOTREntityUmbarBaker	npc.types	npc umbar_baker	0	
+common/entity/npc/LOTREntityUmbarBannerBearer	npc.types	npc umbar_banner_bearer	0	
+common/entity/npc/LOTREntityUmbarBartender	npc.types	npc umbar_bartender	0	
+common/entity/npc/LOTREntityUmbarBlacksmith	npc.types	npc umbar_blacksmith	0	
+common/entity/npc/LOTREntityUmbarBrewer	npc.types	npc umbar_brewer	0	
+common/entity/npc/LOTREntityUmbarButcher	npc.types	npc umbar_butcher	0	
+common/entity/npc/LOTREntityUmbarCaptain	npc.types	npc umbar_captain	0	
+common/entity/npc/LOTREntityUmbarFarmer	npc.types	npc umbar_farmer	0	
+common/entity/npc/LOTREntityUmbarFishmonger	npc.types	npc umbar_fishmonger	0	
+common/entity/npc/LOTREntityUmbarFlorist	npc.types	npc umbar_florist	0	
+common/entity/npc/LOTREntityUmbarGoldsmith	npc.types	npc umbar_goldsmith	0	
+common/entity/npc/LOTREntityUmbarLumberman	npc.types	npc umbar_lumberman	0	
+common/entity/npc/LOTREntityUmbarMason	npc.types	npc umbar_mason	0	
+common/entity/npc/LOTREntityUmbarMiner	npc.types	npc umbar_miner	0	
+common/entity/npc/LOTREntityUmbarTrader	npc.types	not registered in LOTR (base or unused class)	0	
+common/entity/npc/LOTREntityUmbarWarrior	npc.types	npc umbar_warrior	0	
+common/entity/npc/LOTREntityUmbarian	npc.types	npc umbarian	0	
+common/entity/npc/LOTREntityUrukHai	npc.types	npc uruk_hai	2	OrcBehaviour.java behaviours.py
+common/entity/npc/LOTREntityUrukHaiBannerBearer	npc.types	npc uruk_hai_banner_bearer	0	
+common/entity/npc/LOTREntityUrukHaiBerserker	npc.types	npc uruk_hai_berserker	0	
+common/entity/npc/LOTREntityUrukHaiCrossbower	npc.types	npc uruk_hai_crossbower	0	
+common/entity/npc/LOTREntityUrukHaiMercenaryCaptain	npc.types	npc uruk_hai_mercenary_captain	0	
+common/entity/npc/LOTREntityUrukHaiSapper	npc.types	npc uruk_hai_sapper	1	behaviours.py
+common/entity/npc/LOTREntityUrukHaiTrader	npc.types	npc uruk_hai_trader	0	
+common/entity/npc/LOTREntityUrukWarg	npc.types	npc uruk_warg	0	
+common/entity/npc/LOTREntityUrukWargBombardier	npc.types	npc uruk_warg_bombardier	0	
+common/entity/npc/LOTREntityUtumnoFireWarg	npc.types	npc utumno_fire_warg	1	behaviours.py
+common/entity/npc/LOTREntityUtumnoIceSpider	npc.types	npc utumno_ice_spider	1	behaviours.py
+common/entity/npc/LOTREntityUtumnoIceWarg	npc.types	npc utumno_ice_warg	1	behaviours.py
+common/entity/npc/LOTREntityUtumnoObsidianWarg	npc.types	npc utumno_obsidian_warg	0	
+common/entity/npc/LOTREntityUtumnoOrc	npc.types	npc utumno_orc	0	
+common/entity/npc/LOTREntityUtumnoOrcArcher	npc.types	npc utumno_orc_archer	0	
+common/entity/npc/LOTREntityUtumnoSnowTroll	npc.types	npc utumno_snow_troll	0	
+common/entity/npc/LOTREntityUtumnoTroll	npc.types	npc utumno_troll	0	
+common/entity/npc/LOTREntityUtumnoWarg	npc.types	npc utumno_warg	0	
+common/entity/npc/LOTREntityWarg	npc.types	not registered in LOTR (base or unused class)	4	WargBehaviour.java behaviours.py npcs.py
+common/entity/npc/LOTREntityWargBombardier	npc.types	not registered in LOTR (base or unused class)	2	WargBombBehaviour.java behaviours.py
+common/entity/npc/LOTREntityWickedDwarf	npc.types	npc wicked_dwarf	0	
+common/entity/npc/LOTREntityWoodElf	npc.types	npc wood_elf	0	
+common/entity/npc/LOTREntityWoodElfBannerBearer	npc.types	npc wood_elf_banner_bearer	0	
+common/entity/npc/LOTREntityWoodElfCaptain	npc.types	npc wood_elf_captain	0	
+common/entity/npc/LOTREntityWoodElfScout	npc.types	npc wood_elf_scout	2	ElfScoutBehaviour.java behaviours.py
+common/entity/npc/LOTREntityWoodElfSmith	npc.types	npc wood_elf_smith	0	
+common/entity/npc/LOTREntityWoodElfWarrior	npc.types	npc wood_elf_warrior	0	
+common/entity/npc/LOTRFamilyInfo	npc.families		0	
+common/entity/npc/LOTRFarmhand	trade.farmers		1	behaviours.py
+common/entity/npc/LOTRHireableBase	trade.hiring		0	
+common/entity/npc/LOTRHiredNPCInfo	trade.hiring		0	
+common/entity/npc/LOTRInventoryHiredReplacedItems	trade.hiring		0	
+common/entity/npc/LOTRInventoryNPCItems	npc.core		0	
+common/entity/npc/LOTRMercenary	trade.hiring		0	
+common/entity/npc/LOTRMercenaryTradeEntry	trade.hiring		0	
+common/entity/npc/LOTRNPCMount	npc.mounts		1	CreatureExporter.java
+common/entity/npc/LOTRNames	npc.core		0	
+common/entity/npc/LOTRSpeech	npc.core		0	
+common/entity/npc/LOTRTradeEntries	trade.trading		2	NpcExporter.java NpcTrading.java
+common/entity/npc/LOTRTradeEntry	trade.trading		0	
+common/entity/npc/LOTRTradeEntryBarrel	trade.trading		0	
+common/entity/npc/LOTRTradeSellResult	trade.trading		0	
+common/entity/npc/LOTRTradeable	trade.trading		0	
+common/entity/npc/LOTRTraderNPCInfo	trade.trading		0	
+common/entity/npc/LOTRTravellingTrader	npc.travelling		0	
+common/entity/npc/LOTRTravellingTraderInfo	npc.travelling		0	
+common/entity/npc/LOTRUnitTradeEntries	trade.hiring		1	NpcExporter.java
+common/entity/npc/LOTRUnitTradeEntry	trade.hiring		0	
+common/entity/npc/LOTRUnitTradeable	trade.hiring		0	
+common/entity/projectile/LOTREntityConker	item.ranged		0	
+common/entity/projectile/LOTREntityCrossbowBolt	item.ranged		0	
+common/entity/projectile/LOTREntityDart	item.ranged		1	thrown.py
+common/entity/projectile/LOTREntityFirePot	item.ranged		1	ThrownMissile.java
+common/entity/projectile/LOTREntityFishHook	item.fishing		0	
+common/entity/projectile/LOTREntityGandalfFireball	npc.wizards		0	
+common/entity/projectile/LOTREntityMallornLeafBomb	npc.ai		0	
+common/entity/projectile/LOTREntityMarshWraithBall	npc.ai		1	LotrProjectile.java
+common/entity/projectile/LOTREntityMysteryWeb	item.ranged		1	ThrownMissile.java
+common/entity/projectile/LOTREntityPebble	item.ranged		0	
+common/entity/projectile/LOTREntityPlate	item.ranged		1	ThrownMissile.java
+common/entity/projectile/LOTREntityProjectileBase	item.ranged		3	ThrownWeapon.java Throws.java thrown.py
+common/entity/projectile/LOTREntitySmokeRing	item.pipes		1	LotrUseItem.java
+common/entity/projectile/LOTREntitySpear	item.ranged		1	ThrownWeapon.java
+common/entity/projectile/LOTREntityThrowingAxe	item.ranged		1	thrown.py
+common/entity/projectile/LOTREntityThrownRock	npc.ai		1	LotrProjectile.java
+common/entity/projectile/LOTREntityThrownTermite	item.ranged		0	
+common/entity/projectile/LOTREntityTrollSnowball	npc.ai		1	LotrProjectile.java
+common/entity/projectile/LOTRFishing	item.fishing		0	
+common/fac/LOTRAlignmentBonusMap	fac.alignment		0	
+common/fac/LOTRAlignmentValues	fac.alignment		1	LotrHud.java
+common/fac/LOTRControlZone	fac.factions		0	
+common/fac/LOTRFaction	fac.factions		2	FactionInfluence.java WorldExporter.java
+common/fac/LOTRFactionBounties	fac.bounties		0	
+common/fac/LOTRFactionData	fac.factions		0	
+common/fac/LOTRFactionRank	fac.factions		0	
+common/fac/LOTRFactionRelations	fac.relations		1	WorldExporter.java
+common/fac/LOTRMapRegion	fac.factions		0	
+common/fellowship/FellowshipUpdateType	progress.fellowships		0	
+common/fellowship/LOTRFellowship	progress.fellowships		0	
+common/fellowship/LOTRFellowshipClient	progress.fellowships		0	
+common/fellowship/LOTRFellowshipData	progress.fellowships		0	
+common/fellowship/LOTRFellowshipInvite	progress.fellowships		0	
+common/fellowship/LOTRFellowshipProfile	progress.fellowships		0	
+common/inventory/LOTRContainerAlloyForge	block.machines		0	
+common/inventory/LOTRContainerAnvil	item.anvil		0	
+common/inventory/LOTRContainerArmorStand	block.display		1	MachineMenu.java
+common/inventory/LOTRContainerBarrel	block.keg		0	
+common/inventory/LOTRContainerBookshelf	block.display		0	
+common/inventory/LOTRContainerChestWithPouch	item.pouches		0	
+common/inventory/LOTRContainerCoinExchange	trade.trading		1	CoinExchangeMenu.java
+common/inventory/LOTRContainerCraftingTable	block.tables		0	
+common/inventory/LOTRContainerDaleCracker	item.dalecracker		0	
+common/inventory/LOTRContainerGollum	npc.gollum		0	
+common/inventory/LOTRContainerHiredFarmerInventory	trade.farmers		0	
+common/inventory/LOTRContainerHiredWarriorInventory	trade.hiring		0	
+common/inventory/LOTRContainerHobbitOven	block.machines		0	
+common/inventory/LOTRContainerMillstone	block.machines		0	
+common/inventory/LOTRContainerMountInventory	npc.mounts		0	
+common/inventory/LOTRContainerNPCMountInventory	npc.mounts		0	
+common/inventory/LOTRContainerPouch	item.pouches		1	PouchMenu.java
+common/inventory/LOTRContainerTrade	trade.trading		1	TraderMenu.java
+common/inventory/LOTRContainerUnitTrade	trade.hiring		0	
+common/inventory/LOTRContainerUnsmeltery	block.machines		0	
+common/inventory/LOTREntityInventory	npc.core		0	
+common/inventory/LOTRInventoryGollum	npc.gollum		0	
+common/inventory/LOTRInventoryNPC	npc.core		0	
+common/inventory/LOTRInventoryPouch	item.pouches		0	
+common/inventory/LOTRSlotAlignmentReward	fac.alignment		0	
+common/inventory/LOTRSlotAnvilOutput	item.anvil		0	
+common/inventory/LOTRSlotArmorStand	block.display		0	
+common/inventory/LOTRSlotBarrel	block.keg		0	
+common/inventory/LOTRSlotBarrelResult	block.keg		0	
+common/inventory/LOTRSlotBomb	trade.hiring		0	
+common/inventory/LOTRSlotBonemeal	trade.farmers		0	
+common/inventory/LOTRSlotDaleCracker	item.dalecracker		0	
+common/inventory/LOTRSlotHiredReplaceItem	trade.hiring		0	
+common/inventory/LOTRSlotImmutable	core.util		0	
+common/inventory/LOTRSlotMeleeWeapon	trade.hiring		0	
+common/inventory/LOTRSlotMillstone	block.machines		0	
+common/inventory/LOTRSlotPouch	item.pouches		1	PouchMenu.java
+common/inventory/LOTRSlotProtected	core.util		0	
+common/inventory/LOTRSlotSaddle	npc.mounts		0	
+common/inventory/LOTRSlotSeeds	trade.farmers		0	
+common/inventory/LOTRSlotStackSize	core.util		0	
+common/inventory/LOTRSlotTrade	trade.trading		0	
+common/inventory/LOTRSlotUnsmeltResult	block.machines		0	
+common/inventory/OddmentCollectorNameMischief	npc.travelling		0	
+common/item/AnvilNameColorProvider	item.anvil		0	
+common/item/LOTRItemAncientItem	item.modifiers	ids 1/1	0	
+common/item/LOTRItemAncientItemParts	item.modifiers	ids 1/1	0	
+common/item/LOTRItemAnduril	item.special_weapons	ids 1/1	0	
+common/item/LOTRItemAnimalJar	item.jars		0	
+common/item/LOTRItemArmor	item.armor	ids 243/243	2	CLAUDE.md generate.py
+common/item/LOTRItemArmorStand	block.display	ids 1/1	1	machines.py
+common/item/LOTRItemArrowPoisoned	item.ranged	ids 1/1	1	generate.py
+common/item/LOTRItemAxe	item.weapons	ids 14/14	0	
+common/item/LOTRItemBalrogWhip	item.special_weapons	ids 1/1	1	generate.py
+common/item/LOTRItemBanner	fac.banners	ids 1/1	0	
+common/item/LOTRItemBarrel	block.keg		0	
+common/item/LOTRItemBattleaxe	item.weapons	ids 20/20	1	generate.py
+common/item/LOTRItemBearRug	item.rugs	ids 1/1	1	behavior-audit.md
+common/item/LOTRItemBed	block.building	ids 8/8	0	
+common/item/LOTRItemBerry	item.food	ids 6/6	0	
+common/item/LOTRItemBlockGoran	block.plants		0	
+common/item/LOTRItemBlockMetadata	block.building		0	
+common/item/LOTRItemBlowgun	item.ranged	ids 1/1	2	BlowgunItem.java thrown.py
+common/item/LOTRItemBone	item.misc	ids 6/6	0	
+common/item/LOTRItemBossTrophy	item.rugs	ids 1/1	1	behavior-audit.md
+common/item/LOTRItemBottlePoison	item.drinks	ids 1/1	0	
+common/item/LOTRItemBow	item.ranged	ids 17/17	2	LotrBowItem.java missing-features.md
+common/item/LOTRItemBrandingIron	item.branding	ids 1/1	2	BrandingIronItem.java behavior-audit.md
+common/item/LOTRItemChisel	block.carved_signs	ids 2/2	1	behavior-audit.md
+common/item/LOTRItemCoin	trade.trading	ids 1/1	0	
+common/item/LOTRItemCommandHorn	trade.squadrons	ids 1/1	2	LotrUseItem.java generate.py
+common/item/LOTRItemCommandSword	trade.squadrons	ids 1/1	0	
+common/item/LOTRItemConker	item.ranged	ids 1/1	1	thrown.py
+common/item/LOTRItemConquestHorn	fac.invasions	ids 1/1	1	generate.py
+common/item/LOTRItemCrossbow	item.ranged	ids 4/4	2	SoundHooks.java generate.py
+common/item/LOTRItemCrossbowBolt	item.ranged	ids 2/2	1	generate.py
+common/item/LOTRItemDagger	item.weapons	ids 64/64	2	LotrWeaponItem.java generate.py
+common/item/LOTRItemDaleCracker	item.dalecracker	ids 1/1	1	behavior-audit.md
+common/item/LOTRItemDart	item.ranged	ids 2/2	2	DartItem.java thrown.py
+common/item/LOTRItemDoor	block.building		0	
+common/item/LOTRItemDoubleFlower	block.plants		0	
+common/item/LOTRItemDoubleTorch	block.plants	ids 2/2	1	behavior-audit.md
+common/item/LOTRItemDye	item.misc	ids 1/1	1	behavior-audit.md
+common/item/LOTRItemEnchantment	item.modifiers	ids 4/4	0	
+common/item/LOTRItemEntDraught	item.food	ids 1/1	2	EntDraughtItem.java behavior-audit.md
+common/item/LOTRItemFallenLeaves	block.plants		0	
+common/item/LOTRItemFeatherDyed	item.armor	ids 1/1	0	
+common/item/LOTRItemFenceVanilla	block.building		0	
+common/item/LOTRItemFirePot	item.ranged	ids 1/1	1	thrown.py
+common/item/LOTRItemFood	item.food	ids 57/57	0	
+common/item/LOTRItemGandalfStaffGrey	item.special_weapons	ids 1/1	0	
+common/item/LOTRItemGandalfStaffWhite	item.special_weapons	ids 1/1	0	
+common/item/LOTRItemGate	block.gates		0	
+common/item/LOTRItemGem	item.misc	ids 10/10	0	
+common/item/LOTRItemGemWithAnvilNameColor	item.anvil	ids 8/8	0	
+common/item/LOTRItemGiraffeRug	item.rugs	ids 1/1	1	behavior-audit.md
+common/item/LOTRItemGlamdring	item.special_weapons	ids 1/1	0	
+common/item/LOTRItemGlassBottle	item.drinks		0	
+common/item/LOTRItemGrapeSeeds	block.plants	ids 2/2	3	GrapeSeedItem.java farming.py machines.py
+common/item/LOTRItemGuldurilCrystal	block.crystals	ids 1/1	1	behavior-audit.md
+common/item/LOTRItemHammer	item.weapons	ids 21/21	1	generate.py
+common/item/LOTRItemHangingFruit	item.food	ids 2/2	0	
+common/item/LOTRItemHaradRobes	item.armor	ids 6/6	0	
+common/item/LOTRItemHaradTurban	item.armor	ids 1/1	1	generate.py
+common/item/LOTRItemHobbitPipe	item.pipes	ids 1/1	2	LotrUseItem.java generate.py
+common/item/LOTRItemHoe	item.weapons	ids 14/14	0	
+common/item/LOTRItemKaftan	item.armor	ids 2/2	0	
+common/item/LOTRItemKebab	item.food	ids 2/2	0	
+common/item/LOTRItemKebabStand	block.machines		0	
+common/item/LOTRItemLance	item.weapons	ids 3/3	1	generate.py
+common/item/LOTRItemLeatherHat	item.armor	ids 1/1	0	
+common/item/LOTRItemLeaves	block.plants		0	
+common/item/LOTRItemLionRug	item.rugs	ids 1/1	1	behavior-audit.md
+common/item/LOTRItemManFlesh	item.food	ids 1/1	0	
+common/item/LOTRItemMatch	item.misc	ids 1/1	2	MatchItem.java behavior-audit.md
+common/item/LOTRItemMattock	item.weapons	ids 3/3	0	
+common/item/LOTRItemMechanism	item.mechanism	ids 1/1	1	behavior-audit.md
+common/item/LOTRItemMobSpawner	block.spawners		0	
+common/item/LOTRItemModifierTemplate	item.modifiers	ids 1/1	1	SmithScrollItem.java
+common/item/LOTRItemMorgulShroom	block.plants		0	
+common/item/LOTRItemMountArmor	npc.mounts	ids 23/23	3	CreatureExporter.java MountArmorItem.java mounts.py
+common/item/LOTRItemMug	item.drinks	ids 57/57	6	Exporter.java LotrDrinkItem.java LotrUseItem.java
+common/item/LOTRItemMugMorgulDraught	item.drinks	ids 1/1	1	extra.py
+common/item/LOTRItemMugTauredainCure	item.drinks	ids 1/1	1	extra.py
+common/item/LOTRItemMugTermite	item.drinks	ids 1/1	1	extra.py
+common/item/LOTRItemMysteryWeb	item.ranged	ids 1/1	1	thrown.py
+common/item/LOTRItemNPCRespawner	block.spawners	ids 1/1	1	behavior-audit.md
+common/item/LOTRItemOrcBomb	item.ranged		0	
+common/item/LOTRItemOrcSkullStaff	item.special_weapons	ids 1/1	0	
+common/item/LOTRItemOwnership	item.anvil		0	
+common/item/LOTRItemPartyHat	item.armor	ids 1/1	0	
+common/item/LOTRItemPebble	item.ranged	ids 1/1	2	ThrowableItem.java thrown.py
+common/item/LOTRItemPickaxe	item.weapons	ids 18/18	0	
+common/item/LOTRItemPike	item.weapons	ids 13/13	1	generate.py
+common/item/LOTRItemPlaceableFood	item.food	ids 6/6	0	
+common/item/LOTRItemPlate	item.ranged	ids 3/3	3	PlateItem.java machines.py thrown.py
+common/item/LOTRItemPolearm	item.weapons	ids 32/32	1	generate.py
+common/item/LOTRItemPolearmLong	item.weapons	ids 22/22	1	generate.py
+common/item/LOTRItemPotion	item.drinks		0	
+common/item/LOTRItemPouch	item.pouches	ids 1/1	2	PouchItem.java ores.py
+common/item/LOTRItemQuenditeCrystal	block.crystals	ids 1/1	1	behavior-audit.md
+common/item/LOTRItemRedBook	progress.redbook	ids 1/1	1	generate.py
+common/item/LOTRItemReeds	block.plants		0	
+common/item/LOTRItemRhunFireJar	block.rhun_fire		0	
+common/item/LOTRItemRing	npc.families	ids 3/3	0	
+common/item/LOTRItemRingil	item.special_weapons	ids 1/1	0	
+common/item/LOTRItemRugBase	item.rugs	ids 4/4	0	
+common/item/LOTRItemSalt	item.food	ids 1/1	1	behavior-audit.md
+common/item/LOTRItemSauronMace	item.special_weapons	ids 1/1	1	generate.py
+common/item/LOTRItemSeeds	block.plants	ids 2/2	0	
+common/item/LOTRItemShovel	item.weapons	ids 14/14	0	
+common/item/LOTRItemSling	item.ranged	ids 1/1	2	SlingItem.java thrown.py
+common/item/LOTRItemSpawnEgg	npc.core	MISSING ids 0/1 mapped	0	
+common/item/LOTRItemSpear	item.weapons	ids 29/29	3	LotrWeaponItem.java generate.py thrown.py
+common/item/LOTRItemStew	item.food	ids 5/5	0	
+common/item/LOTRItemSting	item.special_weapons	ids 1/1	0	
+common/item/LOTRItemStructureSpawner	struct.tools	MISSING ids 0/1 mapped	0	
+common/item/LOTRItemSword	item.weapons	ids 210/210	0	
+common/item/LOTRItemTallGrass	block.plants		0	
+common/item/LOTRItemTermite	item.ranged	ids 1/1	2	behavior-audit.md thrown.py
+common/item/LOTRItemThrowingAxe	item.ranged	ids 5/5	2	ThrowingAxeItem.java thrown.py
+common/item/LOTRItemTreasurePile	item.treasure		0	
+common/item/LOTRItemTrident	item.weapons	ids 2/2	1	generate.py
+common/item/LOTRItemTrollStatue	item.rugs	ids 1/1	1	behavior-audit.md
+common/item/LOTRItemUtumnoKey	dim.utumno	ids 1/1	1	behavior-audit.md
+common/item/LOTRItemVessel	item.drinks	ids 11/11	1	generate.py
+common/item/LOTRItemVine	block.plants		0	
+common/item/LOTRItemWargskinRug	item.rugs	ids 1/1	1	behavior-audit.md
+common/item/LOTRItemWaterPlant	block.plants		0	
+common/item/LOTRItemWithAnvilNameColor	item.anvil	ids 3/3	0	
+common/item/LOTRMaterial	item.weapons		2	ManFleshBehaviour.java generate.py
+common/item/LOTRPoisonedDrinks	item.drinks		0	
+common/item/LOTRPotionPoisonKilling	item.drinks		0	
+common/item/LOTRStoryItem	item.special_weapons		0	
+common/item/LOTRValuableItems	npc.ai		1	BanditBehaviour.java
+common/item/LOTRWeaponStats	item.weapons		6	CLAUDE.md Exporter.java LotrWeaponItem.java
+common/network/LOTRPacketAchievement	progress.achievements		0	
+common/network/LOTRPacketAchievementRemove	progress.achievements		0	
+common/network/LOTRPacketAlignDrain	fac.alignment		0	
+common/network/LOTRPacketAlignment	fac.alignment		0	
+common/network/LOTRPacketAlignmentBonus	fac.alignment		0	
+common/network/LOTRPacketAlignmentChoiceOffer	fac.alignment_choices		0	
+common/network/LOTRPacketAlignmentChoices	fac.alignment_choices		0	
+common/network/LOTRPacketAlignmentSee	fac.alignment		0	
+common/network/LOTRPacketAnvilEngraveOwner	item.anvil		0	
+common/network/LOTRPacketAnvilReforge	item.anvil		0	
+common/network/LOTRPacketAnvilRename	item.anvil		0	
+common/network/LOTRPacketBannerData	fac.banners		0	
+common/network/LOTRPacketBannerRequestInvalidName	fac.banners		0	
+common/network/LOTRPacketBannerValidate	fac.banners		0	
+common/network/LOTRPacketBeaconEdit	block.beacon		0	
+common/network/LOTRPacketBiomeVariantsUnwatch	world.variants		0	
+common/network/LOTRPacketBiomeVariantsWatch	world.variants		0	
+common/network/LOTRPacketBlockFX	core.network		0	
+common/network/LOTRPacketBrandingIron	item.branding		0	
+common/network/LOTRPacketBrewingButton	block.keg		0	
+common/network/LOTRPacketBrokenPledge	fac.pledge		0	
+common/network/LOTRPacketBuyUnit	trade.hiring		0	
+common/network/LOTRPacketCWPProtectionMessage	progress.custom_waypoints		0	
+common/network/LOTRPacketCWPSharedHide	progress.custom_waypoints		0	
+common/network/LOTRPacketCWPSharedHideClient	progress.custom_waypoints		0	
+common/network/LOTRPacketCWPSharedUnlockClient	progress.custom_waypoints		0	
+common/network/LOTRPacketCancelItemHighlight	core.network		0	
+common/network/LOTRPacketClientInfo	core.playerdata		0	
+common/network/LOTRPacketClientMQEvent	quest.miniquests		0	
+common/network/LOTRPacketClientsideGUI	progress.menu		0	
+common/network/LOTRPacketCoinExchange	trade.trading		0	
+common/network/LOTRPacketConquestGrid	fac.conquest		0	
+common/network/LOTRPacketConquestGridRequest	fac.conquest		0	
+common/network/LOTRPacketConquestNotification	fac.conquest		0	
+common/network/LOTRPacketCreateCWP	progress.custom_waypoints		0	
+common/network/LOTRPacketCreateCWPClient	progress.custom_waypoints		0	
+common/network/LOTRPacketDate	progress.calendar		0	
+common/network/LOTRPacketDeleteCWP	progress.custom_waypoints		0	
+common/network/LOTRPacketDeleteCWPClient	progress.custom_waypoints		0	
+common/network/LOTRPacketDeleteMiniquest	quest.miniquests		0	
+common/network/LOTRPacketEditBanner	fac.banners		0	
+common/network/LOTRPacketEditNPCRespawner	block.spawners		0	
+common/network/LOTRPacketEditSign	block.carved_signs		0	
+common/network/LOTRPacketEnableAlignmentZones	fac.factions		0	
+common/network/LOTRPacketEntityUUID	npc.core		0	
+common/network/LOTRPacketEnvironmentOverlay	core.network		0	
+common/network/LOTRPacketFTBounceClient	progress.fasttravel		0	
+common/network/LOTRPacketFTBounceServer	progress.fasttravel		0	
+common/network/LOTRPacketFTCooldown	progress.fasttravel		0	
+common/network/LOTRPacketFTScreen	progress.fasttravel		0	
+common/network/LOTRPacketFTTimer	progress.fasttravel		0	
+common/network/LOTRPacketFactionData	fac.factions		0	
+common/network/LOTRPacketFactionRelations	fac.relations		0	
+common/network/LOTRPacketFamilyInfo	npc.families		0	
+common/network/LOTRPacketFastTravel	progress.fasttravel		0	
+common/network/LOTRPacketFellowship	progress.fellowships		0	
+common/network/LOTRPacketFellowshipAcceptInviteResult	progress.fellowships		0	
+common/network/LOTRPacketFellowshipCreate	progress.fellowships		0	
+common/network/LOTRPacketFellowshipDisband	progress.fellowships		0	
+common/network/LOTRPacketFellowshipDo	progress.fellowships		0	
+common/network/LOTRPacketFellowshipDoPlayer	progress.fellowships		0	
+common/network/LOTRPacketFellowshipInvitePlayer	progress.fellowships		0	
+common/network/LOTRPacketFellowshipLeave	progress.fellowships		0	
+common/network/LOTRPacketFellowshipNotification	progress.fellowships		0	
+common/network/LOTRPacketFellowshipPartialUpdate	progress.fellowships		0	
+common/network/LOTRPacketFellowshipRemove	progress.fellowships		0	
+common/network/LOTRPacketFellowshipRename	progress.fellowships		0	
+common/network/LOTRPacketFellowshipRespondInvite	progress.fellowships		0	
+common/network/LOTRPacketFellowshipSetIcon	progress.fellowships		0	
+common/network/LOTRPacketFellowshipToggle	progress.fellowships		0	
+common/network/LOTRPacketHandler	core.network		0	
+common/network/LOTRPacketHiredGui	trade.hiring		0	
+common/network/LOTRPacketHiredInfo	trade.hiring		0	
+common/network/LOTRPacketHiredUnitCommand	trade.hiring		0	
+common/network/LOTRPacketHiredUnitDismiss	trade.hiring		0	
+common/network/LOTRPacketHiredUnitInteract	trade.hiring		0	
+common/network/LOTRPacketHornSelect	trade.squadrons		0	
+common/network/LOTRPacketInvasionWatch	fac.invasions		0	
+common/network/LOTRPacketIsOpRequest	progress.map		0	
+common/network/LOTRPacketIsOpResponse	progress.map		0	
+common/network/LOTRPacketItemSquadron	trade.squadrons		0	
+common/network/LOTRPacketLocationFX	core.network		0	
+common/network/LOTRPacketLogin	core.playerdata		0	
+common/network/LOTRPacketLoginPlayerData	core.playerdata		0	
+common/network/LOTRPacketMallornEntHeal	npc.ai		0	
+common/network/LOTRPacketMallornEntSummon	npc.ai		0	
+common/network/LOTRPacketMapTp	progress.map		0	
+common/network/LOTRPacketMercenaryInteract	trade.hiring		0	
+common/network/LOTRPacketMessage	progress.menu		0	
+common/network/LOTRPacketMiniquest	quest.miniquests		0	
+common/network/LOTRPacketMiniquestOffer	quest.miniquests		0	
+common/network/LOTRPacketMiniquestOfferClose	quest.miniquests		0	
+common/network/LOTRPacketMiniquestRemove	quest.miniquests		0	
+common/network/LOTRPacketMiniquestTrack	quest.miniquests		0	
+common/network/LOTRPacketMiniquestTrackClient	quest.miniquests		0	
+common/network/LOTRPacketMobSpawner	block.spawners		0	
+common/network/LOTRPacketMountControl	npc.mounts		0	
+common/network/LOTRPacketMountControlServerEnforce	npc.mounts		0	
+common/network/LOTRPacketMountOpenInv	npc.mounts		0	
+common/network/LOTRPacketNPCCombatStance	npc.core		0	
+common/network/LOTRPacketNPCFX	npc.core		0	
+common/network/LOTRPacketNPCIsEating	npc.core		0	
+common/network/LOTRPacketNPCIsOfferingQuest	quest.miniquests		0	
+common/network/LOTRPacketNPCRespawner	block.spawners		0	
+common/network/LOTRPacketNPCSpeech	npc.core		0	
+common/network/LOTRPacketNPCSquadron	trade.squadrons		0	
+common/network/LOTRPacketOpenSignEditor	block.carved_signs		0	
+common/network/LOTRPacketOptions	core.playerdata		0	
+common/network/LOTRPacketPledge	fac.pledge		0	
+common/network/LOTRPacketPledgeSet	fac.pledge		0	
+common/network/LOTRPacketPortalPos	dim.ring_portal		0	
+common/network/LOTRPacketRenameCWP	progress.custom_waypoints		0	
+common/network/LOTRPacketRenameCWPClient	progress.custom_waypoints		0	
+common/network/LOTRPacketRenamePouch	item.pouches		1	Pouches.java
+common/network/LOTRPacketRestockPouches	item.pouches		0	
+common/network/LOTRPacketSealCracker	item.dalecracker		0	
+common/network/LOTRPacketSelectShield	progress.shields_capes		0	
+common/network/LOTRPacketSelectTitle	progress.titles		0	
+common/network/LOTRPacketSell	trade.trading		0	
+common/network/LOTRPacketSetOption	core.playerdata		0	
+common/network/LOTRPacketSetPlayerRotation	core.network		0	
+common/network/LOTRPacketShareCWP	progress.custom_waypoints		0	
+common/network/LOTRPacketShareCWPClient	progress.custom_waypoints		0	
+common/network/LOTRPacketShield	progress.shields_capes		0	
+common/network/LOTRPacketSpawnMob	npc.core		0	
+common/network/LOTRPacketStopItemUse	core.network		0	
+common/network/LOTRPacketTitle	progress.titles		0	
+common/network/LOTRPacketTraderInfo	trade.trading		0	
+common/network/LOTRPacketTraderInteract	trade.trading		0	
+common/network/LOTRPacketUnitTraderInteract	trade.hiring		0	
+common/network/LOTRPacketUpdatePlayerLocations	progress.map_players		0	
+common/network/LOTRPacketUpdateViewingFaction	fac.screen		0	
+common/network/LOTRPacketUtumnoKill	dim.utumno		0	
+common/network/LOTRPacketUtumnoReturn	dim.utumno		0	
+common/network/LOTRPacketWaypointRegion	progress.fasttravel		0	
+common/network/LOTRPacketWaypointUseCount	progress.fasttravel		0	
+common/network/LOTRPacketWeaponFX	item.weapons		0	
+common/playerdetails/ExclusiveGroup	core.playerdetails		0	
+common/playerdetails/LOTRPlayerDetailsCache	core.playerdetails		0	
+common/playerdetails/PlayerDetails	core.playerdetails		0	
+common/playerdetails/PlayerDetailsApiClient	core.playerdetails		0	
+common/quest/IPickpocketable	quest.pickpocket		0	
+common/quest/LOTRMiniQuest	quest.miniquests		0	
+common/quest/LOTRMiniQuestBounty	fac.bounties		0	
+common/quest/LOTRMiniQuestCollect	quest.miniquests		0	
+common/quest/LOTRMiniQuestCollectBase	quest.miniquests		0	
+common/quest/LOTRMiniQuestEvent	quest.miniquests		0	
+common/quest/LOTRMiniQuestFactory	quest.miniquests		3	QuestExporter.java ReflectionDump.java quests.py
+common/quest/LOTRMiniQuestKill	quest.miniquests		0	
+common/quest/LOTRMiniQuestKillEntity	quest.miniquests		0	
+common/quest/LOTRMiniQuestKillFaction	quest.miniquests		0	
+common/quest/LOTRMiniQuestPickpocket	quest.pickpocket		1	Quests.java
+common/quest/LOTRMiniQuestRetrieve	quest.miniquests		0	
+common/quest/LOTRMiniQuestWelcome	quest.miniquests		0	
+common/quest/MiniQuestSelector	quest.miniquests		0	
+common/recipe/LOTRBrewingRecipes	block.keg		4	Exporter.java StationExporter.java drinks.py
+common/recipe/LOTREntJarRecipes	block.machines		1	StationExporter.java
+common/recipe/LOTRMillstoneRecipes	block.machines		1	StationExporter.java
+common/recipe/LOTRRecipeFeatherDye	item.armor		0	
+common/recipe/LOTRRecipeHaradRobesDye	item.armor		0	
+common/recipe/LOTRRecipeHaradTurbanOrnament	item.armor		0	
+common/recipe/LOTRRecipeHobbitPipe	item.pipes		0	
+common/recipe/LOTRRecipeLeatherHatDye	item.armor		0	
+common/recipe/LOTRRecipeLeatherHatFeather	item.armor		0	
+common/recipe/LOTRRecipePartyHatDye	item.armor		1	extra.py
+common/recipe/LOTRRecipePoisonWeapon	item.weapons		1	generate.py
+common/recipe/LOTRRecipes	block.tables		1	Exporter.java
+common/recipe/LOTRRecipesArmorDyes	item.armor		0	
+common/recipe/LOTRRecipesBanners	fac.banners		0	
+common/recipe/LOTRRecipesPoisonDrinks	item.drinks		0	
+common/recipe/LOTRRecipesPouch	item.pouches		0	
+common/recipe/LOTRRecipesTreasurePile	item.treasure		0	
+common/recipe/LOTRVesselRecipes	item.drinks		0	
+common/tileentity/LOTRDwarvenGlowLogic	block.gates		0	
+common/tileentity/LOTRTileEntityAlloyForge	block.machines		2	StationExporter.java generate.py
+common/tileentity/LOTRTileEntityAlloyForgeBase	block.machines		2	ForgeBlockEntity.java machines.py
+common/tileentity/LOTRTileEntityAnimalJar	item.jars		0	
+common/tileentity/LOTRTileEntityArmorStand	block.display		0	
+common/tileentity/LOTRTileEntityBarrel	block.keg		2	KegBlockEntity.java drinks.py
+common/tileentity/LOTRTileEntityBeacon	block.beacon		1	GondorBeaconBlock.java
+common/tileentity/LOTRTileEntityBookshelf	block.display		0	
+common/tileentity/LOTRTileEntityChest	block.display		1	LotrChestBlockEntity.java
+common/tileentity/LOTRTileEntityCommandTable	struct.tools		0	
+common/tileentity/LOTRTileEntityCorruptMallorn	block.crystals		0	
+common/tileentity/LOTRTileEntityDartTrap	block.traps		0	
+common/tileentity/LOTRTileEntityDwarvenDoor	block.gates		0	
+common/tileentity/LOTRTileEntityDwarvenForge	block.machines		2	StationExporter.java generate.py
+common/tileentity/LOTRTileEntityElvenForge	block.machines		2	StationExporter.java generate.py
+common/tileentity/LOTRTileEntityElvenPortal	dim.faction_portals		0	
+common/tileentity/LOTRTileEntityEntJar	block.machines		2	EntJarBlockEntity.java machines.py
+common/tileentity/LOTRTileEntityFlowerPot	block.plants		0	
+common/tileentity/LOTRTileEntityForgeBase	block.machines		1	MachineBlockEntity.java
+common/tileentity/LOTRTileEntityGulduril	block.crystals		0	
+common/tileentity/LOTRTileEntityHobbitOven	block.machines		3	OvenBlockEntity.java generate.py machines.py
+common/tileentity/LOTRTileEntityKebabStand	block.machines		3	KebabStandBlockEntity.java generate.py machines.py
+common/tileentity/LOTRTileEntityMillstone	block.machines		2	MillstoneBlockEntity.java machines.py
+common/tileentity/LOTRTileEntityMobSpawner	block.spawners		0	
+common/tileentity/LOTRTileEntityMorgulPortal	dim.faction_portals		0	
+common/tileentity/LOTRTileEntityMug	item.drinks		0	
+common/tileentity/LOTRTileEntityOrcForge	block.machines		2	StationExporter.java generate.py
+common/tileentity/LOTRTileEntityPlate	block.display		2	DisplayBlock.java DisplayBlockEntity.java
+common/tileentity/LOTRTileEntityPortalBase	dim.ring_portal		0	
+common/tileentity/LOTRTileEntitySign	block.carved_signs		0	
+common/tileentity/LOTRTileEntitySignCarved	block.carved_signs		0	
+common/tileentity/LOTRTileEntitySignCarvedIthildin	block.carved_signs		0	
+common/tileentity/LOTRTileEntitySpawnerChest	block.spawners		0	
+common/tileentity/LOTRTileEntityTrollTotem	block.traps		0	
+common/tileentity/LOTRTileEntityUnsmeltery	block.machines		4	StationExporter.java UnsmelteryBlockEntity.java generate.py
+common/tileentity/LOTRTileEntityUtumnoPortal	dim.utumno		0	
+common/tileentity/LOTRTileEntityUtumnoReturnPortal	dim.utumno		0	
+common/tileentity/LOTRTileEntityWeaponRack	block.display		1	DisplayBlock.java
+common/util/CentredSquareArray	core.util		0	
+common/util/LOTRColorUtil	core.util		0	
+common/util/LOTRCommonIcons	core.util		0	
+common/util/LOTRFunctions	core.util		1	LotrHud.java
+common/util/LOTRLog	core.util		0	
+common/util/LOTRMazeGenerator	core.util		0	
+common/util/LOTRVersionChecker	core.util		0	
+common/world/LOTRChunkProvider	world.terrain		4	CLAUDE.md MiddleEarthMap.java Roads.java
+common/world/LOTRChunkProviderUtumno	dim.utumno		0	
+common/world/LOTRTeleporter	dim.ring_portal		0	
+common/world/LOTRTeleporterElvenPortal	dim.faction_portals		0	
+common/world/LOTRTeleporterMorgulPortal	dim.faction_portals		0	
+common/world/LOTRTeleporterUtumno	dim.utumno		0	
+common/world/LOTRUtumnoLevel	dim.utumno		0	
+common/world/LOTRWorldChunkManager	world.genlayer		0	
+common/world/LOTRWorldInfo	world.dimension		0	
+common/world/LOTRWorldProvider	world.dimension		0	
+common/world/LOTRWorldProviderMiddleEarth	world.dimension		0	
+common/world/LOTRWorldProviderUtumno	dim.utumno		0	
+common/world/LOTRWorldTypeMiddleEarth	world.dimension		0	
+common/world/biome/LOTRBiome	world.biomes		4	WorldExporter.java grounds.py roads.py
+common/world/biome/LOTRBiomeDecorator	world.decorator		4	CLAUDE.md ForestFloorFeature.java StructureRateExporter.java
+common/world/biome/LOTRBiomeGenAdornland	world.biomes	biome adornland	1	roads.py
+common/world/biome/LOTRBiomeGenAndrast	world.biomes	biome andrast	1	grounds.py
+common/world/biome/LOTRBiomeGenAnduin	world.biomes	biome anduin_hills	0	
+common/world/biome/LOTRBiomeGenAnduinMouth	world.biomes	biome anduin_mouth	1	grounds.py
+common/world/biome/LOTRBiomeGenAnduinVale	world.biomes	biome anduin_vale	0	
+common/world/biome/LOTRBiomeGenAngle	world.biomes	biome angle	0	
+common/world/biome/LOTRBiomeGenAngmar	world.biomes	biome angmar	1	grounds.py
+common/world/biome/LOTRBiomeGenAngmarMountains	world.biomes	biome angmar_mountains	1	grounds.py
+common/world/biome/LOTRBiomeGenBarrowDowns	world.biomes	biome barrow_downs	1	sounds.py
+common/world/biome/LOTRBiomeGenBeach	world.biomes	biome beach beach_gravel beach_white	1	sounds.py
+common/world/biome/LOTRBiomeGenBlackrootVale	world.biomes	biome blackroot_vale	0	
+common/world/biome/LOTRBiomeGenBlueMountains	world.biomes	biome blue_mountains	2	grounds.py roads.py
+common/world/biome/LOTRBiomeGenBlueMountainsFoothills	world.biomes	biome blue_mountains_foothills	0	
+common/world/biome/LOTRBiomeGenBreeland	world.biomes	biome breeland	0	
+common/world/biome/LOTRBiomeGenBrownLands	world.biomes	biome brown_lands	1	grounds.py
+common/world/biome/LOTRBiomeGenCelebrant	world.biomes	biome celebrant	0	
+common/world/biome/LOTRBiomeGenChetwood	world.biomes	biome chetwood	0	
+common/world/biome/LOTRBiomeGenColdfells	world.biomes	biome coldfells	0	
+common/world/biome/LOTRBiomeGenDagorlad	world.biomes	biome dagorlad	2	grounds.py roads.py
+common/world/biome/LOTRBiomeGenDale	world.biomes	biome dale	1	roads.py
+common/world/biome/LOTRBiomeGenDeadMarshes	world.biomes	biome dead_marshes	3	grounds.py sounds.py world.py
+common/world/biome/LOTRBiomeGenDolGuldur	world.biomes	biome dol_guldur	1	sounds.py
+common/world/biome/LOTRBiomeGenDorEnErnil	world.biomes	biome dor_en_ernil	2	mounts.py roads.py
+common/world/biome/LOTRBiomeGenDorEnErnilHills	world.biomes	biome dor_en_ernil_hills	0	
+common/world/biome/LOTRBiomeGenDorwinion	world.biomes	biome dorwinion	1	roads.py
+common/world/biome/LOTRBiomeGenDorwinionHills	world.biomes	biome dorwinion_hills	0	
+common/world/biome/LOTRBiomeGenDunland	world.biomes	biome dunland	0	
+common/world/biome/LOTRBiomeGenEastBight	world.biomes	biome east_bight	1	grounds.py
+common/world/biome/LOTRBiomeGenEasternDesolation	world.biomes	biome eastern_desolation	1	roads.py
+common/world/biome/LOTRBiomeGenEmynMuil	world.biomes	biome emyn_muil	0	
+common/world/biome/LOTRBiomeGenEnedwaith	world.biomes	biome enedwaith	0	
+common/world/biome/LOTRBiomeGenEntwashMouth	world.biomes	biome entwash_mouth	1	grounds.py
+common/world/biome/LOTRBiomeGenErebor	world.biomes	biome erebor	2	grounds.py roads.py
+common/world/biome/LOTRBiomeGenEregion	world.biomes	biome eregion	1	roads.py
+common/world/biome/LOTRBiomeGenEriador	world.biomes	biome eriador	1	roads.py
+common/world/biome/LOTRBiomeGenEriadorDowns	world.biomes	biome eriador_downs	0	
+common/world/biome/LOTRBiomeGenErynVorn	world.biomes	biome eryn_vorn	0	
+common/world/biome/LOTRBiomeGenEttenmoors	world.biomes	biome ettenmoors	0	
+common/world/biome/LOTRBiomeGenFangorn	world.biomes	biome fangorn	1	machines.py
+common/world/biome/LOTRBiomeGenFangornClearing	world.biomes	biome fangorn_clearing	0	
+common/world/biome/LOTRBiomeGenFangornWasteland	world.biomes	biome fangorn_wasteland	0	
+common/world/biome/LOTRBiomeGenFarHarad	world.biomes	makes no LOTR biome itself (base class)	0	
+common/world/biome/LOTRBiomeGenFarHaradArid	world.biomes	biome far_harad_arid far_harad_arid_hills	1	grounds.py
+common/world/biome/LOTRBiomeGenFarHaradBushland	world.biomes	biome far_harad_bushland far_harad_bushland_hills	0	
+common/world/biome/LOTRBiomeGenFarHaradCloudForest	world.biomes	biome far_harad_cloud_forest	0	
+common/world/biome/LOTRBiomeGenFarHaradCoast	world.biomes	biome far_harad_coast	2	grounds.py sounds.py
+common/world/biome/LOTRBiomeGenFarHaradForest	world.biomes	biome far_harad_forest	0	
+common/world/biome/LOTRBiomeGenFarHaradJungle	world.biomes	biome far_harad_jungle	1	roads.py
+common/world/biome/LOTRBiomeGenFarHaradJungleEdge	world.biomes	biome far_harad_jungle_edge	1	roads.py
+common/world/biome/LOTRBiomeGenFarHaradJungleLake	world.biomes	biome far_harad_jungle_lake	0	
+common/world/biome/LOTRBiomeGenFarHaradJungleMountains	world.biomes	biome far_harad_jungle_mountains	1	grounds.py
+common/world/biome/LOTRBiomeGenFarHaradMangrove	world.biomes	biome far_harad_mangrove	0	
+common/world/biome/LOTRBiomeGenFarHaradSavannah	world.biomes	biome far_harad	0	
+common/world/biome/LOTRBiomeGenFarHaradSwamp	world.biomes	biome far_harad_swamp	1	grounds.py
+common/world/biome/LOTRBiomeGenFarHaradVolcano	world.biomes	biome far_harad_volcano	1	grounds.py
+common/world/biome/LOTRBiomeGenForodwaith	world.biomes	biome forodwaith	0	
+common/world/biome/LOTRBiomeGenForodwaithCoast	world.biomes	biome forodwaith_coast	0	
+common/world/biome/LOTRBiomeGenForodwaithGlacier	world.biomes	biome forodwaith_glacier	0	
+common/world/biome/LOTRBiomeGenForodwaithMountains	world.biomes	biome forodwaith_mountains	1	grounds.py
+common/world/biome/LOTRBiomeGenGladdenFields	world.biomes	biome gladden_fields	1	grounds.py
+common/world/biome/LOTRBiomeGenGondor	world.biomes	biome gondor	1	roads.py
+common/world/biome/LOTRBiomeGenGondorWoodlands	world.biomes	biome gondor_woodlands	0	
+common/world/biome/LOTRBiomeGenGorgoroth	world.biomes	biome gorgoroth	0	
+common/world/biome/LOTRBiomeGenGreyMountains	world.biomes	biome grey_mountains	1	grounds.py
+common/world/biome/LOTRBiomeGenGreyMountainsFoothills	world.biomes	biome grey_mountains_foothills	0	
+common/world/biome/LOTRBiomeGenGulfHarad	world.biomes	biome gulf_harad	2	grounds.py roads.py
+common/world/biome/LOTRBiomeGenGulfHaradForest	world.biomes	biome gulf_harad_forest	0	
+common/world/biome/LOTRBiomeGenHalfTrollForest	world.biomes	biome half_troll_forest	0	
+common/world/biome/LOTRBiomeGenHaradMountains	world.biomes	biome harad_mountains	1	grounds.py
+common/world/biome/LOTRBiomeGenHarnedor	world.biomes	biome harnedor	2	grounds.py roads.py
+common/world/biome/LOTRBiomeGenHarondor	world.biomes	biome harondor	2	grounds.py roads.py
+common/world/biome/LOTRBiomeGenImlothMelui	world.biomes	biome imloth_melui	0	
+common/world/biome/LOTRBiomeGenIronHills	world.biomes	biome iron_hills	1	roads.py
+common/world/biome/LOTRBiomeGenIthilien	world.biomes	biome ithilien	1	roads.py
+common/world/biome/LOTRBiomeGenIthilienHills	world.biomes	biome ithilien_hills	0	
+common/world/biome/LOTRBiomeGenIthilienWasteland	world.biomes	biome ithilien_wasteland	0	
+common/world/biome/LOTRBiomeGenKanuka	world.biomes	biome far_harad_kanuka	0	
+common/world/biome/LOTRBiomeGenLake	world.biomes	biome lake	0	
+common/world/biome/LOTRBiomeGenLamedon	world.biomes	biome lamedon	1	grounds.py
+common/world/biome/LOTRBiomeGenLamedonHills	world.biomes	biome lamedon_hills	0	
+common/world/biome/LOTRBiomeGenLastDesert	world.biomes	biome last_desert	1	grounds.py
+common/world/biome/LOTRBiomeGenLebennin	world.biomes	biome lebennin	0	
+common/world/biome/LOTRBiomeGenLindon	world.biomes	biome lindon	1	roads.py
+common/world/biome/LOTRBiomeGenLindonCoast	world.biomes	biome lindon_coast	1	sounds.py
+common/world/biome/LOTRBiomeGenLindonWoodlands	world.biomes	biome lindon_woodlands	0	
+common/world/biome/LOTRBiomeGenLoneLands	world.biomes	biome lone_lands	1	roads.py
+common/world/biome/LOTRBiomeGenLoneLandsHills	world.biomes	biome lone_lands_hills	0	
+common/world/biome/LOTRBiomeGenLongMarshes	world.biomes	biome long_marshes	1	grounds.py
+common/world/biome/LOTRBiomeGenLossarnach	world.biomes	biome lossarnach	0	
+common/world/biome/LOTRBiomeGenLostladen	world.biomes	biome lostladen	2	grounds.py roads.py
+common/world/biome/LOTRBiomeGenLothlorien	world.biomes	biome lothlorien	1	roads.py
+common/world/biome/LOTRBiomeGenLothlorienEdge	world.biomes	biome lothlorien_edge	0	
+common/world/biome/LOTRBiomeGenMeneltarma	world.biomes	biome meneltarma	1	grounds.py
+common/world/biome/LOTRBiomeGenMidgewater	world.biomes	biome midgewater	1	grounds.py
+common/world/biome/LOTRBiomeGenMinhiriath	world.biomes	biome minhiriath	0	
+common/world/biome/LOTRBiomeGenMirkwood	world.biomes	makes no LOTR biome itself (base class)	1	roads.py
+common/world/biome/LOTRBiomeGenMirkwoodCorrupted	world.biomes	biome mirkwood_corrupted	1	sounds.py
+common/world/biome/LOTRBiomeGenMirkwoodMountains	world.biomes	biome mirkwood_mountains	1	grounds.py
+common/world/biome/LOTRBiomeGenMirkwoodNorth	world.biomes	biome mirkwood_north	0	
+common/world/biome/LOTRBiomeGenMistyMountains	world.biomes	biome misty_mountains	1	grounds.py
+common/world/biome/LOTRBiomeGenMistyMountainsFoothills	world.biomes	biome misty_mountains_foothills	0	
+common/world/biome/LOTRBiomeGenMordor	world.biomes	biome mordor	2	grounds.py roads.py
+common/world/biome/LOTRBiomeGenMordorMountains	world.biomes	biome mordor_mountains	0	
+common/world/biome/LOTRBiomeGenMorgulVale	world.biomes	biome morgul_vale	1	grounds.py
+common/world/biome/LOTRBiomeGenNanCurunir	world.biomes	biome nan_curunir	1	grounds.py
+common/world/biome/LOTRBiomeGenNanUngol	world.biomes	biome nan_ungol	0	
+common/world/biome/LOTRBiomeGenNearHarad	world.biomes	biome near_harad	1	roads.py
+common/world/biome/LOTRBiomeGenNearHaradFertile	world.biomes	biome near_harad_fertile	2	grounds.py roads.py
+common/world/biome/LOTRBiomeGenNearHaradFertileForest	world.biomes	biome near_harad_fertile_forest	0	
+common/world/biome/LOTRBiomeGenNearHaradHills	world.biomes	biome near_harad_hills	1	grounds.py
+common/world/biome/LOTRBiomeGenNearHaradOasis	world.biomes	biome near_harad_oasis	0	
+common/world/biome/LOTRBiomeGenNearHaradRed	world.biomes	biome near_harad_red_desert	0	
+common/world/biome/LOTRBiomeGenNearHaradRiverbank	world.biomes	biome near_harad_riverbank	0	
+common/world/biome/LOTRBiomeGenNearHaradSemiDesert	world.biomes	biome near_harad_semi_desert	1	grounds.py
+common/world/biome/LOTRBiomeGenNindalf	world.biomes	biome nindalf	1	grounds.py
+common/world/biome/LOTRBiomeGenNurn	world.biomes	biome nurn	0	
+common/world/biome/LOTRBiomeGenNurnMarshes	world.biomes	biome nurn_marshes	1	grounds.py
+common/world/biome/LOTRBiomeGenNurnen	world.biomes	biome nurnen	0	
+common/world/biome/LOTRBiomeGenOcean	world.biomes	biome ocean island	1	sounds.py
+common/world/biome/LOTRBiomeGenOldForest	world.biomes	biome old_forest	1	sounds.py
+common/world/biome/LOTRBiomeGenPelargir	world.biomes	biome pelargir	1	grounds.py
+common/world/biome/LOTRBiomeGenPelennor	world.biomes	biome pelennor	1	roads.py
+common/world/biome/LOTRBiomeGenPertorogwaith	world.biomes	biome pertorogwaith	0	
+common/world/biome/LOTRBiomeGenPinnathGelin	world.biomes	biome pinnath_gelin	0	
+common/world/biome/LOTRBiomeGenPukel	world.biomes	biome pukel	1	grounds.py
+common/world/biome/LOTRBiomeGenRedMountains	world.biomes	biome red_mountains	2	grounds.py roads.py
+common/world/biome/LOTRBiomeGenRedMountainsFoothills	world.biomes	biome red_mountains_foothills	0	
+common/world/biome/LOTRBiomeGenRhun	world.biomes	biome rhun	0	
+common/world/biome/LOTRBiomeGenRhunForest	world.biomes	biome rhun_forest	0	
+common/world/biome/LOTRBiomeGenRhunIsland	world.biomes	biome rhun_island	0	
+common/world/biome/LOTRBiomeGenRhunIslandForest	world.biomes	biome rhun_island_forest	0	
+common/world/biome/LOTRBiomeGenRhunLand	world.biomes	biome rhun_land	1	roads.py
+common/world/biome/LOTRBiomeGenRhunLandHills	world.biomes	biome rhun_land_hills	1	grounds.py
+common/world/biome/LOTRBiomeGenRhunLandSteppe	world.biomes	biome rhun_land_steppe	0	
+common/world/biome/LOTRBiomeGenRhunRedForest	world.biomes	biome rhun_red_forest	0	
+common/world/biome/LOTRBiomeGenRivendell	world.biomes	biome rivendell	1	roads.py
+common/world/biome/LOTRBiomeGenRivendellHills	world.biomes	biome rivendell_hills	0	
+common/world/biome/LOTRBiomeGenRiver	world.biomes	biome river	0	
+common/world/biome/LOTRBiomeGenRohan	world.biomes	biome rohan	2	mounts.py roads.py
+common/world/biome/LOTRBiomeGenRohanUruk	world.biomes	biome rohan_uruk_highlands	0	
+common/world/biome/LOTRBiomeGenRohanWoodlands	world.biomes	biome rohan_woodlands	0	
+common/world/biome/LOTRBiomeGenShire	world.biomes	biome shire	0	
+common/world/biome/LOTRBiomeGenShireMarshes	world.biomes	biome shire_marshes	1	grounds.py
+common/world/biome/LOTRBiomeGenShireMoors	world.biomes	biome shire_moors	0	
+common/world/biome/LOTRBiomeGenShireWoodlands	world.biomes	biome shire_woodlands	0	
+common/world/biome/LOTRBiomeGenSwanfleet	world.biomes	biome swanfleet	1	grounds.py
+common/world/biome/LOTRBiomeGenTaiga	world.biomes	biome taiga	0	
+common/world/biome/LOTRBiomeGenTauredainClearing	world.biomes	biome tauredain_clearing	1	roads.py
+common/world/biome/LOTRBiomeGenTolfalas	world.biomes	biome tolfalas	1	grounds.py
+common/world/biome/LOTRBiomeGenTowerHills	world.biomes	biome tower_hills	0	
+common/world/biome/LOTRBiomeGenTrollshaws	world.biomes	biome trollshaws	1	roads.py
+common/world/biome/LOTRBiomeGenTundra	world.biomes	biome tundra	1	grounds.py
+common/world/biome/LOTRBiomeGenUdun	world.biomes	biome udun	0	
+common/world/biome/LOTRBiomeGenUmbar	world.biomes	biome umbar umbar_hills	2	grounds.py roads.py
+common/world/biome/LOTRBiomeGenUmbarForest	world.biomes	biome umbar_forest	0	
+common/world/biome/LOTRBiomeGenUtumno	dim.utumno	makes no LOTR biome itself (base class)	1	sounds.py
+common/world/biome/LOTRBiomeGenWhiteDowns	world.biomes	biome white_downs	0	
+common/world/biome/LOTRBiomeGenWhiteMountains	world.biomes	biome white_mountains	1	grounds.py
+common/world/biome/LOTRBiomeGenWhiteMountainsFoothills	world.biomes	biome white_mountains_foothills	0	
+common/world/biome/LOTRBiomeGenWilderland	world.biomes	biome wilderland	0	
+common/world/biome/LOTRBiomeGenWilderlandNorth	world.biomes	biome wilderland_north	0	
+common/world/biome/LOTRBiomeGenWindMountains	world.biomes	biome wind_mountains	1	grounds.py
+common/world/biome/LOTRBiomeGenWindMountainsFoothills	world.biomes	biome wind_mountains_foothills	0	
+common/world/biome/LOTRBiomeGenWold	world.biomes	biome wold	1	grounds.py
+common/world/biome/LOTRBiomeGenWoodlandRealm	world.biomes	biome woodland_realm	1	roads.py
+common/world/biome/LOTRBiomeGenWoodlandRealmHills	world.biomes	biome woodland_realm_hills	0	
+common/world/biome/LOTRMusicRegion	client.music		0	
+common/world/biome/variant/LOTRBiomeVariant	world.variants		3	CLAUDE.md Variants.java world.py
+common/world/biome/variant/LOTRBiomeVariantDeadForest	world.variants		0	
+common/world/biome/variant/LOTRBiomeVariantDenseForest	world.variants		0	
+common/world/biome/variant/LOTRBiomeVariantDunes	world.variants		0	
+common/world/biome/variant/LOTRBiomeVariantForest	world.variants		0	
+common/world/biome/variant/LOTRBiomeVariantList	world.variants		0	
+common/world/biome/variant/LOTRBiomeVariantOrchard	world.variants		0	
+common/world/biome/variant/LOTRBiomeVariantScrubland	world.variants		0	
+common/world/biome/variant/LOTRBiomeVariantStorage	world.variants		0	
+common/world/biome/variant/LOTRBiomeVariantWasteland	world.variants		0	
+common/world/feature/LOTRTreeType	world.trees		2	TreeExporter.java saplings.py
+common/world/feature/LOTRWorldGenAlmond	world.trees		0	
+common/world/feature/LOTRWorldGenAspen	world.trees		0	
+common/world/feature/LOTRWorldGenBanana	world.trees		0	
+common/world/feature/LOTRWorldGenBaobab	world.trees		0	
+common/world/feature/LOTRWorldGenBerryBush	world.features		0	
+common/world/feature/LOTRWorldGenBigTrees	world.trees		0	
+common/world/feature/LOTRWorldGenBiomeFlowers	world.features		0	
+common/world/feature/LOTRWorldGenBlastedLand	world.features		0	
+common/world/feature/LOTRWorldGenBoulder	world.features		0	
+common/world/feature/LOTRWorldGenBushes	world.features		1	ForestFloorFeature.java
+common/world/feature/LOTRWorldGenCaveCobwebs	world.features		0	
+common/world/feature/LOTRWorldGenCedar	world.trees		0	
+common/world/feature/LOTRWorldGenCharredTrees	world.trees		0	
+common/world/feature/LOTRWorldGenClover	world.features		0	
+common/world/feature/LOTRWorldGenCorn	world.features		0	
+common/world/feature/LOTRWorldGenCypress	world.trees		0	
+common/world/feature/LOTRWorldGenDeadTrees	world.trees		0	
+common/world/feature/LOTRWorldGenDesertTrees	world.trees		0	
+common/world/feature/LOTRWorldGenDoubleFlower	world.features		1	world.py
+common/world/feature/LOTRWorldGenDragonblood	world.trees		0	
+common/world/feature/LOTRWorldGenEntJars	world.features		0	
+common/world/feature/LOTRWorldGenFallenLeaves	world.features		1	ForestFloorFeature.java
+common/world/feature/LOTRWorldGenFangornTrees	world.trees		0	
+common/world/feature/LOTRWorldGenFir	world.trees		0	
+common/world/feature/LOTRWorldGenGnarledOak	world.trees		0	
+common/world/feature/LOTRWorldGenGrassPatch	world.features		0	
+common/world/feature/LOTRWorldGenHolly	world.trees		0	
+common/world/feature/LOTRWorldGenKanuka	world.trees		0	
+common/world/feature/LOTRWorldGenLairelosse	world.trees		0	
+common/world/feature/LOTRWorldGenLarch	world.trees		0	
+common/world/feature/LOTRWorldGenLogs	world.features		1	ForestFloorFeature.java
+common/world/feature/LOTRWorldGenMallorn	world.trees		0	
+common/world/feature/LOTRWorldGenMallornExtreme	world.trees		0	
+common/world/feature/LOTRWorldGenMangrove	world.trees		0	
+common/world/feature/LOTRWorldGenMarshLights	world.features		0	
+common/world/feature/LOTRWorldGenMirkOak	world.trees		0	
+common/world/feature/LOTRWorldGenMordorMoss	world.features		0	
+common/world/feature/LOTRWorldGenMountainsideBush	world.features		0	
+common/world/feature/LOTRWorldGenObsidianGravel	world.features		0	
+common/world/feature/LOTRWorldGenOlive	world.trees		0	
+common/world/feature/LOTRWorldGenPalm	world.trees		0	
+common/world/feature/LOTRWorldGenPartyTrees	world.trees		0	
+common/world/feature/LOTRWorldGenPine	world.trees		0	
+common/world/feature/LOTRWorldGenRedwood	world.trees		0	
+common/world/feature/LOTRWorldGenReeds	world.features		3	CLAUDE.md ReedsFeature.java world.py
+common/world/feature/LOTRWorldGenSand	world.features		0	
+common/world/feature/LOTRWorldGenSeaBlock	world.features		0	
+common/world/feature/LOTRWorldGenShirePine	world.trees		0	
+common/world/feature/LOTRWorldGenShrub	world.trees		0	
+common/world/feature/LOTRWorldGenSimpleTrees	world.trees		0	
+common/world/feature/LOTRWorldGenSkullPile	world.features		0	
+common/world/feature/LOTRWorldGenStalactites	world.features		0	
+common/world/feature/LOTRWorldGenStreams	world.features		0	
+common/world/feature/LOTRWorldGenSurfaceGravel	world.features		0	
+common/world/feature/LOTRWorldGenTrollHoard	world.features		0	
+common/world/feature/LOTRWorldGenVolcanoCrater	world.features		0	
+common/world/feature/LOTRWorldGenWaterPlant	world.features		0	
+common/world/feature/LOTRWorldGenWebOfUngoliant	world.features		0	
+common/world/feature/LOTRWorldGenWillow	world.trees		0	
+common/world/feature/LOTRWorldGenYams	world.features		0	
+common/world/genlayer/LOTRGenLayer	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerBeach	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerBiome	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerBiomeSubtypes	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerBiomeSubtypesInit	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerBiomeVariants	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerBiomeVariantsLake	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerClassicBiomes	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerClassicOcean	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerClassicRemoveOcean	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerExtractMapRivers	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerIncludeMapRivers	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerMapRiverZoom	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerNarrowRivers	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerNearHaradOasis	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerNearHaradRiverbanks	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerOasisLake	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerRemoveMapRivers	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerRiver	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerRiverInit	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerSmooth	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerWorld	world.genlayer		3	MapPatches.java ShotRunner.java WorldExporter.java
+common/world/genlayer/LOTRGenLayerZoom	world.genlayer		0	
+common/world/genlayer/LOTRGenLayerZoomVoronoi	world.genlayer		0	
+common/world/genlayer/LOTRIntCache	world.genlayer		0	
+common/world/map/LOTRAbstractWaypoint	progress.fasttravel		0	
+common/world/map/LOTRConquestGrid	fac.conquest		0	
+common/world/map/LOTRConquestZone	fac.conquest		0	
+common/world/map/LOTRCustomWaypoint	progress.custom_waypoints		0	
+common/world/map/LOTRCustomWaypointLogger	progress.custom_waypoints		0	
+common/world/map/LOTRFixedStructures	world.fixed		0	
+common/world/map/LOTRMountains	world.mountains		4	CLAUDE.md MiddleEarthMap.java ShotRunner.java
+common/world/map/LOTRRoadGenerator	world.roads		2	CLAUDE.md RoadFeature.java
+common/world/map/LOTRRoadType	world.roads		4	CLAUDE.md RoadFeature.java Roads.java
+common/world/map/LOTRRoads	world.roads		2	StructureRateExporter.java WorldExporter.java
+common/world/map/LOTRWaypoint	progress.fasttravel		2	QuestExporter.java ShotRunner.java
+common/world/map/LOTRWorldGenIsengardWalls	world.fixed		0	
+common/world/map/LOTRWorldGenRammasEchor	world.fixed		0	
+common/world/map/LOTRWorldGenUtumnoEntrance	dim.utumno		0	
+common/world/mapgen/LOTRMapGenCaves	world.caves		0	
+common/world/mapgen/LOTRMapGenCavesUtumno	dim.utumno		0	
+common/world/mapgen/LOTRMapGenRavine	world.caves		0	
+common/world/mapgen/dwarvenmine/LOTRComponentDwarvenMineCorridor	struct.mines		0	
+common/world/mapgen/dwarvenmine/LOTRComponentDwarvenMineCrossing	struct.mines		0	
+common/world/mapgen/dwarvenmine/LOTRComponentDwarvenMineEntrance	struct.mines		0	
+common/world/mapgen/dwarvenmine/LOTRComponentDwarvenMineStairs	struct.mines		0	
+common/world/mapgen/dwarvenmine/LOTRMapGenDwarvenMine	struct.mines		0	
+common/world/mapgen/dwarvenmine/LOTRStructureDwarvenMinePieces	struct.mines		0	
+common/world/mapgen/dwarvenmine/LOTRStructureDwarvenMineStart	struct.mines		0	
+common/world/mapgen/tpyr/LOTRComponentTauredainPyramid	struct.pyramid		0	
+common/world/mapgen/tpyr/LOTRMapGenTauredainPyramid	struct.pyramid		0	
+common/world/mapgen/tpyr/LOTRStructureTPyrStart	struct.pyramid		0	
+common/world/spawning/LOTRBiomeInvasionSpawns	fac.invasions		2	InvasionSpawner.java ReflectionDump.java
+common/world/spawning/LOTRBiomeSpawnList	npc.spawning		0	
+common/world/spawning/LOTREventSpawner	npc.spawning		0	
+common/world/spawning/LOTRGollumSpawner	npc.gollum		0	
+common/world/spawning/LOTRInvasions	fac.invasions		3	InvasionSpawner.java ReflectionDump.java extra.py
+common/world/spawning/LOTRSpawnEntry	npc.spawning		0	
+common/world/spawning/LOTRSpawnList	npc.spawning		1	WorldExporter.java
+common/world/spawning/LOTRSpawnerAnimals	npc.animals		0	
+common/world/spawning/LOTRSpawnerNPCs	npc.spawning		0	
+common/world/spawning/LOTRTravellingTraderSpawner	npc.travelling		0	
+common/world/structure/LOTRChestContents	world.loot		0	
+common/world/structure/LOTRStructures	struct.structures		0	
+common/world/structure/LOTRWorldGenAngmarShrine	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenAngmarTower	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenBlueMountainsStronghold	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenDunlendingCampfire	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenElfLordHouse	struct.structures	not exported	0	
+common/world/structure/LOTRWorldGenGondorRuin	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenGondorRuins	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenHaradObelisk	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenHighElvenHall	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenHighElvenTurret	struct.structures	not exported	0	
+common/world/structure/LOTRWorldGenHobbitPicnicBench	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenMarshHut	struct.structures	not exported	0	
+common/world/structure/LOTRWorldGenMordorTower	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenNurnFarmBase	struct.structures	not exported	0	
+common/world/structure/LOTRWorldGenNurnWheatFarm	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenOrcDungeon	struct.structures	not exported	0	
+common/world/structure/LOTRWorldGenOrcSlaverTower	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenRivendellHall	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenRohanBarrow	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenRuinedDunedainTower	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenRuinedGondorTower	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenRuinedHighElvenTurret	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenRuinedRohanWatchtower	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenRuinedWoodElfTower	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure/LOTRWorldGenStructureBase	struct.structures	not exported	0	
+common/world/structure/LOTRWorldGenUnderwaterElvenRuin	struct.structures	not exported	0	
+common/world/structure/LOTRWorldGenWoodElfPlatform	struct.structures	not exported	0	
+common/world/structure/LOTRWorldGenWoodElfTower	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure2/LOTRStructureTimelapse	struct.tools		0	
+common/world/structure2/LOTRWorldGenAngmarCamp	struct.structures	structure angmar_camp	0	
+common/world/structure2/LOTRWorldGenAngmarForgeTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenAngmarHillmanChieftainHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenAngmarHillmanHouse	struct.structures	structure angmar_hillman_house	0	
+common/world/structure2/LOTRWorldGenAngmarHillmanVillage	struct.structures	structure angmar_hillman_village	0	
+common/world/structure2/LOTRWorldGenAngmarTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenAngmarWargPit	struct.structures	structure angmar_warg_pit	0	
+common/world/structure2/LOTRWorldGenBDBarrow	struct.structures	structure bd_barrow	0	
+common/world/structure2/LOTRWorldGenBeaconTower	struct.structures	structure beacon_tower	0	
+common/world/structure2/LOTRWorldGenBlackUrukFort	struct.structures	structure black_uruk_fort	0	
+common/world/structure2/LOTRWorldGenBlackrootFortress	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBlackrootWatchfort	struct.structures	structure blackroot_watchfort	0	
+common/world/structure2/LOTRWorldGenBlackrootWatchtower	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBlueMountainsHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBlueMountainsSmithy	struct.structures	structure blue_mountains_smithy	0	
+common/world/structure2/LOTRWorldGenBreeBarn	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBreeGarden	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBreeGate	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBreeGatehouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBreeHedgePart	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBreeHobbitBurrow	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBreeHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBreeInn	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBreeLampPost	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBreeMarket	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBreeMarketStall	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenBreeOffice	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBreeRuffianHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBreeSmithy	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBreeStable	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBreeStructure	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenBreeWell	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenBurntHouse	struct.structures	structure burnt_house	0	
+common/world/structure2/LOTRWorldGenCampBase	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenCorsairCamp	struct.structures	structure corsair_camp	0	
+common/world/structure2/LOTRWorldGenCorsairCampCage	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenCorsairCove	struct.structures	structure corsair_cove	0	
+common/world/structure2/LOTRWorldGenCorsairStructure	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenCorsairTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenDaleBakery	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenDaleFortress	struct.structures	structure dale_fortress	0	
+common/world/structure2/LOTRWorldGenDaleHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenDaleSmithy	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenDaleStructure	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenDaleVillage	struct.structures	structure dale_village	0	
+common/world/structure2/LOTRWorldGenDaleVillageTower	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenDaleWatchtower	struct.structures	structure dale_watchtower	0	
+common/world/structure2/LOTRWorldGenDolAmrothStables	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenDolAmrothWatchfort	struct.structures	structure dol_amroth_watchfort	0	
+common/world/structure2/LOTRWorldGenDolAmrothWatchtower	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenDolGuldurAltar	struct.structures	structure dol_guldur_altar	0	
+common/world/structure2/LOTRWorldGenDolGuldurCamp	struct.structures	structure dol_guldur_camp	0	
+common/world/structure2/LOTRWorldGenDolGuldurForgeTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenDolGuldurSpiderPit	struct.structures	structure dol_guldur_spider_pit	0	
+common/world/structure2/LOTRWorldGenDolGuldurTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenDolGuldurTower	struct.structures	structure dol_guldur_tower	0	
+common/world/structure2/LOTRWorldGenDorwinionBath	struct.structures	structure dorwinion_bath	0	
+common/world/structure2/LOTRWorldGenDorwinionBrewery	struct.structures	structure dorwinion_brewery	0	
+common/world/structure2/LOTRWorldGenDorwinionCamp	struct.structures	structure dorwinion_camp	0	
+common/world/structure2/LOTRWorldGenDorwinionCaptainTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenDorwinionElfHouse	struct.structures	structure dorwinion_elf_house	0	
+common/world/structure2/LOTRWorldGenDorwinionGarden	struct.structures	structure dorwinion_garden	0	
+common/world/structure2/LOTRWorldGenDorwinionHouse	struct.structures	structure dorwinion_house	0	
+common/world/structure2/LOTRWorldGenDorwinionTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenDunlandHillFort	struct.structures	structure dunland_hill_fort	0	
+common/world/structure2/LOTRWorldGenDunlandStructure	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenDunlendingHouse	struct.structures	structure dunlending_house	0	
+common/world/structure2/LOTRWorldGenDunlendingTavern	struct.structures	structure dunlending_tavern	0	
+common/world/structure2/LOTRWorldGenDwarfHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenDwarfSmithy	struct.structures	structure dwarf_smithy	0	
+common/world/structure2/LOTRWorldGenDwarvenMineEntrance	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenDwarvenMineEntranceRuined	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenDwarvenTower	struct.structures	structure dwarven_tower	0	
+common/world/structure2/LOTRWorldGenEasterlingFortress	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenEasterlingGarden	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenEasterlingGatehouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenEasterlingHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenEasterlingLamp	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenEasterlingLargeTownHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenEasterlingMarketStall	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenEasterlingSmithy	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenEasterlingStables	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenEasterlingStatue	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenEasterlingStructure	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenEasterlingStructureTown	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenEasterlingTavern	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenEasterlingTavernTown	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenEasterlingTower	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenEasterlingTownHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenEasterlingTownWall	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenEasterlingVillageFarm	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenEasterlingVillageSign	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenEasterlingWell	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenElfHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenElvenForge	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenGaladhrimForge	struct.structures	structure galadhrim_forge	0	
+common/world/structure2/LOTRWorldGenGondorBarn	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorBath	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorCottage	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorFortGate	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorFortWall	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenGondorFortWallCorner	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorFortress	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorGatehouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorLampPost	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorMarketStall	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenGondorObelisk	struct.structures	structure gondor_obelisk	0	
+common/world/structure2/LOTRWorldGenGondorSmithy	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorStables	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorStoneHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorStructure	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenGondorTavern	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorTownBench	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorTownGarden	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorTownTrees	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorTownWall	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenGondorTurret	struct.structures	structure gondor_turret	0	
+common/world/structure2/LOTRWorldGenGondorVillageFarm	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenGondorVillageSign	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorWatchfort	struct.structures	structure gondor_watchfort	0	
+common/world/structure2/LOTRWorldGenGondorWatchtower	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGondorWell	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGrukHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGulfAltar	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGulfBazaar	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGulfFarm	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGulfHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGulfPasture	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGulfPyramid	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGulfSmithy	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGulfStructure	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenGulfTavern	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGulfTotem	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGulfTower	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGulfTownWall	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGulfVillageLight	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGulfVillageSign	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGulfWarCamp	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGundabadCamp	struct.structures	structure gundabad_camp	0	
+common/world/structure2/LOTRWorldGenGundabadForgeTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenGundabadTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenHalfTrollHouse	struct.structures	structure half_troll_house	0	
+common/world/structure2/LOTRWorldGenHalfTrollWarlordHouse	struct.structures	structure half_troll_warlord_house	0	
+common/world/structure2/LOTRWorldGenHaradPyramid	struct.structures	structure harad_pyramid	0	
+common/world/structure2/LOTRWorldGenHaradRuinedFort	struct.structures	structure harad_ruined_fort	0	
+common/world/structure2/LOTRWorldGenHarnedorFarm	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenHarnedorFort	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenHarnedorHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenHarnedorHouseRuined	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenHarnedorMarket	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenHarnedorPalisade	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenHarnedorPalisadeRuined	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenHarnedorPasture	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenHarnedorSmithy	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenHarnedorStables	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenHarnedorStructure	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenHarnedorTavern	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenHarnedorTavernRuined	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenHarnedorTower	struct.structures	structure harnedor_tower	0	
+common/world/structure2/LOTRWorldGenHarnedorVillageSign	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenHayBales	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenHighElfHouse	struct.structures	structure high_elf_house	0	
+common/world/structure2/LOTRWorldGenHighElvenForge	struct.structures	structure high_elven_forge	0	
+common/world/structure2/LOTRWorldGenHighElvenTower	struct.structures	structure high_elven_tower	0	
+common/world/structure2/LOTRWorldGenHobbitBurrow	struct.structures	structure hobbit_burrow	0	
+common/world/structure2/LOTRWorldGenHobbitFarm	struct.structures	structure hobbit_farm	0	
+common/world/structure2/LOTRWorldGenHobbitHole	struct.structures	structure hobbit_hole	0	
+common/world/structure2/LOTRWorldGenHobbitHouse	struct.structures	structure hobbit_house	0	
+common/world/structure2/LOTRWorldGenHobbitStructure	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenHobbitTavern	struct.structures	structure hobbit_tavern	0	
+common/world/structure2/LOTRWorldGenHobbitWindmill	struct.structures	structure hobbit_windmill	0	
+common/world/structure2/LOTRWorldGenIthilienHideout	struct.structures	structure ithilien_hideout	0	
+common/world/structure2/LOTRWorldGenLamedonFortress	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenLamedonWatchfort	struct.structures	structure lamedon_watchfort	0	
+common/world/structure2/LOTRWorldGenLamedonWatchtower	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenLebenninFortress	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenLebenninWatchfort	struct.structures	structure lebennin_watchfort	0	
+common/world/structure2/LOTRWorldGenLebenninWatchtower	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenLossarnachFortress	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenLossarnachWatchfort	struct.structures	structure lossarnach_watchfort	0	
+common/world/structure2/LOTRWorldGenLossarnachWatchtower	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenMeadHall	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenMordorCamp	struct.structures	structure mordor_camp	0	
+common/world/structure2/LOTRWorldGenMordorForgeTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenMordorSpiderPit	struct.structures	structure mordor_spider_pit	0	
+common/world/structure2/LOTRWorldGenMordorStructure	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenMordorTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenMordorWargPit	struct.structures	structure mordor_warg_pit	0	
+common/world/structure2/LOTRWorldGenMoredainCamp	struct.structures	structure moredain_camp	0	
+common/world/structure2/LOTRWorldGenMoredainHut	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenMoredainHutChieftain	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenMoredainHutHunter	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenMoredainHutTrader	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenMoredainHutVillage	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenMoredainMercCamp	struct.structures	structure moredain_merc_camp	0	
+common/world/structure2/LOTRWorldGenMoredainMercDummy	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenMoredainMercTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenMoredainVillage	struct.structures	structure moredain_village	0	
+common/world/structure2/LOTRWorldGenMumakSkeleton	struct.structures	structure mumak_skeleton	0	
+common/world/structure2/LOTRWorldGenNPCRespawner	block.spawners	not exported	0	
+common/world/structure2/LOTRWorldGenNearHaradDesertCamp	struct.structures	structure near_harad_desert_camp	0	
+common/world/structure2/LOTRWorldGenNearHaradTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenNomadBazaarTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenNomadChieftainTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenNomadStructure	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenNomadTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenNomadTentLarge	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenNomadWell	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenNumenorRuin	struct.structures	structure numenor_ruin	0	
+common/world/structure2/LOTRWorldGenPelargirFortress	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenPelargirWatchfort	struct.structures	structure pelargir_watchfort	0	
+common/world/structure2/LOTRWorldGenPelargirWatchtower	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenPinnathGelinFortress	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenPinnathGelinWatchfort	struct.structures	structure pinnath_gelin_watchfort	0	
+common/world/structure2/LOTRWorldGenPinnathGelinWatchtower	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRangerCamp	struct.structures	structure ranger_camp	0	
+common/world/structure2/LOTRWorldGenRangerHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRangerLodge	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRangerSmithy	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRangerStables	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRangerStructure	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenRangerTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRangerVillageLight	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRangerVillagePalisade	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRangerWatchtower	struct.structures	structure ranger_watchtower	0	
+common/world/structure2/LOTRWorldGenRangerWell	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRhudaurCastle	struct.structures	structure rhudaur_castle	0	
+common/world/structure2/LOTRWorldGenRivendellForge	struct.structures	structure rivendell_forge	0	
+common/world/structure2/LOTRWorldGenRivendellHouse	struct.structures	structure rivendell_house	0	
+common/world/structure2/LOTRWorldGenRohanBarn	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRohanFortCorner	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRohanFortWall	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRohanFortress	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRohanGatehouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRohanHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRohanMarketStall	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenRohanSmithy	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRohanStables	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRohanStructure	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenRohanVillageFarm	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRohanVillageGarden	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRohanVillagePalisade	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRohanVillagePasture	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRohanVillageSign	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRohanWatchtower	struct.structures	structure rohan_watchtower	0	
+common/world/structure2/LOTRWorldGenRohanWell	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenRottenHouse	struct.structures	structure rotten_house	0	
+common/world/structure2/LOTRWorldGenRuinedBeaconTower	struct.structures	structure ruined_beacon_tower	0	
+common/world/structure2/LOTRWorldGenRuinedDwarvenTower	struct.structures	structure ruined_dwarven_tower	0	
+common/world/structure2/LOTRWorldGenRuinedEregionForge	struct.structures	structure ruined_eregion_forge	0	
+common/world/structure2/LOTRWorldGenRuinedHouse	struct.structures	structure ruined_house	0	
+common/world/structure2/LOTRWorldGenSmallStoneRuin	struct.structures	structure small_stone_ruin	0	
+common/world/structure2/LOTRWorldGenSouthronBarracks	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronBazaar	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronFarm	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronFortCorner	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronFortGate	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronFortWall	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenSouthronFortress	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronLamp	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronMansion	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronPasture	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronSmithy	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronStables	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronStatue	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronStructure	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenSouthronTavern	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronTower	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronTownCorner	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronTownFlowers	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronTownGate	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronTownTree	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronTownWall	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenSouthronTraining	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronVillageFence	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronVillagePost	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronVillageSign	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenSouthronWell	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenStoneRuin	struct.structures	MISSING not exported, LOTR placed it	0	
+common/world/structure2/LOTRWorldGenStructureBase2	struct.structures	not exported	1	StructureExporter.java
+common/world/structure2/LOTRWorldGenTauredainChieftainPyramid	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenTauredainHouse	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenTauredainHouseLarge	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenTauredainHouseSimple	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenTauredainHouseStilts	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenTauredainPyramid	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenTauredainSmithy	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenTauredainVillageFarm	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenTauredainVillageTree	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenTauredainWatchtower	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenTentBase	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenTicketBooth	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenTowerHillsTower	struct.structures	structure tower_hills_tower	0	
+common/world/structure2/LOTRWorldGenUmbarBarracks	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarBazaar	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarFarm	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarFortCorner	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarFortGate	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarFortWall	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenUmbarFortress	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarHouse	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarLamp	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarMansion	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarPasture	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarSmithy	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarStables	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarStatue	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarTavern	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarTower	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarTownCorner	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarTownFlowers	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarTownGate	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarTownTree	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarTownWall	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenUmbarTraining	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarVillageSign	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUmbarWell	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUrukCamp	struct.structures	structure uruk_camp	0	
+common/world/structure2/LOTRWorldGenUrukForgeTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUrukTent	struct.structures	exported (piece of a village or larger build)	0	
+common/world/structure2/LOTRWorldGenUrukWargPit	struct.structures	structure uruk_warg_pit	0	
+common/world/structure2/LOTRWorldGenWargPitBase	struct.structures	not exported	0	
+common/world/structure2/LOTRWorldGenWoodElfHouse	struct.structures	structure wood_elf_house	0	
+common/world/structure2/LOTRWorldGenWoodElvenForge	struct.structures	structure wood_elven_forge	0	
+common/world/structure2/scan/LOTRScanAlias	struct.tools		0	
+common/world/structure2/scan/LOTRStructureScan	struct.tools		0	
+common/world/village/LOTRVillageGen	struct.villages		2	StructureExporter.java structures.py
+common/world/village/LOTRVillageGenBree	struct.villages	structure village_bree	0	
+common/world/village/LOTRVillageGenDunedain	struct.villages	structure village_dunedain	0	
+common/world/village/LOTRVillageGenGondor	struct.villages	structure village_gondor	0	
+common/world/village/LOTRVillageGenGulfHarad	struct.villages	structure village_gulf_harad	0	
+common/world/village/LOTRVillageGenHaradNomad	struct.villages	structure village_harad_nomad	0	
+common/world/village/LOTRVillageGenHarnedor	struct.villages	structure village_harnedor	0	
+common/world/village/LOTRVillageGenRhun	struct.villages	structure village_rhun	0	
+common/world/village/LOTRVillageGenRohan	struct.villages	structure village_rohan	0	
+common/world/village/LOTRVillageGenSouthron	struct.villages	structure village_southron	0	
+common/world/village/LOTRVillageGenTauredain	struct.villages	structure village_tauredain	0	
+common/world/village/LOTRVillageGenUmbar	struct.villages	structure village_umbar	0	
+common/world/village/LOTRVillagePositionCache	struct.villages		0	
+common/world/village/LocationInfo	struct.villages		0	
+compatibility/LOTRModChecker	core.compat		0	
+io/gitlab/dwarfyassassin/lotrucp/client/util/FakeArmorStandEntity	core.ucp		0	
+io/gitlab/dwarfyassassin/lotrucp/core/UCPClassTransformer	core.ucp		0	
+io/gitlab/dwarfyassassin/lotrucp/core/UCPCoreMod	core.ucp		0	
+io/gitlab/dwarfyassassin/lotrucp/core/UCPCoreSetup	core.ucp		0	
+io/gitlab/dwarfyassassin/lotrucp/core/hooks/GenericModHooks	core.ucp		0	
+io/gitlab/dwarfyassassin/lotrucp/core/hooks/PreMCHooks	core.ucp		0	
+io/gitlab/dwarfyassassin/lotrucp/core/hooks/ThaumcraftHooks	core.ucp		0	
+io/gitlab/dwarfyassassin/lotrucp/core/patches/BotaniaPatcher	core.ucp		0	
+io/gitlab/dwarfyassassin/lotrucp/core/patches/FMLPatcher	core.ucp		0	
+io/gitlab/dwarfyassassin/lotrucp/core/patches/LOTRPatcher	core.ucp		0	
+io/gitlab/dwarfyassassin/lotrucp/core/patches/ScreenshotEnhancedPatcher	core.ucp		0	
+io/gitlab/dwarfyassassin/lotrucp/core/patches/ThaumcraftPatcher	core.ucp		0	
+io/gitlab/dwarfyassassin/lotrucp/core/patches/base/ModPatcher	core.ucp		0	
+io/gitlab/dwarfyassassin/lotrucp/core/patches/base/Patcher	core.ucp		0	
+io/gitlab/dwarfyassassin/lotrucp/core/utils/ASMUtils	core.ucp		0	
+io/gitlab/dwarfyassassin/lotrucp/server/util/PlayerUtils	core.ucp		0	
