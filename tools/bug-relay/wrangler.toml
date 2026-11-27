@@ -10,6 +10,6 @@ DAILY_LIMIT_PER_IP = "10"
 # Create with `npx wrangler kv namespace create ATTACH` and paste the id it prints here.
 [[kv_namespaces]]
 binding = "ATTACH"
-id = "PASTE_KV_NAMESPACE_ID_HERE"
+id = "401325f9a1e84d95a66524567256cf42"
 
 # GITHUB_TOKEN is a secret: `npx wrangler secret put GITHUB_TOKEN` (never in this file).
