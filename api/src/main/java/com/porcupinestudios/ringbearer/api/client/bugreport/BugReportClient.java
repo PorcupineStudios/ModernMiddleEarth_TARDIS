@@ -6,7 +6,9 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.PauseScreen;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.neoforged.bus.api.IEventBus;
@@ -42,7 +44,7 @@ public final class BugReportClient {
     private static void onKey(InputEvent.Key e) {
         Minecraft mc = Minecraft.getInstance();
         if (e.getAction() == GLFW.GLFW_PRESS && KEY.matches(e.getKey(), e.getScanCode())
-                && !(mc.screen instanceof BugReportScreen)) {
+                && !(mc.screen instanceof BugReportScreen) && !(mc.screen instanceof ConfirmScreen)) {
             open(mc.screen);
         }
     }
@@ -72,6 +74,17 @@ public final class BugReportClient {
             shot.close();
             shot = small;
         }
-        mc.setScreen(new BugReportScreen(previous, shot));
+        NativeImage taken = shot;
+        // the player agrees to what gets sent (public issue, screenshot, cleaned logs) before the form opens
+        mc.setScreen(new ConfirmScreen(agreed -> {
+            if (agreed) {
+                mc.setScreen(new BugReportScreen(previous, taken));
+            } else {
+                taken.close();
+                mc.setScreen(previous);
+            }
+        }, Component.translatable("gui.ringbearer_api.bug_report.disclaimer.title"),
+                Component.translatable("gui.ringbearer_api.bug_report.disclaimer"),
+                Component.translatable("gui.ringbearer_api.bug_report.disclaimer.agree"), CommonComponents.GUI_CANCEL));
     }
 }
