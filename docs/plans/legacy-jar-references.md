@@ -21,16 +21,34 @@ it from its own page. How it works today: `lotr/CLAUDE.md`, "LOTR's own files co
 | Built from LOTR's code, not its files (880 structures, models, recipes, loot, worldgen, NPCs, trades, quests, roads) | thousands | Shipped (converter outputs, which Aaron owns) | No file to read; see step 8 |
 | Converter export (raw dumps from running LOTR) | 18 files, 48 MB | Committed in `converter/export/` | Only the converter needs it; see step 8 |
 
-## Decisions needed first (Aaron)
+## Decisions (Aaron, 2026-11-27)
 
-1. **Servers need the jar too.** Steps 3 to 5 move data onto the server, so a dedicated server must have the LOTR jar
-   in `mods/` as well as clients. Today only clients need it. Yes, or keep server data shipped?
-2. **Rewrite git history** to remove the 3,605 files from every commit (step 2)? That force-pushes every branch and
-   breaks open PRs and clones.
-3. **The converter export** (step 8): keep it in this repo, or move it to the private RingRealms repo (as the music moved
-   to LOTR_music) and fetch it in CI with the existing `RINGREALMS_TOKEN`?
-4. **`lotr/CLAUDE.md` line 7** says LOTR's creator gave permission to use the assets. That contradicts this plan's
-   premise and should be corrected to "no rights; referenced from the player's jar".
+1. **Servers need the jar too.** Dedicated servers put the LOTR jar in `mods/` like clients, so steps 3 to 5 go ahead.
+2. **History is rewritten** on the GitHub repo. A full mirror clone was kept first as a backup:
+   `Documents/Claude Minecraft Modding/ModernMiddleEarth_TARDIS-backup-2026-11-27.git` (every branch, tag and PR
+   ref as of 2026-11-27).
+3. **The export moved to a private repo**: `PorcupineStudios/LOTR_export` (secret `LOTR_EXPORT_TOKEN` in CI).
+4. **No rights**: the creator's permission was revoked, with a grace period to adjust. `lotr/CLAUDE.md` says so.
+
+## Done (2026-11-27)
+
+- Step 1: commit 68237789 on `claude/legacy-jar-assets` (PR #4).
+- The export move (step 8's first part): same commit, and LOTR_export's first commit.
+- Step 2, first pass: history rewritten without the 3,605 listed files, every older LOTR texture and sound path
+  under `lotr/src/generated/resources/assets` (3,682 paths in all) and `converter/export/`. LOTR's text and map
+  (steps 4 and 5) still ship, so they are still in history. A second pass after those steps removes them.
+  Done with `git filter-branch --index-filter` in a separate mirror clone (no Python for filter-repo), checked
+  (no purged path left in any branch or tag; each branch's tip lost only purged files), then every branch and tag
+  force-pushed.
+
+Still to do after the rewrite:
+- **`main` has no LOTR textures or sounds until PR #4 merges**: the rewrite took them out, and the code that reads
+  them from the jar is on PR #4's branch. So are PRs #13 and #73, which are based on main.
+- **GitHub keeps the old commits** in its read-only PR refs (`refs/pull/*/head`, including closed PRs) and caches.
+  Only GitHub Support can drop those ("remove sensitive data": ask them to purge the PR refs and run a GC).
+- **Release assets and workflow artifacts** are not in git: the `test-build` and `merged-2026-11-25` releases and
+  the "jars" artifacts are built mods from before the slimming, with LOTR's textures and sounds inside.
+- Local clones made before 2026-11-27 must not push: re-clone, or reset each branch onto the rewritten one.
 
 ## Steps
 
