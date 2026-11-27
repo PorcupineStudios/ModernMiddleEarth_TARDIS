@@ -119,14 +119,14 @@ public final class FoundationTests {
         }
         helper.assertTrue(Unlocks.level(t, NAVIGATION) == 1, "navigation not level 1");
         helper.assertTrue(Unlocks.stat(t, "range") > 0, "no range after repair");
-        helper.assertTrue(Unlocks.check(server, t, SHORT_HOP, Optional.empty()).allowed(), "can't hop after repair");
         helper.assertTrue(Repairs.missing(player.getInventory(), cost).isPresent() || cost.items().isEmpty(),
                 "parts were not taken");
 
         helper.assertTrue(t.damage(NAVIGATION, 3) == 1, "damage didn't stop at level 0");
         helper.assertTrue(Unlocks.level(t, NAVIGATION) == 0, "damage didn't lower the level");
         helper.assertTrue(t.repairedLevel(NAVIGATION) == 1, "damage forgot the repair");
-        helper.assertFalse(Unlocks.check(server, t, SHORT_HOP, Optional.empty()).allowed(), "damaged TARDIS hops");
+        // hopping itself needs the Dematerialised Flight upgrade (2026-11-19); damage takes the range away
+        helper.assertTrue(Unlocks.stat(t, "range") == 0, "the damaged TARDIS still has range");
 
         give(player, cost);
         helper.assertTrue(Repairs.attempt(server, t, repair, Optional.of(player)).done(), "repairing again failed");

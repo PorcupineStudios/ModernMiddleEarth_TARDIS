@@ -61,7 +61,7 @@ public final class FreeFlightTests {
         });
     }
 
-    @GameTest(template = "platform", timeoutTicks = 200)
+    @GameTest(template = "platform", timeoutTicks = 200, skyAccess = true) // lifted, it would sit in the barrier roof
     public static void phaseTurnsTheBoxLooseHoversFallsAndSetsDown(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());

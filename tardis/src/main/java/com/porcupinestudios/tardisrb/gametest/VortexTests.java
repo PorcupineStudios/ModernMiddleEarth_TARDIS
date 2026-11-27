@@ -20,6 +20,7 @@ import java.util.Map;
 import net.minecraft.nbt.Tag;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import java.util.Optional;
@@ -420,6 +421,16 @@ public final class VortexTests {
             var trip = t.moduleData(Vortex.MODULE);
             // off to the side and turned 60 degrees toward the middle: the box flies into its face
             Wormhole hole = Wormholes.place(server, vortex, t, trip, trip.getDouble("progress") + 20, 4, 0, dim, 5, -60, 0);
+            // let out over a pad of its own: the aim off the course line is void in the End, where it can't land and
+            // so goes back where it left (Wormholes.exit)
+            var holes = trip.getList("wormholes", Tag.TAG_COMPOUND);
+            if (hole != null && !holes.isEmpty()) {
+                ServerLevel out = server.getLevel(dim);
+                out.setChunkForced(PAD.getX() >> 4, PAD.getZ() >> 4, true); // unloaded, the pad would be gone
+                BlockPos.betweenClosed(PAD.offset(-3, 0, -3), PAD.offset(3, 0, 3)).forEach(p ->
+                        out.setBlockAndUpdate(p, Blocks.END_STONE.defaultBlockState()));
+                holes.getCompound(holes.size() - 1).putLong("aim", PAD.above().asLong());
+            }
             t.setModuleData(Vortex.MODULE, trip);
             trace.note("hole at " + (hole == null ? "none" : hole.position()) + " lane " + laneX);
             helper.assertTrue(hole != null && !hole.open(), "the wormhole wasn't placed, or is see-through at scanner 0");
@@ -435,9 +446,13 @@ public final class VortexTests {
             helper.assertTrue(vortex.getEntitiesOfClass(Wormhole.class, new AABB(laneX - 64, 0, -10, laneX + 64, 256, 600),
                     w -> w.owner().equals(Optional.of(t.id()))).isEmpty(), "a wormhole was left behind in the vortex" + trace);
         }).thenExecute(() -> {
+            server.getLevel(dim).setChunkForced(PAD.getX() >> 4, PAD.getZ() >> 4, false);
             helper.succeed();
         });
     }
+
+    /** Where {@link #aWormholeSucksTheBoxIntoItsDimension} lets out (a pad it lays there). */
+    private static final BlockPos PAD = new BlockPos(30, 64, 30);
 
     /**
      * The box is loaded, ticking, and where its trip is. A box first found can still stand where it set off while the
@@ -535,13 +550,19 @@ public final class VortexTests {
                 .done(), "it didn't set off");
         var trip = t.moduleData(Vortex.MODULE);
         helper.assertTrue(trip.hasUUID("end_portal"), "no portal at the end of the tunnel");
-        var portal = vortex.getEntity(trip.getUUID("end_portal"));
-        helper.assertTrue(portal instanceof qouteall.imm_ptl.core.portal.Portal p
-                && Math.abs(p.getZ() - trip.getInt("length")) < 1 && p.getDestDim().equals(helper.getLevel().dimension()),
-                "the end portal isn't at the tunnel's end looking at the landing: " + portal);
-        Vortex.arrive(server, t);
-        helper.assertTrue(vortex.getEntity(trip.getUUID("end_portal")) == null, "the end portal was left behind");
-        helper.succeed();
+        int length = trip.getInt("length");
+        longTrip(t);
+        // its chunk is forced as it is made, but an entity can be found by id only once that chunk is loaded
+        helper.startSequence().thenWaitUntil(() -> {
+            var portal = vortex.getEntity(trip.getUUID("end_portal"));
+            helper.assertTrue(portal instanceof qouteall.imm_ptl.core.portal.Portal p
+                    && Math.abs(p.getZ() - length) < 1 && p.getDestDim().equals(helper.getLevel().dimension()),
+                    "the end portal isn't at the tunnel's end looking at the landing: " + portal);
+        }).thenExecute(() -> {
+            Vortex.arrive(server, t);
+            helper.assertTrue(vortex.getEntity(trip.getUUID("end_portal")) == null, "the end portal was left behind");
+            helper.succeed();
+        });
     }
 
     /**
