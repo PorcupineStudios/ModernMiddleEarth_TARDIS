@@ -52,8 +52,12 @@ tasks.matching { it.name == 'runGameTestServer' }.configureEach {
 if (project.hasProperty('withLotr')) {
     evaluationDependsOn(':lotr')
     dependencies {
-        // (without JEI, which lotr runs with from a maven the harness doesn't search)
-        runtimeOnly(project(':lotr')) { exclude group: 'mezz.jei' }
+        // (without JEI, which lotr runs with from a maven the harness doesn't search, nor lotr's Curios from
+        // maven.theillusivec4.top: the harness already has the same Curios from Modrinth)
+        runtimeOnly(project(':lotr')) {
+            exclude group: 'mezz.jei'
+            exclude group: 'top.theillusivec4.curios'
+        }
     }
     neoForge {
         mods {
