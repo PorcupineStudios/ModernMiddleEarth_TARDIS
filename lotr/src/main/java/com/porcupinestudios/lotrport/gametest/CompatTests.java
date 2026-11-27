@@ -44,6 +44,27 @@ public final class CompatTests {
         helper.succeed();
     }
 
+    /**
+     * Middle-earth's biomes decorate in one order the game can sort (a "feature order cycle" stops chunks generating),
+     * with the compat sub-biomes' mod plants too, and lithostitched leaves the Middle-earth biome source alone.
+     */
+    @GameTest(template = "empty")
+    public static void featureOrderSorts(GameTestHelper helper) {
+        var biomes = helper.getLevel().registryAccess().registryOrThrow(Registries.BIOME);
+        List<net.minecraft.core.Holder<Biome>> ours = new ArrayList<>();
+        biomes.holders().filter(h -> h.key().location().getNamespace().equals(LotrPort.MOD_ID)).forEach(ours::add);
+        net.minecraft.world.level.biome.FeatureSorter.buildFeaturesPerStep(ours,
+                h -> h.value().getGenerationSettings().features(), true);
+        // lithostitched (Regions Unexplored) injects its biomes into every biome source not in this tag; in ours they'd
+        // be sorted against our biomes (Aaron's world crashed: lotr_port:warm_ocean vs regions_unexplored:rocky_reef).
+        // The GameTest server has no Middle-earth dimension, so this checks the tag, not a generated chunk.
+        var sources = helper.getLevel().registryAccess().registryOrThrow(Registries.BIOME_SOURCE);
+        var tag = TagKey.create(Registries.BIOME_SOURCE, ResourceLocation.parse("lithostitched:cannot_inject_into"));
+        helper.assertTrue(sources.getHolderOrThrow(net.minecraft.resources.ResourceKey.create(Registries.BIOME_SOURCE,
+                LotrPort.id("middle_earth"))).is(tag), "lithostitched may inject other biomes into Middle-earth");
+        helper.succeed();
+    }
+
     /** With Regions Unexplored installed, its willow log drops as LOTR's (the log is "Willow Wood" in LOTR). */
     @GameTest(template = "empty")
     public static void modLogDropsAsLotrs(GameTestHelper helper) {
