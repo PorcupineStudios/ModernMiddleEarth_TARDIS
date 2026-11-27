@@ -46,8 +46,11 @@ Still to do after the rewrite:
   them from the jar is on PR #4's branch. So are PRs #13 and #73, which are based on main.
 - **GitHub keeps the old commits** in its read-only PR refs (`refs/pull/*/head`, including closed PRs) and caches.
   Only GitHub Support can drop those ("remove sensitive data": ask them to purge the PR refs and run a GC).
-- **Release assets and workflow artifacts** are not in git: the `test-build` and `merged-2026-11-25` releases and
-  the "jars" artifacts are built mods from before the slimming, with LOTR's textures and sounds inside.
+- **Release assets and workflow artifacts** (not in git): the jars on the `test-build` and `merged-2026-11-25`
+  releases, the 200 "jars" artifacts from before the slimming (LOTR's textures and sounds inside) and the 8 "export"
+  artifacts (LOTR's data) were saved to the backup clone's `github-files/` and deleted from GitHub (Aaron,
+  2026-11-27). The releases themselves stay, empty. Later "jars" artifacts still hold LOTR's text and map until
+  steps 4 and 5.
 - Local clones made before 2026-11-27 must not push: re-clone, or reset each branch onto the rewritten one.
 
 ## Steps
