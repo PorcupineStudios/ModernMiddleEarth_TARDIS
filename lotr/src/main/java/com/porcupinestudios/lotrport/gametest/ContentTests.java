@@ -141,7 +141,7 @@ public final class ContentTests {
                 String tex = t.getValue().getAsString();
                 if (tex.startsWith(LotrPort.MOD_ID + ":")) {
                     String path = "/assets/lotr_port/textures/" + tex.substring(LotrPort.MOD_ID.length() + 1) + ".png";
-                    helper.assertTrue(LotrPort.class.getResource(path) != null, "missing texture " + tex + " in " + id);
+                    helper.assertTrue(shipped(path), "missing texture " + tex + " in " + id);
                 }
             }
         }
@@ -253,12 +253,33 @@ public final class ContentTests {
             for (JsonElement f : sounds.getAsJsonObject(id).getAsJsonArray("sounds")) {
                 String name = f.isJsonObject() ? f.getAsJsonObject().get("name").getAsString() : f.getAsString();
                 String path = "/assets/lotr_port/sounds/" + name.substring(LotrPort.MOD_ID.length() + 1) + ".ogg";
-                helper.assertTrue(LotrPort.class.getResource(path) != null, "missing sound file " + path);
+                helper.assertTrue(shipped(path), "missing sound file " + path);
             }
         }
         var orc = com.porcupinestudios.lotrport.npc.NpcData.type(LotrPort.id("mordor_orc"));
         helper.assertTrue(orc.isPresent() && orc.get().sound("ambient").isPresent(), "Mordor orcs have no voice");
         helper.succeed();
+    }
+
+    /** LOTR's own files aren't in our jar: client/LegacyAssets reads them from the player's LOTR jar by these lists. */
+    private static Set<String> legacy;
+
+    private static boolean shipped(String path) {
+        if (legacy == null) {
+            Set<String> listed = new HashSet<>();
+            for (String list : new String[] {"/lotr_port_legacy_assets.tsv", "/lotr_port_legacy_composites.tsv"}) {
+                try (InputStream in = LotrPort.class.getResourceAsStream(list)) {
+                    if (in != null) {
+                        new java.io.BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8)).lines()
+                                .forEach(l -> listed.add("/assets/" + l.split("\t", 2)[0]));
+                    }
+                } catch (java.io.IOException e) {
+                    throw new java.io.UncheckedIOException(e);
+                }
+            }
+            legacy = listed;
+        }
+        return legacy.contains(path) || LotrPort.class.getResource(path) != null;
     }
 
     private static JsonObject json(String path) {
