@@ -1,0 +1,55 @@
+# 2026-11-27 visual fixes: LOTR's two-block orc and Tauredain torches (placed from the item and set by command),
+# set-down vessels (the glass bottle, empty and filled), and NPC speech above the head by day and night.
+# Made for a flat world (ground at y -61), like legacy_assets.txt.
+wait 100
+noscreen
+/gamerule doDaylightCycle false
+/gamerule doMobSpawning false
+/time set 6000
+/weather clear
+hud off
+/fill -7 -60 -7 7 -52 6 minecraft:air
+/fill -7 -61 -7 7 -61 6 minecraft:smooth_stone
+/item replace entity @p weapon.mainhand with lotr_port:orc_torch
+wait 10
+use -2 -61 -3
+/setblock 0 -60 -3 lotr_port:tauredain_double_torch[half=lower]
+/setblock 0 -59 -3 lotr_port:tauredain_double_torch[half=upper]
+/setblock 2 -60 -3 lotr_port:glass_bottle
+/setblock 3 -60 -3 lotr_port:glass_bottle{Held:{id:"lotr_port:arak",count:1,components:{"lotr_port:vessel":"bottle"}}}
+/setblock 4 -60 -3 lotr_port:mug_block
+/setblock 5 -60 -3 lotr_port:goblet_gold
+/setblock 6 -60 -3 lotr_port:wine_glass_block{Held:{id:"lotr_port:apple_juice",count:1,components:{"lotr_port:vessel":"glass"}}}
+/setblock 7 -60 -3 lotr_port:glass_bottle{Held:{id:"lotr_port:ale",count:1,components:{"lotr_port:vessel":"bottle"}}}
+/item replace entity @p weapon.mainhand with minecraft:air
+/tp @p 1.5 -60 0.5 180 20
+wait 40
+shot fix_torches_vessels
+/tp @p 2.5 -59.4 -1.6 180 45
+wait 20
+shot fix_bottles_close
+/tp @p 3.5 -59.6 -2.2 160 70
+wait 20
+shot fix_bottle_above
+/tp @p 5.5 -59.5 -1.3 160 38
+wait 20
+shot fix_glass_vessels
+/summon lotr_port:npc 0.5 -60 -1.5 {NpcType:"lotr_port:bree_hobbit",Fresh:1b,NoAI:1b,Rotation:[0f,0f]}
+/tp @p 0.5 -60 2.5 180 0
+wait 20
+interact
+wait 10
+shot fix_speech_day
+/time set 18000
+wait 5
+interact
+wait 10
+shot fix_speech_night
+/time set 6000
+/summon lotr_port:npc -3.5 -60 -1.5 {NpcType:"lotr_port:bree_hobbit_brewer",Fresh:1b,NoAI:1b,Rotation:[0f,0f]}
+/tp @p -3.5 -60 1 180 0
+wait 20
+interact
+wait 10
+shot fix_trader_screen
+quit

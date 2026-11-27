@@ -172,6 +172,7 @@ public final class LotrBlocks {
             case "reed" -> p -> new ReedBlock(p, ContentData.bool(e, "grows", true));
             case "sapling" -> LotrSaplingBlock::new;
             case "torch" -> LotrTorchBlock::new;
+            case "double_torch" -> DoubleTorchBlock::new;
             case "bed" -> LotrBedBlock::new;
             case "carpet" -> CarpetBlock::new;
             case "shaped" -> p -> new ShapedBlock(p, box(e));
@@ -233,7 +234,9 @@ public final class LotrBlocks {
         }
         int light = ContentData.integer(e, "light", 0);
         if (light > 0) {
-            p.lightLevel(state -> light);
+            p.lightLevel(kind.equals("double_torch")
+                    ? state -> state.getValue(DoubleTorchBlock.HALF) == net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER ? light : 0
+                    : state -> light);
         }
         p.sound(sound(ContentData.str(e, "sound", "stone")));
         if (ContentData.bool(e, "requiresTool", false)) {
@@ -257,7 +260,7 @@ public final class LotrBlocks {
                     .pushReaction(PushReaction.DESTROY);
             case "sign", "wall_sign", "hanging_sign", "wall_hanging_sign" -> p.noCollission().forceSolidOn()
                     .ignitedByLava();
-            case "plant", "sapling", "torch", "button", "pressure_plate", "reed" ->
+            case "plant", "sapling", "torch", "double_torch", "button", "pressure_plate", "reed" ->
                     p.noCollission().pushReaction(PushReaction.DESTROY);
             case "door", "trapdoor", "bed" -> p.pushReaction(PushReaction.DESTROY);
             case "crop", "corn" -> p.noCollission().randomTicks().noOcclusion().pushReaction(PushReaction.DESTROY);

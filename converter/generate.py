@@ -501,6 +501,8 @@ class Gen:
             return "keg"  # LOTR's barrel; a keg so it isn't taken for vanilla's barrel
         if "LOTRBlockReed" in c.split():
             return "reed"  # content/ReedBlock: waterlogged stem from the bed, LOTR's lower/mid/upper icons
+        if "LOTRBlockDoubleTorch" in c.split():
+            return "double_torch"  # content/DoubleTorchBlock: two blocks tall, lit at the top
         if "LOTRBlockSaplingBase" in c.split():
             return "sapling"
         if "BlockBed" in c.split():
@@ -588,8 +590,10 @@ class Gen:
             e["grows"] = False  # LOTRBlockReedDry.canReedGrow
         if kind == "door":
             e["item"] = "double_high"
-        if kind == "bed":
-            # LOTR's bed item (lotr:item.strawBed) places this block; it becomes the port item's block
+        if kind == "double_torch":
+            e["light"] = 14  # LOTRBlockDoubleTorch.getLightValue: the top half only (DoubleTorchBlock)
+        if kind in ("bed", "double_torch"):
+            # LOTR's bed item (lotr:item.strawBed) and torch items (LOTRItemDoubleTorch) place this block; it becomes the port item's block
             drop = next((d for d in b.get("drops") or [] if d.get("item")), None)
             item = drop and self.idtable.get(f"{drop['item']}#0")
             for it in self.items:
@@ -850,6 +854,22 @@ class Gen:
                             {"cross": side}, {"render_type": CUTOUT})
             self.bs(new, {"variants": {"": {"model": m}}})
             self.item_model(new, layer=item_icon, overlay=overlay)
+        elif kind == "double_torch":
+            # LOTRRenderBlocks.renderDoubleTorch: a 2-pixel post, 16 high in the lower block and 8 in the upper, each
+            # half with its own icon (_bottom, _top); default UVs take the texture's middle as 1.7.10's did
+            base = (v["icons"][2] or "").rsplit("_", 1)[0]  # lotr:orcTorch_bottom
+            var = {}
+            for half, icon, h in (("lower", "bottom", 16), ("upper", "top", 8)):
+                tex = self.tex.block(f"{base}_{icon}")
+                write_json(os.path.join(ASSETS, "models", "block", f"{new}_{half}.json"),
+                           {"parent": "minecraft:block/block", "render_type": CUTOUT, "ambientocclusion": False,
+                            "textures": {"particle": side, "all": tex or side},
+                            "elements": [{"from": [7, 0, 7], "to": [9, h, 9],
+                                          "faces": {d: {"texture": "#all"} for d in
+                                                    ("down", "up", "north", "south", "west", "east")}}]})
+                var[f"half={half}"] = {"model": f"{NS}:block/{new}_{half}"}
+            self.bs(new, {"variants": var})
+            self.item_model(new, layer=item_icon)
         elif kind == "torch":
             # LOTR's torches stand or hang on walls (metadata 1-4, as vanilla's 1.7.10 torch): one block with a
             # facing, up for standing (content/LotrTorchBlock)
@@ -1131,7 +1151,10 @@ class Gen:
                     "conditions": [{"condition": "minecraft:survives_explosion"}] + (
                         # a bed drops once, from its head half (as vanilla's beds)
                         [{"condition": "minecraft:block_state_property", "block": f"{NS}:{new}",
-                          "properties": {"part": "head"}}] if self.kind_of_block.get(new) == "bed" else [])}]})
+                          "properties": {"part": "head"}}] if self.kind_of_block.get(new) == "bed" else
+                        # a double torch from its lower half (as vanilla's doors)
+                        [{"condition": "minecraft:block_state_property", "block": f"{NS}:{new}",
+                          "properties": {"half": "lower"}}] if self.kind_of_block.get(new) == "double_torch" else [])}]})
         self.report["placed_blocks_with_loot"].append(f"{new} -> {ing['item']}")
 
     SELF_DROPS = {"mug_block": f"{NS}:mug", "ceramic_mug_block": f"{NS}:ceramic_mug",

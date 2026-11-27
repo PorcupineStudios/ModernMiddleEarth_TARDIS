@@ -45,6 +45,9 @@ final class Draw {
     void set(int x, int y, int z, Mat m) {
         if (m != Mat.KEEP && in(x, z) && y >= c.minY() && y <= c.maxY()) {
             c.set(x, y, z, m);
+            if ("lower".equals(m.props.get("half")) && y < c.maxY()) {
+                c.set(x, y + 1, z, m.with("half", "upper")); // two-block things (LOTR's orc torch) written as the lower half
+            }
         }
     }
 

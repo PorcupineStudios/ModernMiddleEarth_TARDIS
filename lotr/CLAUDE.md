@@ -773,7 +773,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   down. Use a full one: you drink it where it stands (`LotrDrinkItem.drink`), it stays, empty. Use an empty one with a
   drink in that kind of vessel: pours it in; otherwise nothing (it used to pick the block up, and structure vessels,
   holding nothing, vanished). Break it to take it. Models: `converter/vessels.py` (no two boxes overlap: overlapping
-  floor and walls z-fought; a real glass bottle). Water drawn into a vessel stays in that vessel.
+  floor and walls z-fought). The glass bottle and wine glass (2026-11-27) are single panes of our own seamless
+  `vessel_glass` (`converter/VesselGlass.java`), drawn translucent, and `client/VesselRenderer` fills them with the
+  drink (sides and top), not only a surface. Water drawn into a vessel stays in that vessel.
 - Drink-in-vessel item models are `item/drink/<drink>/<vessel>` (2026-11-17): `<drink>_<vessel>` clashed with real
   items (the empty ale horn drew full ale; ale in a golden horn drew the set-down block).
 - Poisoned drinks (2026-11-17, `drink/PoisonDrinkRecipe`, recipe `own/poison_drink`): any drink + the bottle of
@@ -918,6 +920,11 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   the model takes LOTR's onWall pose. Racks and stands in structures: meta & 3 = north/east/south/west, & 4 = wall.
   The rack's weapon is drawn with `ItemDisplayContext.NONE` moved to 1.7.10's flat-icon frame (checked in game).
 - Items that place another block (`places`): beds stay `BedItem`, the rest are `ItemNameBlockItem`.
+- Orc and Taurëdain torches (2026-11-27): kind `double_torch` (`content/DoubleTorchBlock`, a vanilla double plant on
+  any solid centre): a 2-pixel post, 16 + 8 high, `_bottom`/`_top` icons, light only on the upper half, flame there.
+  Structures got their halves from metadata 1 (`structures.py`); the 35 templates written before were patched with
+  `converter/DoubleTorchHalves.java` (no Python here). Delve palettes name `[half=lower]` and `Draw.set` adds the top.
+  GameTests `DoubleTorchTests`.
 - GameTests `MachineTests` (own batch: the 1-block `empty` template lets other tests land on long-running ones).
 
 ## Farming, ores and pouches (2026-11-10, `content/farm/`, `content/pouch/`)

@@ -245,20 +245,6 @@
    "spread": 0.1,
    "count": 1
   },
-  "orc_torch_block": {
-   "particle": "minecraft:flame",
-   "chance": 0.9,
-   "y": 0.95,
-   "spread": 0.1,
-   "count": 1
-  },
-  "tauredain_double_torch": {
-   "particle": "minecraft:flame",
-   "chance": 0.9,
-   "y": 0.95,
-   "spread": 0.1,
-   "count": 1
-  },
   "iron_chandelier": {
    "particle": "minecraft:flame",
    "chance": 0.9,

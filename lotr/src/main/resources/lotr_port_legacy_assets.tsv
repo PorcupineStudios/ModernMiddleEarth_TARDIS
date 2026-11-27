@@ -730,6 +730,7 @@ lotr_port/textures/block/orc_plating_iron.png	assets/lotr/textures/blocks/orcPla
 lotr_port/textures/block/orc_plating_rust.png	assets/lotr/textures/blocks/orcPlating_rust.png
 lotr_port/textures/block/orc_steel_bars.png	assets/lotr/textures/blocks/orcSteelBars.png
 lotr_port/textures/block/orc_torch_bottom.png	assets/lotr/textures/blocks/orcTorch_bottom.png
+lotr_port/textures/block/orc_torch_top.png	assets/lotr/textures/blocks/orcTorch_top.png
 lotr_port/textures/block/ore_gem_amber.png	assets/lotr/textures/blocks/oreGem_amber.png
 lotr_port/textures/block/ore_gem_diamond.png	assets/lotr/textures/blocks/oreGem_diamond.png
 lotr_port/textures/block/ore_gem_emerald.png	assets/lotr/textures/blocks/oreGem_emerald.png
@@ -1009,6 +1010,7 @@ lotr_port/textures/block/tauredain_dart_trap_face.png	assets/lotr/textures/block
 lotr_port/textures/block/tauredain_dart_trap_gold_face.png	assets/lotr/textures/blocks/tauredainDartTrapGold_face.png
 lotr_port/textures/block/tauredain_dart_trap_obsidian_face.png	assets/lotr/textures/blocks/tauredainDartTrapObsidian_face.png
 lotr_port/textures/block/tauredain_double_torch_bottom.png	assets/lotr/textures/blocks/tauredainDoubleTorch_bottom.png
+lotr_port/textures/block/tauredain_double_torch_top.png	assets/lotr/textures/blocks/tauredainDoubleTorch_top.png
 lotr_port/textures/block/termite_mound.png	assets/lotr/textures/blocks/termiteMound.png
 lotr_port/textures/block/termite_mound_side.png	assets/lotr/textures/blocks/termiteMound_side.png
 lotr_port/textures/block/thatch_floor.png	assets/lotr/textures/blocks/thatchFloor.png
