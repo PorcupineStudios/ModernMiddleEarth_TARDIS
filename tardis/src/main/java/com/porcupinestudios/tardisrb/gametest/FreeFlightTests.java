@@ -49,15 +49,25 @@ public final class FreeFlightTests {
         FreeFlight.phase(server, t, Optional.empty());
         TardisBody body = FreeFlight.body(server, t).orElseThrow();
         FreeFlight.setThrusters(server, t, true, Optional.empty());
-        body.setPos(body.getX(), body.getY() + 3, body.getZ());
-        double y = body.getY();
-        body.hurt(new DamageSource(helper.getLevel().damageSources().generic().typeHolder(),
-                body.position().add(0, -2, 0)), 1); // from below: the platform has nothing above it
-        helper.assertTrue(body.shockStart == body.tickCount, "the hit didn't shock it");
-        helper.runAfterDelay(10, () -> {
-            helper.assertTrue(body.getY() > y + 1, "it wasn't knocked away from the hit: moved " + (body.getY() - y));
-            helper.assertTrue(!body.isRemoved(), "the hit broke it");
-            helper.succeed();
+        // one block up, off the ground's friction and clear of the test's barrier ceiling (three blocks up was inside
+        // it, and a box inside blocks is worked up out of them, which moved it without any hit)
+        body.setPos(body.getX(), body.getY() + 1, body.getZ());
+        Vec3 start = body.position();
+        helper.runAfterDelay(5, () -> {
+            // hovering untouched, nothing moves it: whatever moves it next is the hit
+            helper.assertTrue(body.position().distanceTo(start) < 0.05, "it moved before the hit: "
+                    + body.position().subtract(start));
+            Vec3 before = body.position();
+            body.hurt(new DamageSource(helper.getLevel().damageSources().generic().typeHolder(),
+                    body.getBoundingBox().getCenter().add(-2, 0, 0)), 1); // from the west, across the platform
+            helper.assertTrue(body.shockStart == body.tickCount, "the hit didn't shock it");
+            helper.runAfterDelay(10, () -> {
+                Vec3 moved = body.position().subtract(before);
+                helper.assertTrue(moved.x > 1 && Math.abs(moved.y) < 0.5 && Math.abs(moved.z) < 0.5,
+                        "it wasn't knocked east, away from the hit: moved " + moved);
+                helper.assertTrue(!body.isRemoved(), "the hit broke it");
+                helper.succeed();
+            });
         });
     }
 
