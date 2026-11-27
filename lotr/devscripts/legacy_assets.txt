@@ -1,0 +1,39 @@
+# LOTR's textures read from the player's LOTR jar (client/LegacyAssets): plain copies (Gondor rock, the animated
+# mithril ore), connected sheets built in game (block of mithril, gold-trimmed dwarven brick, wattle and daub), gates
+# (dwarven, blue hobbit, iron portcullis: a frame cut from its bars), drinks built from vessel + liquid in item frames,
+# and the two dyed hats on armour stands. Any world; made for a flat one (ground at y -61).
+wait 100
+noscreen
+/gamerule doDaylightCycle false
+/gamerule doMobSpawning false
+/time set 6000
+/weather clear
+hud off
+/fill -7 -60 -7 7 -52 6 minecraft:air
+/fill -7 -60 -6 7 -54 -6 minecraft:smooth_stone
+/setblock -6 -60 -5 lotr_port:gondor_rock
+/setblock -6 -59 -5 lotr_port:mithril_ore
+/fill -5 -60 -5 -4 -59 -5 lotr_port:block_of_mithril
+/fill -2 -60 -5 -1 -59 -5 lotr_port:gold_trimmed_dwarven_brick
+/fill 1 -60 -5 2 -59 -5 lotr_port:wattle_and_daub
+/fill 4 -60 -5 5 -59 -5 lotr_port:dwarven_gate
+/fill 6 -60 -5 6 -59 -5 lotr_port:blue_hobbit_gate
+/fill -6 -58 -5 -5 -57 -5 lotr_port:iron_portcullis
+/summon item_frame -3 -57 -5 {Facing:3b,Fixed:1b,Item:{id:"lotr_port:ale",count:1}}
+/summon item_frame -2 -57 -5 {Facing:3b,Fixed:1b,Item:{id:"lotr_port:ale",count:1,components:{"lotr_port:vessel":"goblet_gold"}}}
+/summon item_frame -1 -57 -5 {Facing:3b,Fixed:1b,Item:{id:"lotr_port:ale",count:1,components:{"lotr_port:vessel":"skull"}}}
+/summon item_frame 0 -57 -5 {Facing:3b,Fixed:1b,Item:{id:"lotr_port:apple_juice",count:1,components:{"lotr_port:vessel":"glass"}}}
+/summon item_frame 1 -57 -5 {Facing:3b,Fixed:1b,Item:{id:"lotr_port:arak",count:1,components:{"lotr_port:vessel":"horn_gold"}}}
+/summon item_frame 2 -57 -5 {Facing:3b,Fixed:1b,Item:{id:"lotr_port:arak",count:1,components:{"lotr_port:vessel":"bottle"}}}
+/summon armor_stand 4.5 -58 -4.5 {NoGravity:1b,ShowArms:1b,Rotation:[0f,0f],ArmorItems:[{},{},{},{id:"lotr_port:leather_hat",count:1}]}
+/summon armor_stand 6.5 -58 -4.5 {NoGravity:1b,ShowArms:1b,Rotation:[0f,0f],ArmorItems:[{},{},{},{id:"lotr_port:party_hat",count:1}]}
+/tp @p 0.5 -60 3.5 180 12
+wait 60
+shot legacy_wall
+/tp @p -1 -58.5 -2.2 180 0
+wait 40
+shot legacy_drinks
+/tp @p 5.5 -58 -1.5 180 10
+wait 40
+shot legacy_hats_gates
+quit
