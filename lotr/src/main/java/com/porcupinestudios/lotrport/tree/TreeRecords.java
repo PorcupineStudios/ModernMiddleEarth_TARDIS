@@ -113,9 +113,12 @@ public final class TreeRecords extends SavedData {
 
     public static TreeRecords load(CompoundTag tag, HolderLookup.Provider registries) {
         TreeRecords out = new TreeRecords();
-        if (tag.contains("chunks")) {
-            CHUNKS.parse(NbtOps.INSTANCE, tag.get("chunks")).resultOrPartial(e -> LotrPort.LOG.error("[trees] {}", e))
-                    .ifPresent(m -> m.forEach((k, v) -> out.byChunk.put(Long.parseLong(k), new ArrayList<>(v))));
+        // one chunk at a time: Codec.unboundedMap decodes into an array map (quadratic), which took minutes on a big world
+        CompoundTag chunks = tag.getCompound("chunks");
+        for (String k : chunks.getAllKeys()) {
+            TreeRecord.CODEC.listOf().parse(NbtOps.INSTANCE, chunks.get(k))
+                    .resultOrPartial(e -> LotrPort.LOG.error("[trees] {}", e))
+                    .ifPresent(v -> out.byChunk.put(Long.parseLong(k), new ArrayList<>(v)));
         }
         return out;
     }
