@@ -51,7 +51,14 @@ public final class Hazards {
     public static void inside(Hazard h, BlockState state, Level level, BlockPos pos, Entity entity) {
         switch (h) {
             // LOTR: setInWeb, as a cobweb
-            case QUAGMIRE -> entity.makeStuckInBlock(state, new Vec3(0.25, 0.05, 0.25));
+            case QUAGMIRE -> {
+                entity.makeStuckInBlock(state, new Vec3(0.25, 0.05, 0.25));
+                // no collision shape, so vanilla's in-wall check never sees it: a head under the mud suffocates (#96)
+                if (!level.isClientSide && entity instanceof LivingEntity l && headIn(l, pos)
+                        && !(l instanceof Player p && (p.isCreative() || p.isSpectator()))) {
+                    l.hurt(level.damageSources().inWall(), (float) feel("suffocation_damage"));
+                }
+            }
             case WASTE -> entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.4, 1, 0.4));
             case THORN -> {
                 if (!level.isClientSide && !mordorFriend(entity)) {
@@ -74,6 +81,16 @@ public final class Hazards {
             }
             default -> { }
         }
+    }
+
+    /** Whether the entity's eyes are in the block at {@code pos}. */
+    public static boolean headIn(Entity entity, BlockPos pos) {
+        return BlockPos.containing(entity.getEyePosition()).equals(pos);
+    }
+
+    /** A number from behaviors.json "quagmire_feel". */
+    public static double feel(String key) {
+        return ContentData.behaviours().getAsJsonObject("quagmire_feel").get(key).getAsDouble();
     }
 
     /** Entity walking on top of the block. */

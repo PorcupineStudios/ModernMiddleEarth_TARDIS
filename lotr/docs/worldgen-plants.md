@@ -61,6 +61,9 @@ _Part of the LOTR port's notes, moved here from `lotr/CLAUDE.md` on 2026-11-27 (
   GameTest `everyLotrPlantHasAShaderAlias`. Not tried with Iris in game yet.
 - Plants: LOTR's reed patches (`reedPerChunk`, dried with `dryReedChance`) and the Dead Marshes' dead plants
   (`world.py marsh_plants`). Marsh lights left out: the block draws as a white cube, not LOTR's particles.
+- Big trees stand on a wide soil layer at the origin's height; `TemplateTreeFeature.settle` fills dirt under it
+  down to the ground (`max_foundation`, default 12) so it doesn't hang as a ledge on slopes (#98), and `bank`
+  raises the ground round it to a grass slope of a block per block, so it isn't a dirt wall either.
 - Big trees (Fangorn oaks reach 25+ blocks from the trunk) overflow what a feature may write: `tree/TreeOverflow`
   keeps those blocks per chunk and places them when that chunk is loaded.
 - Tree placement follows LOTR's rules (2026-11-05, `TemplateTreeFeature.fits`): logs go into air, plants, leaves

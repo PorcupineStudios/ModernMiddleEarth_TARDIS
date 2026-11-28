@@ -95,6 +95,7 @@ public final class LotrClient {
     @SubscribeEvent
     public static void setup(FMLClientSetupEvent event) {
         Atmosphere.init();
+        QuagmireView.init();
         ColorGrade.init();
         RingSight.init();
         event.enqueueWork(WoodSetRenderers::setup);

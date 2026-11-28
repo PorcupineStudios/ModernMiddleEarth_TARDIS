@@ -93,6 +93,13 @@
    "obsidian_stalagmite"
   ]
  },
+ "quagmire_feel": {
+  "_comment": "LOTR's quagmire sank you like a cobweb; here it also suffocates a head under it (damage per hit, as vanilla's in-wall) and fills the view with mud (#96)",
+  "suffocation_damage": 1.0,
+  "fog_color": "3A2B1C",
+  "fog_near": 0.0,
+  "fog_far": 1.5
+ },
  "hazard": {
   "quagmire": [
    "quagmire"

@@ -25686,6 +25686,59 @@
                               {
                                 "type": "minecraft:condition",
                                 "if_true": {
+                                  "type": "minecraft:biome",
+                                  "biome_is": [
+                                    "lotr_port:dead_marshes",
+                                    "lotr_port:dead_marshes_bogs"
+                                  ]
+                                },
+                                "then_run": {
+                                  "type": "minecraft:condition",
+                                  "if_true": {
+                                    "type": "minecraft:y_above",
+                                    "anchor": {
+                                      "absolute": 61
+                                    },
+                                    "surface_depth_multiplier": 0,
+                                    "add_stone_depth": false
+                                  },
+                                  "then_run": {
+                                    "type": "minecraft:condition",
+                                    "if_true": {
+                                      "type": "minecraft:not",
+                                      "invert": {
+                                        "type": "minecraft:y_above",
+                                        "anchor": {
+                                          "absolute": 63
+                                        },
+                                        "surface_depth_multiplier": 0,
+                                        "add_stone_depth": false
+                                      }
+                                    },
+                                    "then_run": {
+                                      "type": "minecraft:condition",
+                                      "if_true": {
+                                        "type": "minecraft:not",
+                                        "invert": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "lotr_port:marsh",
+                                          "min_threshold": -0.0675,
+                                          "max_threshold": 0.0675
+                                        }
+                                      },
+                                      "then_run": {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:water"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "type": "minecraft:condition",
+                                "if_true": {
                                   "type": "minecraft:y_above",
                                   "anchor": {
                                     "absolute": 61
@@ -47772,6 +47825,59 @@
                               {
                                 "type": "minecraft:condition",
                                 "if_true": {
+                                  "type": "minecraft:biome",
+                                  "biome_is": [
+                                    "lotr_port:dead_marshes",
+                                    "lotr_port:dead_marshes_bogs"
+                                  ]
+                                },
+                                "then_run": {
+                                  "type": "minecraft:condition",
+                                  "if_true": {
+                                    "type": "minecraft:y_above",
+                                    "anchor": {
+                                      "absolute": 61
+                                    },
+                                    "surface_depth_multiplier": 0,
+                                    "add_stone_depth": false
+                                  },
+                                  "then_run": {
+                                    "type": "minecraft:condition",
+                                    "if_true": {
+                                      "type": "minecraft:not",
+                                      "invert": {
+                                        "type": "minecraft:y_above",
+                                        "anchor": {
+                                          "absolute": 63
+                                        },
+                                        "surface_depth_multiplier": 0,
+                                        "add_stone_depth": false
+                                      }
+                                    },
+                                    "then_run": {
+                                      "type": "minecraft:condition",
+                                      "if_true": {
+                                        "type": "minecraft:not",
+                                        "invert": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "lotr_port:marsh",
+                                          "min_threshold": -0.0675,
+                                          "max_threshold": 0.0675
+                                        }
+                                      },
+                                      "then_run": {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:water"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "type": "minecraft:condition",
+                                "if_true": {
                                   "type": "minecraft:y_above",
                                   "anchor": {
                                     "absolute": 61
@@ -48581,6 +48687,59 @@
                           "then_run": {
                             "type": "minecraft:sequence",
                             "sequence": [
+                              {
+                                "type": "minecraft:condition",
+                                "if_true": {
+                                  "type": "minecraft:biome",
+                                  "biome_is": [
+                                    "lotr_port:dead_marshes",
+                                    "lotr_port:dead_marshes_bogs"
+                                  ]
+                                },
+                                "then_run": {
+                                  "type": "minecraft:condition",
+                                  "if_true": {
+                                    "type": "minecraft:y_above",
+                                    "anchor": {
+                                      "absolute": 61
+                                    },
+                                    "surface_depth_multiplier": 0,
+                                    "add_stone_depth": false
+                                  },
+                                  "then_run": {
+                                    "type": "minecraft:condition",
+                                    "if_true": {
+                                      "type": "minecraft:not",
+                                      "invert": {
+                                        "type": "minecraft:y_above",
+                                        "anchor": {
+                                          "absolute": 63
+                                        },
+                                        "surface_depth_multiplier": 0,
+                                        "add_stone_depth": false
+                                      }
+                                    },
+                                    "then_run": {
+                                      "type": "minecraft:condition",
+                                      "if_true": {
+                                        "type": "minecraft:not",
+                                        "invert": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "lotr_port:marsh",
+                                          "min_threshold": -0.0675,
+                                          "max_threshold": 0.0675
+                                        }
+                                      },
+                                      "then_run": {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:water"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
                               {
                                 "type": "minecraft:condition",
                                 "if_true": {

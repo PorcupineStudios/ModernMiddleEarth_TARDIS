@@ -19,8 +19,11 @@ _Part of the LOTR port's notes, moved here from `lotr/CLAUDE.md` on 2026-11-27 (
 - Ground rules (2026-11-05, `world.py` surface rule + `converter/grounds.py`): LOTR's podzol patches (35% podzol, 15%
   coarse "barren" dirt; moss in wet forests), rock and gravel breaking through above y 90, sandstone under sand, each
   biome's own patches (the 31 generateBiomeTerrain overrides as a table: Brown Lands coarse dirt, Harad dirt/sand,
-  Gorgoroth soils...), marsh pools at sea level in the swamp-variant biomes, quagmire + mud disks where LOTR had
-  quagmires. LOTR's thresholds are scaled by `NOISE_SCALE` for 1.18 noise. Biome grass/foliage/sky/fog colours are LOTR's.
+  Gorgoroth soils...), marsh pools at sea level in the swamp-variant biomes (the Dead Marshes, #97: ground at 61,
+  and water at y 61-62 everywhere but thin banks where the marsh noise is within `DEAD_MARSH_BANK` of zero, a
+  maze), quagmire + mud disks where LOTR had quagmires (a head under quagmire suffocates and sees mud fog:
+  `Hazards`, `client/QuagmireView`, behaviors.json `quagmire_feel`, #96). LOTR's thresholds are scaled by
+  `NOISE_SCALE` for 1.18 noise. Biome grass/foliage/sky/fog colours are LOTR's.
   Underground: deepslate under y 0 (ores get deepslate targets), granite/diorite/andesite/tuff blobs, pointed
   dripstone hung from cave roofs in place of LOTR's stalactites.
 - Mountains (2026-11-05): LOTR's generateMountainTerrain per biome (`grounds.MOUNTAINS`: snow block tops above snow
