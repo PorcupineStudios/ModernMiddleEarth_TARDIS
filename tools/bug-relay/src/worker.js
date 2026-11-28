@@ -2,7 +2,8 @@
 // logs in KV, serves them at /a/<file>, and opens a GitHub issue that links them. Only this worker holds the token.
 //
 // Bindings (wrangler.toml): ATTACH (KV namespace). Vars: REPO, LABELS, DAILY_LIMIT_PER_IP. Secrets: GITHUB_TOKEN,
-// ADMIN_KEY (optional: a report whose X-Admin-Key header matches it skips the daily limit).
+// ADMIN_KEY (optional: a report whose X-Admin-Key header matches it skips the daily limit and gets the ADMIN_LABELS,
+// "valid", which lets the scheduled Claude run work it: .github/workflows/claude-auto.yml).
 
 const MAX_BODY = 16 << 20;
 const MAX_TITLE = 120;
@@ -70,7 +71,8 @@ async function report(req, env, origin) {
     if (!PNG.every((b, i) => png[i] === b)) throw new Refused('screenshot is not a PNG');
   }
 
-  if (!(await isAdmin(req, env))) await rateLimit(req, env);
+  const admin = await isAdmin(req, env);
+  if (!admin) await rateLimit(req, env);
 
   const id = crypto.randomUUID();
   const facts = Object.entries(meta)
@@ -101,7 +103,7 @@ async function report(req, env, origin) {
     `<sub>Sent from the in-game bug reporter. Report id ${id}.</sub>`,
   ].join('\n');
 
-  const labels = [...list(env.LABELS), ...versionLabels(list(env.VERSION_MODS), mods)];
+  const labels = [...list(env.LABELS), ...(admin ? list(env.ADMIN_LABELS) : []), ...versionLabels(list(env.VERSION_MODS), mods)];
   const gh = await github(env, `issues`, { title: `[In-game] ${title}`, body: body.slice(0, 65000), labels });
   if (!gh.ok) {
     console.error('GitHub', gh.status, await gh.text());

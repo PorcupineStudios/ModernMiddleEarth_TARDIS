@@ -5,6 +5,8 @@ compatibility_date = "2026-11-01"
 [vars]
 REPO = "PorcupineStudios/ModernMiddleEarth_TARDIS"
 LABELS = "bug,from-game"
+# added to reports sent with the admin key: the scheduled Claude run works from-game issues only when labelled valid
+ADMIN_LABELS = "valid"
 DAILY_LIMIT_PER_IP = "10"
 # our mods: each report gets a label "<mod id> <version>" per mod it ran with, to filter tickets by version
 VERSION_MODS = "ringbearer_api,tardis_rb,lotr_port,ringbearer_harness"

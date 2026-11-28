@@ -13,7 +13,7 @@ const ATTACH = {
     return { value: v, metadata: e.metadata };
   },
 };
-const env = { ATTACH, REPO: 'owner/repo', LABELS: 'bug, from-game', VERSION_MODS: 'tardis_rb,ringbearer_api', DAILY_LIMIT_PER_IP: '2', GITHUB_TOKEN: 't', ADMIN_KEY: 'sesame' };
+const env = { ATTACH, REPO: 'owner/repo', LABELS: 'bug, from-game', VERSION_MODS: 'tardis_rb,ringbearer_api', DAILY_LIMIT_PER_IP: '2', GITHUB_TOKEN: 't', ADMIN_KEY: 'sesame', ADMIN_LABELS: 'valid' };
 
 let sent;
 const calls = [];
@@ -65,5 +65,8 @@ assert.equal((await post(report, '5.6.7.8')).status, 200);
 // the admin key skips the limit; a wrong one doesn't
 assert.equal((await post(report, '1.2.3.4', 'wrong')).status, 429);
 assert.equal((await post(report, '1.2.3.4', 'sesame')).status, 200);
+assert.deepEqual(sent.body.labels, ['bug', 'from-game', 'valid', 'tardis_rb 0.2.0'], 'admin reports are marked valid');
 assert.equal((await post(report, '1.2.3.4', 'sesame')).status, 200);
+assert.equal((await post({ ...report, title: 'other' }, '9.9.9.9', 'wrong')).status, 200);
+assert.ok(!sent.body.labels.includes('valid'), 'a wrong key gets no valid label');
 console.log('bug-relay: all checks passed');
