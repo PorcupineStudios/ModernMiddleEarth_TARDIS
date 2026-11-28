@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/black_uruk_fort",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:black_uruk_fort/0",
     "lotr_port:black_uruk_fort/1",

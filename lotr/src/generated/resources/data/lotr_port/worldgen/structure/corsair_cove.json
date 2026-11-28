@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/corsair_cove",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:corsair_cove/0",
     "lotr_port:corsair_cove/1",

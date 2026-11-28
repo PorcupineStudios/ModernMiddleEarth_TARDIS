@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/dunland_hill_fort_700",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:dunland_hill_fort/0",
     "lotr_port:dunland_hill_fort/1",

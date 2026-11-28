@@ -252,6 +252,9 @@ public final class LotrBlocks {
         if (!ContentData.bool(e, "collision", true)) {
             p.noCollission();
         }
+        if (ContentData.bool(e, "replaceable", false)) {
+            p.replaceable(); // a placed block takes its place, as with vanilla's short grass (#93)
+        }
         if ("xz".equals(ContentData.str(e, "offset", ""))) {
             p.offsetType(BlockBehaviour.OffsetType.XZ); // LOTR's randomly shifted clovers
         }

@@ -49,10 +49,14 @@ _Part of the LOTR port's notes, moved here from `lotr/CLAUDE.md` on 2026-11-27 (
     structure is in the way (2026-11-04: 27 placed against LOTR's 29.7).
   - Air: templates hold real air only where LOTR cleared space (dug cellars from the export; above ground, a
     column's open space under its highest block, i.e. rooms and under roofs). Everywhere else is structure void, so
-    natural terrain stays. `terrain_adaptation` is `none` (beard_box carved the air ditches round every building);
-    the piece fills under the ground layer down to solid ground instead (dirt under dirt/grass, else the same block,
-    up to `max_foundation` 96, dirt for 4 blocks then stone). Ground scans don't see caves, so a cave mouth under
-    the footprint can be deep; 24 left a floating building in Eriador (2026-11-19).
+    natural terrain stays. `terrain_adaptation` is `beard_thin` (#92, 2026-11-28: without it a building on a hill
+    stood on a flat pad between cliffs); the piece's `getBoundingBox` starts just over the ground layer, so the
+    Beardifier carves the hill down to it and builds up the ground under the edges (with the template's whole box it
+    took the cellar floor for the ground: ditches, or buildings floating, 2026-11-04). The piece also fills under
+    the ground layer down to solid ground (dirt under dirt/grass, else the same block, up to `max_foundation` 96, dirt for 4 blocks then stone). Ground scans don't see caves, so a cave mouth under
+    the footprint can be deep; 24 left a floating building in Eriador (2026-11-19). The fill (and the grass levelling
+    of open ground-layer spots) never enters the template's own air: before 2026-11-27 it filled the Hobbit inn's
+    cellar through its stairwell (#91; test `foundationsLeaveCellarsEmpty`).
   - Doors: the lower half takes the upper half's hinge (1.7.10 kept it only on top; split doors). Gates
     (`content/GateBlock`, LOTR's multi-block gates) rotate and mirror with the structure and open as one gate: the
     touching blocks of the same kind in the same plane.
@@ -65,8 +69,8 @@ _Part of the LOTR port's notes, moved here from `lotr/CLAUDE.md` on 2026-11-27 (
   NPCs of that faction.
 - Templates are placed without block updates, so `structures.py` sets pane/fence/wall sides from the neighbours
   (lone pane posts showed as dark squares) and fills pots with a vanilla potted flower picked by position (1.7.10 kept
-  the plant in a tile entity the export lacks). Foundations, not terrain adaptation, keep houses on slopes off the ground
-  (beard_thin left them floating, beard_box dug ditches; Aaron 2026-11-04).
+  the plant in a tile entity the export lacks). Foundations and beard_thin (ground at the ground
+  layer, see above) keep houses on slopes from floating or standing in pits.
 - Armor whose LOTR texture is per item (gambesons, jacket, hats) gets a material per texture (`LotrItems.key`); the
   hats are drawn on LOTR's own hat model, so `generate.py hat_layer` paints a cap onto the helmet layer instead
   (the Shirriff's missing hat texture was the purple head).

@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/rhudaur_castle_1000",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:rhudaur_castle/0",
     "lotr_port:rhudaur_castle/1",

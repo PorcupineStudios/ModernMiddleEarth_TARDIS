@@ -196,6 +196,7 @@
 /assets/lotr_port/textures/block/angmar_crafting_table_side.png
 /assets/lotr_port/textures/block/angmar_crafting_table_top.png
 /assets/lotr_port/textures/block/apple_crumble_bottom.png
+/assets/lotr_port/textures/block/apple_crumble_inner.png
 /assets/lotr_port/textures/block/apple_crumble_side.png
 /assets/lotr_port/textures/block/apple_crumble_top.png
 /assets/lotr_port/textures/block/arid_grass.png
@@ -203,6 +204,7 @@
 /assets/lotr_port/textures/block/athelas.png
 /assets/lotr_port/textures/block/banana_bottom.png
 /assets/lotr_port/textures/block/banana_cake_bottom.png
+/assets/lotr_port/textures/block/banana_cake_inner.png
 /assets/lotr_port/textures/block/banana_cake_side.png
 /assets/lotr_port/textures/block/banana_cake_top.png
 /assets/lotr_port/textures/block/banana_side.png
@@ -223,6 +225,7 @@
 /assets/lotr_port/textures/block/berry_bush_wildberry.png
 /assets/lotr_port/textures/block/berry_bush_wildberry_bare.png
 /assets/lotr_port/textures/block/berry_pie_bottom.png
+/assets/lotr_port/textures/block/berry_pie_inner.png
 /assets/lotr_port/textures/block/berry_pie_side.png
 /assets/lotr_port/textures/block/berry_pie_top.png
 /assets/lotr_port/textures/block/bird_cage_bronze_side.png
@@ -368,6 +371,7 @@
 /assets/lotr_port/textures/block/chandelier_uruk.png
 /assets/lotr_port/textures/block/chandelier_wood_elven.png
 /assets/lotr_port/textures/block/cherry_pie_bottom.png
+/assets/lotr_port/textures/block/cherry_pie_inner.png
 /assets/lotr_port/textures/block/cherry_pie_side.png
 /assets/lotr_port/textures/block/cherry_pie_top.png
 /assets/lotr_port/textures/block/clay_tile.png
@@ -397,6 +401,7 @@
 /assets/lotr_port/textures/block/dale_crafting_table_side.png
 /assets/lotr_port/textures/block/dale_crafting_table_top.png
 /assets/lotr_port/textures/block/dalish_pastry_bottom.png
+/assets/lotr_port/textures/block/dalish_pastry_inner.png
 /assets/lotr_port/textures/block/dalish_pastry_side.png
 /assets/lotr_port/textures/block/dalish_pastry_top.png
 /assets/lotr_port/textures/block/date_bottom.png
@@ -663,6 +668,7 @@
 /assets/lotr_port/textures/block/leek_2.png
 /assets/lotr_port/textures/block/leek_3.png
 /assets/lotr_port/textures/block/lemon_cake_bottom.png
+/assets/lotr_port/textures/block/lemon_cake_inner.png
 /assets/lotr_port/textures/block/lemon_cake_side.png
 /assets/lotr_port/textures/block/lemon_cake_top.png
 /assets/lotr_port/textures/block/lettuce_0.png
@@ -3801,6 +3807,7 @@
 /assets/lotr_port/textures/block/angmar_crafting_table_side.png.mcmeta
 /assets/lotr_port/textures/block/angmar_crafting_table_top.png.mcmeta
 /assets/lotr_port/textures/block/apple_crumble_bottom.png.mcmeta
+/assets/lotr_port/textures/block/apple_crumble_inner.png.mcmeta
 /assets/lotr_port/textures/block/apple_crumble_side.png.mcmeta
 /assets/lotr_port/textures/block/apple_crumble_top.png.mcmeta
 /assets/lotr_port/textures/block/arid_grass.png.mcmeta
@@ -3808,6 +3815,7 @@
 /assets/lotr_port/textures/block/athelas.png.mcmeta
 /assets/lotr_port/textures/block/banana_bottom.png.mcmeta
 /assets/lotr_port/textures/block/banana_cake_bottom.png.mcmeta
+/assets/lotr_port/textures/block/banana_cake_inner.png.mcmeta
 /assets/lotr_port/textures/block/banana_cake_side.png.mcmeta
 /assets/lotr_port/textures/block/banana_cake_top.png.mcmeta
 /assets/lotr_port/textures/block/banana_side.png.mcmeta
@@ -3828,6 +3836,7 @@
 /assets/lotr_port/textures/block/berry_bush_wildberry.png.mcmeta
 /assets/lotr_port/textures/block/berry_bush_wildberry_bare.png.mcmeta
 /assets/lotr_port/textures/block/berry_pie_bottom.png.mcmeta
+/assets/lotr_port/textures/block/berry_pie_inner.png.mcmeta
 /assets/lotr_port/textures/block/berry_pie_side.png.mcmeta
 /assets/lotr_port/textures/block/berry_pie_top.png.mcmeta
 /assets/lotr_port/textures/block/bird_cage_bronze_side.png.mcmeta
@@ -3973,6 +3982,7 @@
 /assets/lotr_port/textures/block/chandelier_uruk.png.mcmeta
 /assets/lotr_port/textures/block/chandelier_wood_elven.png.mcmeta
 /assets/lotr_port/textures/block/cherry_pie_bottom.png.mcmeta
+/assets/lotr_port/textures/block/cherry_pie_inner.png.mcmeta
 /assets/lotr_port/textures/block/cherry_pie_side.png.mcmeta
 /assets/lotr_port/textures/block/cherry_pie_top.png.mcmeta
 /assets/lotr_port/textures/block/clay_tile.png.mcmeta
@@ -4002,6 +4012,7 @@
 /assets/lotr_port/textures/block/dale_crafting_table_side.png.mcmeta
 /assets/lotr_port/textures/block/dale_crafting_table_top.png.mcmeta
 /assets/lotr_port/textures/block/dalish_pastry_bottom.png.mcmeta
+/assets/lotr_port/textures/block/dalish_pastry_inner.png.mcmeta
 /assets/lotr_port/textures/block/dalish_pastry_side.png.mcmeta
 /assets/lotr_port/textures/block/dalish_pastry_top.png.mcmeta
 /assets/lotr_port/textures/block/date_bottom.png.mcmeta
@@ -4268,6 +4279,7 @@
 /assets/lotr_port/textures/block/leek_2.png.mcmeta
 /assets/lotr_port/textures/block/leek_3.png.mcmeta
 /assets/lotr_port/textures/block/lemon_cake_bottom.png.mcmeta
+/assets/lotr_port/textures/block/lemon_cake_inner.png.mcmeta
 /assets/lotr_port/textures/block/lemon_cake_side.png.mcmeta
 /assets/lotr_port/textures/block/lemon_cake_top.png.mcmeta
 /assets/lotr_port/textures/block/lettuce_0.png.mcmeta

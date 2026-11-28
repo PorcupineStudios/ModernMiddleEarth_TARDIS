@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/hobbit_farm_2000",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:hobbit_farm/0",
     "lotr_port:hobbit_farm/1",

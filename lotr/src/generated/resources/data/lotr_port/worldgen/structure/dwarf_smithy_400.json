@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/dwarf_smithy_400",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:dwarf_smithy/0",
     "lotr_port:dwarf_smithy/1",

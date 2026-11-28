@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/angmar_hillman_village_2000",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:angmar_hillman_village/0",
     "lotr_port:angmar_hillman_village/1",

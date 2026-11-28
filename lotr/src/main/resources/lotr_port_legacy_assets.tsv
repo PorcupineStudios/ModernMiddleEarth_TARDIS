@@ -195,6 +195,7 @@ lotr_port/textures/block/alloy_forge_top.png	assets/lotr/textures/blocks/alloyFo
 lotr_port/textures/block/angmar_crafting_table_side.png	assets/lotr/textures/blocks/angmarCraftingTable_side.png
 lotr_port/textures/block/angmar_crafting_table_top.png	assets/lotr/textures/blocks/angmarCraftingTable_top.png
 lotr_port/textures/block/apple_crumble_bottom.png	assets/lotr/textures/blocks/appleCrumble_bottom.png
+lotr_port/textures/block/apple_crumble_inner.png	assets/lotr/textures/blocks/appleCrumble_inner.png
 lotr_port/textures/block/apple_crumble_side.png	assets/lotr/textures/blocks/appleCrumble_side.png
 lotr_port/textures/block/apple_crumble_top.png	assets/lotr/textures/blocks/appleCrumble_top.png
 lotr_port/textures/block/arid_grass.png	assets/lotr/textures/blocks/aridGrass.png
@@ -202,6 +203,7 @@ lotr_port/textures/block/asphodel.png	assets/lotr/textures/blocks/asphodel.png
 lotr_port/textures/block/athelas.png	assets/lotr/textures/blocks/athelas.png
 lotr_port/textures/block/banana_bottom.png	assets/lotr/textures/blocks/banana_bottom.png
 lotr_port/textures/block/banana_cake_bottom.png	assets/lotr/textures/blocks/bananaCake_bottom.png
+lotr_port/textures/block/banana_cake_inner.png	assets/lotr/textures/blocks/bananaCake_inner.png
 lotr_port/textures/block/banana_cake_side.png	assets/lotr/textures/blocks/bananaCake_side.png
 lotr_port/textures/block/banana_cake_top.png	assets/lotr/textures/blocks/bananaCake_top.png
 lotr_port/textures/block/banana_side.png	assets/lotr/textures/blocks/banana_side.png
@@ -222,6 +224,7 @@ lotr_port/textures/block/berry_bush_raspberry_bare.png	assets/lotr/textures/bloc
 lotr_port/textures/block/berry_bush_wildberry.png	assets/lotr/textures/blocks/berryBush_wildberry.png
 lotr_port/textures/block/berry_bush_wildberry_bare.png	assets/lotr/textures/blocks/berryBush_wildberry_bare.png
 lotr_port/textures/block/berry_pie_bottom.png	assets/lotr/textures/blocks/berryPie_bottom.png
+lotr_port/textures/block/berry_pie_inner.png	assets/lotr/textures/blocks/berryPie_inner.png
 lotr_port/textures/block/berry_pie_side.png	assets/lotr/textures/blocks/berryPie_side.png
 lotr_port/textures/block/berry_pie_top.png	assets/lotr/textures/blocks/berryPie_top.png
 lotr_port/textures/block/bird_cage_bronze_side.png	assets/lotr/textures/blocks/birdCage_bronze_side.png
@@ -367,6 +370,7 @@ lotr_port/textures/block/chandelier_silver.png	assets/lotr/textures/blocks/chand
 lotr_port/textures/block/chandelier_uruk.png	assets/lotr/textures/blocks/chandelier_uruk.png
 lotr_port/textures/block/chandelier_wood_elven.png	assets/lotr/textures/blocks/chandelier_woodElven.png
 lotr_port/textures/block/cherry_pie_bottom.png	assets/lotr/textures/blocks/berryPie_bottom.png
+lotr_port/textures/block/cherry_pie_inner.png	assets/lotr/textures/blocks/cherryPie_inner.png
 lotr_port/textures/block/cherry_pie_side.png	assets/lotr/textures/blocks/cherryPie_side.png
 lotr_port/textures/block/cherry_pie_top.png	assets/lotr/textures/blocks/cherryPie_top.png
 lotr_port/textures/block/clay_tile.png	assets/lotr/textures/blocks/clayTile.png
@@ -396,6 +400,7 @@ lotr_port/textures/block/corrupt_mallorn.png	assets/lotr/textures/blocks/corrupt
 lotr_port/textures/block/dale_crafting_table_side.png	assets/lotr/textures/blocks/daleCraftingTable_side.png
 lotr_port/textures/block/dale_crafting_table_top.png	assets/lotr/textures/blocks/daleCraftingTable_top.png
 lotr_port/textures/block/dalish_pastry_bottom.png	assets/lotr/textures/blocks/dalishPastry_bottom.png
+lotr_port/textures/block/dalish_pastry_inner.png	assets/lotr/textures/blocks/dalishPastry_inner.png
 lotr_port/textures/block/dalish_pastry_side.png	assets/lotr/textures/blocks/dalishPastry_side.png
 lotr_port/textures/block/dalish_pastry_top.png	assets/lotr/textures/blocks/dalishPastry_top.png
 lotr_port/textures/block/date_bottom.png	assets/lotr/textures/blocks/date_bottom.png
@@ -662,6 +667,7 @@ lotr_port/textures/block/leek_1.png	assets/lotr/textures/blocks/leek_1.png
 lotr_port/textures/block/leek_2.png	assets/lotr/textures/blocks/leek_2.png
 lotr_port/textures/block/leek_3.png	assets/lotr/textures/blocks/leek_3.png
 lotr_port/textures/block/lemon_cake_bottom.png	assets/lotr/textures/blocks/lemonCake_bottom.png
+lotr_port/textures/block/lemon_cake_inner.png	assets/lotr/textures/blocks/lemonCake_inner.png
 lotr_port/textures/block/lemon_cake_side.png	assets/lotr/textures/blocks/lemonCake_side.png
 lotr_port/textures/block/lemon_cake_top.png	assets/lotr/textures/blocks/lemonCake_top.png
 lotr_port/textures/block/lettuce_0.png	assets/lotr/textures/blocks/lettuce_0.png

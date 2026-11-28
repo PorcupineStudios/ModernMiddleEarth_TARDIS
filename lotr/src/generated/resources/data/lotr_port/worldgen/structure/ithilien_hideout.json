@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/ithilien_hideout",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:ithilien_hideout/0",
     "lotr_port:ithilien_hideout/1",

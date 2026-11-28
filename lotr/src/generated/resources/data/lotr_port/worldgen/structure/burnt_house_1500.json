@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/burnt_house_1500",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:burnt_house/0",
     "lotr_port:burnt_house/1",

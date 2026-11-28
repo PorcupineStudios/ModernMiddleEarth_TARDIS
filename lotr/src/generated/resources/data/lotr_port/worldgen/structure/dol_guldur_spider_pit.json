@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/dol_guldur_spider_pit",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:dol_guldur_spider_pit/0",
     "lotr_port:dol_guldur_spider_pit/1",

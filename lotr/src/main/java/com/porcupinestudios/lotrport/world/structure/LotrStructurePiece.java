@@ -34,9 +34,11 @@ public final class LotrStructurePiece extends TemplateStructurePiece {
     private static final int SOIL_DEPTH = 4;
     private final int ground;
     private final int maxFoundation;
+    /** The template's air in world positions, set at the start of each {@link #postProcess}. */
+    private it.unimi.dsi.fastutil.longs.LongSet cleared = it.unimi.dsi.fastutil.longs.LongSets.EMPTY_SET;
 
-    LotrStructurePiece(StructureTemplateManager manager, ResourceLocation id, BlockPos middle, Rotation rotation,
-            int ground, int maxFoundation) {
+    public LotrStructurePiece(StructureTemplateManager manager, ResourceLocation id, BlockPos middle,
+            Rotation rotation, int ground, int maxFoundation) {
         super(LotrStructures.PIECE.get(), 0, manager, id, id.toString(), settings(manager, id, rotation),
                 corner(manager, id, middle));
         this.ground = ground;
@@ -70,6 +72,21 @@ public final class LotrStructurePiece extends TemplateStructurePiece {
         tag.putInt("MaxFoundation", maxFoundation);
     }
 
+    /**
+     * The box from just over the ground layer up: what terrain adaptation (beard_thin, the Beardifier) takes for the
+     * piece, whose ground it takes as the box's bottom, so the hill round the building is carved down to the ground
+     * layer and the ground under its edges built up (#92: on hills, cliffs and dirt walls round a flat pad). With the
+     * whole template's box the cellar's floor was taken for the ground: a ditch round the building, or the building
+     * left floating (2026-11-04). Placement keeps the whole template (the {@code boundingBox} field).
+     */
+    @Override
+    public BoundingBox getBoundingBox() {
+        BoundingBox all = boundingBox;
+        int above = templatePosition.getY() + ground + 1;
+        return above <= all.minY() || above > all.maxY() ? all
+                : new BoundingBox(all.minX(), above, all.minZ(), all.maxX(), all.maxY(), all.maxZ());
+    }
+
     @Override
     protected void handleDataMarker(String name, BlockPos pos, ServerLevelAccessor level, RandomSource random,
             BoundingBox box) {
@@ -80,13 +97,19 @@ public final class LotrStructurePiece extends TemplateStructurePiece {
     public void postProcess(WorldGenLevel level, StructureManager structures, ChunkGenerator generator,
             RandomSource random, BoundingBox box, ChunkPos chunk, BlockPos pivot) {
         super.postProcess(level, structures, generator, random, box, chunk, pivot);
+        // the template's own air is space LOTR cleared (cellars, stairwells, rooms): foundations never fill it
+        // (2026-11-27, #91: the Hobbit inn's cellar was filled with dirt through its stairwell)
+        cleared = new it.unimi.dsi.fastutil.longs.LongOpenHashSet();
+        for (var info : template.filterBlocks(templatePosition, placeSettings, Blocks.AIR)) {
+            cleared.add(info.pos().asLong());
+        }
         int y = templatePosition.getY() + ground;
-        BoundingBox mine = getBoundingBox();
+        BoundingBox mine = boundingBox; // the whole template, cellars too
         BlockPos.MutableBlockPos at = new BlockPos.MutableBlockPos();
         for (int x = Math.max(mine.minX(), box.minX()); x <= Math.min(mine.maxX(), box.maxX()); x++) {
             for (int z = Math.max(mine.minZ(), box.minZ()); z <= Math.min(mine.maxZ(), box.maxZ()); z++) {
                 BlockState top = level.getBlockState(at.set(x, y, z));
-                if (top.isAir() && levelGround(level, at, x, y, z)) {
+                if (top.isAir() && (cleared.contains(at.asLong()) || levelGround(level, at, x, y, z))) {
                     continue;
                 }
                 // paths and farmland (porches, garden beds) aren't full blocks but stand on dirt all the same
@@ -97,7 +120,7 @@ public final class LotrStructurePiece extends TemplateStructurePiece {
                 BlockState fill = soil || top.is(BlockTags.DIRT) ? Blocks.DIRT.defaultBlockState() : top;
                 for (int d = 1; d <= maxFoundation && y - d > level.getMinBuildHeight(); d++) {
                     BlockState below = level.getBlockState(at.set(x, y - d, z));
-                    if (!open(below)) {
+                    if (!open(below) || cleared.contains(at.asLong())) {
                         break;
                     }
                     // ground scans don't see caves, so a cave mouth under the footprint can be deep: dirt for the
@@ -118,7 +141,7 @@ public final class LotrStructurePiece extends TemplateStructurePiece {
     private boolean levelGround(WorldGenLevel level, BlockPos.MutableBlockPos at, int x, int y, int z) {
         int depth = 1;
         while (depth <= maxFoundation && y - depth > level.getMinBuildHeight()
-                && open(level.getBlockState(at.set(x, y - depth, z)))) {
+                && open(level.getBlockState(at.set(x, y - depth, z))) && !cleared.contains(at.asLong())) {
             depth++;
         }
         if (depth == 1 || depth > maxFoundation) {

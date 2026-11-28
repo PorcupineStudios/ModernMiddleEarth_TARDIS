@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/rotten_house_100",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:rotten_house/0",
     "lotr_port:rotten_house/1",

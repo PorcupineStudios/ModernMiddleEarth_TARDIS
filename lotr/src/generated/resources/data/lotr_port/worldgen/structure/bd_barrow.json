@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/bd_barrow",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:bd_barrow/0",
     "lotr_port:bd_barrow/1",

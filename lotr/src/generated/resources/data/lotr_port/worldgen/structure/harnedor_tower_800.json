@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/harnedor_tower_800",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:harnedor_tower/0",
     "lotr_port:harnedor_tower/1",
