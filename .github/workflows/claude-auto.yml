@@ -1,6 +1,6 @@
 name: Claude (scheduled)
 
-# Works the issue list without anyone labelling or waking Claude (Aaron 2026-11-28): every 4 hours it picks one open
+# Works the issue list without anyone labelling or waking Claude (Aaron 2026-11-28): every 30 minutes it picks one open
 # issue and runs Claude Code on it, which fixes it on a claude/ branch and opens a PR for review (never merges).
 # Picked first: in-game bug reports labelled `valid`, then every other issue, oldest first. Skipped: issues labelled
 # `claude` (already handed over by hand, claude.yml) or `claude-tried` (picked before; this run adds it, so each issue
@@ -9,10 +9,13 @@ name: Claude (scheduled)
 # token, so their text could carry instructions; the relay labels a report `valid` only when it was sent with the
 # admin key, and Aaron adds `valid` by hand to a player's report he has read.
 # "Run workflow" in the Actions tab runs it now, optionally on a given issue. Each run first reads the plan's usage
-# and skips the scheduled pick when it's near the limit (the usage step below).
+# and starts nothing while it's at the limit, so the schedule pauses itself and picks up again after the reset (the
+# usage step below). To switch it off: Actions > Claude (scheduled) > Disable workflow (or gh workflow disable).
+# While a run works an issue (up to 90 min), at most one more waits in the concurrency group; later ones are dropped.
 on:
   schedule:
-    - cron: '17 */4 * * *'
+    # 7 and 37 past, away from the top of the hour when GitHub's scheduler runs late
+    - cron: '7,37 * * * *'
   workflow_dispatch:
     inputs:
       issue:
@@ -34,38 +37,54 @@ jobs:
     outputs:
       issue: ${{ steps.pick.outputs.issue }}
     steps:
-      # Plan usage from Claude Code's usage endpoint (undocumented, the one /usage reads; Aaron 2026-11-28): a scheduled
-      # run doesn't start an issue once the 5-hour window is at CLAUDE_MAX_5H % (default 80) or the week at
-      # CLAUDE_MAX_7D % (default 90), repository variables. A run started by hand with an issue number always goes ahead.
-      # If the endpoint can't be read (it may change or refuse this token), the run goes ahead and says so.
+      # Plan usage, read from Claude Code itself (Aaron 2026-11-28): one tiny Haiku prompt (about $0.0015) in
+      # stream-json mode, whose rate_limit_event gives each window's use (unifiedWindows.five_hour / seven_day,
+      # utilization 0-1, resetsAt in Unix seconds; undocumented, seen in CI 2026-11-28). A scheduled run starts no issue
+      # while either window is at CLAUDE_MAX_USAGE % (repository variable, default 90) or the plan refuses; if the
+      # window that blocks it resets within CLAUDE_WAIT_MINUTES (default 25), it waits for the reset instead. A run
+      # started by hand with an issue number always goes ahead. If no event comes back, the run goes ahead and says so.
       - id: usage
         env:
-          TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          MAX_5H: ${{ vars.CLAUDE_MAX_5H || '80' }}
-          MAX_7D: ${{ vars.CLAUDE_MAX_7D || '90' }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          MAX: ${{ vars.CLAUDE_MAX_USAGE || '90' }}
+          WAIT_MINUTES: ${{ vars.CLAUDE_WAIT_MINUTES || '25' }}
           GIVEN: ${{ inputs.issue }}
         run: |
           npm install -g --silent @anthropic-ai/claude-code
-          claude --version
-          CLAUDE_CODE_OAUTH_TOKEN="$TOKEN" claude -p "Reply with the word OK." --model haiku --max-turns 1 \
-            --output-format stream-json --verbose > probe.jsonl 2> probe.err || echo "claude exited $?"
-          echo "--- event types:"; jq -r '.type + (if .subtype then "/" + .subtype else "" end)' probe.jsonl | sort | uniq -c
-          echo "--- rate limit events:"; jq -c 'select(.type == "rate_limit_event")' probe.jsonl
-          echo "--- result:"; jq -c 'select(.type == "result") | {is_error, total_cost_usd, usage, result}' probe.jsonl
-          head -c 500 probe.err
+          claude -p "Reply with the word OK." --model haiku --max-turns 1 --output-format stream-json --verbose \
+            > probe.jsonl 2> probe.err || echo "the usage probe exited $?: $(head -c 300 probe.err)"
+          info=$(jq -c 'select(.type == "rate_limit_event") | .rate_limit_info' probe.jsonl 2>/dev/null | tail -n 1)
           ok=true
-          code=$(curl -sS --max-time 20 -o usage.json -w '%{http_code}' https://api.anthropic.com/api/oauth/usage \
-            -H "Authorization: Bearer $TOKEN" -H "anthropic-beta: oauth-2025-04-20") || code=000
-          if [ "$code" != 200 ] || ! jq -e 'type == "object"' usage.json > /dev/null 2>&1; then
-            echo "::warning::Couldn't read plan usage (HTTP $code), so this run doesn't check it: $(head -c 300 usage.json 2>/dev/null)"
+          if [ -z "$info" ]; then
+            echo "::warning::Claude Code reported no usage, so this run doesn't check it."
           else
-            IFS=$'\t' read -r h5 r5 d7 r7 < <(jq -r '[(.five_hour.utilization // 0), (.five_hour.resets_at // "-"),
-              (.seven_day.utilization // 0), (.seven_day.resets_at // "-")] | @tsv' usage.json)
-            line="Plan usage: 5-hour $h5% (resets $r5), week $d7% (resets $r7); limits $MAX_5H% / $MAX_7D%"
+            # one line per window: name, percent used, reset (Unix seconds), status; the top-level window if there
+            # are no unifiedWindows (older Claude Code)
+            jq -r '(.unifiedWindows // {(.rateLimitType // "plan"): .}) | to_entries[]
+              | [.key, ((.value.utilization // 0) * 100 | floor), (.value.resetsAt // 0), (.value.status // "")] | @tsv' \
+              <<< "$info" > windows.tsv
+            status=$(jq -r '.status // ""' <<< "$info")
+            now=$(date +%s); until=0; line="Plan usage (limit $MAX%):"
+            while IFS=$'\t' read -r name pct reset wstatus; do
+              at="?"; [ "$reset" -gt 0 ] && at=$(date -u -d "@$reset" '+%a %d %b %H:%M UTC')
+              line="$line $name $pct% (resets $at);"
+              if [ "$pct" -ge "$MAX" ] || [ "$wstatus" = rejected ]; then [ "$reset" -gt "$until" ] && until=$reset; fi
+            done < windows.tsv
+            if [ "$status" = rejected ] && [ "$until" -eq 0 ]; then until=$(jq -r '.resetsAt // 0' <<< "$info"); fi
             echo "$line"; echo "$line" >> "$GITHUB_STEP_SUMMARY"
-            if awk -v a="$h5" -v b="$MAX_5H" -v c="$d7" -v d="$MAX_7D" 'BEGIN { exit !(a >= b || c >= d) }'; then
-              if [ -n "$GIVEN" ]; then echo "Over the limit, but started by hand on #$GIVEN: going ahead."
-              else ok=false; echo "::notice::Over the usage limit: no issue this run."; fi
+            if [ "$until" -gt 0 ] || [ "$status" = rejected ]; then
+              wait=$(( until - now + 60 ))
+              if [ -n "$GIVEN" ]; then
+                echo "Over the limit, but started by hand on #$GIVEN: going ahead."
+              elif [ "$until" -gt 0 ] && [ "$wait" -le $(( WAIT_MINUTES * 60 )) ]; then
+                echo "Over the limit until $(date -u -d "@$until" '+%H:%M UTC'): waiting $(( wait / 60 + 1 )) min for the reset."
+                [ "$wait" -gt 0 ] && sleep "$wait"
+              else
+                ok=false
+                when="the plan resets"; [ "$until" -gt 0 ] && when=$(date -u -d "@$until" '+%a %d %b %H:%M UTC')
+                msg="Over the limit: no issue until $when; runs resume by themselves after that."
+                echo "::notice::$msg"; echo "$msg" >> "$GITHUB_STEP_SUMMARY"
+              fi
             fi
           fi
           echo "ok=$ok" >> "$GITHUB_OUTPUT"
