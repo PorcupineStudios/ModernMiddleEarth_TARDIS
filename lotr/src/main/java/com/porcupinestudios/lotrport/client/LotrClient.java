@@ -149,6 +149,7 @@ public final class LotrClient {
     @SubscribeEvent
     public static void geometry(ModelEvent.RegisterGeometryLoaders event) {
         event.register(LotrPort.id("connected"), ConnectedModel.LOADER);
+        event.register(LotrPort.id("petals"), PetalsModel.LOADER); // clovers: petals 360/n degrees apart
     }
 
     @SubscribeEvent
