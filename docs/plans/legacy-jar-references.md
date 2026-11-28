@@ -2,7 +2,7 @@
 
 Goal: the port and this public repo carry none of The Lord of the Rings Mod's own files. Everything that is LOTR's
 work is read at run time from the 1.7.10 jar the player (or server) puts in `mods/`, as a CurseForge modpack lists
-it from its own page. How it works today: `lotr/CLAUDE.md`, "LOTR's own files come from the player's LOTR jar".
+it from its own page. How it works today: `lotr/docs/legacy-jar.md`.
 
 ## Where it stands (measured 2026-11-27)
 

@@ -181,7 +181,7 @@ exactly like the Front Porch but are safe; the deep falls into Gollum's watery c
 - **Who lives there** (`delve_spawns/goblin_town.json`, `goblin_towns.json`; `DelveSpawns` with zones): each piece
   has a zone (`town`, `throne`, `porch`, `landing`, `tunnels`, `gollum_lake`, `back_door`) and an entry spawns only
   in its `zone` (empty = anywhere in the delve). Goblin Town is lit, so its entries have `dark` false. Goblins and
-  goblin archers (faction `lotr_port:goblins`, 2026-11-26, see `lotr/CLAUDE.md` Goblins) in the town, at the landing,
+  goblin archers (faction `lotr_port:goblins`, 2026-11-26, see `lotr/docs/delves-and-goblins.md`, Goblins) in the town, at the landing,
   in the tunnels and at the back door; the **Great Goblin** (`npc/great_goblin.json`: the goblin body at scale 1.7,
   crowned skin, health 160, battleaxe or warhammer) only at the throne, chance 0.25, one at a time; **Gollum** only
   by his lake, in the dark, chance 0.2, one at a time. GameTest `goblinSpawnsByZone`.
