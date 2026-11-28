@@ -68,8 +68,9 @@ the topic file (or a new file listed here), never into this one. All in `lotr/do
 ## Build
 From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer`, `:lotr:runGameTestServer`,
 `:lotr:runData`. Shared rules are in the root `CLAUDE.md`.
-- GameTests (2026-11-18): ~136 in `gametest/`; CI's "Middle-earth world" step (`WorldCheck`, real chunks across the
-  biomes) runs only when all pass. Most use template `lotr_port:empty`, which is 16x4x16 so the runner spaces tests
+- GameTests (2026-11-18): ~136 in `gametest/`; CI's "middle-earth-world" job (`WorldCheck`, real chunks across the
+  biomes) runs beside them since 2026-11-28, and only when the change touches `lotr/`, `api/`, `converter/` or the
+  Gradle setup (always on main and by hand: `.github/workflows/build.yml`). Most use template `lotr_port:empty`, which is 16x4x16 so the runner spaces tests
   apart (at 1x1x1 neighbouring creature tests' animals ran into each other). Tests that need entities to tick wrap
   their body in `ThrownTests.inLoadedArea` (forced chunks). Timing tests (`fiftyColoniesRunTenDaysWithinTheBudget`,
   median of 10 days, each against a reference job timed beside it) can still miss on a slow runner; re-run the job. An entity that walks out of

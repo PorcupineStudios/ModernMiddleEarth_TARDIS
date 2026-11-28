@@ -1,52 +1,130 @@
 name: Build
 
+# One job builds; the GameTests and world checks then run side by side on their own runners (2026-11-28: one job in a
+# row took 16-20 min, the Middle-earth world check alone 10-13). Each test job compiles again from the Gradle cache
+# (about a minute), which is still far less than waiting for the others.
 on:
   push:
     branches: ['**']
+  # only for pull requests from forks: a branch of this repo is already built by its push, and GitHub shows those
+  # checks on the PR (both ran on every commit before 2026-11-28)
   pull_request:
   # "Run workflow" in the Actions tab builds any branch by hand (GitHub creates no push events when more than three
   # branches are pushed at once)
   workflow_dispatch:
 
+# a newer push to the same branch cancels the older run, except on main (its runs make the rolling test build)
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 jobs:
   build:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    outputs:
+      middle_earth: ${{ steps.changes.outputs.middle_earth }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: No LOTR files in git
         # We have no rights to LOTR's files (lotr/CLAUDE.md): the ones the port reads from the player's LOTR jar are
         # gitignored (lotr/src/generated/resources/.gitignore, written by converter/LegacyAssetMap.java).
         run: |
           tracked="$(git ls-files -ci --exclude-standard)"
           if [ -n "$tracked" ]; then echo "::error::Tracked files that must not be committed:"; echo "$tracked" | head -50; exit 1; fi
+      - name: Does the Middle-earth world check need to run?
+        # Only what the Middle-earth world is made from: lotr, api, converter, the Gradle setup, this file. Always on
+        # main, by hand, on a new branch, and when the diff can't be read (a force push).
+        id: changes
+        env:
+          BEFORE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          run=true
+          if [ "$GITHUB_EVENT_NAME" != workflow_dispatch ] && [ "$GITHUB_REF" != refs/heads/main ] \
+              && [ -n "$BEFORE" ] && [ "$BEFORE" != 0000000000000000000000000000000000000000 ] \
+              && changed="$(git diff --name-only "$BEFORE" "$GITHUB_SHA" 2>/dev/null)"; then
+            echo "$changed"
+            echo "$changed" | grep -qE '^(lotr|api|converter|gradle)/|^[^/]*\.gradle$|^gradle\.properties$|^\.github/workflows/build\.yml$' || run=false
+          fi
+          echo "Middle-earth world check: $run"
+          echo "middle_earth=$run" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
       - run: ./gradlew build --stacktrace
+      # upload the jars for play-testing even when a GameTest fails
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jars
+          path: "*/build/libs/*.jar"
+      # Other mods' jars are never uploaded or released from this public repo: the release notes list the versions the
+      # build used, to download from Modrinth.
+      - name: Mods the TARDIS needs (versions only)
+        run: |
+          : > needed-mods.txt
+          for m in create immersive-portals-neoforge cloth-config jade create-aeronautics sable; do
+            find ~/.gradle/caches/modules-2/files-2.1/maven.modrinth/$m -name "*.jar" ! -name "*-sources.jar" \
+              -printf "- %f (https://modrinth.com/mod/$m)\n" >> needed-mods.txt
+          done
+          cat needed-mods.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: needed-mods
+          path: needed-mods.txt
+
+  gametests:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - mod: lotr
+          - mod: tardis
+          # A horse pulling a real Aeronautics wagon on flat, uphill, downhill and side slopes, turning; the
+          # measurements are in the log ([harness-metrics]) and in harness/run/harness-metrics/; -PwithLotr adds the
+          # LOTR animals
+          - mod: harness
+            args: -PwithLotr
+    name: GameTests (${{ matrix.mod }})
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
       - name: GameTests
         # The game test server can exit 0 after a mod loading crash, so the log has to say the tests passed.
+        env:
+          MOD: ${{ matrix.mod }}
+          ARGS: ${{ matrix.args }}
         run: |
-          ./gradlew :lotr:runGameTestServer --stacktrace 2>&1 | tee gametest.log
+          # shellcheck disable=SC2086 # ARGS is empty or one flag
+          ./gradlew ":$MOD:runGameTestServer" $ARGS --stacktrace 2>&1 | tee gametest.log
+          grep "harness-metrics" gametest.log || true
           grep -E "All [0-9]+ required tests passed" gametest.log
-      - name: TARDIS GameTests
-        run: |
-          ./gradlew :tardis:runGameTestServer --stacktrace 2>&1 | tee tardis-gametest.log
-          grep -E "All [0-9]+ required tests passed" tardis-gametest.log
-      - name: Harness GameTests
-        # A horse pulling a real Aeronautics wagon on flat, uphill, downhill and side slopes, turning; the measurements
-        # are in the log ([harness-metrics]) and in harness/run/harness-metrics/; -PwithLotr adds the LOTR animals
-        run: |
-          ./gradlew :harness:runGameTestServer -PwithLotr --stacktrace 2>&1 | tee harness-gametest.log
-          grep "harness-metrics" harness-gametest.log || true
-          grep -E "All [0-9]+ required tests passed" harness-gametest.log
+
+  middle-earth-world:
+    needs: build
+    if: needs.build.outputs.middle_earth == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
       - name: Middle-earth world
         # A new world of the Middle-earth world type on a dedicated server: WorldCheck logs the spawn and stops it.
-        # It generates ~160 far-apart chunks plus two structures in one tick: watchdog off (max-tick-time=-1), 10 GB heap
-        # (6 GB ran out saving them once the world went up to y 640, 2026-11-15; runners have 16 GB).
+        # It generates ~200 far-apart chunks (side by side since 2026-11-28) plus structures in one tick: watchdog off
+        # (max-tick-time=-1), 10 GB heap (6 GB ran out saving them once the world went up to y 640, 2026-11-15;
+        # runners have 16 GB).
         timeout-minutes: 15
         run: |
           mkdir -p lotr/run
@@ -89,6 +167,17 @@ jobs:
             plant_compare.json
             plant_compare.txt
             plantcensus.log
+
+  tardis-world:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
       - name: TARDIS world
         # A dedicated server: the crash site, its police box, and its interior in the interior dimension.
         timeout-minutes: 10
@@ -99,28 +188,26 @@ jobs:
           JAVA_TOOL_OPTIONS="-Dtardis_rb.worldcheck=true" ./gradlew :tardis:runServer --stacktrace 2>&1 | tee tardis-world.log
           grep -E "\\[worldcheck\\]|WORLDCHECK|crash site" tardis-world.log
           grep "TARDIS WORLDCHECK PASSED" tardis-world.log
-      # Merge branch only (2026-11-25): upload the jars for play-testing even when a GameTest fails
-      # (RoadWorksTests.stretchPavesNaturalGroundOnly already failed on claude/eager-curie-9d4c86). Drop before main.
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+
+  release:
+    needs: [build, gametests, middle-earth-world, tardis-world]
+    if: ${{ !cancelled() && needs.build.result == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
         with:
           name: jars
-          path: "*/build/libs/*.jar"
-      # Other mods' jars are never uploaded or released from this public repo: the release notes list the versions the
-      # build used, to download from Modrinth.
-      - name: Mods the TARDIS needs (versions only)
-        run: |
-          : > needed-mods.txt
-          for m in create immersive-portals-neoforge cloth-config jade create-aeronautics sable; do
-            find ~/.gradle/caches/modules-2/files-2.1/maven.modrinth/$m -name "*.jar" ! -name "*-sources.jar" \
-              -printf "- %f (https://modrinth.com/mod/$m)\n" >> needed-mods.txt
-          done
-          cat needed-mods.txt
-      # Merge branch only (2026-11-25, Aaron approved): its own pre-release, even with a failing GameTest. Drop before main.
+      - uses: actions/download-artifact@v4
+        with:
+          name: needed-mods
+      # Merge branch only (2026-11-25, Aaron approved): its own pre-release, even with a failing GameTest.
       - name: Merge pre-release
-        if: ${{ !cancelled() && github.ref_name == 'claude/merged-2026-11-25' }}
+        if: github.ref_name == 'claude/merged-2026-11-25'
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
           mkdir -p merge-build
           cp api/build/libs/*.jar tardis/build/libs/*.jar lotr/build/libs/*.jar harness/build/libs/*.jar merge-build/
@@ -128,10 +215,14 @@ jobs:
           gh release delete merged-2026-11-25 -y --cleanup-tag || true
           gh release create merged-2026-11-25 merge-build/*.jar --prerelease --target "${{ github.sha }}" \
             --title "Merge build 2026-11-25" --notes "Play-test build of claude/merged-2026-11-25 at ${GITHUB_SHA}. Known failing GameTests: RoadWorksTests.stretchPavesNaturalGroundOnly (from eager-curie), and the colony perf budget is flaky."
+      # only a green build: every test job passed (the Middle-earth world check may be skipped)
       - name: Rolling test build (a pre-release with our jars; other mods are listed, not attached)
-        if: github.event_name == 'push'
+        if: >-
+          github.event_name == 'push' && needs.gametests.result == 'success' && needs.tardis-world.result == 'success'
+          && contains(fromJSON('["success", "skipped"]'), needs.middle-earth-world.result)
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
           mkdir -p test-build
           cp api/build/libs/*.jar tardis/build/libs/*.jar lotr/build/libs/*.jar harness/build/libs/*.jar test-build/
