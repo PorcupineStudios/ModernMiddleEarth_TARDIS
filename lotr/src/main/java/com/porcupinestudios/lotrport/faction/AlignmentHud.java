@@ -71,6 +71,23 @@ public final class AlignmentHud {
         }
     }
 
+    /** Sends LOTR's floating alignment pop-up for {@code changes} (faction to amount) at {@code at}; returns it. */
+    public static HudNet.AlignmentBonus popup(ServerPlayer player, net.minecraft.world.phys.Vec3 at, Component source,
+            java.util.Map<ResourceLocation, Float> changes) {
+        List<HudNet.Bonus> bonuses = new java.util.ArrayList<>();
+        changes.forEach((id, amount) -> {
+            if (amount != 0) {
+                Factions.get(player.server, id).ifPresent(f -> bonuses.add(new HudNet.Bonus(f.name(), f.color(),
+                        amount)));
+            }
+        });
+        HudNet.AlignmentBonus bonus = new HudNet.AlignmentBonus(at.x, at.y, at.z, source, bonuses);
+        if (!bonuses.isEmpty() && player.connection != null && player.connection.hasChannel(bonus)) {
+            PacketDistributor.sendToPlayer(player, bonus);
+        }
+        return bonus;
+    }
+
     public static HudNet.AlignmentBar bar(ServerPlayer player) {
         Optional<Faction> watched = watched(player);
         if (watched.isEmpty()) {

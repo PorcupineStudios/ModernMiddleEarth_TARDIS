@@ -48,6 +48,39 @@ public final class LotrConfig {
                     "poisoned it (LOTR: only the poisoner)")
             .define("drinks.poisonShownToAll", false);
 
+    public static final ModConfigSpec.IntValue DAY_LENGTH = BUILDER
+            .comment("Ticks in a Middle-earth day (LOTR: 48000, twice vanilla's 24000). Only when Middle-earth is the",
+                    "world type: as a dimension it shares the overworld's clock. /lotr time reads and sets the time.")
+            .defineInRange("time.dayLength", 48000, 1200, 1_000_000);
+
+    public static final ModConfigSpec.DoubleValue NPC_SPAWN_DAMPING = BUILDER
+            .comment("LOTR's spawn damping for NPCs: each extra player near a player cuts how many NPCs may be around",
+                    "them by this share (at most 0.5 + this / 2 in all). 0 = off, as LOTR's default.",
+                    "/lotr spawndamping shows and sets it.")
+            .defineInRange("npc.spawnDamping", 0.0, 0.0, 1.0);
+
+    public static final ModConfigSpec.DoubleValue ANIMAL_SPAWN_DAMPING = BUILDER
+            .comment("The same for LOTR's animals.")
+            .defineInRange("npc.animalSpawnDamping", 0.0, 0.0, 1.0);
+
+    public static final ModConfigSpec.BooleanValue LOTR_RESPAWN = BUILDER
+            .comment("LOTR's respawning after a death in Middle-earth: at your bed if it is within respawn.bedRange of",
+                    "where you died; else at the world spawn if that is within respawn.spawnRange; else somewhere",
+                    "between respawn.randomMin and respawn.randomMax blocks from where you died.")
+            .define("respawn.lotrRules", true);
+
+    public static final ModConfigSpec.IntValue RESPAWN_BED_RANGE = BUILDER
+            .defineInRange("respawn.bedRange", 5000, 0, 1_000_000);
+
+    public static final ModConfigSpec.IntValue RESPAWN_SPAWN_RANGE = BUILDER
+            .defineInRange("respawn.spawnRange", 2000, 0, 1_000_000);
+
+    public static final ModConfigSpec.IntValue RESPAWN_RANDOM_MIN = BUILDER
+            .defineInRange("respawn.randomMin", 500, 0, 100_000);
+
+    public static final ModConfigSpec.IntValue RESPAWN_RANDOM_MAX = BUILDER
+            .defineInRange("respawn.randomMax", 1500, 1, 100_000);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 
     private LotrConfig() {}

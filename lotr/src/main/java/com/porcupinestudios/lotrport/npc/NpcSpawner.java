@@ -57,6 +57,40 @@ public final class NpcSpawner {
         return trySpawn(level, player, table, NpcSpawns::forBiome);
     }
 
+    /**
+     * LOTR's spawn damping (LOTRSpawnDamping): with {@code players} players together, each one past the first cuts the
+     * cap by {@code damping}, by at most {@code 0.5 + damping / 2} in all; never below 1.
+     */
+    public static int dampedCap(int cap, int players, double damping) {
+        double cut = Math.min(Math.max(0, Math.min(1, (players - 1) * damping)), 0.5 + damping / 2);
+        return Math.max(1, (int) Math.round(cap * (1 - cut)));
+    }
+
+    /** {@code /lotr spawndamping}: shows both values; {@code /lotr spawndamping npcs|animals <0..1>} sets one. */
+    public static com.mojang.brigadier.builder.LiteralArgumentBuilder<net.minecraft.commands.CommandSourceStack>
+            dampingNode() {
+        var node = net.minecraft.commands.Commands.literal("spawndamping").executes(ctx -> {
+            ctx.getSource().sendSuccess(() -> net.minecraft.network.chat.Component.literal("Spawn damping: npcs "
+                    + com.porcupinestudios.lotrport.LotrConfig.NPC_SPAWN_DAMPING.get() + ", animals "
+                    + com.porcupinestudios.lotrport.LotrConfig.ANIMAL_SPAWN_DAMPING.get()), false);
+            return 1;
+        });
+        for (String kind : new String[] {"npcs", "animals"}) {
+            var value = kind.equals("npcs") ? com.porcupinestudios.lotrport.LotrConfig.NPC_SPAWN_DAMPING
+                    : com.porcupinestudios.lotrport.LotrConfig.ANIMAL_SPAWN_DAMPING;
+            node.then(net.minecraft.commands.Commands.literal(kind).then(net.minecraft.commands.Commands.argument(
+                    "value", com.mojang.brigadier.arguments.DoubleArgumentType.doubleArg(0, 1)).executes(ctx -> {
+                        double d = com.mojang.brigadier.arguments.DoubleArgumentType.getDouble(ctx, "value");
+                        value.set(d);
+                        value.save();
+                        ctx.getSource().sendSuccess(() -> net.minecraft.network.chat.Component.literal(
+                                "Set " + kind + " spawn damping to " + d), true);
+                        return 1;
+                    })));
+        }
+        return node;
+    }
+
     /** One spawn attempt near the player; returns how many NPCs appeared. */
     public static int trySpawn(ServerLevel level, ServerPlayer player, NpcSpawns.Table table,
             Function<ResourceLocation, Optional<NpcSpawns.Table>> lookup) {
@@ -72,7 +106,10 @@ public final class NpcSpawner {
             // one creature cap did; counting only LOTR's own animals piled them on top of vanilla's
             present += level.getEntitiesOfClass(net.minecraft.world.entity.animal.Animal.class, near).size();
         }
-        if (present >= table.cap()) {
+        int players = level.getEntitiesOfClass(ServerPlayer.class, near, p -> !p.isSpectator()).size();
+        double damping = (table.countOnlyAnimals() ? com.porcupinestudios.lotrport.LotrConfig.ANIMAL_SPAWN_DAMPING
+                : com.porcupinestudios.lotrport.LotrConfig.NPC_SPAWN_DAMPING).get();
+        if (present >= dampedCap(table.cap(), players, damping)) {
             return 0;
         }
         double angle = random.nextDouble() * Math.PI * 2;

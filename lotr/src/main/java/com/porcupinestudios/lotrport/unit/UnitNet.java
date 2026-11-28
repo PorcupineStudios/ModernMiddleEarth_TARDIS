@@ -37,12 +37,33 @@ public final class UnitNet {
     public static Consumer<UnitList> listHandler = list -> { };
 
     /** What a button asks for. */
-    public enum Kind { FOLLOW, GUARD, STAND, SQUAD, STATION, DISMISS }
+    public enum Kind { FOLLOW, GUARD, STAND, SQUAD, STATION, DISMISS, INVENTORY }
+
+    private static final net.neoforged.neoforge.registries.DeferredRegister<net.minecraft.world.inventory.MenuType<?>>
+            MENUS = net.neoforged.neoforge.registries.DeferredRegister.create(
+                    net.minecraft.core.registries.Registries.MENU, com.porcupinestudios.lotrport.LotrPort.MOD_ID);
+    public static final java.util.function.Supplier<net.minecraft.world.inventory.MenuType<UnitInventoryMenu>>
+            INVENTORY_MENU = MENUS.register("unit_inventory",
+                    () -> net.neoforged.neoforge.common.extensions.IMenuTypeExtension.create(UnitInventoryMenu::new));
 
     private UnitNet() {}
 
     public static void register(IEventBus modBus) {
+        MENUS.register(modBus);
         modBus.addListener(UnitNet::payloads);
+    }
+
+    /** Opens a unit's gear, if the player may command it and stands near it. */
+    public static boolean openInventory(ServerPlayer player, com.porcupinestudios.lotrport.npc.LotrNpc npc) {
+        if (!npc.isAlive() || player.distanceTo(npc) > UnitInventoryMenu.REACH || !Units.canCommand(player, npc)) {
+            player.displayClientMessage(net.minecraft.network.chat.Component.translatableWithFallback(
+                    "screen.lotr_port.units.too_far", "Stand next to the unit to change its gear"), true);
+            return false;
+        }
+        player.openMenu(new net.minecraft.world.SimpleMenuProvider(
+                (id, inv, p) -> new UnitInventoryMenu(id, inv, npc), npc.getDisplayName()),
+                buf -> buf.writeVarInt(npc.getId()));
+        return true;
     }
 
     private static void payloads(RegisterPayloadHandlersEvent event) {
@@ -99,6 +120,9 @@ public final class UnitNet {
                     Units.dismiss(player.server, p, "dismissed");
                 }
             }
+            case INVENTORY -> Units.body(player.server, p).ifPresentOrElse(npc -> openInventory(player, npc),
+                    () -> player.displayClientMessage(net.minecraft.network.chat.Component.translatableWithFallback(
+                            "screen.lotr_port.units.too_far", "Stand next to the unit to change its gear"), true));
             default -> { }
         }
 

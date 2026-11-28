@@ -67,3 +67,20 @@ _Part of the LOTR port's notes, moved here from `lotr/CLAUDE.md` on 2026-11-27 (
   draws any of these bodies; JUnit `RaceSkinRemapTest`, GameTest `RaceTests.ownSkinIsSyncedPerRace`.
   Armour: feet hide under boots and ears under helmets (`NpcModels.fitArmor`, NPCs too). Client config
   `race.ownSkins` turns the conversion off.
+
+## Pop-ups, spawn damping, unit gear, respawning, day length (2026-11-27)
+- Alignment pop-ups (#60): a kill (`FactionKills.killed`) or a finished quest sends `HudNet.AlignmentBonus` through
+  `AlignmentHud.popup`; `client/AlignmentPopups` draws the source's name and "+5 Gondor" per faction in its colour,
+  rising a block and fading over LOTR's 80 ticks.
+- Spawn damping (#20): `NpcSpawner.dampedCap` is LOTR's rule (each player past the first near you cuts the cap by the
+  damping, by at most 0.5 + damping / 2, never below 1). Config `npc.spawnDamping` and `npc.animalSpawnDamping`
+  (0 = off, LOTR's default); `/lotr spawndamping [npcs|animals <0..1>]` shows and sets them.
+- Hired unit gear (#61): the unit screen's Inventory button opens `unit/UnitInventoryMenu` (within 8 blocks, owner
+  only): armour and both hands, edited on the unit itself; what you give it always drops if it dies. No bomb slot:
+  the port has no orc bombs yet.
+- Respawning (`player/LotrRespawn`, config `respawn.*`): after a death in Middle-earth, your bed if within 5000 blocks
+  of where you died, else the world spawn if within 2000, else 500 to 1500 blocks from where you died.
+- Day length (#21): `progress/MiddleEarthTime`, config `time.dayLength` (48000, LOTR's) via NeoForge's
+  `setDayTimePerTick`, only when Middle-earth is the world type (as a dimension it shares the overworld's clock).
+  `/lotr time [set <ticks>]`. The calendar counts clock days, so it follows.
+- GameTests: `StoryTests`.

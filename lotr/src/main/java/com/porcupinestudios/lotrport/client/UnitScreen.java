@@ -103,6 +103,8 @@ public class UnitScreen extends Screen {
             }
             addRenderableWidget(Button.builder(Component.translatableWithFallback("screen.lotr_port.units.dismiss",
                     "Dismiss"), b -> send(UnitNet.Kind.DISMISS, "")).bounds(x, y + 104, 70, 20).build());
+            addRenderableWidget(Button.builder(Component.translatableWithFallback("screen.lotr_port.units.inventory",
+                    "Inventory"), b -> send(UnitNet.Kind.INVENTORY, "")).bounds(x + 74, y + 104, 70, 20).build());
         }
         addRenderableWidget(Button.builder(Component.translatableWithFallback("gui.done", "Done"), b -> onClose())
                 .bounds(width / 2 - 50, height - 26, 100, 20).build());

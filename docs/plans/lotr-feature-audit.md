@@ -122,7 +122,7 @@ Every one of LOTR's 2514 top-level classes (inner classes counted with their out
 | Titles `progress.titles` | Partial | 4 | `progress/Titles`, `/lotr_title`; no title screen (LOTRGuiTitles) |
 | Shields and capes (cosmetic) `progress.shields_capes` | Partial | 7 | `progress/Cosmetics`, `/lotr_shield`, `/lotr_cape`; not drawn on players (LOTRRenderShield), no picking screen |
 | Shire Reckoning calendar `progress.calendar` | Ported | 3 | `progress/Calendar`, `/lotr_date`; holidays not ported |
-| Middle-earth's own day length and clock (LOTRTime, `/lotr time`) `progress.time` | Not ported | 3 | The port uses vanilla's 24000-tick day and `/time` |
+| Middle-earth's own day length and clock (LOTRTime, `/lotr time`) `progress.time` | Ported | 3 | `progress/MiddleEarthTime`: config `time.dayLength` (48000) slows the clock when Middle-earth is the world type; `/lotr time` (#21) |
 | Lore books `progress.lore` | Ported | 1 | `converter/lore.py`: 114 `lore/` books in structure chests |
 | Red Book `progress.redbook` | Partial | 3 (1/1 ids mapped) | `quest/RedBookItem`, `client/RedBookScreen` (quests: list, details, abandon); LOTR's other tabs (missing-features: "Red Book tabs") |
 | Map screen `progress.map` | Ported | 7 | `client/MapScreen` (LOTRGuiMap rebuilt), `MapTextures`, 105 labels `map/labels.json`, `net/MapNet` (map teleport for operators) |
@@ -137,7 +137,7 @@ Every one of LOTR's 2514 top-level classes (inner classes counted with their out
 | Feature | Status | LOTR classes | Port counterpart, or what is missing |
 |---|---|---|---|
 | Factions, ranks, map regions, control zones `fac.factions` | Ported | 8 | `faction/` (`FactionDef`, 29 `faction/` + goblins, `Factions`, `FactionInfluence` zones) |
-| Alignment, kill values, alignment bar `fac.alignment` | Ported | 14 | `faction/Alignment`, `FactionKills`, `client/LotrHud`; the floating "+n alignment" pop-ups over kills (LOTREntityAlignmentBonus) are not drawn |
+| Alignment, kill values, alignment bar `fac.alignment` | Ported | 14 | `faction/Alignment`, `FactionKills`, `client/LotrHud`; floating "+n alignment" pop-ups over kills and quest givers: `client/AlignmentPopups` (#60) |
 | Faction relations `fac.relations` | Ported | 3 | `faction/Relation`, `Diplomacy` SavedData over data defaults, `/lotr faction` |
 | Pledging and broken pledges `fac.pledge` | Ported | 5 | `faction/Pledges`, `/lotr pledge` (the pledge makes the player's realm a vassal) |
 | Alignment choices offered after LOTR's faction changes `fac.alignment_choices` | Dropped | 3 | Only for old saves; the port is new worlds only |
@@ -162,14 +162,14 @@ Every one of LOTR's 2514 top-level classes (inner classes counted with their out
 | Marriage, rings, children `npc.families` | Partial | 7 (3/3 ids mapped) | Colonists marry and have children through colony events (`colony/events/ColonyEvents` wedding and birth, `colonist/Kin`, family tree `client/ui/TreePane`); LOTR's wild hobbit, dwarf and man families, marriage rings and children following players are not ported |
 | Travelling traders, scrap traders, trader respawn `npc.travelling` | Not ported | 8 (1/1 found by name) | missing-features |
 | NPC spawning (lists, conditions, event spawner) `npc.spawning` | Ported | 5 | `npc/NpcSpawner`, 177 `npc_spawns/`, `world/NoMonsters`, `border/TerritorySpawns`; the event spawner's travelling-trader timers belong to `npc.travelling` |
-| Spawn damping `npc.spawn_damping` | Not ported | 2 | missing-features |
+| Spawn damping `npc.spawn_damping` | Ported | 2 | `NpcSpawner.dampedCap`, config `npc.spawnDamping` / `npc.animalSpawnDamping`, `/lotr spawndamping` (#20) |
 
 ### Hiring, trade and quests
 
 | Feature | Status | LOTR classes | Port counterpart, or what is missing |
 |---|---|---|---|
 | Trading and coins `trade.trading` | Ported | 29 (1/1 ids mapped) | `npc/Traders`, `TraderMenu`, `CoinExchangeMenu`, 206 `npc_trades/`, `npc/Coins` |
-| Hiring units, mercenaries, hired-unit screens `trade.hiring` | Ported | 39 | `npc/Hiring`, `client/UnitScreen`, 51 `npc_units/`, `unit/Units` (orders, post, wage); hired units' own inventory screen is not ported |
+| Hiring units, mercenaries, hired-unit screens `trade.hiring` | Ported | 39 | `npc/Hiring`, `client/UnitScreen`, 51 `npc_units/`, `unit/Units` (orders, post, wage); hired units' gear: `unit/UnitInventoryMenu`, Inventory button on the unit screen (#61) |
 | Hired farmers `trade.farmers` | Replaced | 8 | Colony jobs and production (`colony/work`, `colony_job/`) |
 | Squadrons, command sword and command horn `trade.squadrons` | Replaced | 10 (2/2 ids mapped) | Unit squads (`unit/Units` `squad`); the command sword's target marker is not ported |
 | Mini-quests `quest.miniquests` | Partial | 23 | `quest/` (collect, kill_faction, kill_npc; 37 pools), `client/QuestOfferScreen`; retrieve and welcome quests, the on-screen tracker and the per-quest speech missing |

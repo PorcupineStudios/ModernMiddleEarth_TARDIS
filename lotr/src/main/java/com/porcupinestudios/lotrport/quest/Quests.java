@@ -241,6 +241,11 @@ public final class Quests {
         save(player, log.without(index, true));
         Coins.give(player, quest.coins());
         Alignment.add(player, quest.faction(), quest.alignment());
+        net.minecraft.world.entity.Entity giver = npc != null ? npc : player;
+        com.porcupinestudios.lotrport.faction.AlignmentHud.popup(player,
+                giver.position().add(0, giver.getBbHeight() + 0.5, 0),
+                Component.translatableWithFallback("quest.lotr_port.popup", "Quest"),
+                java.util.Map.of(quest.faction(), (float) quest.alignment()));
         if (npc != null) {
             npc.say(questLine(quest, "complete", player).orElse(Component.translatableWithFallback(
                     "quest.lotr_port.thanks", "Thank you, %s!", player.getGameProfile().getName())), player);
