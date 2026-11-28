@@ -27,7 +27,7 @@ def main():
     report = {}
     fake = types.SimpleNamespace(jar=jar, tex=Textures(jar, g.ASSETS, report))
     for name in ("clover", "grass_overlay", "tinted_overlay", "bm", "bs", "item_model", "CLOVER_HEIGHT",
-                 "CLOVER_SIZE", "CLOVER_PETALS"):
+                 "CLOVER_SIZE"):
         a = getattr(g.Gen, name)
         setattr(fake, name, a.__get__(fake) if callable(a) else a)
     idtable = json.load(open(os.path.join(HERE, "idtable.json"), encoding="utf-8"))

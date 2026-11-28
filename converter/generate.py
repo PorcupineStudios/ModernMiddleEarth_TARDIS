@@ -686,15 +686,15 @@ class Gen:
 
     # LOTR's clover (LOTRBlockClover, render type 51): round petals lying flat round a short stem, three or four (the
     # four-leaf clover), all tinted by the biome's grass. A block model can only turn an element by 22.5 or 45
-    # degrees, so each petal is its own model placed by a quarter turn of a multipart blockstate: three petals at
-    # 0, 112.5 and 247.5 degrees, four at the quarters. Each petal sits a little higher than the last so where they
-    # meet at the stem they don't flicker. The petal texture's leaf points up from its centre, its stem below it.
+    # degrees (no 120 for three petals), so the petals are one model of the custom loader `lotr_port:petals`
+    # (client/PetalsModel), which turns them 360/n degrees apart: equidistant. Each petal sits a little higher than
+    # the last so where they meet at the stem they don't flicker. The petal texture's leaf points up from its centre,
+    # its stem below it.
     CLOVER_HEIGHT = 5.0  # pixels: the stem's top (LOTR's bounds are 0.4 high)
     CLOVER_SIZE = 10.0  # pixels: each petal quad (the leaf is 7/16 of it long)
-    CLOVER_PETALS = {3: ((0, 0), (90, 22.5), (270, -22.5)), 4: ((0, 0), (90, 0), (180, 0), (270, 0))}
 
     def clover(self, new, petal, leaves):
-        h, lo, hi = self.CLOVER_HEIGHT, 8 - self.CLOVER_SIZE / 2, 8 + self.CLOVER_SIZE / 2
+        h = self.CLOVER_HEIGHT
         tint = {"texture": "#petal", "tintindex": 0}
         base = {"ambientocclusion": False, "render_type": CUTOUT, "textures": {"particle": petal, "petal": petal}}
         stem = dict(base, elements=[
@@ -705,19 +705,11 @@ class Gen:
              "rotation": {"origin": [8, 0, 8], "axis": "y", "angle": 45},
              "faces": {d: dict(tint, uv=[7, 7, 9, 8]) for d in ("west", "east")}}])
         write_json(os.path.join(ASSETS, "models", "block", new + "_stem.json"), stem)
-        parts = [{"apply": {"model": f"{NS}:block/{new}_stem"}}]
-        for i, (turn, angle) in enumerate(self.CLOVER_PETALS[leaves]):
-            y = round(h + 0.15 * i, 2)
-            el = {"from": [lo, y, lo], "to": [hi, y, hi], "shade": False,
-                  "faces": {"up": dict(tint, uv=[0, 0, 16, 16]), "down": dict(tint, uv=[0, 16, 16, 0])}}
-            if angle:
-                el["rotation"] = {"origin": [8, y, 8], "axis": "y", "angle": angle}
-            write_json(os.path.join(ASSETS, "models", "block", f"{new}_petal_{i}.json"), dict(base, elements=[el]))
-            apply = {"model": f"{NS}:block/{new}_petal_{i}"}
-            if turn:
-                apply["y"] = turn
-            parts.append({"apply": apply})
-        self.bs(new, {"multipart": parts})
+        write_json(os.path.join(ASSETS, "models", "block", new + "_petals.json"),
+                   {"loader": f"{NS}:petals", "petals": leaves, "height": h, "size": self.CLOVER_SIZE, "step": 0.15,
+                    "render_type": CUTOUT, "textures": {"particle": petal, "petal": petal}})
+        self.bs(new, {"multipart": [{"apply": {"model": f"{NS}:block/{new}_stem"}},
+                                    {"apply": {"model": f"{NS}:block/{new}_petals"}}]})
 
     def bs(self, new, data):
         write_json(os.path.join(ASSETS, "blockstates", new + ".json"), data)

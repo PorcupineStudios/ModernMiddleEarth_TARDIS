@@ -7,25 +7,7 @@
     },
     {
       "apply": {
-        "model": "lotr_port:block/four_leaf_clover_petal_0"
-      }
-    },
-    {
-      "apply": {
-        "model": "lotr_port:block/four_leaf_clover_petal_1",
-        "y": 90
-      }
-    },
-    {
-      "apply": {
-        "model": "lotr_port:block/four_leaf_clover_petal_2",
-        "y": 180
-      }
-    },
-    {
-      "apply": {
-        "model": "lotr_port:block/four_leaf_clover_petal_3",
-        "y": 270
+        "model": "lotr_port:block/four_leaf_clover_petals"
       }
     }
   ]
