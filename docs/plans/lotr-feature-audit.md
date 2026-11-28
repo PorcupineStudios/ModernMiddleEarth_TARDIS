@@ -130,7 +130,7 @@ Every one of LOTR's 2514 top-level classes (inner classes counted with their out
 | Waypoints and fast travel `progress.fasttravel` | Ported | 14 | `travel/FastTravel`, 274 `waypoint/`, `fast_travel/settings.json`, `travel/Companions`, `/lotr_travel`, `/lotr waypoint` |
 | Custom waypoints (made by players, shared) `progress.custom_waypoints` | Not ported | 14 | Nothing in the port (missing-features) |
 | Fellowships `progress.fellowships` | Replaced | 26 | Colony membership (`colony/members`) and player groups (`social/Social`); no fellowship chat, icons or friendly-fire switch |
-| LOTR's menu screens, options, notifications, title screen `progress.menu` | Replaced | 18 | Management screens on the UI core (`client/ui/UiScreen`, `ui/Views`), config screen, `client/MenuMusic`; LOTR's own main menu backdrop is not ported |
+| LOTR's menu screens, options, notifications, title screen `progress.menu` | Replaced | 18 | Management screens on the UI core (`client/ui/UiScreen`, `ui/Views`), config screen, `client/MenuMusic`; LOTR's map backdrop on the title screen (`client/MenuBackdrop`, #68) |
 
 ### Factions, war and diplomacy
 

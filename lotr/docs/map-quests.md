@@ -42,3 +42,10 @@ _Part of the LOTR port's notes, moved here from `lotr/CLAUDE.md` on 2026-11-27 (
   on), animals on your lead, tamed pets not sitting and your hired units on follow (within 24 blocks).
 - Not yet: bounty, retrieve and pickpocket quests, fellowships, titles, custom waypoints, LOTR's quest
   speech.
+
+## Title screen map (2026-11-27, issue #68)
+- LOTR's main menu backdrop: the map, drawn like the map screen (crisp pixels, LOTR's parchment overlay at 20%),
+  drifts from the Shire to random places on land, steering in slow curves (`client/MenuBackdrop`, in place of the
+  panorama through `mixin/TitleScreenMixin`). Start point: `assets/lotr_port/menu_map.json` (map pixels). Client
+  config `menu.backdrop` (MAP or PANORAMA, the Shire panorama), `menu.mapZoom`, `menu.mapSpeed`. Without the LOTR jar
+  there is no map, so the panorama shows. Checked in the dev client: starts over the Shire and moves.

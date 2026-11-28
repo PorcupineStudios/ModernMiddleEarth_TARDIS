@@ -46,6 +46,12 @@ final class MapTextures {
         return height;
     }
 
+    /** Whether the plain map is sea at pixel x, y. */
+    static boolean isSea(int x, int y) {
+        NativeImage pixels = ((DynamicTexture) Minecraft.getInstance().getTextureManager().getTexture(get(false))).getPixels();
+        return pixels == null || pixels.getPixelRGBA(x, y) == abgr(OCEAN);
+    }
+
     static int ocean(boolean sepia) {
         return sepia ? sepia(OCEAN) : OCEAN;
     }
