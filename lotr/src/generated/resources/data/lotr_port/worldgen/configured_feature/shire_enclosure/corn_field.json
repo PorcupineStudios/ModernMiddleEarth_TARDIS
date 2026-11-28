@@ -39,14 +39,14 @@
       "min_height": 2,
       "max_height": 2,
       "flag": "corn",
-      "flag_chance": 0.35,
+      "flag_chance": 0.1,
       "soil": {
         "Name": "minecraft:farmland",
         "Properties": {
           "moisture": "7"
         }
       },
-      "water_every": 0,
+      "water_every": 5,
       "row_spacing": 2,
       "furrow": {
         "Name": "minecraft:dirt_path"

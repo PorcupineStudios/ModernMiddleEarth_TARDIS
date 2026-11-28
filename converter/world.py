@@ -261,9 +261,9 @@ ENCLOSURES = {
                          "hedge_chance": 0.35, "hedge_height": 2, "path": {"Name": "minecraft:dirt_path"},
                          "headland": 1,
                          "crop": {"block": {"Name": f"{NS}:corn_stalks", "Properties": {"age": "7", "corn": "false"}},
-                                  "min_height": 2, "max_height": 2, "flag": "corn", "flag_chance": 0.35,
+                                  "min_height": 2, "max_height": 2, "flag": "corn", "flag_chance": 0.1,
                                   "soil": {"Name": "minecraft:farmland", "Properties": {"moisture": "7"}},
-                                  "water_every": 0,
+                                  "water_every": 5,  # irrigation: a water channel every 5th row keeps the farmland wet (issue #101)
                                   # Aaron 2026-11-25: rows spaced apart, not a solid block of corn; a trodden
                                   # furrow between rows (no grass grows on paths)
                                   "row_spacing": 2, "furrow": {"Name": "minecraft:dirt_path"}}}},
