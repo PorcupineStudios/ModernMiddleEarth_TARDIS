@@ -124,6 +124,8 @@ public final class LotrPort {
         NpcData.register();
         NpcSpawns.register();
         NpcSpawner.register();
+        com.porcupinestudios.lotrport.progress.MiddleEarthTime.register();
+        com.porcupinestudios.lotrport.player.LotrRespawn.register();
         com.porcupinestudios.lotrport.world.delve.DelveSpawns.register();
         com.porcupinestudios.lotrport.content.goblin.GoblinTraps.register();
         QuestData.register();

@@ -20,7 +20,7 @@ one is done, close the issue and trim the line here.
   (mystery web loot); NPCs throwing spears; mounted lances; players riding wargs/spiders; structure NPCs riding.
 - **Multiplayer and meta:** fellowships (replaced by colony membership, not built as LOTR's); bounty quests
   (30); custom waypoints; factions screen with faction map; Red Book tabs; shield and cape rendering on players;
-  most achievement triggers (kills, crafting, trading, drinking); most LOTR commands; spawn damping.
+  most achievement triggers (kills, crafting, trading, drinking); most LOTR commands.
 - **Blocks still without LOTR behaviour** (`docs/behavior-audit.md`): spawner chests and mob spawner, NPC respawner,
   Taurëdain dart traps, treasure piles, troll totems, carved signs (LOTR's chisel; stone
   stonecutting is done), mechanism and mechanised rails, table of command,
@@ -31,10 +31,10 @@ one is done, close the issue and trim the line here.
   leaves; unsmeltery rocking.
 - **Found by the class audit (2026-11-26, `docs/plans/lotr-feature-audit.md`, which sorts every LOTR class into a
   feature):** 21 structures LOTR placed that were never exported (the old `world/structure` generators, e.g. the
-  Angmar and Mordor towers, Rivendell and High Elven halls; `StructureExporter` builds only `structure2`); LOTR's
-  own day length (`LOTRTime`); "+n alignment" pop-ups; Dale crackers; animal and butterfly jars; LOTR's fishing hook
+  Angmar and Mordor towers, Rivendell and High Elven halls; `StructureExporter` builds only `structure2`);
+  Dale crackers; animal and butterfly jars; LOTR's fishing hook
   and loot; the rideable barrel; anvil owner engraving and gem-coloured names; the mini-quest tracker and retrieve
-  and welcome quests; the hired-unit inventory screen; the command sword's marker; world features (streams, troll
+  and welcome quests; the command sword's marker; world features (streams, troll
   hoards, skull piles, Ent jars, cave cobwebs, blasted land, obsidian gravel); most of LOTR's 26 particle effects.
 
 Done since the list was written (don't redo): sounds, music, enchantments, achievements/titles, lore books,

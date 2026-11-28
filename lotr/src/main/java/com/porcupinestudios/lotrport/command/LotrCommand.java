@@ -55,6 +55,8 @@ public final class LotrCommand {
                                                             return 1;
                                                         }))))))
                 .then(RoadCommand.node())
+                .then(com.porcupinestudios.lotrport.progress.MiddleEarthTime.node())
+                .then(com.porcupinestudios.lotrport.npc.NpcSpawner.dampingNode())
                 .then(Commands.literal("travel")
                         .executes(ctx -> travel(ctx.getSource().getPlayerOrException())))
                 .then(Commands.literal("history")

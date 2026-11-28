@@ -104,6 +104,7 @@ public final class LotrClient {
         com.porcupinestudios.lotrport.npc.Traders.interactHandler = TraderInteractScreen::open;
         QuestNet.bookHandler = RedBookScreen::show;
         HudNet.barHandler = LotrHud::receive;
+        HudNet.bonusHandler = AlignmentPopups::receive;
         RigRenderer.init();
         com.porcupinestudios.lotrport.unit.UnitNet.listHandler = UnitScreen::show;
         com.porcupinestudios.lotrport.colony.members.HallNet.hallHandler = HallScreen::show;
@@ -155,6 +156,7 @@ public final class LotrClient {
     public static void screens(RegisterMenuScreensEvent event) {
         event.register(Drinks.KEG_MENU.get(), KegScreen::new);
         event.register(com.porcupinestudios.lotrport.npc.Traders.TRADE_MENU.get(), TradeScreen::new);
+        event.register(com.porcupinestudios.lotrport.unit.UnitNet.INVENTORY_MENU.get(), UnitInventoryScreen::new);
         event.register(com.porcupinestudios.lotrport.npc.Traders.EXCHANGE_MENU.get(), CoinExchangeScreen::new);
         event.register(Machines.FORGE_MENU.get(), MachineScreen::new);
         event.register(Machines.OVEN_MENU.get(), MachineScreen::new);

@@ -21,6 +21,35 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 public final class HudNet {
     /** Shows the alignment bar; set by the client. Does nothing on a dedicated server. */
     public static Consumer<AlignmentBar> barHandler = bar -> { };
+    /** Shows an alignment pop-up; set by the client. */
+    public static Consumer<AlignmentBonus> bonusHandler = bonus -> { };
+
+    /** One faction's change in a pop-up. */
+    public record Bonus(Component faction, int color, float amount) {
+        public static final StreamCodec<RegistryFriendlyByteBuf, Bonus> CODEC = StreamCodec.composite(
+                ComponentSerialization.TRUSTED_STREAM_CODEC, Bonus::faction,
+                ByteBufCodecs.INT, Bonus::color,
+                ByteBufCodecs.FLOAT, Bonus::amount,
+                Bonus::new);
+    }
+
+    /** LOTR's floating "+n alignment" over a kill or a quest giver: what earned it, and each faction's change. */
+    public record AlignmentBonus(double x, double y, double z, Component source, List<Bonus> bonuses)
+            implements CustomPacketPayload {
+        public static final Type<AlignmentBonus> TYPE = new Type<>(LotrPort.id("alignment_bonus"));
+        public static final StreamCodec<RegistryFriendlyByteBuf, AlignmentBonus> CODEC = StreamCodec.composite(
+                ByteBufCodecs.DOUBLE, AlignmentBonus::x,
+                ByteBufCodecs.DOUBLE, AlignmentBonus::y,
+                ByteBufCodecs.DOUBLE, AlignmentBonus::z,
+                ComponentSerialization.TRUSTED_STREAM_CODEC, AlignmentBonus::source,
+                Bonus.CODEC.apply(ByteBufCodecs.list()), AlignmentBonus::bonuses,
+                AlignmentBonus::new);
+
+        @Override
+        public Type<AlignmentBonus> type() {
+            return TYPE;
+        }
+    }
 
     private HudNet() {}
 
@@ -31,6 +60,8 @@ public final class HudNet {
     private static void payloads(RegisterPayloadHandlersEvent event) {
         PayloadRegistrar r = event.registrar("1");
         r.playToClient(AlignmentBar.TYPE, AlignmentBar.CODEC, (p, ctx) -> ctx.enqueueWork(() -> barHandler.accept(p)));
+        r.playToClient(AlignmentBonus.TYPE, AlignmentBonus.CODEC,
+                (p, ctx) -> ctx.enqueueWork(() -> bonusHandler.accept(p)));
         r.playToServer(CycleView.TYPE, CycleView.CODEC, (p, ctx) -> ctx.enqueueWork(() -> {
             if (ctx.player() instanceof net.minecraft.server.level.ServerPlayer sp) {
                 com.porcupinestudios.lotrport.faction.AlignmentHud.cycle(sp, p.step());

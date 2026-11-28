@@ -50,6 +50,7 @@ public final class FactionKills {
             return;
         }
         float value = killedFaction.get().killValue();
+        java.util.Map<ResourceLocation, Float> changes = new java.util.LinkedHashMap<>();
         for (Faction other : Factions.all(server)) {
             if (!other.playable() || other.fixedAlignment().isPresent()) {
                 continue;
@@ -62,9 +63,13 @@ public final class FactionKills {
             }
             if (relation == Relation.ALLY) {
                 Alignment.add(player, other.id(), -value);
+                changes.put(other.id(), -value);
             } else if (relation.isBad()) {
                 Alignment.add(player, other.id(), value);
+                changes.put(other.id(), value);
             }
         }
+        AlignmentHud.popup(player, victim.position().add(0, victim.getBbHeight() + 0.5, 0), victim.getDisplayName(),
+                changes);
     }
 }
