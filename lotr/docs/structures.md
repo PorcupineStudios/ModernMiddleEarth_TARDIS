@@ -52,7 +52,9 @@ _Part of the LOTR port's notes, moved here from `lotr/CLAUDE.md` on 2026-11-27 (
     natural terrain stays. `terrain_adaptation` is `none` (beard_box carved the air ditches round every building);
     the piece fills under the ground layer down to solid ground instead (dirt under dirt/grass, else the same block,
     up to `max_foundation` 96, dirt for 4 blocks then stone). Ground scans don't see caves, so a cave mouth under
-    the footprint can be deep; 24 left a floating building in Eriador (2026-11-19).
+    the footprint can be deep; 24 left a floating building in Eriador (2026-11-19). The fill (and the grass levelling
+    of open ground-layer spots) never enters the template's own air: before 2026-11-27 it filled the Hobbit inn's
+    cellar through its stairwell (#91; test `foundationsLeaveCellarsEmpty`).
   - Doors: the lower half takes the upper half's hinge (1.7.10 kept it only on top; split doors). Gates
     (`content/GateBlock`, LOTR's multi-block gates) rotate and mirror with the structure and open as one gate: the
     touching blocks of the same kind in the same plane.
