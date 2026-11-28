@@ -1,7 +1,9 @@
 // Ring Bearer bug report relay (Cloudflare Worker). The game posts a report here; the worker keeps the screenshot and
 // logs in KV, serves them at /a/<file>, and opens a GitHub issue that links them. Only this worker holds the token.
 //
-// Bindings (wrangler.toml): ATTACH (KV namespace). Vars: REPO, LABELS, DAILY_LIMIT_PER_IP. Secret: GITHUB_TOKEN.
+// Bindings (wrangler.toml): ATTACH (KV namespace). Vars: REPO, LABELS, DAILY_LIMIT_PER_IP. Secrets: GITHUB_TOKEN,
+// ADMIN_KEY (optional: a report whose X-Admin-Key header matches it skips the daily limit and gets the ADMIN_LABELS,
+// "valid", which lets the scheduled Claude run work it: .github/workflows/claude-auto.yml).
 
 const MAX_BODY = 16 << 20;
 const MAX_TITLE = 120;
@@ -69,7 +71,8 @@ async function report(req, env, origin) {
     if (!PNG.every((b, i) => png[i] === b)) throw new Refused('screenshot is not a PNG');
   }
 
-  await rateLimit(req, env);
+  const admin = await isAdmin(req, env);
+  if (!admin) await rateLimit(req, env);
 
   const id = crypto.randomUUID();
   const facts = Object.entries(meta)
@@ -100,7 +103,7 @@ async function report(req, env, origin) {
     `<sub>Sent from the in-game bug reporter. Report id ${id}.</sub>`,
   ].join('\n');
 
-  const labels = [...list(env.LABELS), ...versionLabels(list(env.VERSION_MODS), mods)];
+  const labels = [...list(env.LABELS), ...(admin ? list(env.ADMIN_LABELS) : []), ...versionLabels(list(env.VERSION_MODS), mods)];
   const gh = await github(env, `issues`, { title: `[In-game] ${title}`, body: body.slice(0, 65000), labels });
   if (!gh.ok) {
     console.error('GitHub', gh.status, await gh.text());
@@ -136,6 +139,18 @@ function github(env, path, payload) {
     },
     body: JSON.stringify(payload),
   });
+}
+
+// The pack maker's override: a header matching the ADMIN_KEY secret (compared as hashes, in constant time). A wrong key is
+// no error, the report just counts against the limit like any other.
+async function isAdmin(req, env) {
+  const given = req.headers.get('X-Admin-Key');
+  if (!env.ADMIN_KEY || !given) return false;
+  const hash = async (s) => new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)));
+  const [a, b] = [await hash(given), await hash(env.ADMIN_KEY)];
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a[i] ^ b[i];
+  return diff === 0;
 }
 
 async function rateLimit(req, env) {

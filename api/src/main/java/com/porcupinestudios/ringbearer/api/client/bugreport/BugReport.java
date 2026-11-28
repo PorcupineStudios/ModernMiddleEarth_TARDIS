@@ -69,8 +69,8 @@ public final class BugReport {
             }
             return GSON.toJson(body);
         }, Util.ioPool()).thenCompose(json -> HTTP.sendAsync(
-                HttpRequest.newBuilder(URI.create(relay + "/report")).timeout(Duration.ofSeconds(90))
-                        .header("Content-Type", "application/json")
+                withAdminKey(HttpRequest.newBuilder(URI.create(relay + "/report")).timeout(Duration.ofSeconds(90))
+                        .header("Content-Type", "application/json"))
                         .POST(HttpRequest.BodyPublishers.ofString(json)).build(),
                 HttpResponse.BodyHandlers.ofString())).thenApply(resp -> {
                     JsonObject r;
@@ -109,6 +109,12 @@ public final class BugReport {
     }
 
     /** The last {@code lines} lines of a file, reading at most its last few MB. */
+    /** The admin key, if one is set, as a header: the relay then skips its daily limit. */
+    private static HttpRequest.Builder withAdminKey(HttpRequest.Builder b) {
+        String key = BugReportConfig.ADMIN_KEY.get().strip();
+        return key.isEmpty() ? b : b.header("X-Admin-Key", key);
+    }
+
     static String tail(Path file, int lines) {
         try (RandomAccessFile f = new RandomAccessFile(file.toFile(), "r")) {
             long start = Math.max(0, f.length() - TAIL_BYTES);
