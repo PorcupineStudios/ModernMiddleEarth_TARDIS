@@ -120,4 +120,61 @@ public final class FixesTests {
             helper.succeed();
         });
     }
+
+    /** #96: a head under quagmire suffocates (it has no collision, so vanilla's in-wall check missed it). */
+    @GameTest(template = "empty", timeoutTicks = 100)
+    public static void quagmireSuffocates(GameTestHelper helper) {
+        ThrownTests.inLoadedArea(helper, 2, 2, () -> {
+            Block mud = com.porcupinestudios.lotrport.content.LotrBlocks.BY_ID.get("quagmire").get();
+            BlockPos at = new BlockPos(1, 1, 1);
+            helper.setBlock(at, mud);
+            helper.setBlock(at.above(), mud);
+            helper.setBlock(at.below(), net.minecraft.world.level.block.Blocks.STONE); // it can't sink out of it
+            Pig pig = helper.spawnWithNoFreeWill(EntityType.PIG, at);
+            float full = pig.getHealth();
+            helper.runAfterDelay(40, () -> {
+                helper.assertTrue(pig.getHealth() < full, "a pig under quagmire wasn't hurt (" + pig.getHealth() + ")");
+                pig.discard();
+                helper.succeed();
+            });
+        });
+    }
+
+    /** #98: a party tree's soil base on a pillar over a pit is filled down to the ground, not left as a ledge. */
+    @GameTest(template = "empty", timeoutTicks = 100)
+    public static void bigTreesLeaveNoDirtLedge(GameTestHelper helper) {
+        net.minecraft.server.level.ServerLevel level = helper.getLevel();
+        // a grass pillar on a stone floor two blocks down, away from the test grid and over the flat world's ground
+        BlockPos soil = helper.absolutePos(BlockPos.ZERO).offset(0, 30, -500);
+        int r = 8;
+        var air = net.minecraft.world.level.block.Blocks.AIR.defaultBlockState();
+        for (int dx = -r; dx <= r; dx++) {
+            for (int dz = -r; dz <= r; dz++) {
+                level.setBlock(soil.offset(dx, -2, dz), net.minecraft.world.level.block.Blocks.STONE
+                        .defaultBlockState(), 2);
+                level.setBlock(soil.offset(dx, -1, dz), air, 2);
+                level.setBlock(soil.offset(dx, 0, dz), air, 2);
+            }
+        }
+        level.setBlock(soil.below(), net.minecraft.world.level.block.Blocks.DIRT.defaultBlockState(), 2);
+        level.setBlock(soil, net.minecraft.world.level.block.Blocks.GRASS_BLOCK.defaultBlockState(), 2);
+        var config = (com.porcupinestudios.lotrport.world.feature.TemplateTreeFeature.Config) level.registryAccess()
+                .registryOrThrow(net.minecraft.core.registries.Registries.CONFIGURED_FEATURE)
+                .get(LotrPort.id("tree/oak_party")).config();
+        helper.assertTrue(com.porcupinestudios.lotrport.world.feature.TemplateTreeFeature.grow(level, level.random,
+                soil.above(), config, 0, false, null), "the party tree didn't grow on " + level.getBlockState(soil));
+        int dirt = 0;
+        for (int dx = -r; dx <= r; dx++) {
+            for (int dz = -r; dz <= r; dz++) {
+                if ((dx != 0 || dz != 0) && level.getBlockState(soil.offset(dx, 0, dz)).is(
+                        net.minecraft.tags.BlockTags.DIRT)) {
+                    dirt++;
+                    helper.assertTrue(!level.getBlockState(soil.offset(dx, -1, dz)).isAir(),
+                            "the tree's soil hangs over air at " + dx + ", " + dz);
+                }
+            }
+        }
+        helper.assertTrue(dirt > 0, "the party tree has no soil base to test");
+        helper.succeed();
+    }
 }

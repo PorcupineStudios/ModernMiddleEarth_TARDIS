@@ -21,6 +21,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -45,14 +46,16 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
  */
 public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Config> {
     public record Config(Optional<ResourceLocation> id, List<ResourceLocation> templates, List<Vec3i> trunk,
-            List<Integer> trunkWidth, boolean onSand)
+            List<Integer> trunkWidth, boolean onSand, int maxFoundation)
             implements FeatureConfiguration {
         public static final Codec<Config> CODEC = RecordCodecBuilder.create(i -> i.group(
                 ResourceLocation.CODEC.optionalFieldOf("id").forGetter(Config::id),
                 ResourceLocation.CODEC.listOf().fieldOf("templates").forGetter(Config::templates),
                 Vec3i.CODEC.listOf().fieldOf("trunk").forGetter(Config::trunk),
                 Codec.INT.listOf().optionalFieldOf("trunk_width", List.of()).forGetter(Config::trunkWidth),
-                Codec.BOOL.optionalFieldOf("on_sand", false).forGetter(Config::onSand))
+                Codec.BOOL.optionalFieldOf("on_sand", false).forGetter(Config::onSand),
+                // how far the soil under a big tree's base is filled down over lower ground (#98)
+                Codec.INT.optionalFieldOf("max_foundation", 12).forGetter(Config::maxFoundation))
                 .apply(i, Config::new));
     }
 
@@ -190,6 +193,7 @@ public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Confi
                 placed.add(b);
             }
         }
+        settle(level, tree, writable, config.maxFoundation());
         java.util.function.Consumer<List<Placed>> watcher = audit;
         if (watcher != null) {
             watcher.accept(placed);
@@ -200,6 +204,36 @@ public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Confi
                 .TreeRecord(config.id().orElse(config.templates().get(n)), origin.offset(shift), width,
                         template.get().getBoundingBox(unclipped, corner), planted));
         return true;
+    }
+
+    /**
+     * Big trees (party trees, Fangorn's) stand on a wide layer of soil under the trunk, placed level with the origin:
+     * on a slope it hung out over the lower ground as a ledge (#98). Under each of those soil blocks, open space is
+     * filled with dirt down to the ground, up to {@code max} blocks (a deeper drop keeps its ledge).
+     */
+    private static void settle(WorldGenLevel level, List<Placed> tree, BoundingBox writable, int max) {
+        BlockPos.MutableBlockPos at = new BlockPos.MutableBlockPos();
+        for (Placed b : tree) {
+            if (!b.state().is(BlockTags.DIRT) || !writable.isInside(b.pos())
+                    || !level.getBlockState(b.pos()).is(BlockTags.DIRT)) {
+                continue;
+            }
+            int depth = 1;
+            while (depth <= max && writable.isInside(at.setWithOffset(b.pos(), 0, -depth, 0))
+                    && open(level.getBlockState(at))) {
+                depth++;
+            }
+            if (depth > max || !writable.isInside(at)) {
+                continue;
+            }
+            for (int d = 1; d < depth; d++) {
+                level.setBlock(at.setWithOffset(b.pos(), 0, -d, 0), Blocks.DIRT.defaultBlockState(), 2);
+            }
+        }
+    }
+
+    private static boolean open(BlockState state) {
+        return state.canBeReplaced() || !state.getFluidState().isEmpty() && state.getFluidState().isSource();
     }
 
     /** LOTR's rule: logs go into air, plants, leaves and soil (roots); leaves and the rest only into air and plants. */

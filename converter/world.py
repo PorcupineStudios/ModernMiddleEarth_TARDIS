@@ -64,7 +64,10 @@ DOWNS = {"shire": (30, 0.4), "shire_moors": (20, 0.45), "shire_woodlands": (18, 
          # pools (marsh rule) in the low ground; low hummocks over a base at the pool level give that
          "shire_marshes": (4, 0.35)}
 # ground heights set by hand where the survey is off (shireMarshes: 96 columns, mostly the Brandywine's water)
-HEIGHT_FIX = {"shire_marshes": 61.4}
+HEIGHT_FIX = {"shire_marshes": 61.4,
+              # #97 (Aaron 2026-11-28): the Dead Marshes are mostly water with a maze of banks; their ground at the
+              # pool level, so the water rule (DEAD_MARSH_RULE) reaches most of it
+              "dead_marshes": 61.0, "dead_marshes_bogs": 61.0}
 
 # Biome variants (LOTR's LOTRBiomeVariant patches; Aaron 2026-11-14: "many biomes within the Shire"). Not separate
 # biomes, as in LOTR: patches of a jittered grid (`cell` blocks), a variant with chance `chance`, else plain
@@ -964,7 +967,7 @@ class World:
                            "then_run": block_rule(pfill or filler)} for key, thr, _, pfill in patches]
             # LOTR's generateMountainTerrain: snow tops and bare stone high on the mountain biomes
             mtn_top, mtn_fill = mountain_rules(mtn) if mtn and mtn != "all" else ([], [])
-            on_top = ([MARSH_RULE] if marsh else []) + ([ROCKY_RULE] if rocky else []) + mtn_top + patch_top
+            on_top = ([DEAD_MARSH_RULE, MARSH_RULE] if marsh else []) + ([ROCKY_RULE] if rocky else []) + mtn_top + patch_top
             on_top += [MUD_RULE] if mud else []
             if podzol is not None:
                 on_top.append(podzol_rule(podzol, wet))
@@ -1429,6 +1432,20 @@ MARSH_RULE = {"type": "minecraft:condition", "if_true": {"type": "minecraft:y_ab
         "type": "minecraft:y_above", "anchor": {"absolute": SEA_LEVEL}, "surface_depth_multiplier": 0,
         "add_stone_depth": False}}, "then_run": {"type": "minecraft:condition", "if_true": noise_at("marsh", -0.1),
                                                   "then_run": block_rule("minecraft:water")}}}
+# #97: in the Dead Marshes the ground at and just over the pool level is water except thin banks where the marsh noise
+# crosses zero (winding lines: a maze of banks); higher ground stays land
+DEAD_MARSHES = [f"{NS}:dead_marshes", f"{NS}:dead_marshes_bogs"]
+DEAD_MARSH_BANK = 0.15  # LOTR units of the marsh noise either side of zero that stay bank
+DEAD_MARSH_RULE = {"type": "minecraft:condition", "if_true": {"type": "minecraft:biome", "biome_is": DEAD_MARSHES},
+                   "then_run": {"type": "minecraft:condition", "if_true": {
+                       "type": "minecraft:y_above", "anchor": {"absolute": SEA_LEVEL - 1},
+                       "surface_depth_multiplier": 0, "add_stone_depth": False}, "then_run": {
+                       "type": "minecraft:condition", "if_true": {"type": "minecraft:not", "invert": {
+                           "type": "minecraft:y_above", "anchor": {"absolute": SEA_LEVEL + 1},
+                           "surface_depth_multiplier": 0, "add_stone_depth": False}}, "then_run": {
+                           "type": "minecraft:condition", "if_true": {"type": "minecraft:not", "invert": noise_at(
+                               "marsh", -DEAD_MARSH_BANK, DEAD_MARSH_BANK)},
+                           "then_run": block_rule("minecraft:water")}}}}
 SANDSTONE = {"minecraft:sand": "minecraft:sandstone", "minecraft:red_sand": "minecraft:red_sandstone"}
 SANDSTONE_DEPTH = {"type": "minecraft:stone_depth", "offset": 0, "add_surface_depth": True,
                    "secondary_depth_range": 10, "surface_type": "floor"}
