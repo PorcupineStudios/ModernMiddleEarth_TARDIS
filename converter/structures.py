@@ -747,7 +747,7 @@ class Structures:
             "biomes": f"#{NS}:has_structure/{wid}",
             "step": "surface_structures",
             "spawn_overrides": {},
-            "terrain_adaptation": "none",
+            "terrain_adaptation": "beard_thin",  # LotrStructurePiece.getBoundingBox: ground at the ground layer (#92)
             "templates": [f"{NS}:{sid}/{n}" for n in range(layouts)],
             # per biome, LOTR's chances per chunk of that biome's structures up to and including this one: the chunk's
             # random rolls each in turn and this structure comes when its own roll (the last) hits 1 in its chance

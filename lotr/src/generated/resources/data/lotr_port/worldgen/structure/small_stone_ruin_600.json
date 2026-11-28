@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/small_stone_ruin_600",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:small_stone_ruin/0",
     "lotr_port:small_stone_ruin/1",

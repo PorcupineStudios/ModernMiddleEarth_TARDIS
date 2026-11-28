@@ -91,7 +91,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "replaceable": true
   },
   {
     "id": "armor_stand_block",
@@ -2263,7 +2264,8 @@
     "requiresTool": false,
     "solid": false,
     "tint": "grass",
-    "offset": "xz"
+    "offset": "xz",
+    "replaceable": true
   },
   {
     "id": "four_leaf_clover",
@@ -2275,7 +2277,8 @@
     "requiresTool": false,
     "solid": false,
     "tint": "grass",
-    "offset": "xz"
+    "offset": "xz",
+    "replaceable": true
   },
   {
     "id": "drystone",
@@ -6539,7 +6542,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "replaceable": true
   },
   {
     "id": "mithril_bars",
@@ -6588,7 +6592,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "replaceable": true
   },
   {
     "id": "mordor_gravel",
@@ -12781,7 +12786,8 @@
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "tint": "grass"
+    "tint": "grass",
+    "replaceable": true
   },
   {
     "id": "flowery_grass",
@@ -12792,7 +12798,8 @@
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "tint": "grass"
+    "tint": "grass",
+    "replaceable": true
   },
   {
     "id": "wheatgrass",
@@ -12803,7 +12810,8 @@
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "tint": "grass"
+    "tint": "grass",
+    "replaceable": true
   },
   {
     "id": "thistle",
@@ -12814,7 +12822,8 @@
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "tint": "grass"
+    "tint": "grass",
+    "replaceable": true
   },
   {
     "id": "nettles",
@@ -12825,7 +12834,8 @@
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "tint": "grass"
+    "tint": "grass",
+    "replaceable": true
   },
   {
     "id": "jungle_sprout",
@@ -12836,7 +12846,8 @@
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "tint": "grass"
+    "tint": "grass",
+    "replaceable": true
   },
   {
     "id": "taurethrim_crafting_table",
@@ -14945,7 +14956,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "replaceable": true
   },
   {
     "id": "wine_glass_block",

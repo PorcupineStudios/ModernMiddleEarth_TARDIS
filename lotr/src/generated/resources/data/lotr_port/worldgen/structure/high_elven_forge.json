@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/high_elven_forge",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:high_elven_forge/0",
     "lotr_port:high_elven_forge/1",

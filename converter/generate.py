@@ -63,6 +63,10 @@ TAB_MAP = {"buildingBlocks": "blocks", "redstone": "util"}  # LOTR things LOTR p
 SKIP_TABS = {"spawning"}
 REQUIRES_TOOL = {"rock", "iron", "anvil"}
 CUTOUT = "minecraft:cutout"
+# the blocks LotrBlocks makes PieBlocks (behaviors.json "pie"): eaten a slice at a time, a model per bite
+with open(os.path.join(ROOT, "lotr", "src", "main", "resources", "lotr_port", "content", "behaviors.json"),
+          encoding="utf-8") as _f:
+    PIES = set(json.load(_f)["pie"].values())
 
 
 def load(name):
@@ -586,6 +590,10 @@ class Gen:
             e["tint"] = "grass"
         if "LOTRBlockClover" in " ".join(b["classes"]):
             e["offset"] = "xz"  # LOTRRenderBlocks.renderClover's random translation
+        if kind == "plant" and (b["material"] == "vine" or "LOTRBlockClover" in " ".join(b["classes"])):
+            # LOTR's grasses (Material.vine) were replaced by a placed block, as vanilla's short grass is; clovers too
+            # (Aaron 2026-11-28, #93), though LOTR's weren't
+            e["replaceable"] = True
         if kind == "reed" and "LOTRBlockReedDry" in " ".join(b["classes"]):
             e["grows"] = False  # LOTRBlockReedDry.canReedGrow
         if kind == "door":
@@ -910,10 +918,32 @@ class Gen:
             dn = self.bm(new + "_down", "minecraft:block/pressure_plate_down", t)
             self.bs(new, {"variants": {"powered=false": {"model": up_m}, "powered=true": {"model": dn}}})
             self.item_model(new, up_m)
+        elif new in PIES:
+            self.pie(new, icons, b)
         else:  # shaped
             m = self.shaped(new, icons, b)
             self.bs(new, {"variants": {"": {"model": m}}})
             self.item_model(new, m)
+
+    def pie(self, new, icons, b):
+        """LOTR's pies and cakes (content/PieBlock, a cake): a model per bite, the west side eaten away a seventh at a
+        time and the cut face LOTR's _inner icon, as vanilla's cake (#94: the hitbox shrank but the model didn't)."""
+        down, up, side = icons[0], icons[1], icons[2]
+        inner = self.tex.block(next(i for i in b["variants"][0]["icons"] if i.endswith("_side"))
+                               .replace("_side", "_inner")) or side
+        bb = [round(x * 16, 3) for x in b["bounds"]]
+        var = {}
+        for bite in range(7):
+            x0 = round(bb[0] + (bb[3] - bb[0]) * bite / 7, 3)
+            faces = {f: {"texture": "#" + f} for f in ("down", "up", "north", "south", "east")}
+            faces["west"] = {"texture": "#inner" if bite else "#west"}
+            m = self.bm(new if bite == 0 else f"{new}_slice{bite}", "minecraft:block/block",
+                        {"down": down, "up": up, "north": side, "south": side, "west": side, "east": side,
+                         "inner": inner, "particle": side},
+                        {"render_type": CUTOUT, "elements": [{"from": [x0] + bb[1:3], "to": bb[3:], "faces": faces}]})
+            var[f"bites={bite}"] = {"model": m}
+        self.bs(new, {"variants": var})
+        self.item_model(new, var["bites=0"]["model"])
 
     def cube(self, new, icons, extra):
         down, up, north, south, west, east = icons

@@ -7,7 +7,8 @@
     "south": "lotr_port:block/apple_crumble_side",
     "west": "lotr_port:block/apple_crumble_side",
     "east": "lotr_port:block/apple_crumble_side",
-    "particle": "lotr_port:block/apple_crumble_side"
+    "particle": "lotr_port:block/apple_crumble_side",
+    "inner": "lotr_port:block/apple_crumble_inner"
   },
   "render_type": "minecraft:cutout",
   "elements": [

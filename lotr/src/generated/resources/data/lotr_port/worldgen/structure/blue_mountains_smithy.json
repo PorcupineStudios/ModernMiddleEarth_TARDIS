@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/blue_mountains_smithy",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:blue_mountains_smithy/0",
     "lotr_port:blue_mountains_smithy/1",

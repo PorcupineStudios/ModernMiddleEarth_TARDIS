@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/angmar_warg_pit",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:angmar_warg_pit/0",
     "lotr_port:angmar_warg_pit/1",

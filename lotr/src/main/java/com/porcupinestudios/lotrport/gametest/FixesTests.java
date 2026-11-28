@@ -120,4 +120,35 @@ public final class FixesTests {
             helper.succeed();
         });
     }
+
+    /** #93: a placed block replaces LOTR's grasses and clovers, as vanilla's short grass; not its flowers. */
+    @GameTest(template = "empty")
+    public static void blocksReplaceLotrGrass(GameTestHelper helper) {
+        for (String id : List.of("short_grass", "flowery_grass", "wheatgrass", "arid_grass", "clover")) {
+            helper.assertTrue(com.porcupinestudios.lotrport.content.LotrBlocks.BY_ID.get(id).get().defaultBlockState()
+                    .canBeReplaced(), id + " isn't replaced by a placed block");
+        }
+        helper.assertTrue(!com.porcupinestudios.lotrport.content.LotrBlocks.BY_ID.get("elanor").get()
+                .defaultBlockState().canBeReplaced(), "elanor is replaced (vanilla's flowers aren't)");
+        helper.succeed();
+    }
+
+    /** #94: a pie or cake has a model per bite, so it shrinks as it's eaten (the hitbox did; the model didn't). */
+    @GameTest(template = "empty")
+    public static void piesShrinkAsEaten(GameTestHelper helper) throws java.io.IOException {
+        for (String id : List.of("berry_pie_block", "lemon_cake_block", "dalish_pastry_block")) {
+            Block block = com.porcupinestudios.lotrport.content.LotrBlocks.BY_ID.get(id).get();
+            helper.assertTrue(block instanceof net.minecraft.world.level.block.CakeBlock, id + " isn't eaten in bites");
+            try (var in = FixesTests.class.getResourceAsStream("/assets/lotr_port/blockstates/" + id + ".json")) {
+                helper.assertTrue(in != null, id + " has no blockstate");
+                var variants = com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in))
+                        .getAsJsonObject().getAsJsonObject("variants");
+                for (int bite = 0; bite <= 6; bite++) {
+                    helper.assertTrue(variants.has("bites=" + bite), id + " has no model for bite " + bite);
+                }
+                helper.assertTrue(!variants.get("bites=0").equals(variants.get("bites=6")), id + " doesn't shrink");
+            }
+        }
+        helper.succeed();
+    }
 }

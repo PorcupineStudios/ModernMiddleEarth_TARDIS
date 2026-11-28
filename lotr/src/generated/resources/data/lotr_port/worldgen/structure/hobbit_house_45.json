@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/hobbit_house_45",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:hobbit_house/0",
     "lotr_port:hobbit_house/1",

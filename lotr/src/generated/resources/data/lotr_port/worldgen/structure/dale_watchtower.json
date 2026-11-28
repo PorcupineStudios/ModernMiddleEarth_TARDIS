@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/dale_watchtower",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:dale_watchtower/0",
     "lotr_port:dale_watchtower/1",

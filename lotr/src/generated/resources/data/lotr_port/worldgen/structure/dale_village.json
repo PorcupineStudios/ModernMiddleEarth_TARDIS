@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/dale_village",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:dale_village/0",
     "lotr_port:dale_village/1",

@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/dunlending_house_25",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:dunlending_house/0",
     "lotr_port:dunlending_house/1",

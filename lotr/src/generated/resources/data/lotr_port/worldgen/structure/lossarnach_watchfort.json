@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/lossarnach_watchfort",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:lossarnach_watchfort/0",
     "lotr_port:lossarnach_watchfort/1",

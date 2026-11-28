@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/ranger_camp_2000",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:ranger_camp/0",
     "lotr_port:ranger_camp/1",

@@ -72,6 +72,21 @@ public final class LotrStructurePiece extends TemplateStructurePiece {
         tag.putInt("MaxFoundation", maxFoundation);
     }
 
+    /**
+     * The box from just over the ground layer up: what terrain adaptation (beard_thin, the Beardifier) takes for the
+     * piece, whose ground it takes as the box's bottom, so the hill round the building is carved down to the ground
+     * layer and the ground under its edges built up (#92: on hills, cliffs and dirt walls round a flat pad). With the
+     * whole template's box the cellar's floor was taken for the ground: a ditch round the building, or the building
+     * left floating (2026-11-04). Placement keeps the whole template (the {@code boundingBox} field).
+     */
+    @Override
+    public BoundingBox getBoundingBox() {
+        BoundingBox all = boundingBox;
+        int above = templatePosition.getY() + ground + 1;
+        return above <= all.minY() || above > all.maxY() ? all
+                : new BoundingBox(all.minX(), above, all.minZ(), all.maxX(), all.maxY(), all.maxZ());
+    }
+
     @Override
     protected void handleDataMarker(String name, BlockPos pos, ServerLevelAccessor level, RandomSource random,
             BoundingBox box) {
@@ -89,7 +104,7 @@ public final class LotrStructurePiece extends TemplateStructurePiece {
             cleared.add(info.pos().asLong());
         }
         int y = templatePosition.getY() + ground;
-        BoundingBox mine = getBoundingBox();
+        BoundingBox mine = boundingBox; // the whole template, cellars too
         BlockPos.MutableBlockPos at = new BlockPos.MutableBlockPos();
         for (int x = Math.max(mine.minX(), box.minX()); x <= Math.min(mine.maxX(), box.maxX()); x++) {
             for (int z = Math.max(mine.minZ(), box.minZ()); z <= Math.min(mine.maxZ(), box.maxZ()); z++) {

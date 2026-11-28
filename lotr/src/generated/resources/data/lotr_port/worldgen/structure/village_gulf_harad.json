@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/village_gulf_harad",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:village_gulf_harad/0",
     "lotr_port:village_gulf_harad/1"
