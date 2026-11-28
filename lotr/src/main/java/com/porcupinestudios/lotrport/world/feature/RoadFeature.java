@@ -67,8 +67,8 @@ public final class RoadFeature extends Feature<NoneFeatureConfiguration> {
                     continue;
                 }
                 long hash = hash(x, y, z);
-                if (top.getFluidState().isEmpty() && !onRoad(roads, x, z)) {
-                    continue;  // the bridge's extra width is only over water
+                if (top.getFluidState().isEmpty() && !onRoad(roads, x, z) && !touchesWater(level, x, z)) {
+                    continue;  // the bridge's extra width is only over water and the bank beside it
                 }
                 if (!top.getFluidState().isEmpty()) {
                     bridge(level, roads, style, x, y, z, fences);
@@ -190,6 +190,19 @@ public final class RoadFeature extends Feature<NoneFeatureConfiguration> {
 
     private static boolean edgePillar(Roads roads, int x, int z) {
         return onRoad(roads, x, z) && fenceAt(roads, x, z) && pillarAt(roads, x, z);
+    }
+
+    /** A bank column beside the bridge's water columns: the road is laid there too so the deck is as wide on land. */
+    private static boolean touchesWater(WorldGenLevel level, int x, int z) {
+        for (Direction dir : Direction.Plane.HORIZONTAL) {
+            int nx = x + dir.getStepX();
+            int nz = z + dir.getStepZ();
+            int ny = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, nx, nz) - 1;
+            if (!level.getBlockState(new BlockPos(nx, ny, nz)).getFluidState().isEmpty()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** A road column next to this one is a block higher: LOTR smooths the step with a half slab. */
