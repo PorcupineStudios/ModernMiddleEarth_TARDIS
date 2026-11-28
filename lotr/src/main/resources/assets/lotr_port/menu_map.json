@@ -1,0 +1,5 @@
+{
+  "_comment": "Title screen map (client config menu.backdrop = MAP): where it starts, in map image pixels (Hobbiton's, from its waypoint's map_x and map_z). From there it drifts to random places on land.",
+  "start_x": 815,
+  "start_z": 727
+}

@@ -36,7 +36,7 @@ the topic file (or a new file listed here), never into this one. All in `lotr/do
 | Factions, realms, pledging, kill alignment; NPCs (types, trading, hiring, speech, creature models); player races and skin conversion | `factions-npcs-races.md`; big creature rigs: `rig.md` |
 | Animals and their spawning, mounts and NPC riders, Rhosgobel rabbits, the harness mod's hooks | `animals-mounts.md` |
 | LOTR structures: rolls, rates, overlaps, foundations, doors, template NPCs; natural NPC spawning | `structures.md` |
-| Map screen, waypoints, fast travel and companions, mini-quests, the Red Book | `map-quests.md` |
+| Map screen, waypoints, fast travel and companions, mini-quests, the Red Book, the title screen map | `map-quests.md` |
 | Colonies, immigration, rare races, TARDIS researchers, road works, borders and kingdoms, diplomacy, management screens, colonists, AI rulers | `colonies-and-kingdoms.md`, then `colonies.md`, `colonists.md`, `borders.md`, `diplomacy.md`, `ui-core.md`, `roads.md` |
 | Gates and connected textures, drinks, kegs and vessels, recipes and JEI, machines and display blocks, double torches, farming, ores and raw ores, pouches, Create compat and faction crafters | `blocks-machines.md` |
 | Modifiers, the One Ring and Curios, combat and weapons, armour models, thrown weapons and NPC archers, sounds | `items-combat.md`; the Ring: `ring-and-looks.md` |

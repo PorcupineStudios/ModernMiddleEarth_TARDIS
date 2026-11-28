@@ -105,6 +105,22 @@ public final class LotrClientConfig {
             .comment("Middle-earth's own sky: LOTR's sun, moon, night sky and Earendil.")
             .define("sky.enabled", true);
 
+    /** What the title screen shows behind its buttons. */
+    public enum MenuBackdrop { MAP, PANORAMA }
+
+    public static final ModConfigSpec.EnumValue<MenuBackdrop> MENU_BACKDROP = BUILDER
+            .comment("Title screen backdrop: MAP is LOTR's (the Middle-earth map drifting from place to place, read from",
+                    "the LOTR jar), PANORAMA the Shire panorama.")
+            .defineEnum("menu.backdrop", MenuBackdrop.MAP);
+
+    public static final ModConfigSpec.DoubleValue MENU_MAP_ZOOM = BUILDER
+            .comment("Title screen map: GUI pixels per map pixel (bigger is closer).")
+            .defineInRange("menu.mapZoom", 1.0, 0.25, 8.0);
+
+    public static final ModConfigSpec.DoubleValue MENU_MAP_SPEED = BUILDER
+            .comment("Title screen map: how fast it drifts, in map pixels a second (0 = still).")
+            .defineInRange("menu.mapSpeed", 6.0, 0.0, 100.0);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 
     private LotrClientConfig() {}

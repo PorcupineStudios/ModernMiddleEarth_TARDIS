@@ -45,7 +45,7 @@ import org.lwjgl.glfw.GLFW;
  */
 public final class MapScreen extends Screen {
     private static final ResourceLocation ICONS = LotrPort.id("textures/gui/map/map_screen.png");
-    private static final ResourceLocation OVERLAY = LotrPort.id("textures/gui/map/map_overlay.png");
+    static final ResourceLocation OVERLAY = LotrPort.id("textures/gui/map/map_overlay.png");
     private static final ResourceLocation LABELS = LotrPort.id("map/labels.json");
     private static final int BORDER = 30;
     private static final int BORDER_COLOR = 0xFFA21100;
@@ -382,7 +382,7 @@ public final class MapScreen extends Screen {
         }
     }
 
-    private static void quad(GuiGraphics g, ResourceLocation tex, float qx0, float qy0, float qx1, float qy1,
+    static void quad(GuiGraphics g, ResourceLocation tex, float qx0, float qy0, float qx1, float qy1,
             float u0, float v0, float u1, float v1, float alpha) {
         RenderSystem.setShaderTexture(0, tex);
         RenderSystem.setShader(GameRenderer::getPositionTexColorShader);

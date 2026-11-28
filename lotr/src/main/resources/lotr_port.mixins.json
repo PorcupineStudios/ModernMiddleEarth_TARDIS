@@ -13,7 +13,8 @@
     "WorldGenRegionMixin"
   ],
   "client": [
-    "PlayerSkinMixin"
+    "PlayerSkinMixin",
+    "TitleScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
