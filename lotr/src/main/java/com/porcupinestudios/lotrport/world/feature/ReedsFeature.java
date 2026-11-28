@@ -67,7 +67,12 @@ public final class ReedsFeature extends Feature<ReedsFeature.Config> {
                 level.setBlock(at, reed.setValue(ReedBlock.WATERLOGGED, y < depth), Block.UPDATE_CLIENTS);
             }
             for (BlockPos p = bed.above(); p.getY() < at.getY(); p = p.above()) {
-                level.setBlock(p, block.withPart(level.getBlockState(p), level, p), Block.UPDATE_CLIENTS);
+                BlockState here = level.getBlockState(p);
+                // A writer that refuses blocks (Distant Horizons' world gen level, outside its region) leaves the
+                // water there: only reeds get a part.
+                if (here.is(block)) {
+                    level.setBlock(p, block.withPart(here, level, p), Block.UPDATE_CLIENTS);
+                }
             }
             placed = true;
         }
