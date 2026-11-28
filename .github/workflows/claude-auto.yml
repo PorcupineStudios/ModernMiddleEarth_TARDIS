@@ -8,7 +8,8 @@ name: Claude (scheduled)
 # without `valid`. Players write from-game reports through the in-game reporter (tools/bug-relay) under Aaron's
 # token, so their text could carry instructions; the relay labels a report `valid` only when it was sent with the
 # admin key, and Aaron adds `valid` by hand to a player's report he has read.
-# "Run workflow" in the Actions tab runs it now, optionally on a given issue.
+# "Run workflow" in the Actions tab runs it now, optionally on a given issue. Each run first reads the plan's usage
+# and skips the scheduled pick when it's near the limit (the usage step below).
 on:
   schedule:
     - cron: '17 */4 * * *'
@@ -17,6 +18,10 @@ on:
       issue:
         description: Issue number (empty picks the next one)
         required: false
+      check_only:
+        description: Only read the plan usage (shown on the run's summary); start no issue
+        type: boolean
+        default: false
 
 concurrency:
   group: claude-auto
@@ -29,13 +34,42 @@ jobs:
     outputs:
       issue: ${{ steps.pick.outputs.issue }}
     steps:
+      # Plan usage from Claude Code's usage endpoint (undocumented, the one /usage reads; Aaron 2026-11-28): a scheduled
+      # run doesn't start an issue once the 5-hour window is at CLAUDE_MAX_5H % (default 80) or the week at
+      # CLAUDE_MAX_7D % (default 90), repository variables. A run started by hand with an issue number always goes ahead.
+      # If the endpoint can't be read (it may change or refuse this token), the run goes ahead and says so.
+      - id: usage
+        env:
+          TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          MAX_5H: ${{ vars.CLAUDE_MAX_5H || '80' }}
+          MAX_7D: ${{ vars.CLAUDE_MAX_7D || '90' }}
+          GIVEN: ${{ inputs.issue }}
+        run: |
+          ok=true
+          code=$(curl -sS --max-time 20 -o usage.json -w '%{http_code}' https://api.anthropic.com/api/oauth/usage \
+            -H "Authorization: Bearer $TOKEN" -H "anthropic-beta: oauth-2025-04-20") || code=000
+          if [ "$code" != 200 ] || ! jq -e 'type == "object"' usage.json > /dev/null 2>&1; then
+            echo "::warning::Couldn't read plan usage (HTTP $code), so this run doesn't check it: $(head -c 300 usage.json 2>/dev/null)"
+          else
+            IFS=$'\t' read -r h5 r5 d7 r7 < <(jq -r '[(.five_hour.utilization // 0), (.five_hour.resets_at // "-"),
+              (.seven_day.utilization // 0), (.seven_day.resets_at // "-")] | @tsv' usage.json)
+            line="Plan usage: 5-hour $h5% (resets $r5), week $d7% (resets $r7); limits $MAX_5H% / $MAX_7D%"
+            echo "$line"; echo "$line" >> "$GITHUB_STEP_SUMMARY"
+            if awk -v a="$h5" -v b="$MAX_5H" -v c="$d7" -v d="$MAX_7D" 'BEGIN { exit !(a >= b || c >= d) }'; then
+              if [ -n "$GIVEN" ]; then echo "Over the limit, but started by hand on #$GIVEN: going ahead."
+              else ok=false; echo "::notice::Over the usage limit: no issue this run."; fi
+            fi
+          fi
+          echo "ok=$ok" >> "$GITHUB_OUTPUT"
       - id: pick
+        if: steps.usage.outputs.ok == 'true' && !inputs.check_only
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           GIVEN: ${{ inputs.issue }}
         run: |
           n="$GIVEN"
+          # shellcheck disable=SC2016 # $l below is a jq variable, not a shell one
           if [ -z "$n" ]; then
             n=$(gh issue list --state open --limit 500 --json number,labels --jq '
               [ .[] | (.labels | map(.name)) as $l
