@@ -1,10 +1,12 @@
 // The repo's table of contents, read live from the code so it is never stale (no install needed, Node 18+):
 //   node tools/codemap/codemap.mjs                 every package, one line each (names only), and every data folder
 //   node tools/codemap/codemap.mjs npc/behaviour   each class whose path contains a term: path:line, kind, name and
-//                                                  the first sentence of its javadoc (several terms: any of them)
+//                                                  the first sentence of its javadoc, and the classes that use it
+//                                                  (several terms: any of them)
 // Used by the ringbearer-map skill (.claude/skills) and the organizer step of .github/workflows/claude-auto.yml.
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
+import { pathToFileURL } from 'node:url';
 
 const files = execFileSync('git', ['ls-files'], { encoding: 'utf8', maxBuffer: 64 << 20 }).split('\n').filter(Boolean);
 const java = files.filter((f) => f.endsWith('.java'));
@@ -35,25 +37,43 @@ export function summarize(src) {
     if (j >= 0) doc = lines.slice(j, i + 1).join(' ');
   }
   doc = doc.replace(/\/\*\*|\*\//g, ' ').replace(/^\s*\*|\s\*(?=\s)/g, ' ').replace(/\{@\w+\s+([^}]*)\}/g, '$1')
-    .replace(/<[^>]+>/g, ' ').replace(/&\w+;/g, ' ').replace(/\s+/g, ' ').trim();
+    .replace(/<[^>]+>/g, ' ').replace(/&\w+;/g, ' ').replace(/\s+/g, ' ').replace(/ ([.,;:])/g, '$1').trim();
   const end = doc.search(/\.(\s|$)/);
   if (end > 0) doc = doc.slice(0, end + 1);
   if (doc.length > 180) doc = doc.slice(0, 177) + '...';
   return { kind, name, line: at + 1, doc };
 }
 
-if (terms.length) {
+// every identifier a file's code names, comments left out (prose like "the teams" is no use of class Teams)
+export function identifiers(src) {
+  return new Set(src.replace(/\/\*[\s\S]*?\*\/|\/\/[^\n]*/g, ' ').match(/[A-Za-z_]\w*/g) ?? []);
+}
+
+// the classes (file names) whose code names `name`, the file `self` left out; sources: file -> identifiers
+export function users(sources, name, self) {
+  const out = [];
+  for (const [f, ids] of sources) if (f !== self && ids.has(name)) out.push(f.replace(/^.*\//, '').replace(/\.java$/, ''));
+  return out.sort();
+}
+
+const MAX_USERS = 15;
+
+if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href && terms.length) {
   const hit = java.filter((f) => terms.some((t) => f.toLowerCase().includes(t.toLowerCase())));
+  const sources = hit.length ? new Map(java.map((f) => [f, identifiers(readFileSync(f, 'utf8'))])) : new Map();
   for (const f of hit) {
     const s = summarize(readFileSync(f, 'utf8'));
     console.log(s ? `${f}:${s.line}  ${s.kind} ${s.name}${s.doc ? ' — ' + s.doc : ''}` : f);
+    if (!s) continue;
+    const u = users(sources, s.name, f);
+    console.log(`    used by (${u.length}): ${u.length ? u.slice(0, MAX_USERS).join(' ') + (u.length > MAX_USERS ? ' ...' : '') : 'nothing (entry point, registered by name, or dead)'}`);
   }
   // data files that match too (tuning lives in JSON: CLAUDE.md)
   const data = files.filter((f) => /\/resources\/data\//.test(f) && terms.some((t) => f.toLowerCase().includes(t.toLowerCase())));
   for (const f of data.slice(0, 60)) console.log(f);
   if (data.length > 60) console.log(`... ${data.length - 60} more data files`);
   if (!hit.length && !data.length) console.log(`nothing matches ${terms.join(', ')}; run with no arguments for the package list`);
-} else {
+} else if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
   const pkgs = new Map();
   for (const f of java) {
     const [mod, pkg] = where(f);

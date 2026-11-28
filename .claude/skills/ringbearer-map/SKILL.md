@@ -15,8 +15,10 @@ description: Find the code and data an issue or change in this repo touches (api
 3. **Which package?** `node tools/codemap/codemap.mjs` prints every package (class names only) and every data
    folder, about 4k tokens. Run it once per task, not again.
 4. **Which class?** `node tools/codemap/codemap.mjs <term> [<term>...]` prints each matching class as
-   `path:line kind Name — first javadoc sentence`, plus matching data files. A term matches part of a path, so a
-   package (`npc/behaviour`), a class name (`RedBook`), or a data folder (`colony_job`) works.
+   `path:line kind Name — first javadoc sentence` with the classes that use it (`used by`), plus matching data
+   files. A term matches part of a path, so a package (`npc/behaviour`), a class name (`RedBook`, or
+   `Teams.java` for that file only), or a data folder (`colony_job`) works. Follow `used by` to find callers,
+   registrations and tests instead of grepping for them.
 5. **Read only those**, from the line given, with `offset`/`limit` for big files. Use Grep for a symbol
    (`Grep "class Foo|Foo::"`) instead of opening files to look for it.
 

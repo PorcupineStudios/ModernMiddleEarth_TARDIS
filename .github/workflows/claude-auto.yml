@@ -89,7 +89,7 @@ jobs:
 
             Find exactly the code and data it touches, following .claude/skills/ringbearer-map/SKILL.md: the topic
             table in the mod's CLAUDE.md, then `node tools/codemap/codemap.mjs` (once) and
-            `node tools/codemap/codemap.mjs <terms>`, then Grep, then read just enough of each candidate to confirm it
+            `node tools/codemap/codemap.mjs <terms>` (its "used by" lines give callers and tests), then Grep, then read just enough of each candidate to confirm it
             (offset/limit, never whole big files). Stay under 25 tool calls.
 
             Write .claude-brief.md, short, in this shape:
