@@ -1,6 +1,6 @@
 name: Claude (scheduled)
 
-# Works the issue list without anyone labelling or waking Claude (Aaron 2026-11-28): every 4 hours it picks one open
+# Works the issue list without anyone labelling or waking Claude (Aaron 2026-11-28): every 30 minutes it picks one open
 # issue and runs Claude Code on it, which fixes it on a claude/ branch and opens a PR for review (never merges).
 # Picked first: in-game bug reports labelled `valid`, then every other issue, oldest first. Skipped: issues labelled
 # `claude` (already handed over by hand, claude.yml) or `claude-tried` (picked before; this run adds it, so each issue
@@ -8,15 +8,23 @@ name: Claude (scheduled)
 # without `valid`. Players write from-game reports through the in-game reporter (tools/bug-relay) under Aaron's
 # token, so their text could carry instructions; the relay labels a report `valid` only when it was sent with the
 # admin key, and Aaron adds `valid` by hand to a player's report he has read.
-# "Run workflow" in the Actions tab runs it now, optionally on a given issue.
+# "Run workflow" in the Actions tab runs it now, optionally on a given issue. Each run first reads the plan's usage
+# and starts nothing while it's at the limit, so the schedule pauses itself and picks up again after the reset (the
+# usage step below). To switch it off: Actions > Claude (scheduled) > Disable workflow (or gh workflow disable).
+# While a run works an issue (up to 90 min), at most one more waits in the concurrency group; later ones are dropped.
 on:
   schedule:
-    - cron: '17 */4 * * *'
+    # 7 and 37 past, away from the top of the hour when GitHub's scheduler runs late
+    - cron: '7,37 * * * *'
   workflow_dispatch:
     inputs:
       issue:
         description: Issue number (empty picks the next one)
         required: false
+      check_only:
+        description: Only read the plan usage (shown on the run's summary); start no issue
+        type: boolean
+        default: false
 
 concurrency:
   group: claude-auto
@@ -29,13 +37,66 @@ jobs:
     outputs:
       issue: ${{ steps.pick.outputs.issue }}
     steps:
+      # Plan usage, read from Claude Code itself (Aaron 2026-11-28): one tiny Haiku prompt (about $0.0015) in
+      # stream-json mode, whose rate_limit_event gives each window's use (unifiedWindows.five_hour / seven_day,
+      # utilization 0-1, resetsAt in Unix seconds; undocumented, seen in CI 2026-11-28). A scheduled run starts no issue
+      # while either window is at CLAUDE_MAX_USAGE % (repository variable, default 90) or the plan refuses; if the
+      # window that blocks it resets within CLAUDE_WAIT_MINUTES (default 25), it waits for the reset instead. A run
+      # started by hand with an issue number always goes ahead. If no event comes back, the run goes ahead and says so.
+      - id: usage
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          MAX: ${{ vars.CLAUDE_MAX_USAGE || '90' }}
+          WAIT_MINUTES: ${{ vars.CLAUDE_WAIT_MINUTES || '25' }}
+          GIVEN: ${{ inputs.issue }}
+        run: |
+          npm install -g --silent @anthropic-ai/claude-code
+          claude -p "Reply with the word OK." --model haiku --max-turns 1 --output-format stream-json --verbose \
+            > probe.jsonl 2> probe.err || echo "the usage probe exited $?: $(head -c 300 probe.err)"
+          info=$(jq -c 'select(.type == "rate_limit_event") | .rate_limit_info' probe.jsonl 2>/dev/null | tail -n 1)
+          ok=true
+          if [ -z "$info" ]; then
+            echo "::warning::Claude Code reported no usage, so this run doesn't check it."
+          else
+            # one line per window: name, percent used, reset (Unix seconds), status; the top-level window if there
+            # are no unifiedWindows (older Claude Code)
+            jq -r '(.unifiedWindows // {(.rateLimitType // "plan"): .}) | to_entries[]
+              | [.key, ((.value.utilization // 0) * 100 | floor), (.value.resetsAt // 0), (.value.status // "")] | @tsv' \
+              <<< "$info" > windows.tsv
+            status=$(jq -r '.status // ""' <<< "$info")
+            now=$(date +%s); until=0; line="Plan usage (limit $MAX%):"
+            while IFS=$'\t' read -r name pct reset wstatus; do
+              at="?"; [ "$reset" -gt 0 ] && at=$(date -u -d "@$reset" '+%a %d %b %H:%M UTC')
+              line="$line $name $pct% (resets $at);"
+              if [ "$pct" -ge "$MAX" ] || [ "$wstatus" = rejected ]; then [ "$reset" -gt "$until" ] && until=$reset; fi
+            done < windows.tsv
+            if [ "$status" = rejected ] && [ "$until" -eq 0 ]; then until=$(jq -r '.resetsAt // 0' <<< "$info"); fi
+            echo "$line"; echo "$line" >> "$GITHUB_STEP_SUMMARY"
+            if [ "$until" -gt 0 ] || [ "$status" = rejected ]; then
+              wait=$(( until - now + 60 ))
+              if [ -n "$GIVEN" ]; then
+                echo "Over the limit, but started by hand on #$GIVEN: going ahead."
+              elif [ "$until" -gt 0 ] && [ "$wait" -le $(( WAIT_MINUTES * 60 )) ]; then
+                echo "Over the limit until $(date -u -d "@$until" '+%H:%M UTC'): waiting $(( wait / 60 + 1 )) min for the reset."
+                [ "$wait" -gt 0 ] && sleep "$wait"
+              else
+                ok=false
+                when="the plan resets"; [ "$until" -gt 0 ] && when=$(date -u -d "@$until" '+%a %d %b %H:%M UTC')
+                msg="Over the limit: no issue until $when; runs resume by themselves after that."
+                echo "::notice::$msg"; echo "$msg" >> "$GITHUB_STEP_SUMMARY"
+              fi
+            fi
+          fi
+          echo "ok=$ok" >> "$GITHUB_OUTPUT"
       - id: pick
+        if: steps.usage.outputs.ok == 'true' && !inputs.check_only
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           GIVEN: ${{ inputs.issue }}
         run: |
           n="$GIVEN"
+          # shellcheck disable=SC2016 # $l below is a jq variable, not a shell one
           if [ -z "$n" ]; then
             n=$(gh issue list --state open --limit 500 --json number,labels --jq '
               [ .[] | (.labels | map(.name)) as $l
