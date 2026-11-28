@@ -71,7 +71,7 @@ From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer
 - GameTests (2026-11-18): ~136 in `gametest/`; CI's "Middle-earth world" step (`WorldCheck`, real chunks across the
   biomes) runs only when all pass. Most use template `lotr_port:empty`, which is 16x4x16 so the runner spaces tests
   apart (at 1x1x1 neighbouring creature tests' animals ran into each other). Tests that need entities to tick wrap
-  their body in `ThrownTests.inLoadedArea` (forced chunks). Timing tests (`fiftyColoniesRunTenDaysWithinTheBudget`)
-  can miss by a hair on a slow runner; re-run the failed job rather than loosening them. An entity that walks out of
+  their body in `ThrownTests.inLoadedArea` (forced chunks). Timing tests (`fiftyColoniesRunTenDaysWithinTheBudget`,
+  median of 10 days, each against a reference job timed beside it) can still miss on a slow runner; re-run the job. An entity that walks out of
   the forced chunks freezes there (no player keeps it ticking): `rabbitEatsCrop` failed about half the runs that way
   until 2026-11-27, when the rabbit was put back before the edge.
