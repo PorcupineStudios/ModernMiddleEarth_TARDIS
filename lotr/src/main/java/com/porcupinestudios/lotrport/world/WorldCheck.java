@@ -21,6 +21,11 @@ import net.minecraft.world.level.block.state.BlockState;
  * the JVM without saving (the check world is thrown away).
  */
 final class WorldCheck {
+    /** Holds the biome chunks so they generate side by side; never removed (the check world is thrown away). */
+    private static final net.minecraft.server.level.TicketType<net.minecraft.world.level.ChunkPos> CHECK =
+            net.minecraft.server.level.TicketType.create("lotr_port_worldcheck",
+                    java.util.Comparator.comparingLong(net.minecraft.world.level.ChunkPos::toLong));
+
     private WorldCheck() {}
 
     static void runIfAsked(MinecraftServer server) {
@@ -64,6 +69,8 @@ final class WorldCheck {
             }
             if (problem == null) {
                 problem = spiderNestIsBuilt(overworld);
+            }
+            if (problem == null) {
                 problem = moriaIsBuilt(overworld);
             }
             if (problem == null) {
@@ -179,7 +186,8 @@ final class WorldCheck {
         MiddleEarthMap map = source.map();
         int[][] samples = map.samplePositions();
         List<String> missing = new ArrayList<>();
-        int generated = 0;
+        List<String> ids = new ArrayList<>();
+        List<int[]> columns = new ArrayList<>();
         long start = System.nanoTime();
         for (int i = 0; i < samples.length; i++) {
             String id = map.biomes().get(i).id();
@@ -203,10 +211,21 @@ final class WorldCheck {
                         + samples[i][1] + ")");
                 continue;
             }
-            int x = at[0];
-            int z = at[1];
+            ids.add(id);
+            columns.add(at);
+        }
+        // A ticket on every chunk first, so the world-gen workers make them all at once (one getChunk after another
+        // generated them one at a time on one core: 205 chunks in 481 s on CI, 2026-11-28)
+        var cache = level.getChunkSource();
+        for (int[] at : columns) {
+            var pos = new net.minecraft.world.level.ChunkPos(at[0] >> 4, at[1] >> 4);
+            cache.addRegionTicket(CHECK, pos, 0, pos);
+        }
+        for (int c = 0; c < columns.size(); c++) {
+            String id = ids.get(c);
+            int x = columns.get(c)[0];
+            int z = columns.get(c)[1];
             var chunk = level.getChunk(x >> 4, z >> 4);
-            generated++;
             BlockPos pos = LotrDimensions.surface(level, x, z);
             // the chunk's stored biome, not level.getBiome, which blurs biome borders by a few blocks
             // sea pixels are a sea biome by latitude (converter/waters.py): expect the one the biome source gives there
@@ -218,7 +237,7 @@ final class WorldCheck {
                 missing.add(id + " at " + x + "," + z);
             }
         }
-        LotrPort.LOG.info("[worldcheck] generated {} biome chunks in {} s, missing: {}", generated,
+        LotrPort.LOG.info("[worldcheck] generated {} biome chunks in {} s, missing: {}", columns.size(),
                 (System.nanoTime() - start) / 1_000_000_000L, missing);
         return missing.isEmpty() ? null : "biomes not found where the map has them: " + missing;
     }
