@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/village_tauredain",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:village_tauredain/0",
     "lotr_port:village_tauredain/1"

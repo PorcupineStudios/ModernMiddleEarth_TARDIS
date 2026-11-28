@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/village_harad_nomad",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:village_harad_nomad/0",
     "lotr_port:village_harad_nomad/1"

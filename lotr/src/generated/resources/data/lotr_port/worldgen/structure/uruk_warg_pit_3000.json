@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/uruk_warg_pit_3000",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:uruk_warg_pit/0",
     "lotr_port:uruk_warg_pit/1",

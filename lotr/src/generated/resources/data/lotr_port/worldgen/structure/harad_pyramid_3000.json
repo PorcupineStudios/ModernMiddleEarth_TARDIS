@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/harad_pyramid_3000",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:harad_pyramid/0",
     "lotr_port:harad_pyramid/1",

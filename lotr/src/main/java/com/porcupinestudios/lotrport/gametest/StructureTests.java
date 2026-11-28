@@ -108,10 +108,14 @@ public final class StructureTests {
         int ground = 4;
         LotrStructurePiece piece = new LotrStructurePiece(level.getStructureManager(), LotrPort.id("hobbit_tavern/0"),
                 at.atY(surface - ground), Rotation.NONE, ground, 8);
-        BoundingBox box = piece.getBoundingBox();
-        piece.postProcess(level, level.structureManager(), level.getChunkSource().getGenerator(), level.random, box,
+        BoundingBox box = piece.getBoundingBox(); // from over the ground layer up (terrain adaptation's)
+        helper.assertTrue(box.minY() == surface + 1, "terrain adaptation's ground is " + box.minY() + ", want "
+                + (surface + 1));
+        BoundingBox all = new BoundingBox(box.minX(), level.getMinBuildHeight(), box.minZ(), box.maxX(), box.maxY(),
+                box.maxZ());
+        piece.postProcess(level, level.structureManager(), level.getChunkSource().getGenerator(), level.random, all,
                 new ChunkPos(at), at);
-        BlockPos corner = new BlockPos(box.minX(), box.minY(), box.minZ());
+        BlockPos corner = new BlockPos(box.minX(), surface - ground, box.minZ());
         // template coordinates: the stairwell at x 20, z 23, y 3 and 4; the cellar below
         for (BlockPos rel : new BlockPos[] {new BlockPos(20, 4, 23), new BlockPos(20, 3, 23),
                 new BlockPos(17, 2, 25), new BlockPos(18, 1, 26)}) {

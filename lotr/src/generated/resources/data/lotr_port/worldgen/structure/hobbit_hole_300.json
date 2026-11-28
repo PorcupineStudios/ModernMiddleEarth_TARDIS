@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/hobbit_hole_300",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:hobbit_hole/0",
     "lotr_port:hobbit_hole/1",

@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/tower_hills_tower",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:tower_hills_tower/0",
     "lotr_port:tower_hills_tower/1",

@@ -7,7 +7,8 @@
     "south": "lotr_port:block/berry_pie_side",
     "west": "lotr_port:block/berry_pie_side",
     "east": "lotr_port:block/berry_pie_side",
-    "particle": "lotr_port:block/berry_pie_side"
+    "particle": "lotr_port:block/berry_pie_side",
+    "inner": "lotr_port:block/berry_pie_inner"
   },
   "render_type": "minecraft:cutout",
   "elements": [

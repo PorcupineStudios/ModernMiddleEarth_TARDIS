@@ -1,7 +1,25 @@
 {
   "variants": {
-    "": {
+    "bites=0": {
       "model": "lotr_port:block/berry_pie_block"
+    },
+    "bites=1": {
+      "model": "lotr_port:block/berry_pie_block_slice1"
+    },
+    "bites=2": {
+      "model": "lotr_port:block/berry_pie_block_slice2"
+    },
+    "bites=3": {
+      "model": "lotr_port:block/berry_pie_block_slice3"
+    },
+    "bites=4": {
+      "model": "lotr_port:block/berry_pie_block_slice4"
+    },
+    "bites=5": {
+      "model": "lotr_port:block/berry_pie_block_slice5"
+    },
+    "bites=6": {
+      "model": "lotr_port:block/berry_pie_block_slice6"
     }
   }
 }

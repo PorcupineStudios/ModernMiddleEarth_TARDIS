@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/moredain_village",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:moredain_village/0",
     "lotr_port:moredain_village/1",

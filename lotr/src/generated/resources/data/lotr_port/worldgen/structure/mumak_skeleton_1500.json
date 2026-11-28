@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/mumak_skeleton_1500",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:mumak_skeleton/0",
     "lotr_port:mumak_skeleton/1",

@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/gondor_turret_500",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:gondor_turret/0",
     "lotr_port:gondor_turret/1",

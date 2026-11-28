@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/numenor_ruin",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "none",
+  "terrain_adaptation": "beard_thin",
   "templates": [
     "lotr_port:numenor_ruin/0",
     "lotr_port:numenor_ruin/1",
