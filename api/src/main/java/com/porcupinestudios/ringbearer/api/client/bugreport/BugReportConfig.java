@@ -20,6 +20,11 @@ public final class BugReportConfig {
             .comment("Screenshots wider than this are scaled down before sending, to keep reports small.")
             .defineInRange("bugReport.screenshotMaxWidth", 1600, 320, 7680);
 
+    public static final ModConfigSpec.ConfigValue<String> ADMIN_KEY = BUILDER
+            .comment("The pack maker's admin key: reports sent with it skip the relay's daily limit. It must match the",
+                    "relay's ADMIN_KEY secret (tools/bug-relay/README.md). Leave empty; never share a config holding it.")
+            .define("bugReport.adminKey", "");
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 
     private BugReportConfig() {}

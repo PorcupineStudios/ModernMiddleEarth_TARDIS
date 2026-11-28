@@ -42,8 +42,19 @@ public class CreatureRenderer extends MobRenderer<LotrNpc, CreatureModel> {
     }
 
     static CreatureModel model(String id) {
-        return MODELS.computeIfAbsent(id, CreatureRenderer::load);
+        // a model that failed once isn't tried again every frame: that logged a stack trace per frame per creature
+        // and made a lag spike (2026-11-28, the gemsbok after its jar was replaced under the running game)
+        if (FAILED.contains(id)) {
+            return null;
+        }
+        CreatureModel m = MODELS.computeIfAbsent(id, CreatureRenderer::load);
+        if (m == null) {
+            FAILED.add(id);
+        }
+        return m;
     }
+
+    private static final java.util.Set<String> FAILED = new java.util.HashSet<>();
 
     /** Draws it; false if its model can't be found (the caller falls back to the humanoid). */
     public boolean draw(LotrNpc npc, float yaw, float partialTick, PoseStack pose, MultiBufferSource buffers,

@@ -35,6 +35,17 @@ Limits: 10 reports per IP per day (`DAILY_LIMIT_PER_IP`), title 120 chars, descr
 3. **The pack.** The address is the default of `bugReport.relayUrl` (`BugReportConfig`); change it there, or in `config/ringbearer_api-client.toml` (or in
    game: Mods > Ring Bearer API > Config).
 
+## Admin override (skip the daily limit)
+
+For the pack maker, who files many reports while testing. Pick a long random password, then in this folder:
+```powershell
+npx wrangler secret put ADMIN_KEY
+```
+Paste the password when asked (it takes effect at once; no redeploy needed after the first deploy that has this
+code). In game: Mods > Ring Bearer API > Config > `bugReport.adminKey`, paste the same password (it's kept in your
+`config/ringbearer_api-client.toml`, so never share that file or a profile export that includes it). Reports sent
+with it skip the limit; a wrong key just counts against the limit as usual. To revoke it, put a new `ADMIN_KEY`.
+
 ## Working the tickets
 
 ```powershell
