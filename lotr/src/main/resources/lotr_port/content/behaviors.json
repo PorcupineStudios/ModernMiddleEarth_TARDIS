@@ -127,7 +127,8 @@
   "berry_pie": "berry_pie_block",
   "cherry_pie": "cherry_pie_block",
   "dalish_pastry": "dalish_pastry_block",
-  "lemon_cake": "lemon_cake_block"
+  "lemon_cake": "lemon_cake_block",
+  "marchpane": "marchpane_block"
  },
  "draught": {
   "_comment": "LOTRItemEntDraught: drinkers below 0 Fangorn alignment are poisoned 5 s instead",
