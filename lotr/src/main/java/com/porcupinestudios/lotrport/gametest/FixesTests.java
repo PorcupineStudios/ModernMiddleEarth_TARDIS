@@ -136,7 +136,7 @@ public final class FixesTests {
     /** #94: a pie or cake has a model per bite, so it shrinks as it's eaten (the hitbox did; the model didn't). */
     @GameTest(template = "empty")
     public static void piesShrinkAsEaten(GameTestHelper helper) throws java.io.IOException {
-        for (String id : List.of("berry_pie_block", "lemon_cake_block", "dalish_pastry_block")) {
+        for (String id : List.of("berry_pie_block", "lemon_cake_block", "dalish_pastry_block", "marchpane_block")) {
             Block block = com.porcupinestudios.lotrport.content.LotrBlocks.BY_ID.get(id).get();
             helper.assertTrue(block instanceof net.minecraft.world.level.block.CakeBlock, id + " isn't eaten in bites");
             try (var in = FixesTests.class.getResourceAsStream("/assets/lotr_port/blockstates/" + id + ".json")) {
