@@ -230,6 +230,76 @@ public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Confi
                 level.setBlock(at.setWithOffset(b.pos(), 0, -d, 0), Blocks.DIRT.defaultBlockState(), 2);
             }
         }
+        bank(level, tree, writable, max);
+    }
+
+    /**
+     * Round the filled base, the ground is raised to a slope of a block down per block out (a grass bank), so the
+     * base doesn't stand as a dirt wall over lower land (#98, Aaron 2026-11-28: no overhangs, but not smoothed).
+     */
+    private static void bank(WorldGenLevel level, List<Placed> tree, BoundingBox writable, int max) {
+        java.util.List<BlockPos> base = new ArrayList<>();
+        for (Placed b : tree) {
+            if (b.state().is(BlockTags.DIRT) && writable.isInside(b.pos())
+                    && level.getBlockState(b.pos()).is(BlockTags.DIRT)) {
+                base.add(b.pos());
+            }
+        }
+        if (base.isEmpty()) {
+            return;
+        }
+        // the soil layer is the template's bottom; dirt higher up (roots) isn't part of it
+        int y = base.stream().mapToInt(BlockPos::getY).min().getAsInt();
+        base.removeIf(p -> p.getY() != y);
+        java.util.Set<Long> layer = new java.util.HashSet<>();
+        int minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE, minZ = Integer.MAX_VALUE, maxZ = Integer.MIN_VALUE;
+        for (BlockPos p : base) {
+            layer.add(ChunkPos.asLong(p.getX(), p.getZ()));
+            minX = Math.min(minX, p.getX());
+            maxX = Math.max(maxX, p.getX());
+            minZ = Math.min(minZ, p.getZ());
+            maxZ = Math.max(maxZ, p.getZ());
+        }
+        BlockPos.MutableBlockPos at = new BlockPos.MutableBlockPos();
+        for (int x = minX - max; x <= maxX + max; x++) {
+            for (int z = minZ - max; z <= maxZ + max; z++) {
+                if (layer.contains(ChunkPos.asLong(x, z))) {
+                    continue;
+                }
+                double near = Double.MAX_VALUE;
+                for (BlockPos p : base) {
+                    double dx = p.getX() - x;
+                    double dz = p.getZ() - z;
+                    near = Math.min(near, dx * dx + dz * dz);
+                }
+                int drop = (int) Math.ceil(Math.sqrt(near));
+                int top = y - drop;
+                if (drop > max || !writable.isInside(at.set(x, top, z)) || !bankable(level.getBlockState(at))) {
+                    continue;
+                }
+                int ground = top;
+                while (ground > y - max - 1 && writable.isInside(at.set(x, ground - 1, z))
+                        && bankable(level.getBlockState(at))) {
+                    ground--;
+                }
+                if (ground <= y - max - 1 || !writable.isInside(at.set(x, ground - 1, z))
+                        || !level.getFluidState(at).isEmpty()) {
+                    continue; // too deep, or water (no bank floating on a pond)
+                }
+                if (level.getBlockState(at).is(Blocks.GRASS_BLOCK)) {
+                    level.setBlock(at, Blocks.DIRT.defaultBlockState(), 2);
+                }
+                for (int fy = ground; fy <= top; fy++) {
+                    level.setBlock(at.set(x, fy, z), (fy == top ? Blocks.GRASS_BLOCK : Blocks.DIRT)
+                            .defaultBlockState(), 2);
+                }
+            }
+        }
+    }
+
+    /** Space a bank may fill: air and plants, not water or other trees. */
+    private static boolean bankable(BlockState state) {
+        return state.canBeReplaced() && state.getFluidState().isEmpty();
     }
 
     private static boolean open(BlockState state) {

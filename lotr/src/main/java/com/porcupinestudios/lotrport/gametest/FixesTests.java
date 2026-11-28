@@ -175,6 +175,25 @@ public final class FixesTests {
             }
         }
         helper.assertTrue(dirt > 0, "the party tree has no soil base to test");
+        // round the base the ground slopes down a block per block: next to it, the bank is one block lower
+        int banks = 0;
+        for (int dx = -r + 1; dx < r; dx++) {
+            for (int dz = -r + 1; dz < r; dz++) {
+                BlockPos c = soil.offset(dx, 0, dz);
+                // the tree's own soil, not the test's grass pillar under the origin
+                java.util.function.Predicate<BlockPos> base = q -> !q.equals(soil)
+                        && level.getBlockState(q).is(net.minecraft.world.level.block.Blocks.DIRT);
+                boolean nextToBase = !base.test(c)
+                        && (base.test(c.east()) || base.test(c.west()) || base.test(c.north()) || base.test(c.south()));
+                if (nextToBase && level.getBlockState(c).isAir()) {
+                    banks++;
+                    helper.assertTrue(level.getBlockState(c.below()).is(net.minecraft.world.level.block.Blocks
+                            .GRASS_BLOCK), "no grass bank beside the base at " + dx + ", " + dz + ": "
+                            + level.getBlockState(c.below()));
+                }
+            }
+        }
+        helper.assertTrue(banks > 0, "no open ground beside the base to check a bank on");
         helper.succeed();
     }
 }
