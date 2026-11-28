@@ -5,7 +5,7 @@ since 1.7.10 that Middle-earth should have. Checked against the generated data o
 `data/lotr_port/worldgen/biome`, noise settings, `content/blocks.json`, recipes). "Checked: none" means the data was
 searched; the rest are ideas to decide on. In sections marked done, "Checked" describes the state before the work.
 
-**Done 2026-11-17** (lotr/CLAUDE.md "Modern Middle-earth"): sections 1 (seas by latitude, sea and river life, sea
+**Done 2026-11-17** (`lotr/docs/modern-middle-earth.md`): sections 1 (seas by latitude, sea and river life, sea
 floor; no coast structures or fishing loot yet), 2 (powder snow, ice, goats, foxes, rabbits, polar bears, ice spikes,
 meadows, geodes), 3 (lush and dripstone cave pockets, glow lichen; noise caves and aquifers since 2026-11-18; per-biome cave config `lotr_port-biomes.toml` with fewer entrances and ravines), 4 (bees, frogs,
 foxes, rabbits, parrots, ocelots, armadillos, jungle and forest plants), 5 (full wood sets, every tag, stonecutter,
