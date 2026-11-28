@@ -29,7 +29,8 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
   auto>` pins it to try. GameTest `colonyDaysWaitOutABusyServer`.
 - **The benchmark is measured against the machine** (`SocietyTests.fiftyColoniesRunTenDaysWithinTheBudget`, 50 x 150
   for 10 days): a colony day's cost is divided by a reference job (UUID map, list sort; `calibrationNanos`, best of 9)
-  timed in the same run, and may be at most `MAX_DAY_UNITS` 1.5 (0.48 on CI, 2026-11-12). Slow ticks and
+  timed right after each of the 10 days; the median day may be at most `MAX_DAY_UNITS` 2.5 (2026-11-27: 1.56 and 1.73
+  on CI, 1.42 on a desktop PC; runners differ about twice over, so 1.5 failed one CI run in five). Slow ticks and
   milliseconds are only logged: they say more about the machine than the code. Every colony must also have run all
   its days by the end (none stuck in the backlog).
 - Hired units (`unit/Units`): one `Unit` component (order, post, wage, unpaid, squad) for a player's unit or a
